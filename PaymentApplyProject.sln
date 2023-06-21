@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Persistence", "PaymentApplyProject.Persistence\PaymentApplyProject.Persistence.csproj", "{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Web", "PaymentApplyProject.Web\PaymentApplyProject.Web.csproj", "{9AE383B0-98BA-4A10-AE37-B03D9A87749A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AE383B0-98BA-4A10-AE37-B03D9A87749A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE383B0-98BA-4A10-AE37-B03D9A87749A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE383B0-98BA-4A10-AE37-B03D9A87749A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE383B0-98BA-4A10-AE37-B03D9A87749A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
