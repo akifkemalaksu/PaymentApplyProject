@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PaymentApplyProject.Infrastructure\PaymentApplyProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\PaymentApplyProject.Persistence\PaymentApplyProject.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

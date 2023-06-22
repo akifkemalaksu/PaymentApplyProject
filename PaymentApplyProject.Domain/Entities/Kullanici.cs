@@ -14,6 +14,8 @@ namespace PaymentApplyProject.Domain.Entities
         public string Sifre { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
+
+        public virtual ICollection<KullaniciYetki> KullaniciYetkiler { get; set; }
     }
 
 }

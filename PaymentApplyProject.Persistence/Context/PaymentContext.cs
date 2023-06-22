@@ -14,7 +14,7 @@ namespace PaymentApplyProject.Persistence.Context
     {
         public DbSet<Banka> Bankalar { get; set; }
         public DbSet<BankaHesabi> BankaHesaplari { get; set; }
-        public DbSet<CagriKullanici> CagriKullanicilar { get; set; }
+        public DbSet<Musteri> CagriKullanicilar { get; set; }
         public DbSet<Durum> Durumlar { get; set; }
         public DbSet<Firma> Firmalar { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
