@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Core.Entities;
 using PaymentApplyProject.Domain.Entities;
@@ -12,9 +13,14 @@ namespace PaymentApplyProject.Persistence.Context
 {
     public class PaymentContext : DbContext, IPaymentContext
     {
+        private IDbContextTransaction _transaction;
+
+        public PaymentContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<Banka> Bankalar { get; set; }
         public DbSet<BankaHesabi> BankaHesaplari { get; set; }
-        public DbSet<Durum> Durumlar { get; set; }
         public DbSet<Firma> Firmalar { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }
@@ -22,6 +28,7 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<ParaYatirma> ParaYatirmalar { get; set; }
         public DbSet<Yetki> Yetkiler { get; set; }
         public DbSet<Musteri> Musteriler { get; set; }
+        public DbSet<Durum> Durumlar { get; set; }
         public DbSet<ParaCekmeDurum> ParaCekmeDurumlar { get; set; }
         public DbSet<ParaYatirmaDurum> ParaYatirmaDurumlar { get; set; }
 
@@ -80,6 +87,54 @@ namespace PaymentApplyProject.Persistence.Context
                 entity.Entity.GuncellemeTarihi = DateTime.UtcNow;
                 entity.Entity.SilindiMi = true;
             });
+        }
+
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken)
+        {
+            _transaction ??= await Database.BeginTransactionAsync(cancellationToken);
+        }
+
+        public async Task CommitTransactionAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await SaveChangesAsync(cancellationToken);
+                _transaction?.CommitAsync(cancellationToken);
+            }
+            catch
+            {
+                await RollbackTransactionAsync(cancellationToken);
+                throw;
+            }
+            finally
+            {
+                if (_transaction is not null)
+                {
+                    _transaction.Dispose();
+                    _transaction = null;
+                }
+            }
+        }
+
+        public async Task RollbackTransactionAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _transaction?.RollbackAsync(cancellationToken);
+            }
+            finally
+            {
+                if (_transaction is not null)
+                {
+                    _transaction.Dispose();
+                    _transaction = null;
+                }
+            }
+        }
+
+        public async Task RetryOnExceptionAsync(Func<Task> func)
+        {
+            await Database.CreateExecutionStrategy().ExecuteAsync(func);
         }
     }
 }

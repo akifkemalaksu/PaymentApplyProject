@@ -34,7 +34,13 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                 await _paymentContext.SaveChangesAsync();
             }
 
-            var addParaCekme = new ParaCekme { FirmaId = firma.Id, MusteriId = musteri.Id, Tutar = request.Tutar, HesapNumarasi = request.HesapNumarasi, DurumId = ParaCekmeDurumSabitler.BEKLIYOR };
+            var addParaCekme = new ParaCekme
+            {
+                MusteriId = musteri.Id,
+                Tutar = request.Tutar,
+                HesapNumarasi = request.HesapNumarasi,
+                ParaCekmeDurumId = ParaCekmeDurumSabitler.BEKLIYOR
+            };
 
             _paymentContext.ParaCekmeler.Add(addParaCekme);
 

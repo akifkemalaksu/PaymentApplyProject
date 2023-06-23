@@ -20,8 +20,8 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekm
             var paraCekme = await _paymentContext.ParaCekmeler.AsNoTracking().Where(x => x.Id.Equals(request.Id) && !x.SilindiMi).Select(x => new GetParaCekmeByIdResult
             {
                 HesapNumarasi = x.HesapNumarasi,
-                Durum = x.Durum.Ad,
-                Firma = x.Firma.Ad,
+                Durum = x.ParaCekmeDurum.Ad,
+                Firma = x.Musteri.Firma.Ad,
                 MusteriKullaniciAdi = x.Musteri.KullaniciAdi,
                 OnaylananTutar = x.OnaylananTutar,
                 Tutar = x.Tutar

@@ -1,12 +1,18 @@
 ﻿using PaymentApplyProject.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PaymentApplyProject.Domain.Entities
 {
     public class BankaHesabi : BaseEntity<int>
     {
-        public int BankaId { get; set; }
+        [NotNull]
+        public short BankaId { get; set; }
+        [NotNull]
+        [StringLength(20)]
         public string HesapNumarasi { get; set; }
+        [NotNull]
         public bool OdemeHesabiMi { get; set; } // hint: AktifMi
 
         [ForeignKey("BankaId")]
