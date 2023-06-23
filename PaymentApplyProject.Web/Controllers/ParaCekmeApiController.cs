@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById;
 using PaymentApplyProject.Core.ControllerBases;
 
@@ -25,9 +26,9 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(AddParaCekmeCommand addParaCekmeCommand)
         {
-            var response = await _mediator.Send(new GetParaCekmeByIdQuery());
+            var response = await _mediator.Send(addParaCekmeCommand);
             return CreateResult(response);
         }
     }

@@ -14,7 +14,6 @@ namespace PaymentApplyProject.Persistence.Context
     {
         public DbSet<Banka> Bankalar { get; set; }
         public DbSet<BankaHesabi> BankaHesaplari { get; set; }
-        public DbSet<Musteri> CagriKullanicilar { get; set; }
         public DbSet<Durum> Durumlar { get; set; }
         public DbSet<Firma> Firmalar { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
@@ -22,7 +21,9 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<ParaCekme> ParaCekmeler { get; set; }
         public DbSet<ParaYatirma> ParaYatirmalar { get; set; }
         public DbSet<Yetki> Yetkiler { get; set; }
-
+        public DbSet<Musteri> Musteriler { get; set; }
+        public DbSet<ParaCekmeDurum> ParaCekmeDurumlar { get; set; }
+        public DbSet<ParaYatirmaDurum> ParaYatirmaDurumlar { get; set; }
 
         public override int SaveChanges()
         {

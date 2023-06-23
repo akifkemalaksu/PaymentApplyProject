@@ -17,6 +17,6 @@ namespace PaymentApplyProject.Domain.Entities
         [ForeignKey("MusteriId")]
         public virtual Musteri Musteri { get; set; }
         [ForeignKey("DurumId")]
-        public virtual Durum Durum { get; set; }
+        public virtual ParaYatirmaDurum Durum { get; set; }
     }
 }

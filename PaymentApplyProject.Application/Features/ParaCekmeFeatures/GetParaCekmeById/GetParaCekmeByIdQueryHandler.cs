@@ -17,9 +17,9 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekm
 
         public async Task<Response<GetParaCekmeByIdResult>> Handle(GetParaCekmeByIdQuery request, CancellationToken cancellationToken)
         {
-            var paraCekme = await _paymentContext.ParaCekmeler.AsNoTracking().Where(x => x.Id.Equals(request.Id)).Select(x => new GetParaCekmeByIdResult
+            var paraCekme = await _paymentContext.ParaCekmeler.AsNoTracking().Where(x => x.Id.Equals(request.Id) && !x.SilindiMi).Select(x => new GetParaCekmeByIdResult
             {
-                BankaHesapIban = x.BankaHesapIban,
+                HesapNumarasi = x.HesapNumarasi,
                 Durum = x.Durum.Ad,
                 Firma = x.Firma.Ad,
                 MusteriKullaniciAdi = x.Musteri.KullaniciAdi,

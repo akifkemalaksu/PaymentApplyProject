@@ -68,5 +68,14 @@ namespace PaymentApplyProject.Application.Localizations {
                 return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İşlem başarılı..
+        /// </summary>
+        internal static string OperationSuccessful {
+            get {
+                return ResourceManager.GetString("OperationSuccessful", resourceCulture);
+            }
+        }
     }
 }

@@ -12,8 +12,10 @@ namespace PaymentApplyProject.Application.Context
     {
         DbSet<Banka> Bankalar { get; set; }
         DbSet<BankaHesabi> BankaHesaplari { get; set; }
-        DbSet<Musteri> CagriKullanicilar { get; set; }
+        DbSet<Musteri> Musteriler { get; set; }
         DbSet<Durum> Durumlar { get; set; }
+        DbSet<ParaCekmeDurum> ParaCekmeDurumlar { get; set; }
+        DbSet<ParaYatirmaDurum> ParaYatirmaDurumlar { get; set; }
         DbSet<Firma> Firmalar { get; set; }
         DbSet<Kullanici> Kullanicilar { get; set; }
         DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }

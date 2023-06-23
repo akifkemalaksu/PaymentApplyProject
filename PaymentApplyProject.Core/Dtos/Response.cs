@@ -34,15 +34,4 @@ namespace PaymentApplyProject.Core.Dtos
     }
 
     public class NoContent { }
-
-    public class ErrorContent
-    {
-        public ErrorContent(List<string> errors)
-        {
-            Errors = errors;
-        }
-
-        public List<string> Errors { get; set; }
-
-    }
 }
