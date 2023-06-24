@@ -123,7 +123,7 @@
   <data name="OperationSuccessful" xml:space="preserve">
     <value>İşlem başarılı.</value>
   </data>
-  <data name="ThisUrlUsedForCompany" xml:space="preserve">
-    <value>Bu url {0} tarafından kullanılmaktadır.</value>
+  <data name="ThisCodeNotDefined" xml:space="preserve">
+    <value>Bu firma kodu tanımlı değil.</value>
   </data>
 </root>

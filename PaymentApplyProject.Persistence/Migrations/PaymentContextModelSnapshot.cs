@@ -166,8 +166,23 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<DateTime>("GuncellemeTarihi")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("RequestCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("ResponseCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.HasKey("Id");
 
@@ -268,6 +283,14 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("AktifMi")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("DuzenleyenKullaniciId")
                         .HasColumnType("integer");
 
@@ -291,6 +314,11 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Soyad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FirmaId");
@@ -313,6 +341,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EntegrasyonId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
@@ -368,6 +399,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EntegrasyonId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")

@@ -7,7 +7,7 @@ namespace PaymentApplyProject.Domain.Entities
         where T : notnull
     {
         [Key]
-        public T Id { get; set; }
+        public virtual T Id { get; set; }
         public virtual bool SilindiMi { get; set; }
         public virtual int EkleyenKullaniciId { get; set; }
         public virtual int DuzenleyenKullaniciId { get; set; }

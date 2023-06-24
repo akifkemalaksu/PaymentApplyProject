@@ -5,10 +5,11 @@ using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Dtos;
+using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 
 namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma
 {
-    public class AddParaYatirmaCommandHandler : IRequestHandler<AddParaYatirmaCommand, Response<NoContent>>
+    public class AddParaYatirmaCommandHandler : IRequestHandler<AddParaYatirmaCommand, Response<AddParaYatirmaResult>>
     {
         private readonly IPaymentContext _paymentContext;
 
@@ -17,36 +18,11 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
             _paymentContext = paymentContext;
         }
 
-        public async Task<Response<NoContent>> Handle(AddParaYatirmaCommand request, CancellationToken cancellationToken)
+        public async Task<Response<AddParaYatirmaResult>> Handle(AddParaYatirmaCommand request, CancellationToken cancellationToken)
         {
-            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.Ad == request.FirmaAdi && !x.SilindiMi);
+            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi);
             if (firma == null)
-            {
-                firma = new Firma
-                {
-                    Ad = request.FirmaAdi
-                };
-                await _paymentContext.Firmalar.AddAsync(firma);
-                await _paymentContext.SaveChangesAsync();
-            }
-
-            var firmaUrl = await _paymentContext.FirmaUrller.FirstOrDefaultAsync(x => x.Url == request.Url && !x.SilindiMi);
-            if (firmaUrl == null)
-            {
-                firmaUrl = new()
-                {
-                    Url = request.Url,
-                    FirmaId = firma.Id
-                };
-                await _paymentContext.Firmalar.AddAsync(firma);
-            }
-            else if (firmaUrl.FirmaId != firma.Id)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
-
-                var usingFirma = await _paymentContext.Firmalar.FirstAsync(x => x.Id == firmaUrl.FirmaId);
-                return Response<NoContent>.Success(System.Net.HttpStatusCode.BadRequest, string.Format(Messages.ThisUrlUsedForCompany, usingFirma.Ad));
-            }
+                return Response<AddParaYatirmaResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThisCodeNotDefined);
 
             var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.KullaniciAdi == request.MusteriKullaniciAdi && x.FirmaId == firma.Id && !x.SilindiMi);
             if (musteri == null)
@@ -67,12 +43,19 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                 MusteriId = musteri.Id,
                 ParaYatirmaDurumId = ParaYatirmaDurumSabitler.BEKLIYOR,
                 BankaHesapId = request.BankaHesapId,
-                Tutar = request.Tutar
+                Tutar = request.Tutar,
+                EntegrasyonId = request.EntegrasyonId
             };
             await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma);
             await _paymentContext.SaveChangesAsync();
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<AddParaYatirmaResult>.Success(System.Net.HttpStatusCode.OK,
+                new()
+                {
+                    ParaYatirmaTalepId = paraYatirma.Id
+                },
+                Messages.OperationSuccessful
+                );
         }
     }
 }

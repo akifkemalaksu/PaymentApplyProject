@@ -10,15 +10,14 @@ using PaymentApplyProject.Application.Dtos;
 
 namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme
 {
-    public class AddParaCekmeCommand : IRequest<Response<NoContent>>, ITransactional
+    public class AddParaCekmeCommand : IRequest<Response<AddParaCekmeResult>>, ITransactional
     {
-        public string FirmaAdi { get; set; }
-        public string Url { get; set; }
+        public string FirmaKodu { get; set; }
         public string MusteriAd { get; set; }
         public string MusteriSoyad { get; set; }
         public string MusteriKullaniciAdi { get; set; }
         public string HesapNumarasi { get; set; }
         public decimal Tutar { get; set; }
+        public int EntegrasyonId { get; set; }
     }
-
 }

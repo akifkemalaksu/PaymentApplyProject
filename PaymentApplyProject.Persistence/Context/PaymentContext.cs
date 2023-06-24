@@ -30,7 +30,6 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<Durum> Durumlar { get; set; }
         public DbSet<ParaCekmeDurum> ParaCekmeDurumlar { get; set; }
         public DbSet<ParaYatirmaDurum> ParaYatirmaDurumlar { get; set; }
-        public DbSet<FirmaUrl> FirmaUrller { get; set; }
 
         public override int SaveChanges()
         {

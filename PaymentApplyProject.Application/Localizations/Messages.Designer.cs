@@ -79,11 +79,11 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu url {0} tarafından kullanılmaktadır..
+        ///   Looks up a localized string similar to Bu firma kodu tanımlı değil..
         /// </summary>
-        internal static string ThisUrlUsedForCompany {
+        internal static string ThisCodeNotDefined {
             get {
-                return ResourceManager.GetString("ThisUrlUsedForCompany", resourceCulture);
+                return ResourceManager.GetString("ThisCodeNotDefined", resourceCulture);
             }
         }
     }
