@@ -26,8 +26,26 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                 {
                     Ad = request.FirmaAdi
                 };
-                _paymentContext.Firmalar.Add(firma);
+                await _paymentContext.Firmalar.AddAsync(firma);
                 await _paymentContext.SaveChangesAsync();
+            }
+
+            var firmaUrl = await _paymentContext.FirmaUrller.FirstOrDefaultAsync(x => x.Url == request.Url && !x.SilindiMi);
+            if (firmaUrl == null)
+            {
+                firmaUrl = new()
+                {
+                    Url = request.Url,
+                    FirmaId = firma.Id
+                };
+                await _paymentContext.Firmalar.AddAsync(firma);
+            }
+            else if (firmaUrl.FirmaId != firma.Id)
+            {
+                await _paymentContext.RollbackTransactionAsync(cancellationToken);
+
+                var usingFirma = await _paymentContext.Firmalar.FirstAsync(x => x.Id == firmaUrl.FirmaId);
+                return Response<NoContent>.Success(System.Net.HttpStatusCode.BadRequest, string.Format(Messages.ThisUrlUsedForCompany, usingFirma.Ad));
             }
 
             var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.KullaniciAdi == request.MusteriKullaniciAdi && x.FirmaId == firma.Id && !x.SilindiMi);
@@ -40,7 +58,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                     Soyad = request.MusteriSoyad,
                     FirmaId = firma.Id,
                 };
-                _paymentContext.Musteriler.Add(musteri);
+                await _paymentContext.Musteriler.AddAsync(musteri);
                 await _paymentContext.SaveChangesAsync();
             }
 
@@ -51,8 +69,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                 BankaHesapId = request.BankaHesapId,
                 Tutar = request.Tutar
             };
-            _paymentContext.ParaYatirmalar.Add(paraYatirma);
-
+            await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma);
             await _paymentContext.SaveChangesAsync();
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);

@@ -14,7 +14,6 @@ namespace PaymentApplyProject.Domain.Entities
         public string KullaniciAdi { get; set; }
         [NotNull]
         [StringLength(50)]
-        // todo: musteri ad soyad her istekde olacak
         public string Ad { get; set; }
         [NotNull]
         [StringLength(50)]

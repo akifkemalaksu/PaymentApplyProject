@@ -123,4 +123,7 @@
   <data name="OperationSuccessful" xml:space="preserve">
     <value>İşlem başarılı.</value>
   </data>
+  <data name="ThisUrlUsedForCompany" xml:space="preserve">
+    <value>Bu url {0} tarafından kullanılmaktadır.</value>
+  </data>
 </root>

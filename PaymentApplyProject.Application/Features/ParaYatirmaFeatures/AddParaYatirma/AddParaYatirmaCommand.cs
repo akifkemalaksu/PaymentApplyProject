@@ -12,6 +12,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
     public class AddParaYatirmaCommand : IRequest<Response<NoContent>>, ITransactional
     {
         public string FirmaAdi { get; set; }
+        public string Url { get; set; }
         public string MusteriAd { get; set; }
         public string MusteriSoyad { get; set; }
         public string MusteriKullaniciAdi { get; set; }

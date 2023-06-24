@@ -13,10 +13,12 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
     public class AddParaCekmeCommand : IRequest<Response<NoContent>>, ITransactional
     {
         public string FirmaAdi { get; set; }
+        public string Url { get; set; }
         public string MusteriAd { get; set; }
         public string MusteriSoyad { get; set; }
         public string MusteriKullaniciAdi { get; set; }
         public string HesapNumarasi { get; set; }
         public decimal Tutar { get; set; }
     }
+
 }

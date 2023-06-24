@@ -77,5 +77,14 @@ namespace PaymentApplyProject.Application.Localizations {
                 return ResourceManager.GetString("OperationSuccessful", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu url {0} tarafından kullanılmaktadır..
+        /// </summary>
+        internal static string ThisUrlUsedForCompany {
+            get {
+                return ResourceManager.GetString("ThisUrlUsedForCompany", resourceCulture);
+            }
+        }
     }
 }

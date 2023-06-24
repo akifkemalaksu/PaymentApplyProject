@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Infrastructure.Mapping;
+using PaymentApplyProject.Infrastructure.Pipelines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace PaymentApplyProject.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
         {
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
             services.AddSingleton<ICustomMapper, MapstersMapper>();
 
             return services;

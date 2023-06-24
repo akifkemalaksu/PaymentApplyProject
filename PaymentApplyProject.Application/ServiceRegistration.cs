@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PaymentApplyProject.Application.Pipelines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,6 @@ namespace PaymentApplyProject.Application
         {
             services.AddMediatR(conf =>
                 conf.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             return services;
         }

@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentApplyProject.Infrastructure.Pipelines;
 
-namespace PaymentApplyProject.Application.Pipelines
+namespace PaymentApplyProject.Infrastructure.Pipelines
 {
     public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ITransactional
     {
@@ -41,8 +42,8 @@ namespace PaymentApplyProject.Application.Pipelines
             catch (Exception e)
             {
                 _logger.LogInformation($"Rollback transaction executed {typeof(TRequest).Name}.");
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 _logger.LogError(e.Message, e.StackTrace);
+                await _paymentContext.RollbackTransactionAsync(cancellationToken);
 
                 throw;
             }

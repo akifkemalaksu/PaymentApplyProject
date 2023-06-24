@@ -9,7 +9,7 @@ namespace PaymentApplyProject.Domain.Entities
         [NotNull]
         [StringLength(100)]
         public string Ad { get; set; }
-        // todo: firmaların url'leri olabilir aktif pasif durumunda
         public virtual ICollection<Musteri> Musteriler { get; set; }
+        public virtual ICollection<FirmaUrl> FirmaUrller { get; set; }
     }
 }
