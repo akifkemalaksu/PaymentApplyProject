@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Core.Dtos;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
+using PaymentApplyProject.Application.Dtos;
 
 namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma
 {
@@ -30,12 +30,14 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                 await _paymentContext.SaveChangesAsync();
             }
 
-            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.KullaniciAdi == request.KullaniciAdi && x.FirmaId == firma.Id && !x.SilindiMi);
+            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.KullaniciAdi == request.MusteriKullaniciAdi && x.FirmaId == firma.Id && !x.SilindiMi);
             if (musteri == null)
             {
                 musteri = new Musteri
                 {
-                    KullaniciAdi = request.KullaniciAdi,
+                    KullaniciAdi = request.MusteriKullaniciAdi,
+                    Ad = request.MusteriAd,
+                    Soyad = request.MusteriSoyad,
                     FirmaId = firma.Id,
                 };
                 _paymentContext.Musteriler.Add(musteri);

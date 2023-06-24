@@ -1,7 +1,7 @@
-﻿using PaymentApplyProject.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Domain.Entities
 {
@@ -12,9 +12,18 @@ namespace PaymentApplyProject.Domain.Entities
         [NotNull]
         [StringLength(50)]
         public string KullaniciAdi { get; set; }
+        [NotNull]
+        [StringLength(50)]
+        // todo: musteri ad soyad her istekde olacak
+        public string Ad { get; set; }
+        [NotNull]
+        [StringLength(50)]
+        public string Soyad { get; set; }
+        [NotNull]
+        public bool AktifMi { get; set; }
 
         [ForeignKey("FirmaId")]
-        public virtual Firma Firma { get; set;}
+        public virtual Firma Firma { get; set; }
     }
 
 }

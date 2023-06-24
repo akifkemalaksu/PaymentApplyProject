@@ -1,5 +1,4 @@
-﻿using PaymentApplyProject.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace PaymentApplyProject.Domain.Entities

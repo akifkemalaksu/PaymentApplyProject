@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Domain", "PaymentApplyProject.Domain\PaymentApplyProject.Domain.csproj", "{F1C606AC-63DA-437E-9DD4-3F6A7577DB4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentApplyProject.Domain", "PaymentApplyProject.Domain\PaymentApplyProject.Domain.csproj", "{F1C606AC-63DA-437E-9DD4-3F6A7577DB4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Core", "PaymentApplyProject.Core\PaymentApplyProject.Core.csproj", "{15ED0500-13F8-44D5-813D-C6F5DB4CE1BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentApplyProject.Application", "PaymentApplyProject.Application\PaymentApplyProject.Application.csproj", "{CDE5D189-5A5E-4328-88CA-A1D3B6EBE9CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Application", "PaymentApplyProject.Application\PaymentApplyProject.Application.csproj", "{CDE5D189-5A5E-4328-88CA-A1D3B6EBE9CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentApplyProject.Infrastructure", "PaymentApplyProject.Infrastructure\PaymentApplyProject.Infrastructure.csproj", "{06156D20-FA3A-42C7-931E-5393924EBD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Infrastructure", "PaymentApplyProject.Infrastructure\PaymentApplyProject.Infrastructure.csproj", "{06156D20-FA3A-42C7-931E-5393924EBD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentApplyProject.Persistence", "PaymentApplyProject.Persistence\PaymentApplyProject.Persistence.csproj", "{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Persistence", "PaymentApplyProject.Persistence\PaymentApplyProject.Persistence.csproj", "{95B0EC9F-6CB3-458F-B9ED-846DFF9AA882}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplyProject.Web", "PaymentApplyProject.Web\PaymentApplyProject.Web.csproj", "{9AE383B0-98BA-4A10-AE37-B03D9A87749A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentApplyProject.Web", "PaymentApplyProject.Web\PaymentApplyProject.Web.csproj", "{9AE383B0-98BA-4A10-AE37-B03D9A87749A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{F1C606AC-63DA-437E-9DD4-3F6A7577DB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1C606AC-63DA-437E-9DD4-3F6A7577DB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C606AC-63DA-437E-9DD4-3F6A7577DB4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15ED0500-13F8-44D5-813D-C6F5DB4CE1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15ED0500-13F8-44D5-813D-C6F5DB4CE1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15ED0500-13F8-44D5-813D-C6F5DB4CE1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15ED0500-13F8-44D5-813D-C6F5DB4CE1BB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDE5D189-5A5E-4328-88CA-A1D3B6EBE9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CDE5D189-5A5E-4328-88CA-A1D3B6EBE9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDE5D189-5A5E-4328-88CA-A1D3B6EBE9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU

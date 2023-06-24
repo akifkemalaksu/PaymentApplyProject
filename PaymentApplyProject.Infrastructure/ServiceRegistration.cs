@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PaymentApplyProject.Application.Mapping;
+using PaymentApplyProject.Infrastructure.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace PaymentApplyProject.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton<ICustomMapper, MapstersMapper>();
+
             return services;
         }
     }
