@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById;
-using PaymentApplyProject.Core.ControllerBases;
+using PaymentApplyProject.Application.ControllerBases;
 
 namespace PaymentApplyProject.Web.Controllers
 {

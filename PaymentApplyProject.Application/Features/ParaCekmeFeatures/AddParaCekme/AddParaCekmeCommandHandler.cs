@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Core.Dtos;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
+using PaymentApplyProject.Application.Dtos;
 
 namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme
 {
@@ -26,10 +26,16 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                 await _paymentContext.SaveChangesAsync();
             }
 
-            var musteri = _paymentContext.Musteriler.FirstOrDefault(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.KullaniciAdi && !x.SilindiMi);
+            var musteri = _paymentContext.Musteriler.FirstOrDefault(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi);
             if (musteri == null)
             {
-                musteri = new() { FirmaId = firma.Id, KullaniciAdi = request.KullaniciAdi };
+                musteri = new()
+                {
+                    FirmaId = firma.Id,
+                    KullaniciAdi = request.MusteriKullaniciAdi,
+                    Ad = request.MusteriAd,
+                    Soyad = request.MusteriSoyad
+                };
                 _paymentContext.Musteriler.Add(musteri);
                 await _paymentContext.SaveChangesAsync();
             }

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PaymentApplyProject.Core.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PaymentApplyProject.Application.Dtos;
 
-namespace PaymentApplyProject.Core.ControllerBases
+namespace PaymentApplyProject.Application.ControllerBases
 {
     public class CustomApiControllerBase : ControllerBase
     {

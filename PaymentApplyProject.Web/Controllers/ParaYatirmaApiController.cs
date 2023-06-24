@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma;
 using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.GetParaYatirmaById;
-using PaymentApplyProject.Core.ControllerBases;
+using PaymentApplyProject.Application.ControllerBases;
 
 namespace PaymentApplyProject.Web.Controllers
 {

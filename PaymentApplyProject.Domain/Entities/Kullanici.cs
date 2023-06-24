@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PaymentApplyProject.Core.Entities;
+using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Domain.Entities
 {
