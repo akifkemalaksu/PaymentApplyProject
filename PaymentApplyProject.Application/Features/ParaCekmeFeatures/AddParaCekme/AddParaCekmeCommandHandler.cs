@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri;
 
 namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme
 {
@@ -45,6 +46,13 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                 await _paymentContext.Musteriler.AddAsync(musteri);
                 await _paymentContext.SaveChangesAsync();
             }
+
+            var isExistsParaCekme = await _paymentContext.ParaCekmeler.CountAsync(x =>
+                    x.MusteriId == musteri.Id
+                    && x.ParaCekmeDurumId == ParaCekmeDurumSabitler.BEKLIYOR
+                    && !x.SilindiMi) > 0;
+            if (isExistsParaCekme)
+                return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
             var addParaCekme = new ParaCekme
             {

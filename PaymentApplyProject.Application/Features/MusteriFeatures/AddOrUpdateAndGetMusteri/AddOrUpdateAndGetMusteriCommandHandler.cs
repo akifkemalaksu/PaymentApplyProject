@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
@@ -43,6 +44,21 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
                 musteri.Ad = request.MusteriAd;
                 musteri.Soyad = request.MusteriSoyad;
                 await _paymentContext.SaveChangesAsync();
+            }
+            else
+            {
+                /*
+                 * todo: burada sadece para yatırma için kontrol yapıldı 
+                 * ancak bu işlem genel bir işlem olarak kullanılabilir 
+                 * bu para yatırma var mı kontrolünü farklı bir feature olarak tanımlanabilir
+                 * (**gereksiz işlem olmaması için yeni eklenen müşteriye kontrol yapılmaması lazım)
+                 */
+                var isExistsParaYatirma = await _paymentContext.ParaYatirmalar.CountAsync(x =>
+                    x.MusteriId == musteri.Id
+                    && x.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.BEKLIYOR
+                    && !x.SilindiMi) > 0;
+                if (isExistsParaYatirma)
+                    return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
             }
 
             var addOrUpdateAndGetMusteriResult = new AddOrUpdateAndGetMusteriResult { MusteriId = musteri.Id };

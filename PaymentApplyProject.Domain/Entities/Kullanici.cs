@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -24,8 +25,11 @@ namespace PaymentApplyProject.Domain.Entities
         [NotNull]
         [StringLength(100)]
         public string Soyad { get; set; }
+        public short? FirmaId { get; set; }
 
         public virtual ICollection<KullaniciYetki> KullaniciYetkiler { get; set; }
+        [ForeignKey("FirmaId")]
+        public Firma? Firma { get; set; }
     }
 
 }

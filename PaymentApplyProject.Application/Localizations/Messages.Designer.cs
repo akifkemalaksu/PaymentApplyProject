@@ -70,7 +70,7 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} verisi bulunamadı..
+        ///   Looks up a localized string similar to {0} bulunamadı..
         /// </summary>
         internal static string NotFoundWithName {
             get {
@@ -93,6 +93,15 @@ namespace PaymentApplyProject.Application.Localizations {
         internal static string PassiveCustomer {
             get {
                 return ResourceManager.GetString("PassiveCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mevcutta bekleyen işlem vardır..
+        /// </summary>
+        internal static string ThereIsPendingTransaction {
+            get {
+                return ResourceManager.GetString("ThereIsPendingTransaction", resourceCulture);
             }
         }
         

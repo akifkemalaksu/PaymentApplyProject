@@ -72,27 +72,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kullanicilar",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    KullaniciAdi = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Sifre = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Ad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Soyad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
-                    EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Kullanicilar", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Yetkiler",
                 columns: table => new
                 {
@@ -138,6 +117,33 @@ namespace PaymentApplyProject.Persistence.Migrations
                         principalTable: "Bankalar",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Kullanicilar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    KullaniciAdi = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Sifre = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Ad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Soyad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    FirmaId = table.Column<short>(type: "smallint", nullable: true),
+                    SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
+                    EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
+                    DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kullanicilar", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Kullanicilar_Firmalar_FirmaId",
+                        column: x => x.FirmaId,
+                        principalTable: "Firmalar",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -279,6 +285,11 @@ namespace PaymentApplyProject.Persistence.Migrations
                 name: "IX_BankaHesaplari_BankaId",
                 table: "BankaHesaplari",
                 column: "BankaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kullanicilar_FirmaId",
+                table: "Kullanicilar",
+                column: "FirmaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_KullaniciYetkiler_KullaniciId",

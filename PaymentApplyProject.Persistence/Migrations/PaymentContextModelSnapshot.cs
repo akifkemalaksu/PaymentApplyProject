@@ -227,6 +227,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
+                    b.Property<short?>("FirmaId")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTime>("GuncellemeTarihi")
                         .HasColumnType("timestamp with time zone");
 
@@ -249,6 +252,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FirmaId");
 
                     b.ToTable("Kullanicilar");
                 });
@@ -502,6 +507,15 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Banka");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Kullanici", b =>
+                {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
+                    b.Navigation("Firma");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciYetki", b =>

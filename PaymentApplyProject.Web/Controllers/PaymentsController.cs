@@ -1,12 +1,15 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankaHesabi;
 using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri;
 using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma;
+using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
+    [Authorize(Roles = "user,admin")]
     public class PaymentsController : CustomController
     {
         private readonly IMediator _mediator;
