@@ -19,10 +19,10 @@ namespace PaymentApplyProject.Domain.Entities
         [StringLength(20)]
         public string Sifre { get; set; }
         [NotNull]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Ad { get; set; }
         [NotNull]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Soyad { get; set; }
 
         public virtual ICollection<KullaniciYetki> KullaniciYetkiler { get; set; }

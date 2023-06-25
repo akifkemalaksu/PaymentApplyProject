@@ -9,6 +9,6 @@
         public string Durum { get; set; }
         public string HesapNumarasi { get; set; }
         public decimal Tutar { get; set; }
-        public decimal OnaylananTutar { get; set; }
+        public decimal? OnaylananTutar { get; set; }
     }
 }

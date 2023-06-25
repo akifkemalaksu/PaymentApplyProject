@@ -20,31 +20,12 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
 
         public async Task<Response<AddParaYatirmaResult>> Handle(AddParaYatirmaCommand request, CancellationToken cancellationToken)
         {
-            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi);
-            if (firma == null)
-                return Response<AddParaYatirmaResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThisCodeNotDefined);
-
-            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.KullaniciAdi == request.MusteriKullaniciAdi && x.FirmaId == firma.Id && !x.SilindiMi);
-            if (musteri == null)
-            {
-                musteri = new Musteri
-                {
-                    KullaniciAdi = request.MusteriKullaniciAdi,
-                    Ad = request.MusteriAd,
-                    Soyad = request.MusteriSoyad,
-                    FirmaId = firma.Id,
-                };
-                await _paymentContext.Musteriler.AddAsync(musteri);
-                await _paymentContext.SaveChangesAsync();
-            }
-
             var paraYatirma = new ParaYatirma
             {
-                MusteriId = musteri.Id,
+                MusteriId = request.MusteriId,
                 ParaYatirmaDurumId = ParaYatirmaDurumSabitler.BEKLIYOR,
-                BankaHesapId = request.BankaHesapId,
+                BankaHesabiId = request.BankaHesapId,
                 Tutar = request.Tutar,
-                EntegrasyonId = request.EntegrasyonId
             };
             await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma);
             await _paymentContext.SaveChangesAsync();

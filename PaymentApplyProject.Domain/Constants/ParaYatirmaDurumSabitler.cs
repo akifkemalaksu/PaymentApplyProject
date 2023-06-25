@@ -2,6 +2,6 @@
 {
     public static class ParaYatirmaDurumSabitler
     {
-        public const int BEKLIYOR = 0;
+        public const int BEKLIYOR = 1;
     }
 }

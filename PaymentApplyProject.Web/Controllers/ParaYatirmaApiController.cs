@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.GetParaYatirmaById;
 using PaymentApplyProject.Application.ControllerBases;
+using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -18,18 +17,15 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] AddOrUpdateAndGetMusteriCommand addOrUpdateAndGetMusteriCommand)
         {
-            var response = await _mediator.Send(new GetParaYatirmaByIdQuery { Id = id });
-            return CreateResult(response);
-        }
+            var response = await _mediator.Send(addOrUpdateAndGetMusteriCommand);
+            if (!response.IsSuccessful)
+                return CreateResult(response);
 
-        [HttpPost]
-        public async Task<IActionResult> Post(AddParaYatirmaCommand addParaYatirmaCommand)
-        {
-            var response = await _mediator.Send(addParaYatirmaCommand);
-            return CreateResult(response);
+            HttpContext.Session.SetString("musteriId", response.Data.MusteriId.ToString());
+            return RedirectToAction("index", "payments");
         }
     }
 }

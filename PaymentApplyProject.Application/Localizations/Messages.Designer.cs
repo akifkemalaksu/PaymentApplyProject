@@ -70,11 +70,29 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} verisi bulunamadı..
+        /// </summary>
+        internal static string NotFoundWithName {
+            get {
+                return ResourceManager.GetString("NotFoundWithName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to İşlem başarılı..
         /// </summary>
         internal static string OperationSuccessful {
             get {
                 return ResourceManager.GetString("OperationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu müşteriye işlemler kapalıdır..
+        /// </summary>
+        internal static string PassiveCustomer {
+            get {
+                return ResourceManager.GetString("PassiveCustomer", resourceCulture);
             }
         }
         

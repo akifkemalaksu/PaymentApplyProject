@@ -120,8 +120,14 @@
   <data name="NotFound" xml:space="preserve">
     <value>Veri bulunamadı.</value>
   </data>
+  <data name="NotFoundWithName" xml:space="preserve">
+    <value>{0} verisi bulunamadı.</value>
+  </data>
   <data name="OperationSuccessful" xml:space="preserve">
     <value>İşlem başarılı.</value>
+  </data>
+  <data name="PassiveCustomer" xml:space="preserve">
+    <value>Bu müşteriye işlemler kapalıdır.</value>
   </data>
   <data name="ThisCodeNotDefined" xml:space="preserve">
     <value>Bu firma kodu tanımlı değil.</value>

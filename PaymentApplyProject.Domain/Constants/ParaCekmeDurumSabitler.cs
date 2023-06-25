@@ -8,6 +8,6 @@ namespace PaymentApplyProject.Domain.Constants
 {
     public static class ParaCekmeDurumSabitler
     {
-        public const int BEKLIYOR = 1;
+        public const int BEKLIYOR = 2;
     }
 }

@@ -6,9 +6,12 @@ using PaymentApplyProject.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(configure =>
+{
+    configure.IdleTimeout = TimeSpan.FromMinutes(30);
+});
 
 builder.Services.RegisterInfrastructure();
 builder.Services.RegisterPersistence(builder.Configuration);
@@ -62,6 +65,8 @@ if (!app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

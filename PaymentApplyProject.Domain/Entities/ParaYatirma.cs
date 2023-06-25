@@ -11,10 +11,10 @@ namespace PaymentApplyProject.Domain.Entities
         [NotNull]
         public short ParaYatirmaDurumId { get; set; }
         [NotNull]
-        public int BankaHesapId { get; set; }
+        public int BankaHesabiId { get; set; }
         [NotNull]
         public decimal Tutar { get; set; }
-        public decimal OnaylananTutar { get; set; }
+        public decimal? OnaylananTutar { get; set; }
         public int EntegrasyonId { get; set; }
 
         [ForeignKey("MusteriId")]

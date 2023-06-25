@@ -18,13 +18,6 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            var response = await _mediator.Send(new GetParaCekmeByIdQuery { Id = id });
-            return CreateResult(response);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post(AddParaCekmeCommand addParaCekmeCommand)
         {

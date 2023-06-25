@@ -63,6 +63,17 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("AktifMi")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("AltLimit")
+                        .HasColumnType("numeric");
+
                     b.Property<short>("BankaId")
                         .HasColumnType("smallint");
 
@@ -80,14 +91,19 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<string>("HesapNumarasi")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<bool>("OdemeHesabiMi")
-                        .HasColumnType("boolean");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Soyad")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<decimal>("UstLimit")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -199,8 +215,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("DuzenleyenKullaniciId")
                         .HasColumnType("integer");
@@ -229,8 +245,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<string>("Soyad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -285,8 +301,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<bool>("AktifMi")
                         .HasColumnType("boolean");
@@ -316,8 +332,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<string>("Soyad")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -357,7 +373,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("OnaylananTutar")
+                    b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
 
                     b.Property<short>("ParaCekmeDurumId")
@@ -389,9 +405,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("BankaHesabiId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BankaHesapId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("DuzenleyenKullaniciId")
                         .HasColumnType("integer");
 
@@ -410,7 +423,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("OnaylananTutar")
+                    b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
 
                     b.Property<short>("ParaYatirmaDurumId")
