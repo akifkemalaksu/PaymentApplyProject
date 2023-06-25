@@ -10,5 +10,6 @@ namespace PaymentApplyProject.Application.Dtos.GrandPashaBetDtos
     {
         public string KullaniciAdi { get; set; }
         public int ParaYatirmaTalepId { get; set; }
+        public decimal Tutar { get; set; }
     }
 }

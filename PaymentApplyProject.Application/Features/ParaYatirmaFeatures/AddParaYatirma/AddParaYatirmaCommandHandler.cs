@@ -38,7 +38,8 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
             CreateDepositDto createDeposit = new()
             {
                 KullaniciAdi = musteri.KullaniciAdi,
-                ParaYatirmaTalepId = paraYatirma.Id
+                ParaYatirmaTalepId = paraYatirma.Id,
+                Tutar = paraYatirma.Tutar
             };
             var createDepositResponse = await _grandPashaBetService.CreateDepositAsync(createDeposit);
 
