@@ -54,6 +54,12 @@ namespace PaymentApplyProject.Infrastructure
                     };
                 });
 
+            var clientServiceSettings = configuration.GetSection(nameof(ClientServiceSettings)).Get<ClientServiceSettings>();
+            services.AddHttpClient<IGrandPashaBetService, GrandPashaBetService>(configure =>
+            {
+                configure.BaseAddress = new Uri(clientServiceSettings.GrandPashaBetUrl);
+            });
+
             return services;
         }
     }

@@ -44,7 +44,7 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                     Soyad = request.MusteriSoyad
                 };
                 await _paymentContext.Musteriler.AddAsync(musteri);
-                await _paymentContext.SaveChangesAsync();
+                await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
             var isExistsParaCekme = await _paymentContext.ParaCekmeler.CountAsync(x =>
@@ -64,7 +64,7 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
             };
 
             await _paymentContext.ParaCekmeler.AddAsync(addParaCekme);
-            await _paymentContext.SaveChangesAsync();
+            await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<AddParaCekmeResult>.Success(System.Net.HttpStatusCode.OK,
                 new()

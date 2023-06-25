@@ -35,7 +35,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
                     AktifMi = true
                 };
                 await _paymentContext.Musteriler.AddAsync(musteri);
-                await _paymentContext.SaveChangesAsync();
+                await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else if (!musteri.AktifMi)
                 return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.PassiveCustomer);
@@ -43,7 +43,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
             {
                 musteri.Ad = request.MusteriAd;
                 musteri.Soyad = request.MusteriSoyad;
-                await _paymentContext.SaveChangesAsync();
+                await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else
             {

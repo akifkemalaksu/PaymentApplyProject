@@ -17,10 +17,6 @@ namespace PaymentApplyProject.Domain.Entities
         public string RequestCode { get; set; }
 
         [NotNull]
-        [StringLength(300)]
-        public string Url { get; set; }
-
-        [NotNull]
         [StringLength(100)]
         public string Ad { get; set; }
         public virtual ICollection<Musteri> Musteriler { get; set; }

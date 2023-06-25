@@ -13,6 +13,6 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
     {
         public int MusteriId { get; set; }
         public int BankaHesapId { get; set; }
-        public decimal Tutar { get; set; }
+        public decimal Tutar { get; set; } 
     }
 }
