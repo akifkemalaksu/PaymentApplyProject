@@ -91,28 +91,28 @@
                                     <div class="col-3">
                                         <div class="card">
                                             <a href="#" class="next" title="Akbank" data-bankaid="1">
-                                                <img src="/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
+                                                <img src="uploads/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="card">
                                             <a href="#" class="next" title="Akbank" data-bankaid="2">
-                                                <img src="/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
+                                                <img src="uploads/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="card">
                                             <a href="#" class="next" title="Akbank" data-bankaid="3">
-                                                <img src="/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
+                                                <img src="/uploads/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="card">
                                             <a href="#" class="next" title="Akbank" data-bankaid="4">
-                                                <img src="/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
+                                                <img src="uploads/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
                                             </a>
                                         </div>
                                     </div>
@@ -260,7 +260,7 @@
 
                         let result = await ParaYatirmaTalepKaydet(data)
 
-                        if (result.isSuccessful) {
+                        if (!result.isSuccessful) {
                             resultIcon.classList.add("fa-thumbs-down");
                             resultAlert.classList.add("alert-danger");
                             resultAlert.innerHTML = `İşlemde bir hata oluştu, ${result.message}`

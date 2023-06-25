@@ -18,6 +18,11 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpGet]
+        /**
+         * [FromQuery] tarayıcı da denemek için, normalde ise json olarak göndermesi gerekli
+         * tarayıcı da denemek için alttaki linkten gidilebilir
+         * http://localhost:6020/api/parayatirmaapi?FirmaKodu=GrandPasha&MusteriAd=Akif%20Kemal&MusteriSoyad=Aksu&MusteriKullaniciAdi=akifkemalaksu
+         */
         public async Task<IActionResult> Get([FromQuery] AddOrUpdateAndGetMusteriCommand addOrUpdateAndGetMusteriCommand)
         {
             var response = await _mediator.Send(addOrUpdateAndGetMusteriCommand);
