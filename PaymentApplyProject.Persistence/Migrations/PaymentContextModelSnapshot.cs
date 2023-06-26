@@ -195,11 +195,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Firmalar");

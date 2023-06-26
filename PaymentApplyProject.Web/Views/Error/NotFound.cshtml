@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "404 Hata Sayfası";
+    var message = Context.Request.Query["message"];
+}
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">404</h1>
+        <p class="fs-3"> <span class="text-danger">Opps!</span> bulamadık.</p>
+        <p class="lead">
+            @if (string.IsNullOrEmpty(message))
+            {
+                <text>
+                    Aradığınız sayfa bulunamadı.
+                </text>
+            }
+            else
+            {
+                @Html.Raw(message)
+            }
+        </p>
+    </div>
+</div>

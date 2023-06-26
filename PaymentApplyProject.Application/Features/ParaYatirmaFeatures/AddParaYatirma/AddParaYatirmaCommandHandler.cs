@@ -34,23 +34,23 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
             await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.Id == request.MusteriId);
-            CreateDepositDto createDeposit = new()
-            {
-                KullaniciAdi = musteri.KullaniciAdi,
-                ParaYatirmaTalepId = paraYatirma.Id,
-                Tutar = paraYatirma.Tutar
-            };
-            var createDepositResponse = await _grandPashaBetService.CreateDepositAsync(createDeposit);
+            //var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.Id == request.MusteriId);
+            //CreateDepositDto createDeposit = new()
+            //{
+            //    KullaniciAdi = musteri.KullaniciAdi,
+            //    ParaYatirmaTalepId = paraYatirma.Id,
+            //    Tutar = paraYatirma.Tutar
+            //};
+            //var createDepositResponse = await _grandPashaBetService.CreateDepositAsync(createDeposit);
 
-            if (!createDepositResponse.IsSuccessful)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
-                return Response<AddParaYatirmaResult>.Error(createDepositResponse.StatusCode, createDepositResponse.Message);
-            }
+            //if (!createDepositResponse.IsSuccessful)
+            //{
+            //    await _paymentContext.RollbackTransactionAsync(cancellationToken);
+            //    return Response<AddParaYatirmaResult>.Error(createDepositResponse.StatusCode, createDepositResponse.Message);
+            //}
 
-            paraYatirma.EntegrasyonId = createDepositResponse.Data.EntegrasyonId;
-            await _paymentContext.SaveChangesAsync(cancellationToken);
+            //paraYatirma.EntegrasyonId = createDepositResponse.Data.EntegrasyonId;
+            //await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<AddParaYatirmaResult>.Success(System.Net.HttpStatusCode.OK,
                 new()

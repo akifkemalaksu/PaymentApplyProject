@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri;
+using System;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -17,6 +18,7 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
+        //[HttpPost]
         [HttpGet]
         /**
          * [FromQuery] tarayıcı da denemek için, normalde ise json olarak göndermesi gerekli
@@ -29,8 +31,9 @@ namespace PaymentApplyProject.Web.Controllers
             if (!response.IsSuccessful)
                 return CreateResult(response);
 
-            HttpContext.Session.SetString("musteriId", response.Data.MusteriId.ToString());
-            return RedirectToAction("index", "payments");
+            string musteriKey = Guid.NewGuid().ToString();
+            HttpContext.Session.SetString(musteriKey, response.Data.MusteriId.ToString());
+            return RedirectToAction("index", "payments", new { musteriKey });
         }
     }
 }

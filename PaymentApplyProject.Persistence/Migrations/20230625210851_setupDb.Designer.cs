@@ -12,7 +12,7 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20230625131054_setupDb")]
+    [Migration("20230625210851_setupDb")]
     partial class setupDb
     {
         /// <inheritdoc />
@@ -197,11 +197,6 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
 
                     b.HasKey("Id");
 

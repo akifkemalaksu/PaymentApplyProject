@@ -58,7 +58,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ResponseCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     RequestCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Url = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     Ad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),

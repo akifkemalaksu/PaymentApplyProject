@@ -1,7 +1,4 @@
-﻿@using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
-
-@model AddOrUpdateAndGetMusteriResult
-@{
+﻿@{
     Layout = null;
 }
 
@@ -120,6 +117,8 @@
                                 <input type="hidden" name="bankaId" id="bankaId" />
                             </div>
                             <div id="tutar-part" class="content" role="tabpanel" aria-labelledby="tutar-part-trigger">
+                                <div class="alert alert-warning" id="tutar-alert" role="alert" style="display:none;">
+                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="number" step=".01" class="form-control" id="tutar" name="tutar" placeholder="Yatırım tutarı giriniz">
                                     <label for="tutar" class="form-label">Yatırım tutarı giriniz</label>
@@ -168,6 +167,7 @@
         let nextButton = document.getElementById("next-button");
         let cardFooter = document.getElementById("card-footer");
         let bilgiAlert = document.getElementById("bilgi-alert");
+        let tutarAlert = document.getElementById("tutar-alert");
         let nextSteps = document.getElementsByClassName("next");
 
         let bankaIdInput = document.getElementById("bankaId");
@@ -209,10 +209,6 @@
         document.addEventListener('DOMContentLoaded', async () => {
             let stepper = new Stepper(document.querySelector('.bs-stepper'));
 
-            const tutarTooltip = new bootstrap.Tooltip(tutarInput, {
-                placement: "bottom",
-            })
-
             for (let i = 0; i < nextSteps.length; i++)
                 nextSteps[i].addEventListener('click', async () => {
                     let currentIndex = stepper._currentIndex;
@@ -228,8 +224,8 @@
                     else if (currentStepName === "#tutar-part") {
                         let tutar = parseFloat(tutarInput.value);
                         if (isNaN(tutar) || tutar == 0) {
-                            tutarTooltip._config.title = "Lütfen geçerli bir tutar giriniz."
-                            tutarTooltip.show();
+                            tutarAlert.style.display = "block";
+                            tutarAlert.innerHTML = "Lütfen geçerli bir tutar giriniz.";
                             return;
                         }
 
@@ -239,8 +235,8 @@
                         }
                         let result = await GetBankaHesabi(data)
                         if (!result.isSuccessful) {
-                            tutarTooltip._config.title = "Lütfen belirlenen değerler arasında bir tutar giriniz."
-                            tutarTooltip.show();
+                            tutarAlert.style.display = "block";
+                            tutarAlert.innerHTML = "Lütfen belirlenen değerler arasında bir tutar giriniz.";
                             return;
                         }
 

@@ -9,7 +9,7 @@ using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "user,admin")]
+    [Authorize(Roles = "user")]
     public class PaymentsController : CustomController
     {
         private readonly IMediator _mediator;
@@ -19,12 +19,16 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        public IActionResult Index(AddOrUpdateAndGetMusteriResult addOrUpdateAndGetMusteriResult)
+        [HttpGet("{musteriKey}")]
+        public IActionResult Index(string musteriKey)
         {
-            string musteriId = HttpContext.Session.GetString("musteriId");
+            if (string.IsNullOrEmpty(musteriKey))
+                return RedirectToAction("notfound","error",new { message = "Müşteri bulunamadı." });
+
+            string musteriId = HttpContext.Session.GetString(musteriKey);
             // musteriId boş ise yönlendir
             ViewBag.MusteriId = musteriId;
-            return View(addOrUpdateAndGetMusteriResult);
+            return View();
         }
 
         [HttpPost]
