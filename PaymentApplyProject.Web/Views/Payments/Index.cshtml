@@ -240,6 +240,7 @@
                             return;
                         }
 
+                        nextButton.innerHTML = "Ödeme Yaptım"
                         bankaHesapIdInput.value = result.data.bankaHesapId
                         ibanInput.value = result.data.hesapNumarasi
                         adsoyadInput.value = `${result.data.ad} ${result.data.soyad}`
