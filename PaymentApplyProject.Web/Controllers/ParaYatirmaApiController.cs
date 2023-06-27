@@ -18,7 +18,7 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpPost]
         /**
          * [FromQuery] tarayıcı da denemek için, normalde ise json olarak göndermesi gerekli
          * tarayıcı da denemek için alttaki linkten gidilebilir
