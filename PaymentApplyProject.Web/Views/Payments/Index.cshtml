@@ -182,7 +182,7 @@
         let resultAlert = document.getElementById("result-alert")
 
         GetBankaHesabi = async (data) => {
-            let resultJson = await fetchHelper.send("payments/getaccountinfo", "POST", {
+            let resultJson = await fetchHelper.send("paymentframe/getaccountinfo", "POST", {
                 data: data
             })
             return resultJson
@@ -200,7 +200,7 @@
         }
 
         ParaYatirmaTalepKaydet = async (data) => {
-            let resultJson = await fetchHelper.send("payments/savepayment", "POST", {
+            let resultJson = await fetchHelper.send("paymentframe/savepayment", "POST", {
                 data: data
             })
             return resultJson

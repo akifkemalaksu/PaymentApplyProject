@@ -30,6 +30,7 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<ParaYatirma> ParaYatirmalar { get; set; }
         public DbSet<Yetki> Yetkiler { get; set; }
         public DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }
+        public DbSet<KullaniciFirma> KullaniciFirmalar { get; set; }
 
         public override int SaveChanges()
         {

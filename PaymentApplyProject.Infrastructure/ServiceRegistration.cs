@@ -1,12 +1,15 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping;
 using PaymentApplyProject.Infrastructure.Pipelines;
 using PaymentApplyProject.Infrastructure.Services;
@@ -27,7 +30,8 @@ namespace PaymentApplyProject.Infrastructure
 
             services.AddSingleton<ICustomMapper, MapstersMapper>();
 
-            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IJwtAuthService, JwtAuthService>();
+            services.AddScoped<ICookieAuthService, CookieAuthService>();
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>
@@ -37,8 +41,9 @@ namespace PaymentApplyProject.Infrastructure
             services
                 .AddAuthentication(auth =>
                 {
-                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultScheme = AuthenticationSabitler.CustomAuthenticationScheme;
+                    auth.DefaultAuthenticateScheme = AuthenticationSabitler.CustomAuthenticationScheme;
+                    auth.DefaultChallengeScheme = AuthenticationSabitler.CustomAuthenticationScheme;
                 })
                 .AddJwtBearer(options =>
                 {
@@ -52,9 +57,28 @@ namespace PaymentApplyProject.Infrastructure
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey))
                     };
+                })
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/account/login";
+                    options.LogoutPath = "/account/logout";
+                    options.AccessDeniedPath = "/error/accessdenied";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    options.SlidingExpiration = true;
+                })
+                .AddPolicyScheme(AuthenticationSabitler.CustomAuthenticationScheme, AuthenticationSabitler.CustomAuthenticationScheme, options =>
+                {
+                    options.ForwardDefaultSelector = context =>
+                    {
+                        string authorization = context.Request.Headers[HeaderNames.Authorization];
+                        if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
+                            return JwtBearerDefaults.AuthenticationScheme;
+                        return CookieAuthenticationDefaults.AuthenticationScheme;
+                    };
                 });
 
             var clientServiceSettings = configuration.GetSection(nameof(ClientServiceSettings)).Get<ClientServiceSettings>();
+            // todo: buraya dinamik bir client servis gerekebilir, her müşteriye aynı request ve response ile işlem yapmak lazım
             services.AddHttpClient<IGrandPashaBetService, GrandPashaBetService>(configure =>
             {
                 configure.BaseAddress = new Uri(clientServiceSettings.GrandPashaBetUrl);

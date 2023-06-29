@@ -7,14 +7,10 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class ParaCekme : BaseEntity<int>
     {
-        [NotNull]
         public int MusteriId { get; set; }
-        [NotNull]
         public short ParaCekmeDurumId { get; set; }
-        [NotNull]
         [StringLength(20)]
         public string HesapNumarasi { get; set; }
-        [NotNull]
         public decimal Tutar { get; set; }
         public decimal? OnaylananTutar { get; set; }
         public int EntegrasyonId { get; set; }

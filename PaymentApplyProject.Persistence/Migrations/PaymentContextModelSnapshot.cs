@@ -121,7 +121,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
                     b.Property<string>("Aciklama")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Ad")
@@ -222,8 +221,10 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
-                    b.Property<short?>("FirmaId")
-                        .HasColumnType("smallint");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("GuncellemeTarihi")
                         .HasColumnType("timestamp with time zone");
@@ -248,9 +249,45 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("Kullanicilar");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciFirma", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DuzenleyenKullaniciId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EklemeTarihi")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("EkleyenKullaniciId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("FirmaId")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("GuncellemeTarihi")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("KullaniciId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("SilindiMi")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("FirmaId");
 
-                    b.ToTable("Kullanicilar");
+                    b.HasIndex("KullaniciId");
+
+                    b.ToTable("KullaniciFirmalar");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciYetki", b =>
@@ -504,13 +541,23 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Navigation("Banka");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Kullanici", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciFirma", b =>
                 {
                     b.HasOne("PaymentApplyProject.Domain.Entities.Firma", "Firma")
                         .WithMany()
-                        .HasForeignKey("FirmaId");
+                        .HasForeignKey("FirmaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Kullanici", "Kullanici")
+                        .WithMany()
+                        .HasForeignKey("KullaniciId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Firma");
+
+                    b.Navigation("Kullanici");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciYetki", b =>

@@ -61,6 +61,24 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giriş bilgileriniz yanlıştır..
+        /// </summary>
+        internal static string IncorrectLoginInfo {
+            get {
+                return ResourceManager.GetString("IncorrectLoginInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sisteme giriş için yetkiniz yok..
+        /// </summary>
+        internal static string NotAuthorized {
+            get {
+                return ResourceManager.GetString("NotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veri bulunamadı..
         /// </summary>
         internal static string NotFound {

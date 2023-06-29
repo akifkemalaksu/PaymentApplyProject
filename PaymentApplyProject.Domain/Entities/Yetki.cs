@@ -6,7 +6,6 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class Yetki : BaseEntity<short>
     {
-        [NotNull]
         [StringLength(50)]
         public string Ad { get; set; }
 

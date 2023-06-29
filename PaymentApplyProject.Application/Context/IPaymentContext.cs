@@ -23,6 +23,7 @@ namespace PaymentApplyProject.Application.Context
         public DbSet<ParaYatirma> ParaYatirmalar { get; set; }
         public DbSet<Yetki> Yetkiler { get; set; }
         public DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }
+        public DbSet<KullaniciFirma> KullaniciFirmalar { get; set; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

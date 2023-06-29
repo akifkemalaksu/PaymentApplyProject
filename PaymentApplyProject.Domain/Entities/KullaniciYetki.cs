@@ -5,9 +5,7 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class KullaniciYetki : BaseEntity<int>
     {
-        [NotNull]
         public int KullaniciId { get; set; }
-        [NotNull]
         public short YetkiId { get; set; }
 
         [ForeignKey("KullaniciId")]

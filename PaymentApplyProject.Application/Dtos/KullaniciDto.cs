@@ -11,6 +11,7 @@ namespace PaymentApplyProject.Application.Dtos
     public class KullaniciDto
     {
         public string KullaniciAdi { get; set; }
+        public string Email { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
         public IEnumerable<string> Yetkiler { get; set; }
@@ -19,5 +20,12 @@ namespace PaymentApplyProject.Application.Dtos
         {
             Yetkiler = Enumerable.Empty<string>();
         }
+    }
+
+    public class LoginDto
+    {
+        public string EmailKullaniciAdi { get; set; }
+        public string Sifre { get; set; }
+        public bool BeniHatirla { get; set; }
     }
 }

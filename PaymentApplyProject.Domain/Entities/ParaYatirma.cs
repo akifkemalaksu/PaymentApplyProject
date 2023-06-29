@@ -6,13 +6,9 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class ParaYatirma : BaseEntity<int>
     {
-        [NotNull]
         public int MusteriId { get; set; }
-        [NotNull]
         public short ParaYatirmaDurumId { get; set; }
-        [NotNull]
         public int BankaHesabiId { get; set; }
-        [NotNull]
         public decimal Tutar { get; set; }
         public decimal? OnaylananTutar { get; set; }
         public int EntegrasyonId { get; set; }

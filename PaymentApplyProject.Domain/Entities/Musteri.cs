@@ -7,18 +7,13 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class Musteri : BaseEntity<int>
     {
-        [NotNull]
         public short FirmaId { get; set; }
-        [NotNull]
         [StringLength(50)]
         public string KullaniciAdi { get; set; }
-        [NotNull]
         [StringLength(100)]
         public string Ad { get; set; }
-        [NotNull]
         [StringLength(100)]
         public string Soyad { get; set; }
-        [NotNull]
         public bool AktifMi { get; set; }
 
         [ForeignKey("FirmaId")]

@@ -5,7 +5,6 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class Banka : BaseEntity<short>
     {
-        [NotNull]
         [StringLength(100)]
         public string Ad { get; set; }
 

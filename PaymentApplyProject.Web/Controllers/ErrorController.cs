@@ -8,5 +8,10 @@ namespace PaymentApplyProject.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IncorrectLoginInfo" xml:space="preserve">
+    <value>Giriş bilgileriniz yanlıştır.</value>
+  </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>Sisteme giriş için yetkiniz yok.</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Veri bulunamadı.</value>
   </data>
