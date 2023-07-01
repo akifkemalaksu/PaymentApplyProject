@@ -61,6 +61,24 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bu kayıt onaylanmış..
+        /// </summary>
+        internal static string AlreadyApproved {
+            get {
+                return ResourceManager.GetString("AlreadyApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu kayıt reddedilmiş..
+        /// </summary>
+        internal static string AlreadyRejected {
+            get {
+                return ResourceManager.GetString("AlreadyRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giriş bilgileriniz yanlıştır..
         /// </summary>
         internal static string IncorrectLoginInfo {

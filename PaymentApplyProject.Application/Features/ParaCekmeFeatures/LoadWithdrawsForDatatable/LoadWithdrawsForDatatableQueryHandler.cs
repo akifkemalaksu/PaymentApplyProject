@@ -38,10 +38,12 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.LoadWithdra
                 MusteriAdSoyad = x.Musteri.Ad + " " + x.Musteri.Soyad,
                 MusteriKullaniciAd = x.Musteri.KullaniciAdi,
                 OnaylananTutar = x.OnaylananTutar,
-                OnayRedTarihi = x.OnayRedTarihi != null ? x.OnayRedTarihi.Value.ToString("dd.MM.yy hh:mm") : string.Empty,
-                ParaCekmeDurum = x.ParaCekmeDurum.Ad,
+                IslemTarihi = x.IslemTarihi != null ? x.IslemTarihi.Value.ToString("dd.MM.yy hh:mm") : string.Empty,
+                TalepTarihi = x.EklemeTarihi.ToString("dd.MM.yy hh:mm"),
+                Durum = x.ParaCekmeDurum.Ad,
+                DurumId = x.ParaCekmeDurumId,
                 Tutar = x.Tutar,
-                Id = x.Id
+                Id = x.Id,
             });
 
             var orderCriteria = "Id";

@@ -17,17 +17,26 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekm
 
         public async Task<Response<GetParaCekmeByIdResult>> Handle(GetParaCekmeByIdQuery request, CancellationToken cancellationToken)
         {
-            var paraCekme = await _paymentContext.ParaCekmeler.AsNoTracking().Where(x => x.Id.Equals(request.Id) && !x.SilindiMi).Select(x => new GetParaCekmeByIdResult
-            {
-                HesapNumarasi = x.HesapNumarasi,
-                Durum = x.ParaCekmeDurum.Ad,
-                Firma = x.Musteri.Firma.Ad,
-                MusteriKullaniciAdi = x.Musteri.KullaniciAdi,
-                MusteriAd = x.Musteri.Ad,
-                MusteriSoyad = x.Musteri.Soyad,
-                OnaylananTutar = x.OnaylananTutar,
-                Tutar = x.Tutar
-            }).FirstOrDefaultAsync(cancellationToken);
+            var paraCekme = await _paymentContext.ParaCekmeler
+                .AsNoTracking()
+                .Where(x =>
+                    x.Id.Equals(request.Id)
+                    && !x.SilindiMi)
+                .Select(x => new GetParaCekmeByIdResult
+                {
+                    HesapNumarasi = x.HesapNumarasi,
+                    Durum = x.ParaCekmeDurum.Ad,
+                    DurumId = x.ParaCekmeDurumId,
+                    Firma = x.Musteri.Firma.Ad,
+                    MusteriKullaniciAd = x.Musteri.KullaniciAdi,
+                    MusteriAd = x.Musteri.Ad,
+                    MusteriSoyad = x.Musteri.Soyad,
+                    OnaylananTutar = x.OnaylananTutar,
+                    Tutar = x.Tutar,
+                    EklemeTarihi = x.EklemeTarihi,
+                    Id = x.Id,
+                    IslemTarihi = x.IslemTarihi,
+                }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraCekme is null)
                 return Response<GetParaCekmeByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

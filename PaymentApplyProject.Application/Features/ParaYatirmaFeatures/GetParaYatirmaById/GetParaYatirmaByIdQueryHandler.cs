@@ -17,18 +17,29 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.GetParaYa
 
         public async Task<Response<GetParaYatirmaByIdResult>> Handle(GetParaYatirmaByIdQuery request, CancellationToken cancellationToken)
         {
-            var paraYatirma = await _paymentContext.ParaYatirmalar.AsNoTracking().Where(x => x.Id == request.Id && !x.SilindiMi).Select(x => new GetParaYatirmaByIdResult
-            {
-                Banka = x.BankaHesabi.Banka.Ad,
-                Durum = x.ParaYatirmaDurum.Ad,
-                Firma = x.Musteri.Firma.Ad,
-                HesapNumarasi = x.BankaHesabi.HesapNumarasi,
-                MusteriKullaniciAdi = x.Musteri.KullaniciAdi,
-                MusteriAd = x.Musteri.Ad,
-                MusteriSoyad = x.Musteri.Soyad,
-                OnaylananTutar = x.OnaylananTutar,
-                Tutar = x.Tutar
-            }).FirstOrDefaultAsync(cancellationToken);
+            var paraYatirma = await _paymentContext.ParaYatirmalar
+                .AsNoTracking()
+                .Where(x =>
+                    x.Id == request.Id
+                    && !x.SilindiMi)
+                .Select(x => new GetParaYatirmaByIdResult
+                {
+                    Banka = x.BankaHesabi.Banka.Ad,
+                    DurumId = x.ParaYatirmaDurumId,
+                    Durum = x.ParaYatirmaDurum.Ad,
+                    Firma = x.Musteri.Firma.Ad,
+                    BankaHesapNo = x.BankaHesabi.HesapNumarasi,
+                    BankaHesapSahipAd = x.BankaHesabi.Ad,
+                    BankaHesapSahipSoyad = x.BankaHesabi.Soyad,
+                    MusteriKullaniciAd = x.Musteri.KullaniciAdi,
+                    MusteriAd = x.Musteri.Ad,
+                    MusteriSoyad = x.Musteri.Soyad,
+                    OnaylananTutar = x.OnaylananTutar,
+                    Tutar = x.Tutar,
+                    IslemTarihi = x.IslemTarihi,
+                    EklemeTarihi = x.EklemeTarihi,
+                    Id = x.Id
+                }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraYatirma == null)
                 return Response<GetParaYatirmaByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

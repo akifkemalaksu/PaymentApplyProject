@@ -47,9 +47,11 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepos
                 MusteriKullaniciAd = x.Musteri.KullaniciAdi,
                 Tutar = x.Tutar,
                 OnaylananTutar = x.OnaylananTutar,
-                ParaYatirmaDurum = x.ParaYatirmaDurum.Ad,
+                Durum = x.ParaYatirmaDurum.Ad,
+                DurumId = x.ParaYatirmaDurumId,
                 Id = x.Id,
-                OnayRedTarihi = x.OnayRedTarihi != null ? x.OnayRedTarihi.Value.ToString("dd.MM.yy hh:mm") : string.Empty
+                IslemTarihi = x.IslemTarihi != null ? x.IslemTarihi.Value.ToString("dd.MM.yy hh:mm") : string.Empty,
+                TalepTarihi = x.EklemeTarihi.ToString("dd.MM.yy hh:mm"),
             });
 
             var orderCriteria = "Id";

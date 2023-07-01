@@ -1,0 +1,134 @@
+﻿@using PaymentApplyProject.Application.Dtos
+@using PaymentApplyProject.Domain.Constants
+@using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById
+@model Response<GetParaCekmeByIdResult>
+
+<div class="row">
+    @if (!Model.IsSuccessful)
+    {
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                <div class="alert-text">
+                    <h4 class="alert-heading">Uyarı!</h4>
+                    <p>@Model.Message</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-6 col-md-12">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="display-6">Müşteri Bilgileri</h3>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Kullanıcı Adı:</span>
+                <span class="text-muted">@Model.Data.MusteriKullaniciAd</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Ad:</span>
+                <span class="text-muted">@Model.Data.MusteriAd</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Soyad:</span>
+                <span class="text-muted">@Model.Data.MusteriSoyad</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Hesap No:</span>
+                <span class="text-muted">@Model.Data.HesapNumarasi</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Firma:</span>
+                <span class="text-muted">@Model.Data.Firma</span>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="display-6">Para Yatırma İşlem Bilgileri</h3>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Durum:</span>
+                @if (Model.Data.DurumId == ParaCekmeDurumSabitler.BEKLIYOR)
+                {
+                    <span class="kt-badge kt-badge--inline kt-badge--warning">Bekliyor</span>
+                }
+                else if (Model.Data.DurumId == ParaCekmeDurumSabitler.REDDEDILDI)
+                {
+                    <span class="kt-badge kt-badge--inline kt-badge--danger">Reddedildi</span>
+                }
+                else if (Model.Data.DurumId == ParaCekmeDurumSabitler.ONAYLANDI)
+                {
+                    <span class="kt-badge kt-badge--inline kt-badge--success">Onaylandı</span>
+                }
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Tutar:</span>
+                <span class="text-muted">@Model.Data.Tutar.ToString("c")</span>
+            </div>
+            @if (Model.Data.IslemTarihi != null)
+            {
+                if (Model.Data.DurumId == ParaCekmeDurumSabitler.REDDEDILDI)
+                {
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="font-weight-bold mr-2">Reddetme Tarihi:</span>
+                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("dd.MM.yy")</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="font-weight-bold mr-2">Reddetme Saati:</span>
+                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("hh.mm")</span>
+                    </div>
+                }
+                else if (Model.Data.OnaylananTutar.HasValue)
+                {
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="font-weight-bold mr-2">Onaylanan Tutar:</span>
+                        <span class="text-muted">@Model.Data.OnaylananTutar.Value.ToString("c")</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="font-weight-bold mr-2">Onaylanma Tarihi:</span>
+                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("dd.MM.yy")</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="font-weight-bold mr-2">Onaylanma Saati:</span>
+                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("hh.mm")</span>
+                    </div>
+                }
+            }
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Talep Tarihi:</span>
+                <span class="text-muted">@Model.Data.EklemeTarihi.ToString("dd.MM.yy")</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Talep Saati:</span>
+                <span class="text-muted">@Model.Data.EklemeTarihi.ToString("hh.mm")</span>
+            </div>
+        </div>
+
+        if (Model.Data.DurumId == ParaCekmeDurumSabitler.BEKLIYOR)
+        {
+            <div class="col-12">
+                <div class="kt-separator kt-separator--md kt-separator--dashed"></div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="display-6">Onaylama Reddetme İşlemi</h3>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Onaylanacak Tutar</label>
+                        <input class="form-control" id="onaylanacakTutar" name="onaylanacakTutar" type="text">
+                        <input id="id" name="id" type="hidden" value="@Model.Data.Id">
+                    </div>
+                </div>
+                <div class="col-12 kt-align-right">
+                    <button type="button" id="onayla" class="btn btn-success">Onayla</button>
+                    <button type="button" id="reddet" class="btn btn-danger">Reddet</button>
+                </div>
+            </div>
+        }
+    }
+</div>
+<script src="~/assets/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>

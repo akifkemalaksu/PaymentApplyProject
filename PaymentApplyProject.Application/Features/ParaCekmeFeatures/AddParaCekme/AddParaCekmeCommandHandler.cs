@@ -30,7 +30,11 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
 
             var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi, cancellationToken);
             if (firma == null)
+            {
+                // hint: bunu transaction açıkta kalmasın diye her olumsuz cevaba eklemek gerekiyor
+                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThisCodeNotDefined);
+            }
 
             var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi, cancellationToken);
             if (musteri == null)
@@ -51,7 +55,10 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                     && x.ParaCekmeDurumId == ParaCekmeDurumSabitler.BEKLIYOR
                     && !x.SilindiMi, cancellationToken) > 0;
             if (isExistsParaCekme)
+            {
+                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
+            }
 
             var addParaCekme = new ParaCekme
             {

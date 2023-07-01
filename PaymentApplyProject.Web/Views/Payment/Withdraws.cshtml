@@ -1,6 +1,9 @@
-﻿@{
+﻿@using PaymentApplyProject.Domain.Constants
+
+@{
     ViewData["Title"] = "Para Çekmeler";
 }
+
 @model IEnumerable<PaymentApplyProject.Application.Features.ParaCekmeFeatures.LoadWithdrawsForDatatable.LoadWithdrawsForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -41,9 +44,9 @@
                     <label>Durum:</label>
                     <select name="durumId" id="durumId" class="form-control kt-input">
                         <option value="0">Hepsi</option>
-                        <option selected value="4">Bekliyor</option>
-                        <option value="5">Reddedildi</option>
-                        <option value="6">Onaylandı</option>
+                        <option selected value="@ParaCekmeDurumSabitler.BEKLIYOR">Bekliyor</option>
+                        <option value="@ParaCekmeDurumSabitler.REDDEDILDI">Reddedildi</option>
+                        <option value="@ParaCekmeDurumSabitler.ONAYLANDI">Onaylandı</option>
                     </select>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
@@ -83,8 +86,9 @@
                         <th>@Html.DisplayNameFor(x => x.MusteriKullaniciAd)</th>
                         <th>@Html.DisplayNameFor(x => x.MusteriAdSoyad)</th>
                         <th>@Html.DisplayNameFor(x => x.BankaHesapNo)</th>
-                        <th>@Html.DisplayNameFor(x => x.ParaCekmeDurum)</th>
-                        <th>@Html.DisplayNameFor(x => x.OnayRedTarihi)</th>
+                        <th>@Html.DisplayNameFor(x => x.Durum)</th>
+                        <th>@Html.DisplayNameFor(x => x.TalepTarihi)</th>
+                        <th>@Html.DisplayNameFor(x => x.IslemTarihi)</th>
                         <th>@Html.DisplayNameFor(x => x.Tutar)</th>
                         <th>@Html.DisplayNameFor(x => x.OnaylananTutar)</th>
                         <th>İşlemler</th>
@@ -97,7 +101,5 @@
 @section scripts{
     <script src="~/assets/plugins/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
     <script src="~/js/datatableHelper.js" type="text/javascript"></script>
-    <script src="~/js/formatHelper.js" type="text/javascript"></script>
-    <script src="~/js/select2Helper.js" type="text/javascript"></script>
     <script src="~/js/pages/payment/withdraws.js" type="text/javascript"></script>
 }

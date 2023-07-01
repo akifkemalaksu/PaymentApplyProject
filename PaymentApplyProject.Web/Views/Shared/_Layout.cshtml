@@ -598,6 +598,23 @@
                             @RenderBody()
                         </div>
                     </div>
+
+                    <div class="modal fade" id="kt_modal" tabindex="-1" role="dialog" style="display: none;" aria-labelledby="" aria-hidden="true">
+                        <div role="document" class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="kt-footer kt-grid__item" id="kt_footer">
@@ -639,8 +656,12 @@
     <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
     <script src="~/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
     <script src="~/assets/js/scripts.bundle.js" type="text/javascript"></script>
-
     <script src="~/js/pages/layout.js" type="text/javascript"></script>
+    <script src="~/js/parseHelper.js"></script>
+    <script src="~/js/formatHelper.js" type="text/javascript"></script>
+    <script src="~/js/select2Helper.js" type="text/javascript"></script>
+    <script src="~/js/fetchHelper.js" type="text/javascript"></script>
+    <script src="~/js/swalHelper.js" type="text/javascript"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

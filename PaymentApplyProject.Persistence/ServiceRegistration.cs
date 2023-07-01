@@ -16,6 +16,7 @@ namespace PaymentApplyProject.Persistence
     {
         public static IServiceCollection RegisterPersistence(this IServiceCollection services, IConfiguration configuration)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddDbContext<IPaymentContext,PaymentContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             return services;

@@ -12,8 +12,9 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepos
         public string MusteriKullaniciAd { get; set; }
         [DisplayName("Müsteri Ad Soyad")]
         public string MusteriAdSoyad { get; set; }
+        public short DurumId { get; set; }
         [DisplayName("Durum")]
-        public string ParaYatirmaDurum { get; set; }
+        public string Durum { get; set; }
         [DisplayName("Banka Hesap Sahibi")]
         public string BankaHesapSahibi { get; set; }
         [DisplayName("Banka Hesap Numarası")]
@@ -24,7 +25,9 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepos
         public decimal Tutar { get; set; }
         [DisplayName("Onaylanan Tutar")]
         public decimal? OnaylananTutar { get; set; }
-        [DisplayName("Onay - Red Tarihi")]
-        public string OnayRedTarihi { get; set; }
+        [DisplayName("İşlem Tarihi")]
+        public string IslemTarihi { get; set; }
+        [DisplayName("Talep Tarihi")]
+        public string TalepTarihi { get; set; }
     }
 }

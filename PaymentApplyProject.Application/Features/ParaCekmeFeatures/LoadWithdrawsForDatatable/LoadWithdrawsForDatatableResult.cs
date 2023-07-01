@@ -12,15 +12,18 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.LoadWithdra
         public string MusteriKullaniciAd { get; set; }
         [DisplayName("Müsteri Ad Soyad")]
         public string MusteriAdSoyad { get; set; }
+        public short DurumId { get; set; }
         [DisplayName("Durum")]
-        public string ParaCekmeDurum { get; set; }
+        public string Durum { get; set; }
         [DisplayName("Hesap Numarası")]
         public string BankaHesapNo { get; set; }
         [DisplayName("Tutar")]
         public decimal Tutar { get; set; }
         [DisplayName("Onaylanan Tutar")]
         public decimal? OnaylananTutar { get; set; }
-        [DisplayName("Onay - Red Tarihi")]
-        public string OnayRedTarihi { get; set; }
+        [DisplayName("İşlem Tarihi")]
+        public string IslemTarihi { get; set; }
+        [DisplayName("Talep Tarihi")]
+        public string TalepTarihi { get; set; }
     }
 }

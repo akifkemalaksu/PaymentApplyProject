@@ -6,6 +6,7 @@ let bankaHesapSelect = $("#bankaHesapId").select2(GetSelectOption({ url: "BankaH
 let durumSelect = $("#durumId").select2();
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
+
 firmaSelect.on('select2:select', function (e) {
     let extraData = [];
     extraData.push({
@@ -43,6 +44,9 @@ datatableHelper.datatableOptions.ajax = {
     }
 };
 
+datatableHelper.datatableOptions.columnDefs = [
+    { "className": "dt-center", "targets": [12] }
+]
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "firma" },
@@ -51,8 +55,18 @@ datatableHelper.datatableOptions.columns = [
     { data: "bankaHesapSahibi" },
     { data: "bankaHesapNo" },
     { data: "banka" },
-    { data: "paraYatirmaDurum" },
-    { data: "onayRedTarihi" },
+    {
+        data: (row) => {
+            if (row.durumId == "1")
+                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.durum}</span>`
+            else if (row.durumId == "2")
+                return `<span class="kt-badge kt-badge--inline kt-badge--danger">${row.durum}</span>`
+            else if (row.durumId == "3")
+                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.durum}</span>`
+        }
+    },
+    { data: "talepTarihi" },
+    { data: "islemTarihi" },
     {
         data: "tutar",
         render: (data) => moneyFormatter.format(data)
@@ -62,20 +76,11 @@ datatableHelper.datatableOptions.columns = [
         render: (data) => moneyFormatter.format(data)
     },
     {
-        data: function (data, type, full, meta) {
+        data: function (data) {
             return `
-            <span class="dropdown">
-                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                    <i class="la la-ellipsis-h"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="la la-check"></i> Onayla </a>
-                    <a class="dropdown-item" href="#"><i class="la-times"></i> Reddet </a>
-                </div>
-            </span>
-            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="goruntule(${data.id}, '${data.musteriAdSoyad}')" title="Görüntüle">
                 <i class="la la-eye"></i>
-            </a>
+            </button>
             `;
         },
     }
@@ -83,3 +88,66 @@ datatableHelper.datatableOptions.columns = [
 
 datatableHelper.initialize($("#kt_table_1"));
 
+let goruntule = async (id, musteriAdSoyad) => {
+    let resultJson = await fetchHelper.sendText(`/payment/ViewDepositPartial/${id}`, "get");
+
+    let ktModal = $("#kt_modal")
+    let modalHeader = ktModal.find(".modal-title");
+    let modalBody = ktModal.find(".modal-body");
+
+    modalHeader.html(`${id} - ${musteriAdSoyad} - Para Yatırma İşlemi`);
+    modalBody.html(resultJson);
+
+    goruntuleDefines()
+
+    ktModal.modal('show');
+}
+
+let goruntuleDefines = () => {
+    let onaylaButton = $("#onayla")
+    let reddetButton = $("#reddet")
+    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '.', decimal: ',', allowZero: false });
+    let idInput = $("#id")
+
+    onaylaButton.on("click", async () => {
+        let onaylanacakTutar = parser.moneyToFloat(onaylanacakTutarInput.val())
+
+        if (!onaylanacakTutar || isNaN(onaylanacakTutar)) {
+            onaylanacakTutarInput.addClass("is-invalid");
+            return;
+        }
+
+        let data = {
+            id: idInput.val(),
+            tutar: onaylanacakTutar
+        }
+        let result = await fetchHelper.send("/payment/ApproveDeposit", "post", data)
+
+        if (!result.isSuccessful) {
+            swal.basic("Hata!", result.message, icons.error)
+            return;
+        }
+
+        swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+            $("#kt_modal").modal('hide')
+            datatableHelper.dtTable.draw()
+        })
+    })
+
+    reddetButton.on("click", async () => {
+        let data = {
+            id: idInput.val()
+        }
+        let result = await fetchHelper.send("/payment/RejectDeposit", "post", data)
+
+        if (!result.isSuccessful) {
+            swal.basic("Hata!", result.message, icons.error)
+            return;
+        }
+
+        swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+            $("#kt_modal").modal('hide')
+            datatableHelper.dtTable.draw()
+        })
+    })
+}
