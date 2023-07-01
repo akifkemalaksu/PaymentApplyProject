@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                 BankaHesabiId = request.BankaHesapId,
                 Tutar = request.Tutar,
             };
-            await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma);
+            await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             //var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.Id == request.MusteriId);

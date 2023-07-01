@@ -410,6 +410,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("OnayRedTarihi")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
 
@@ -459,6 +462,9 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("OnayRedTarihi")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");

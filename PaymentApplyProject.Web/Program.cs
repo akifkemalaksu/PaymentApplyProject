@@ -9,18 +9,27 @@ using PaymentApplyProject.Application.Dtos.Settings;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
-    .AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews(configure =>
+{
+    configure.CacheProfiles.Add("SelectCache", new CacheProfile
+    {
+        Duration = 300,
+        Location = ResponseCacheLocation.Any
+    });
+})
+.AddRazorRuntimeCompilation();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(configure =>
 {
     configure.IdleTimeout = TimeSpan.FromMinutes(30);
 });
+builder.Services.AddResponseCaching();
 
 builder.Services.RegisterInfrastructure(builder.Configuration);
 builder.Services.RegisterPersistence(builder.Configuration);
@@ -75,6 +84,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseSession();
+
+app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,4 @@
-﻿namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
+﻿namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri
 {
     public class AddOrUpdateAndGetMusteriResult
     {

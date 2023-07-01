@@ -25,4 +25,8 @@
     <ProjectReference Include="..\PaymentApplyProject.Persistence\PaymentApplyProject.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\pages\" />
+  </ItemGroup>
+
 </Project>

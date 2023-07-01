@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri;
 
 namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme
 {
@@ -29,11 +28,11 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
             // todo: url i istekte mi alacağız yoksa biz mi yakalayacağız? Şimdilik istekte alıyoruz
             //var url = _httpContextAccessor.HttpContext.Request.GetTypedHeaders().Referer;
 
-            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi);
+            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi, cancellationToken);
             if (firma == null)
                 return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThisCodeNotDefined);
 
-            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi);
+            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi, cancellationToken);
             if (musteri == null)
             {
                 musteri = new()
@@ -43,14 +42,14 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                     Ad = request.MusteriAd,
                     Soyad = request.MusteriSoyad
                 };
-                await _paymentContext.Musteriler.AddAsync(musteri);
+                await _paymentContext.Musteriler.AddAsync(musteri, cancellationToken);
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
             var isExistsParaCekme = await _paymentContext.ParaCekmeler.CountAsync(x =>
                     x.MusteriId == musteri.Id
                     && x.ParaCekmeDurumId == ParaCekmeDurumSabitler.BEKLIYOR
-                    && !x.SilindiMi) > 0;
+                    && !x.SilindiMi, cancellationToken) > 0;
             if (isExistsParaCekme)
                 return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
@@ -63,7 +62,7 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                 EntegrasyonId = request.EntegrasyonId
             };
 
-            await _paymentContext.ParaCekmeler.AddAsync(addParaCekme);
+            await _paymentContext.ParaCekmeler.AddAsync(addParaCekme, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<AddParaCekmeResult>.Success(System.Net.HttpStatusCode.OK,

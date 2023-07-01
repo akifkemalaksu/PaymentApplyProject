@@ -27,7 +27,7 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekm
                 MusteriSoyad = x.Musteri.Soyad,
                 OnaylananTutar = x.OnaylananTutar,
                 Tutar = x.Tutar
-            }).FirstOrDefaultAsync();
+            }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraCekme is null)
                 return Response<GetParaCekmeByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

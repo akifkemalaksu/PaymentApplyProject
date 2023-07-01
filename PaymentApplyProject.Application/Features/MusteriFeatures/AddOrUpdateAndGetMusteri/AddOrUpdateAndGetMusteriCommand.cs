@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri;
 
-namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
+namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri
 {
     public class AddOrUpdateAndGetMusteriCommand : IRequest<Response<AddOrUpdateAndGetMusteriResult>>, ITransactional
     {

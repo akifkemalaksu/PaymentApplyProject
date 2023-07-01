@@ -11,6 +11,7 @@ namespace PaymentApplyProject.Domain.Entities
         public int BankaHesabiId { get; set; }
         public decimal Tutar { get; set; }
         public decimal? OnaylananTutar { get; set; }
+        public DateTime? OnayRedTarihi { get; set; }
         public int EntegrasyonId { get; set; }
 
         [ForeignKey("MusteriId")]

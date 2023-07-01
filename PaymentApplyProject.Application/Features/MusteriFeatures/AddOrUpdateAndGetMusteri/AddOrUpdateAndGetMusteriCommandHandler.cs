@@ -5,8 +5,9 @@ using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
+using PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri;
 
-namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
+namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri
 {
     public class AddOrUpdateAndGetMusteriCommandHandler : IRequestHandler<AddOrUpdateAndGetMusteriCommand, Response<AddOrUpdateAndGetMusteriResult>>
     {
@@ -19,11 +20,11 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
 
         public async Task<Response<AddOrUpdateAndGetMusteriResult>> Handle(AddOrUpdateAndGetMusteriCommand request, CancellationToken cancellationToken)
         {
-            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi);
+            var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi, cancellationToken);
             if (firma == null)
                 return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(Firma)));
 
-            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi);
+            var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi, cancellationToken);
             if (musteri == null)
             {
                 musteri = new Musteri
@@ -34,7 +35,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
                     FirmaId = firma.Id,
                     AktifMi = true
                 };
-                await _paymentContext.Musteriler.AddAsync(musteri);
+                await _paymentContext.Musteriler.AddAsync(musteri, cancellationToken);
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else if (!musteri.AktifMi)
@@ -56,7 +57,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddMusteri
                 var isExistsParaYatirma = await _paymentContext.ParaYatirmalar.CountAsync(x =>
                     x.MusteriId == musteri.Id
                     && x.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.BEKLIYOR
-                    && !x.SilindiMi) > 0;
+                    && !x.SilindiMi, cancellationToken) > 0;
                 if (isExistsParaYatirma)
                     return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
             }

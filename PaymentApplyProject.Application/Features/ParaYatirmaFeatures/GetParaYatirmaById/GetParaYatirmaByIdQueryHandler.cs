@@ -28,7 +28,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.GetParaYa
                 MusteriSoyad = x.Musteri.Soyad,
                 OnaylananTutar = x.OnaylananTutar,
                 Tutar = x.Tutar
-            }).FirstOrDefaultAsync();
+            }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraYatirma == null)
                 return Response<GetParaYatirmaByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

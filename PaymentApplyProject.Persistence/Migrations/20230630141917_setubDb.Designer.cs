@@ -12,8 +12,8 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20230628173930_setupDb")]
-    partial class setupDb
+    [Migration("20230630141917_setubDb")]
+    partial class setubDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -413,6 +413,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("OnayRedTarihi")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
 
@@ -462,6 +465,9 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("OnayRedTarihi")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");

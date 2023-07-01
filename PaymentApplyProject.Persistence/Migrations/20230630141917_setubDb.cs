@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class setupDb : Migration
+    public partial class setubDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -241,6 +241,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     HesapNumarasi = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Tutar = table.Column<decimal>(type: "numeric", nullable: false),
                     OnaylananTutar = table.Column<decimal>(type: "numeric", nullable: true),
+                    OnayRedTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     EntegrasyonId = table.Column<int>(type: "integer", nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
@@ -276,6 +277,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     BankaHesabiId = table.Column<int>(type: "integer", nullable: false),
                     Tutar = table.Column<decimal>(type: "numeric", nullable: false),
                     OnaylananTutar = table.Column<decimal>(type: "numeric", nullable: true),
+                    OnayRedTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     EntegrasyonId = table.Column<int>(type: "integer", nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),

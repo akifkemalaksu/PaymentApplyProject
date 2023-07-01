@@ -28,7 +28,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Login
             var kullanici = await _paymentContext.Kullanicilar.FirstOrDefaultAsync(x =>
                     (x.Email == request.EmailKullaniciAdi || x.KullaniciAdi == request.EmailKullaniciAdi)
                     && x.Sifre == request.Sifre
-                    && !x.SilindiMi);
+                    && !x.SilindiMi, cancellationToken);
             if (kullanici == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.IncorrectLoginInfo);
 
@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Login
                 x.KullaniciYetkiler.Any(ky =>
                     ky.KullaniciId == kullanici.Id
                     && !ky.SilindiMi)
-                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync();
+                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync(cancellationToken);
 
             if (!yetkiler.Any(x => x == RolSabitler.ADMIN))
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);

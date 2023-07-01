@@ -32,7 +32,7 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankaH
                     Ad = x.Ad,
                     Soyad = x.Soyad,
                     HesapNumarasi = x.HesapNumarasi,
-                }).FirstOrDefaultAsync();
+                }).FirstOrDefaultAsync(cancellationToken);
 
             if (bankaHesabi == null)
                 return Response<GetBankaHesabiResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

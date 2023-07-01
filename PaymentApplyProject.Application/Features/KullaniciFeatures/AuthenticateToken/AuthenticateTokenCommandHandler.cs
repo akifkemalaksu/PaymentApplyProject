@@ -28,7 +28,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Authenticat
             var kullanici = await _paymentContext.Kullanicilar.FirstOrDefaultAsync(x =>
                     x.KullaniciAdi == request.KullaniciAdi
                     && x.Sifre == request.Sifre
-                    && !x.SilindiMi);
+                    && !x.SilindiMi,cancellationToken);
             if (kullanici == null)
                 return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(Kullanici)));
 
@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Authenticat
                 x.KullaniciYetkiler.Any(ky =>
                     ky.KullaniciId == kullanici.Id
                     && !ky.SilindiMi)
-                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync();
+                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync(cancellationToken);
 
             var kullaniciDto = _customMapper.Map<KullaniciDto>(kullanici);
             kullaniciDto.Yetkiler = yetkiler;
