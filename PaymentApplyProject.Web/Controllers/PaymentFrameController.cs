@@ -18,14 +18,17 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [Route("[controller]/{musteriKey}")]
-        public IActionResult Index(string musteriKey)
+        [Route("[controller]/[action]/{musteriKey}")]
+        public IActionResult Panel(string musteriKey)
         {
-            //if (string.IsNullOrEmpty(musteriKey))
-            //    return RedirectToAction("notfound","error",new { message = "Müşteri bulunamadı." });
+            if (string.IsNullOrEmpty(musteriKey))
+                return RedirectToAction("notfound", "error", new { message = "Müşteri bulunamadı." });
 
             string musteriId = HttpContext.Session.GetString(musteriKey);
-            // musteriId boş ise yönlendir
+
+            if (string.IsNullOrEmpty(musteriId))
+                return RedirectToAction("notfound", "error", new { message = "Müşteri bulunamadı." });
+
             ViewBag.MusteriId = musteriId;
             return View();
         }

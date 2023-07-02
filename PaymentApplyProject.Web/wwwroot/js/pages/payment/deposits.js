@@ -89,7 +89,7 @@ datatableHelper.datatableOptions.columns = [
 datatableHelper.initialize($("#kt_table_1"));
 
 let goruntule = async (id, musteriAdSoyad) => {
-    let resultJson = await fetchHelper.sendText(`/payment/ViewDepositPartial/${id}`, "get");
+    let resultJson = await fetchHelper.sendText(`/payment/ViewDepositPartial/${id}`, httpMethods.get);
 
     let ktModal = $("#kt_modal")
     let modalHeader = ktModal.find(".modal-title");
@@ -124,7 +124,7 @@ let goruntuleDefines = () => {
                         id: idInput.val(),
                         tutar: onaylanacakTutar
                     }
-                    let result = await fetchHelper.send("/payment/ApproveDeposit", "post", data)
+                    let result = await fetchHelper.send("/payment/ApproveDeposit", httpMethods.post, data)
 
                     if (!result.isSuccessful) {
                         swal.basic("Hata!", result.message, icons.error)
@@ -145,7 +145,7 @@ let goruntuleDefines = () => {
                 let data = {
                     id: idInput.val()
                 }
-                let result = await fetchHelper.send("/payment/RejectDeposit", "post", data)
+                let result = await fetchHelper.send("/payment/RejectDeposit", httpMethods.post, data)
 
                 if (!result.isSuccessful) {
                     swal.basic("Hata!", result.message, icons.error)

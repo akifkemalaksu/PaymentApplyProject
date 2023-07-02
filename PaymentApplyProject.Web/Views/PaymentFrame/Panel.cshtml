@@ -1,0 +1,299 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <base href="../../../">
+    <meta charset="utf-8" />
+    <title>Hızlı Para Transfer</title>
+    <meta name="description" content="Wizard examples">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500">
+
+    <link href="assets/css/pages/wizard/wizard-1.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+
+    <style>
+        .zoom {
+            transition: transform .2s; /* Animation */
+        }
+
+            .zoom:hover {
+                transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+
+        .clickable {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="kt-page-content-white kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading">
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-8 col-md-10 col-sm-12 mt-5">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-grid kt-wizard-v1 kt-wizard-v1--white" id="kt_wizard_v1" data-ktwizard-state="first">
+                            <div class="kt-grid__item">
+
+                                <div class="kt-wizard-v1__nav">
+
+                                    <div class="kt-wizard-v1__nav-items kt-wizard-v1__nav-items--clickable">
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="la la-bank"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Banka
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="la la-edit"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Tutar
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Hesap
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="fa fa-hand-point-down"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Sonuç
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="kt-grid__item kt-grid__item--fluid p-5">
+
+                                <form class="kt-form" id="kt_form" novalidate="novalidate">
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="1">
+                                                        <img class="img-fluid zoom" alt="akbank" src="~/uploads/images/banks/akbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="2">
+                                                        <img class="img-fluid zoom" alt="albaraka" src="~/uploads/images/banks/albaraka.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="3">
+                                                        <img class="img-fluid zoom" alt="denizbank" src="~/uploads/images/banks/denizbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="4">
+                                                        <img class="img-fluid zoom" alt="enpara" src="~/uploads/images/banks/enpara.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="5">
+                                                        <img class="img-fluid zoom" alt="fibabank" src="~/uploads/images/banks/fibabank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="6">
+                                                        <img class="img-fluid zoom" alt="garanti" src="~/uploads/images/banks/garanti.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="7">
+                                                        <img class="img-fluid zoom" alt="halkbank" src="~/uploads/images/banks/halkbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="8">
+                                                        <img class="img-fluid zoom" alt="ingbank" src="~/uploads/images/banks/ingbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="9">
+                                                        <img class="img-fluid zoom" alt="kuveytturk" src="~/uploads/images/banks/kuveytturk.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="10">
+                                                        <img class="img-fluid zoom" alt="odeabank" src="~/uploads/images/banks/odeabank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="11">
+                                                        <img class="img-fluid zoom" alt="qnbfinans" src="~/uploads/images/banks/qnbfinans.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="12">
+                                                        <img class="img-fluid zoom" alt="sekerbank" src="~/uploads/images/banks/sekerbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="13">
+                                                        <img class="img-fluid zoom" alt="teb" src="~/uploads/images/banks/teb.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="14">
+                                                        <img class="img-fluid zoom" alt="turkiyefinans" src="~/uploads/images/banks/turkiyefinans.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="15">
+                                                        <img class="img-fluid zoom" alt="turkiyeisbankasi" src="~/uploads/images/banks/turkiyeisbankasi.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="16">
+                                                        <img class="img-fluid zoom" alt="vakifbank" src="~/uploads/images/banks/vakifbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="17">
+                                                        <img class="img-fluid zoom" alt="yapikredi" src="~/uploads/images/banks/yapikredi.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="btn btn-outline-secondary bank" data-bankaId="18">
+                                                        <img class="img-fluid zoom" alt="ziraat" src="~/uploads/images/banks/ziraat.png" />
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                            <input type="hidden" id="bankaId" name="bankaId" />
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Tutar giriniz</label>
+                                                    <input class="form-control" id="tutar" name="tutar">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form row">
+                                                <input type="hidden" name="bankaHesapId" id="bankaHesapId" />
+                                                <input type="hidden" name="musteriId" id="musteriId" value="@ViewBag.MusteriId" />
+                                                <div class="col-12 mt-4">
+                                                    <p>
+                                                        Ödeme yapınız.
+                                                    </p>
+                                                    <p>
+                                                        İşleminizi gerçekleştirmenize <span id="counter-text" data-second="300"></span> saniye kaldı.
+                                                    </p>
+                                                </div>
+                                                <div class="col-12 mt-4">
+                                                    <div class="input-group input-group-lg">
+                                                        <span class="form-control" id="iban"></span>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text clickable" data-container="body" data-placement="right" data-content="Kopyalandı" data-original-title="" title="" id="ibanCopy">
+                                                                <i class="fa fa-copy kt-font-brand"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-4">
+                                                    <div class="input-group input-group-lg">
+                                                        <span class="form-control" id="hesapSahibi"></span>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text clickable" data-container="body" data-placement="right" data-content="Kopyalandı" data-original-title="" title="" id="hesapSahibiCopy">
+                                                                <i class="fa fa-copy kt-font-brand"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form kt-align-center" id="resultDiv">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-form__actions mt-2">
+                                        <button class="btn btn-block btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u d-none" data-ktwizard-type="action-next">
+                                            Sonraki Adım
+                                        </button>
+                                        <a class="btn btn-block btn-secondary" id="back-to-main-page" href="https://grandpashabet1333.com" style="display:none;">Sayfaya Geri Dön</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#5d78ff",
+                    "light": "#ffffff",
+                    "dark": "#282a3c",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+                    "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+                }
+            }
+        };
+    </script>
+
+    <script src="~/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/assets/js/scripts.bundle.js" type="text/javascript"></script>
+    <script src="~/assets/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>
+    <script src="~/js/generalHelpers.js" type="text/javascript"></script>
+    <script src="~/js/pages/paymentFrame/paymentFrame.js" type="text/javascript"></script>
+</body>
+
+</html>

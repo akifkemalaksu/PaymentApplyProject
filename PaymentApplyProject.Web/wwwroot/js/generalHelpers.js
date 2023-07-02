@@ -1,4 +1,11 @@
-﻿const fetchHelper = {
+﻿const httpMethods = {
+    get: 'GET',
+    post: 'POST',
+    put: 'PUT',
+    delete: 'DELETE'
+}
+
+const fetchHelper = {
     send: (url, method, data) => {
         let fetchOptions = {
             method: method,
@@ -10,8 +17,12 @@
         if (data)
             fetchOptions.body = JSON.stringify(data);
 
+        KTApp.blockPage();
         return fetch(url, fetchOptions)
-            .then(response => response.json());
+            .then(response => {
+                KTApp.unblockPage();
+                return response.json()
+            });
     },
     sendText: (url, method, data) => {
         let fetchOptions = {

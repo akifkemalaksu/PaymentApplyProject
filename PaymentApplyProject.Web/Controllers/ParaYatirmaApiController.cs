@@ -32,7 +32,7 @@ namespace PaymentApplyProject.Web.Controllers
 
             string musteriKey = Guid.NewGuid().ToString();
             HttpContext.Session.SetString(musteriKey, response.Data.MusteriId.ToString());
-            return RedirectToAction("index", "PaymentFrame", new { musteriKey });
+            return RedirectToAction("Panel", "PaymentFrame", new { musteriKey });
         }
     }
 }
