@@ -25,21 +25,12 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.RejectPar
             , cancellationToken);
 
             if (paraYatirma == null)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(ParaYatirma)));
-            }
 
             if (paraYatirma.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.REDDEDILDI)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
-            }
             else if (paraYatirma.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.ONAYLANDI)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
-            }
 
             paraYatirma.ParaYatirmaDurumId = ParaYatirmaDurumSabitler.REDDEDILDI;
             paraYatirma.IslemTarihi = DateTime.Now;

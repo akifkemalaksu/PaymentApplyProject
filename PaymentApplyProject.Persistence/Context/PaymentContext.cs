@@ -98,8 +98,7 @@ namespace PaymentApplyProject.Persistence.Context
         {
             try
             {
-                await SaveChangesAsync(cancellationToken);
-                _transaction?.CommitAsync(cancellationToken);
+                await _transaction?.CommitAsync(cancellationToken);
             }
             catch
             {
@@ -110,7 +109,7 @@ namespace PaymentApplyProject.Persistence.Context
             {
                 if (_transaction is not null)
                 {
-                    _transaction.Dispose();
+                    await _transaction.DisposeAsync();
                     _transaction = null;
                 }
             }
@@ -126,7 +125,7 @@ namespace PaymentApplyProject.Persistence.Context
             {
                 if (_transaction is not null)
                 {
-                    _transaction.Dispose();
+                    await _transaction.DisposeAsync();
                     _transaction = null;
                 }
             }

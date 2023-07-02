@@ -8,7 +8,7 @@ using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+    //[Authorize(Roles = "user")]
     public class PaymentFrameController : CustomController
     {
         private readonly IMediator _mediator;
@@ -21,8 +21,8 @@ namespace PaymentApplyProject.Web.Controllers
         [Route("[controller]/{musteriKey}")]
         public IActionResult Index(string musteriKey)
         {
-            if (string.IsNullOrEmpty(musteriKey))
-                return RedirectToAction("notfound","error",new { message = "Müşteri bulunamadı." });
+            //if (string.IsNullOrEmpty(musteriKey))
+            //    return RedirectToAction("notfound","error",new { message = "Müşteri bulunamadı." });
 
             string musteriId = HttpContext.Session.GetString(musteriKey);
             // musteriId boş ise yönlendir

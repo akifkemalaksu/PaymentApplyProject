@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Web.Controllers
          * tarayıcı da denemek için alttaki linkten gidilebilir
          * http://localhost:6020/api/parayatirmaapi?FirmaKodu=GrandPasha&MusteriAd=Akif%20Kemal&MusteriSoyad=Aksu&MusteriKullaniciAdi=akifkemalaksu
          */
-        public async Task<IActionResult> Get(AddOrUpdateAndGetMusteriCommand addOrUpdateAndGetMusteriCommand)
+        public async Task<IActionResult> Post(AddOrUpdateAndGetMusteriCommand addOrUpdateAndGetMusteriCommand)
         {
             var response = await _mediator.Send(addOrUpdateAndGetMusteriCommand);
             if (!response.IsSuccessful)

@@ -47,7 +47,6 @@ builder.Services.AddResponseCaching();
 
 builder.Services.RegisterInfrastructure(builder.Configuration);
 builder.Services.RegisterPersistence(builder.Configuration);
-builder.Services.RegisterApplication();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

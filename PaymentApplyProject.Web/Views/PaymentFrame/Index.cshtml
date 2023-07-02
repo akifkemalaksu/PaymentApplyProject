@@ -2,275 +2,641 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+    <base href="../../../">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ödeme Paneli</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="PaymentApplyProject.Web.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Hızlı Para Transfer</title>
+    <meta name="description" content="Wizard examples">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500">
+
+    <link href="assets/css/pages/wizard/wizard-1.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
 
     <style>
-        .custom-container {
-            width: 700px;
-            height: 700px;
+        .zoom {
+            transition: transform .2s; /* Animation */
         }
 
-        @@media only screen and (max-width:700px) {
-            .custom-container {
-                width: 100%;
-                height: 100%;
+            .zoom:hover {
+                transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
             }
-        }
 
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
+        button {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border: thin;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
         }
     </style>
 </head>
-<body>
-    <header>
-    </header>
-    <content>
-        <div class="container custom-container text-center mt-5">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Havale ile Para Yatırım</h2>
-                </div>
-                <div class="card-body">
-                    <div class="bs-stepper">
-                        <div class="bs-stepper-header" role="tablist">
-                            <div class="step" data-target="#banka-part">
-                                <button type="button" class="step-trigger" role="tab" aria-controls="banka-part" id="banka-part-trigger">
-                                    <span class="bs-stepper-circle">1</span>
-                                    <span class="bs-stepper-label">Banka</span>
-                                </button>
-                            </div>
-                            <div class="line"></div>
-                            <div class="step" data-target="#tutar-part">
-                                <button type="button" class="step-trigger" role="tab" aria-controls="tutar-part" id="tutar-part-trigger">
-                                    <span class="bs-stepper-circle">2</span>
-                                    <span class="bs-stepper-label">Tutar</span>
-                                </button>
-                            </div>
-                            <div class="line"></div>
-                            <div class="step" data-target="#hesap-part">
-                                <button type="button" class="step-trigger" role="tab" aria-controls="hesap-part" id="hesap-part-trigger">
-                                    <span class="bs-stepper-circle">3</span>
-                                    <span class="bs-stepper-label">Hesap</span>
-                                </button>
-                            </div>
-                            <div class="line"></div>
-                            <div class="step" data-target="#onay-part">
-                                <button type="button" class="step-trigger" role="tab" aria-controls="onay-part" id="onay-part-trigger">
-                                    <span class="bs-stepper-circle">4</span>
-                                    <span class="bs-stepper-label">Onay</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bs-stepper-content">
-                            <div id="banka-part" class="content" role="tabpanel" aria-labelledby="banka-part-trigger">
-                                <div class="row">
-                                    <div class="col-12 mb-3 text-start border-bottom">
-                                        Banka seçiniz.
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="card">
-                                            <a href="#" class="next" title="Akbank" data-bankaid="1">
-                                                <img src="uploads/images/banks/akbank.png" class="card-img img-fluid" alt="akbank">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="card">
-                                            <a href="#" class="next" title="Denizbank" data-bankaid="2">
-                                                <img src="uploads/images/banks/denizbank.png" class="card-img img-fluid" alt="Denizbank">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="card">
-                                            <a href="#" class="next" title="Garanti" data-bankaid="3">
-                                                <img src="/uploads/images/banks/garanti.png" class="card-img img-fluid" alt="Garanti">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="card">
-                                            <a href="#" class="next" title="QNB Finans" data-bankaid="4">
-                                                <img src="uploads/images/banks/qnbfinans.png" class="card-img img-fluid" alt="QNB Finans">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="bankaId" id="bankaId" />
-                            </div>
-                            <div id="tutar-part" class="content" role="tabpanel" aria-labelledby="tutar-part-trigger">
-                                <div class="alert alert-warning" id="tutar-alert" role="alert" style="display:none;">
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" step=".01" class="form-control" id="tutar" name="tutar" placeholder="Yatırım tutarı giriniz">
-                                    <label for="tutar" class="form-label">Yatırım tutarı giriniz</label>
-                                </div>
-                            </div>
-                            <div id="hesap-part" class="content" role="tabpanel" aria-labelledby="hesap-part-trigger">
-                                <input type="hidden" name="bankaHesapId" id="bankaHesapId" />
-                                <div class="alert alert-warning" id="bilgi-alert" role="alert">
-                                </div>
-                                <div class="mb-3 text-start">
-                                    <label for="iban" class="form-label">IBAN</label>
-                                    <input class="form-control" type="text" id="iban" disabled>
-                                </div>
-                                <div class="mb-3 text-start">
-                                    <label for="adsoyad" class="form-label">Ad Soyad</label>
-                                    <input class="form-control" type="text" id="adsoyad" disabled>
-                                </div>
-                                <p>
-                                    İşleminizi gerçekleştirmenize <span id="counter-text">300</span> kadar saniye kaldı.
-                                </p>
-                            </div>
-                            <div id="onay-part" class="content" role="tabpanel" aria-labelledby="onay-part-trigger">
-                                <i class="fa-solid fa-thumbs-up fa-5x" id="result-icon"></i>
-                                <div class="alert alert-success mt-1" id="result-alert" role="alert">
-                                    Para yatırma talebiniz alınmıştır.
-                                </div>
-                            </div>
 
+<body class="kt-page-content-white kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading">
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-8 col-md-10 col-sm-12 mt-5">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-grid kt-wizard-v1 kt-wizard-v1--white" id="kt_wizard_v1" data-ktwizard-state="first">
+                            <div class="kt-grid__item">
+
+                                <div class="kt-wizard-v1__nav">
+
+                                    <div class="kt-wizard-v1__nav-items kt-wizard-v1__nav-items--clickable">
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="la la-bank"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Banka
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-list"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Tutar
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-responsive"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Hesap
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-truck"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    Sonuç
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="kt-grid__item kt-grid__item--fluid p-5">
+
+                                <form class="kt-form" id="kt_form" novalidate="novalidate">
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                                        <div class="kt-heading kt-heading--md">Banka Seçiniz</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="1">
+                                                        <img class="img-fluid zoom" alt="akbank" src="~/uploads/images/banks/akbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="2">
+                                                        <img class="img-fluid zoom" alt="albaraka" src="~/uploads/images/banks/albaraka.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="3">
+                                                        <img class="img-fluid zoom" alt="denizbank" src="~/uploads/images/banks/denizbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="4">
+                                                        <img class="img-fluid zoom" alt="enpara" src="~/uploads/images/banks/enpara.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="5">
+                                                        <img class="img-fluid zoom" alt="fibabank" src="~/uploads/images/banks/fibabank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="6">
+                                                        <img class="img-fluid zoom" alt="garanti" src="~/uploads/images/banks/garanti.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="7">
+                                                        <img class="img-fluid zoom" alt="halkbank" src="~/uploads/images/banks/halkbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="8">
+                                                        <img class="img-fluid zoom" alt="ingbank" src="~/uploads/images/banks/ingbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="9">
+                                                        <img class="img-fluid zoom" alt="kuveytturk" src="~/uploads/images/banks/kuveytturk.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="10">
+                                                        <img class="img-fluid zoom" alt="odeabank" src="~/uploads/images/banks/odeabank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="11">
+                                                        <img class="img-fluid zoom" alt="qnbfinans" src="~/uploads/images/banks/qnbfinans.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="12">
+                                                        <img class="img-fluid zoom" alt="sekerbank" src="~/uploads/images/banks/sekerbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="13">
+                                                        <img class="img-fluid zoom" alt="teb" src="~/uploads/images/banks/teb.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="14">
+                                                        <img class="img-fluid zoom" alt="turkiyefinans" src="~/uploads/images/banks/turkiyefinans.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="15">
+                                                        <img class="img-fluid zoom" alt="turkiyeisbankasi" src="~/uploads/images/banks/turkiyeisbankasi.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="16">
+                                                        <img class="img-fluid zoom" alt="vakifbank" src="~/uploads/images/banks/vakifbank.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="17">
+                                                        <img class="img-fluid zoom" alt="yapikredi" src="~/uploads/images/banks/yapikredi.png" />
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 my-1">
+                                                    <button class="rounded bank" data-bankaId="18">
+                                                        <img class="img-fluid zoom" alt="ziraat" src="~/uploads/images/banks/ziraat.png" />
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                            <input type="hidden" id="bankaId" name="bankaId" />
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Tutar giriniz</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="tutar" name="tutar">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Select your Services</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Delivery Type</label>
+                                                    <select name="delivery" class="form-control">
+                                                        <option value="">Select a Service Type Option</option>
+                                                        <option value="overnight" selected="">Overnight Delivery (within 48 hours)</option>
+                                                        <option value="express">Express Delivery (within 5 working days)</option>
+                                                        <option value="basic">Basic Delivery (within 5 - 10 working days)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Packaging Type</label>
+                                                    <select name="packaging" class="form-control">
+                                                        <option value="">Select a Packaging Type Option</option>
+                                                        <option value="regular" selected="">Regular Packaging</option>
+                                                        <option value="oversized">Oversized Packaging</option>
+                                                        <option value="fragile">Fragile Packaging</option>
+                                                        <option value="frozen">Frozen Packaging</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Preferred Delivery Window</label>
+                                                    <select name="preferreddelivery" class="form-control">
+                                                        <option value="">Select a Preferred Delivery Option</option>
+                                                        <option value="morning" selected="">Morning Delivery (8:00AM - 11:00AM)</option>
+                                                        <option value="afternoon">Afternoon Delivery (11:00AM - 3:00PM)</option>
+                                                        <option value="evening">Evening Delivery (3:00PM - 7:00PM)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Setup Your Delivery Location</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Address Line 1</label>
+                                                    <input type="text" class="form-control" name="locaddress1" placeholder="Address Line 1" value="Address Line 1">
+                                                    <span class="form-text text-muted">Please enter your Address.</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Address Line 2</label>
+                                                    <input type="text" class="form-control" name="locaddress2" placeholder="Address Line 2" value="Address Line 2">
+                                                    <span class="form-text text-muted">Please enter your Address.</span>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Postcode</label>
+                                                            <input type="text" class="form-control" name="locpostcode" placeholder="Postcode" value="3072">
+                                                            <span class="form-text text-muted">Please enter your Postcode.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>City</label>
+                                                            <input type="text" class="form-control" name="loccity" placeholder="City" value="Preston">
+                                                            <span class="form-text text-muted">Please enter your City.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>State</label>
+                                                            <input type="text" class="form-control" name="locstate" placeholder="State" value="VIC">
+                                                            <span class="form-text text-muted">Please enter your Postcode.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Country:</label>
+                                                            <select name="loccountry" class="form-control">
+                                                                <option value="">Select</option>
+                                                                <option value="AF">Afghanistan</option>
+                                                                <option value="AX">Åland Islands</option>
+                                                                <option value="AL">Albania</option>
+                                                                <option value="DZ">Algeria</option>
+                                                                <option value="AS">American Samoa</option>
+                                                                <option value="AD">Andorra</option>
+                                                                <option value="AO">Angola</option>
+                                                                <option value="AI">Anguilla</option>
+                                                                <option value="AQ">Antarctica</option>
+                                                                <option value="AG">Antigua and Barbuda</option>
+                                                                <option value="AR">Argentina</option>
+                                                                <option value="AM">Armenia</option>
+                                                                <option value="AW">Aruba</option>
+                                                                <option value="AU" selected="">Australia</option>
+                                                                <option value="AT">Austria</option>
+                                                                <option value="AZ">Azerbaijan</option>
+                                                                <option value="BS">Bahamas</option>
+                                                                <option value="BH">Bahrain</option>
+                                                                <option value="BD">Bangladesh</option>
+                                                                <option value="BB">Barbados</option>
+                                                                <option value="BY">Belarus</option>
+                                                                <option value="BE">Belgium</option>
+                                                                <option value="BZ">Belize</option>
+                                                                <option value="BJ">Benin</option>
+                                                                <option value="BM">Bermuda</option>
+                                                                <option value="BT">Bhutan</option>
+                                                                <option value="BO">Bolivia, Plurinational State of</option>
+                                                                <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                                                <option value="BA">Bosnia and Herzegovina</option>
+                                                                <option value="BW">Botswana</option>
+                                                                <option value="BV">Bouvet Island</option>
+                                                                <option value="BR">Brazil</option>
+                                                                <option value="IO">British Indian Ocean Territory</option>
+                                                                <option value="BN">Brunei Darussalam</option>
+                                                                <option value="BG">Bulgaria</option>
+                                                                <option value="BF">Burkina Faso</option>
+                                                                <option value="BI">Burundi</option>
+                                                                <option value="KH">Cambodia</option>
+                                                                <option value="CM">Cameroon</option>
+                                                                <option value="CA">Canada</option>
+                                                                <option value="CV">Cape Verde</option>
+                                                                <option value="KY">Cayman Islands</option>
+                                                                <option value="CF">Central African Republic</option>
+                                                                <option value="TD">Chad</option>
+                                                                <option value="CL">Chile</option>
+                                                                <option value="CN">China</option>
+                                                                <option value="CX">Christmas Island</option>
+                                                                <option value="CC">Cocos (Keeling) Islands</option>
+                                                                <option value="CO">Colombia</option>
+                                                                <option value="KM">Comoros</option>
+                                                                <option value="CG">Congo</option>
+                                                                <option value="CD">Congo, the Democratic Republic of the</option>
+                                                                <option value="CK">Cook Islands</option>
+                                                                <option value="CR">Costa Rica</option>
+                                                                <option value="CI">Côte d'Ivoire</option>
+                                                                <option value="HR">Croatia</option>
+                                                                <option value="CU">Cuba</option>
+                                                                <option value="CW">Curaçao</option>
+                                                                <option value="CY">Cyprus</option>
+                                                                <option value="CZ">Czech Republic</option>
+                                                                <option value="DK">Denmark</option>
+                                                                <option value="DJ">Djibouti</option>
+                                                                <option value="DM">Dominica</option>
+                                                                <option value="DO">Dominican Republic</option>
+                                                                <option value="EC">Ecuador</option>
+                                                                <option value="EG">Egypt</option>
+                                                                <option value="SV">El Salvador</option>
+                                                                <option value="GQ">Equatorial Guinea</option>
+                                                                <option value="ER">Eritrea</option>
+                                                                <option value="EE">Estonia</option>
+                                                                <option value="ET">Ethiopia</option>
+                                                                <option value="FK">Falkland Islands (Malvinas)</option>
+                                                                <option value="FO">Faroe Islands</option>
+                                                                <option value="FJ">Fiji</option>
+                                                                <option value="FI">Finland</option>
+                                                                <option value="FR">France</option>
+                                                                <option value="GF">French Guiana</option>
+                                                                <option value="PF">French Polynesia</option>
+                                                                <option value="TF">French Southern Territories</option>
+                                                                <option value="GA">Gabon</option>
+                                                                <option value="GM">Gambia</option>
+                                                                <option value="GE">Georgia</option>
+                                                                <option value="DE">Germany</option>
+                                                                <option value="GH">Ghana</option>
+                                                                <option value="GI">Gibraltar</option>
+                                                                <option value="GR">Greece</option>
+                                                                <option value="GL">Greenland</option>
+                                                                <option value="GD">Grenada</option>
+                                                                <option value="GP">Guadeloupe</option>
+                                                                <option value="GU">Guam</option>
+                                                                <option value="GT">Guatemala</option>
+                                                                <option value="GG">Guernsey</option>
+                                                                <option value="GN">Guinea</option>
+                                                                <option value="GW">Guinea-Bissau</option>
+                                                                <option value="GY">Guyana</option>
+                                                                <option value="HT">Haiti</option>
+                                                                <option value="HM">Heard Island and McDonald Islands</option>
+                                                                <option value="VA">Holy See (Vatican City State)</option>
+                                                                <option value="HN">Honduras</option>
+                                                                <option value="HK">Hong Kong</option>
+                                                                <option value="HU">Hungary</option>
+                                                                <option value="IS">Iceland</option>
+                                                                <option value="IN">India</option>
+                                                                <option value="ID">Indonesia</option>
+                                                                <option value="IR">Iran, Islamic Republic of</option>
+                                                                <option value="IQ">Iraq</option>
+                                                                <option value="IE">Ireland</option>
+                                                                <option value="IM">Isle of Man</option>
+                                                                <option value="IL">Israel</option>
+                                                                <option value="IT">Italy</option>
+                                                                <option value="JM">Jamaica</option>
+                                                                <option value="JP">Japan</option>
+                                                                <option value="JE">Jersey</option>
+                                                                <option value="JO">Jordan</option>
+                                                                <option value="KZ">Kazakhstan</option>
+                                                                <option value="KE">Kenya</option>
+                                                                <option value="KI">Kiribati</option>
+                                                                <option value="KP">Korea, Democratic People's Republic of</option>
+                                                                <option value="KR">Korea, Republic of</option>
+                                                                <option value="KW">Kuwait</option>
+                                                                <option value="KG">Kyrgyzstan</option>
+                                                                <option value="LA">Lao People's Democratic Republic</option>
+                                                                <option value="LV">Latvia</option>
+                                                                <option value="LB">Lebanon</option>
+                                                                <option value="LS">Lesotho</option>
+                                                                <option value="LR">Liberia</option>
+                                                                <option value="LY">Libya</option>
+                                                                <option value="LI">Liechtenstein</option>
+                                                                <option value="LT">Lithuania</option>
+                                                                <option value="LU">Luxembourg</option>
+                                                                <option value="MO">Macao</option>
+                                                                <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                                                <option value="MG">Madagascar</option>
+                                                                <option value="MW">Malawi</option>
+                                                                <option value="MY">Malaysia</option>
+                                                                <option value="MV">Maldives</option>
+                                                                <option value="ML">Mali</option>
+                                                                <option value="MT">Malta</option>
+                                                                <option value="MH">Marshall Islands</option>
+                                                                <option value="MQ">Martinique</option>
+                                                                <option value="MR">Mauritania</option>
+                                                                <option value="MU">Mauritius</option>
+                                                                <option value="YT">Mayotte</option>
+                                                                <option value="MX">Mexico</option>
+                                                                <option value="FM">Micronesia, Federated States of</option>
+                                                                <option value="MD">Moldova, Republic of</option>
+                                                                <option value="MC">Monaco</option>
+                                                                <option value="MN">Mongolia</option>
+                                                                <option value="ME">Montenegro</option>
+                                                                <option value="MS">Montserrat</option>
+                                                                <option value="MA">Morocco</option>
+                                                                <option value="MZ">Mozambique</option>
+                                                                <option value="MM">Myanmar</option>
+                                                                <option value="NA">Namibia</option>
+                                                                <option value="NR">Nauru</option>
+                                                                <option value="NP">Nepal</option>
+                                                                <option value="NL">Netherlands</option>
+                                                                <option value="NC">New Caledonia</option>
+                                                                <option value="NZ">New Zealand</option>
+                                                                <option value="NI">Nicaragua</option>
+                                                                <option value="NE">Niger</option>
+                                                                <option value="NG">Nigeria</option>
+                                                                <option value="NU">Niue</option>
+                                                                <option value="NF">Norfolk Island</option>
+                                                                <option value="MP">Northern Mariana Islands</option>
+                                                                <option value="NO">Norway</option>
+                                                                <option value="OM">Oman</option>
+                                                                <option value="PK">Pakistan</option>
+                                                                <option value="PW">Palau</option>
+                                                                <option value="PS">Palestinian Territory, Occupied</option>
+                                                                <option value="PA">Panama</option>
+                                                                <option value="PG">Papua New Guinea</option>
+                                                                <option value="PY">Paraguay</option>
+                                                                <option value="PE">Peru</option>
+                                                                <option value="PH">Philippines</option>
+                                                                <option value="PN">Pitcairn</option>
+                                                                <option value="PL">Poland</option>
+                                                                <option value="PT">Portugal</option>
+                                                                <option value="PR">Puerto Rico</option>
+                                                                <option value="QA">Qatar</option>
+                                                                <option value="RE">Réunion</option>
+                                                                <option value="RO">Romania</option>
+                                                                <option value="RU">Russian Federation</option>
+                                                                <option value="RW">Rwanda</option>
+                                                                <option value="BL">Saint Barthélemy</option>
+                                                                <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                                                <option value="KN">Saint Kitts and Nevis</option>
+                                                                <option value="LC">Saint Lucia</option>
+                                                                <option value="MF">Saint Martin (French part)</option>
+                                                                <option value="PM">Saint Pierre and Miquelon</option>
+                                                                <option value="VC">Saint Vincent and the Grenadines</option>
+                                                                <option value="WS">Samoa</option>
+                                                                <option value="SM">San Marino</option>
+                                                                <option value="ST">Sao Tome and Principe</option>
+                                                                <option value="SA">Saudi Arabia</option>
+                                                                <option value="SN">Senegal</option>
+                                                                <option value="RS">Serbia</option>
+                                                                <option value="SC">Seychelles</option>
+                                                                <option value="SL">Sierra Leone</option>
+                                                                <option value="SG">Singapore</option>
+                                                                <option value="SX">Sint Maarten (Dutch part)</option>
+                                                                <option value="SK">Slovakia</option>
+                                                                <option value="SI">Slovenia</option>
+                                                                <option value="SB">Solomon Islands</option>
+                                                                <option value="SO">Somalia</option>
+                                                                <option value="ZA">South Africa</option>
+                                                                <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                                                <option value="SS">South Sudan</option>
+                                                                <option value="ES">Spain</option>
+                                                                <option value="LK">Sri Lanka</option>
+                                                                <option value="SD">Sudan</option>
+                                                                <option value="SR">Suriname</option>
+                                                                <option value="SJ">Svalbard and Jan Mayen</option>
+                                                                <option value="SZ">Swaziland</option>
+                                                                <option value="SE">Sweden</option>
+                                                                <option value="CH">Switzerland</option>
+                                                                <option value="SY">Syrian Arab Republic</option>
+                                                                <option value="TW">Taiwan, Province of China</option>
+                                                                <option value="TJ">Tajikistan</option>
+                                                                <option value="TZ">Tanzania, United Republic of</option>
+                                                                <option value="TH">Thailand</option>
+                                                                <option value="TL">Timor-Leste</option>
+                                                                <option value="TG">Togo</option>
+                                                                <option value="TK">Tokelau</option>
+                                                                <option value="TO">Tonga</option>
+                                                                <option value="TT">Trinidad and Tobago</option>
+                                                                <option value="TN">Tunisia</option>
+                                                                <option value="TR">Turkey</option>
+                                                                <option value="TM">Turkmenistan</option>
+                                                                <option value="TC">Turks and Caicos Islands</option>
+                                                                <option value="TV">Tuvalu</option>
+                                                                <option value="UG">Uganda</option>
+                                                                <option value="UA">Ukraine</option>
+                                                                <option value="AE">United Arab Emirates</option>
+                                                                <option value="GB">United Kingdom</option>
+                                                                <option value="US">United States</option>
+                                                                <option value="UM">United States Minor Outlying Islands</option>
+                                                                <option value="UY">Uruguay</option>
+                                                                <option value="UZ">Uzbekistan</option>
+                                                                <option value="VU">Vanuatu</option>
+                                                                <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                                                <option value="VN">Viet Nam</option>
+                                                                <option value="VG">Virgin Islands, British</option>
+                                                                <option value="VI">Virgin Islands, U.S.</option>
+                                                                <option value="WF">Wallis and Futuna</option>
+                                                                <option value="EH">Western Sahara</option>
+                                                                <option value="YE">Yemen</option>
+                                                                <option value="ZM">Zambia</option>
+                                                                <option value="ZW">Zimbabwe</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Review your Details and Submit</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__review">
+                                                <div class="kt-wizard-v1__review-item">
+                                                    <div class="kt-wizard-v1__review-title">
+                                                        Current Address
+                                                    </div>
+                                                    <div class="kt-wizard-v1__review-content">
+                                                        Address Line 1<br>
+                                                        Address Line 2<br>
+                                                        Melbourne 3000, VIC, Australia
+                                                    </div>
+                                                </div>
+                                                <div class="kt-wizard-v1__review-item">
+                                                    <div class="kt-wizard-v1__review-title">
+                                                        Delivery Details
+                                                    </div>
+                                                    <div class="kt-wizard-v1__review-content">
+                                                        Package: Complete Workstation (Monitor, Computer, Keyboard &amp; Mouse)<br>
+                                                        Weight: 25kg<br>
+                                                        Dimensions: 110cm (w) x 90cm (h) x 150cm (L)
+                                                    </div>
+                                                </div>
+                                                <div class="kt-wizard-v1__review-item">
+                                                    <div class="kt-wizard-v1__review-title">
+                                                        Delivery Service Type
+                                                    </div>
+                                                    <div class="kt-wizard-v1__review-content">
+                                                        Overnight Delivery with Regular Packaging<br>
+                                                        Preferred Morning (8:00AM - 11:00AM) Delivery
+                                                    </div>
+                                                </div>
+                                                <div class="kt-wizard-v1__review-item">
+                                                    <div class="kt-wizard-v1__review-title">
+                                                        Delivery Address
+                                                    </div>
+                                                    <div class="kt-wizard-v1__review-content">
+                                                        Address Line 1<br>
+                                                        Address Line 2<br>
+                                                        Preston 3072, VIC, Australia
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-form__actions">
+                                        <button class="btn btn-block btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u d-none" data-ktwizard-type="action-next">
+                                            Sonraki Adım
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-footer" id="card-footer" style="display:none;">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary next" id="next-button" type="button">Sonraki Adım</button>
-                        <a class="btn btn-secondary" id="back-to-main-page" href="https://grandpashabet1333.com" style="display:none;">Sayfaya Geri Dön</a>
                     </div>
                 </div>
             </div>
         </div>
-    </content>
-    <footer class="border-top footer text-muted">
-    </footer>
-
+    </div>
     <script>
-        let backToMainPageButton = document.getElementById("back-to-main-page");
-        let nextButton = document.getElementById("next-button");
-        let cardFooter = document.getElementById("card-footer");
-        let bilgiAlert = document.getElementById("bilgi-alert");
-        let tutarAlert = document.getElementById("tutar-alert");
-        let nextSteps = document.getElementsByClassName("next");
-
-        let bankaIdInput = document.getElementById("bankaId");
-        let tutarInput = document.getElementById("tutar");
-        let bankaHesapIdInput = document.getElementById("bankaHesapId");
-
-        let ibanInput = document.getElementById("iban")
-        let adsoyadInput = document.getElementById("adsoyad")
-        let counterText = document.getElementById("counter-text")
-
-        let resultIcon = document.getElementById("result-icon")
-        let resultAlert = document.getElementById("result-alert")
-
-        GetBankaHesabi = async (data) => {
-            let resultJson = await fetchHelper.send("paymentframe/getaccountinfo", "POST", data)
-            return resultJson
-        }
-
-        CounterFunc = () => {
-            let sayac = parseInt(counterText.innerHTML)
-
-            setInterval(() => {
-                sayac--
-                counterText.innerHTML = sayac
-                if (sayac == 0)
-                    window.location.reload()
-            }, 1000)
-        }
-
-        ParaYatirmaTalepKaydet = async (data) => {
-            let resultJson = await fetchHelper.send("paymentframe/savepayment", "POST", data)
-            return resultJson
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            let stepper = new Stepper(document.querySelector('.bs-stepper'));
-
-            for (let i = 0; i < nextSteps.length; i++)
-                nextSteps[i].addEventListener('click', async () => {
-                    let currentIndex = stepper._currentIndex;
-                    let currentStep = stepper._steps[currentIndex]
-
-                    let currentStepName = currentStep.dataset.target;
-                    if (currentStepName === "#banka-part") {
-                        let bankaId = nextSteps[i].dataset.bankaid;
-                        bankaIdInput.value = bankaId;
-
-                        cardFooter.style.display = 'block'
-                    }
-                    else if (currentStepName === "#tutar-part") {
-                        let tutar = parseFloat(tutarInput.value);
-                        if (isNaN(tutar) || tutar == 0) {
-                            tutarAlert.style.display = "block";
-                            tutarAlert.innerHTML = "Lütfen geçerli bir tutar giriniz.";
-                            return;
-                        }
-
-                        let data = {
-                            bankaId: bankaIdInput.value,
-                            tutar: tutar
-                        }
-                        let result = await GetBankaHesabi(data)
-                        if (!result.isSuccessful) {
-                            tutarAlert.style.display = "block";
-                            tutarAlert.innerHTML = "Lütfen belirlenen değerler arasında bir tutar giriniz.";
-                            return;
-                        }
-
-                        nextButton.innerHTML = "Ödeme Yaptım"
-                        bankaHesapIdInput.value = result.data.bankaHesapId
-                        ibanInput.value = result.data.hesapNumarasi
-                        adsoyadInput.value = `${result.data.ad} ${result.data.soyad}`
-                        bilgiAlert.innerHTML = `Kendi adınıza ait hesap üzerinden ${tutar} TL tutarı aşağıdaki hesaba gönderdikten sonra onayla butonuna basınız.`;
-
-                        CounterFunc()
-                    }
-                    else if (currentStepName === "#hesap-part") {
-                        let data = {
-                            musteriId: "@ViewBag.MusteriId",
-                            bankaHesapId: bankaHesapIdInput.value,
-                            tutar: tutarInput.value
-                        }
-
-                        let result = await ParaYatirmaTalepKaydet(data)
-
-                        if (!result.isSuccessful) {
-                            resultIcon.classList.add("fa-thumbs-down");
-                            resultAlert.classList.add("alert-danger");
-                            resultAlert.innerHTML = `İşlemde bir hata oluştu, ${result.message}`
-                        }
-                        nextButton.style.display = 'none'
-                        backToMainPageButton.style.display = 'block'
-                    }
-
-                    stepper.next();
-                });
-        });
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#5d78ff",
+                    "light": "#ffffff",
+                    "dark": "#282a3c",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+                    "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+                }
+            }
+        };
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/fetchHelper.js"></script>
+    <script src="~/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/assets/js/scripts.bundle.js" type="text/javascript"></script>
+    <script src="~/js/pages/paymentFrame/paymentFrame.js" type="text/javascript"></script>
+    <script src="~/assets/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>
 </body>
+
 </html>

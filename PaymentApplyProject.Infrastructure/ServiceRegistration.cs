@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
@@ -26,7 +28,11 @@ namespace PaymentApplyProject.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
+            services.AddMediatR(conf =>
+            {
+                conf.RegisterServicesFromAssembly(typeof(IPaymentContext).Assembly);
+                conf.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
+            });
 
             services.AddSingleton<ICustomMapper, MapstersMapper>();
 

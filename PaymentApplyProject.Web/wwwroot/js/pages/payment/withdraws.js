@@ -53,11 +53,11 @@ datatableHelper.datatableOptions.columns = [
     { data: "islemTarihi" },
     {
         data: "tutar",
-        render: (data) => moneyFormatter.format(data)
+        render: (data) => formatter.toMoney.format(data)
     },
     {
         data: "onaylananTutar",
-        render: (data) => moneyFormatter.format(data)
+        render: (data) => formatter.toMoney.format(data)
     },
     {
         data: function (data, type, full, meta) {
@@ -101,37 +101,45 @@ let goruntuleDefines = () => {
             return;
         }
 
-        let data = {
-            id: idInput.val(),
-            tutar: onaylanacakTutar
-        }
-        let result = await fetchHelper.send("/payment/Approvewithdraw", "post", data)
+        swal.basicWithTwoButtonFunc("Uyarı", "Talebi onaylamak istediğinize emin misiniz?", icons.warning,
+            async (result) => {
+                if (result.value) {
+                    let data = {
+                        id: idInput.val(),
+                        tutar: onaylanacakTutar
+                    }
+                    let result = await fetchHelper.send("/payment/Approvewithdraw", "post", data)
 
-        if (!result.isSuccessful) {
-            swal.basic("Hata!", result.message, icons.error)
-            return;
-        }
+                    if (!result.isSuccessful) {
+                        swal.basic("Hata!", result.message, icons.error)
+                        return;
+                    }
 
-        swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
-            $("#kt_modal").modal('hide')
-            datatableHelper.dtTable.draw()
-        })
+                    swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+                        $("#kt_modal").modal('hide')
+                        datatableHelper.dtTable.draw()
+                    })
+                }
+            })
     })
 
-    reddetButton.on("click", async () => {
-        let data = {
-            id: idInput.val()
-        }
-        let result = await fetchHelper.send("/payment/Rejectwithdraw", "post", data)
+    reddetButton.on("click", () => swal.basicWithTwoButtonFunc("Uyarı", "Talebi reddetmek istediğinize emin misiniz?", icons.warning,
+        async (result) => {
+            if (result.value) {
+                let data = {
+                    id: idInput.val()
+                }
+                let result = await fetchHelper.send("/payment/Rejectwithdraw", "post", data)
 
-        if (!result.isSuccessful) {
-            swal.basic("Hata!", result.message, icons.error)
-            return;
+                if (!result.isSuccessful) {
+                    swal.basic("Hata!", result.message, icons.error)
+                    return;
+                }
+                swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+                    $("#kt_modal").modal('hide')
+                    datatableHelper.dtTable.draw()
+                })
+            }
         }
-
-        swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
-            $("#kt_modal").modal('hide')
-            datatableHelper.dtTable.draw()
-        })
-    })
+    ))
 }

@@ -39,10 +39,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
                     && x.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.BEKLIYOR
                     && !x.SilindiMi, cancellationToken) > 0;
             if (isExistsParaYatirma)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<AddParaYatirmaResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
-            }
 
             //var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.Id == request.MusteriId);
             //CreateDepositDto createDeposit = new()

@@ -25,21 +25,12 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.ApprovePara
                 , cancellationToken);
 
             if (paraCekme == null)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(ParaCekme)));
-            }
 
             if (paraCekme.ParaCekmeDurumId == ParaCekmeDurumSabitler.REDDEDILDI)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
-            }
             else if (paraCekme.ParaCekmeDurumId == ParaCekmeDurumSabitler.ONAYLANDI)
-            {
-                await _paymentContext.RollbackTransactionAsync(cancellationToken);
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
-            }
 
             paraCekme.ParaCekmeDurumId = ParaCekmeDurumSabitler.ONAYLANDI;
             paraCekme.OnaylananTutar = request.Tutar;
