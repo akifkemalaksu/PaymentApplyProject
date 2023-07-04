@@ -39,13 +39,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
@@ -81,13 +81,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("HesapNumarasi")
                         .IsRequired()
@@ -136,13 +136,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");
@@ -173,13 +173,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("RequestCode")
                         .IsRequired()
@@ -216,7 +216,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
@@ -227,7 +227,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -264,7 +264,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
@@ -273,7 +273,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("KullaniciId")
                         .HasColumnType("integer");
@@ -302,13 +302,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("KullaniciId")
                         .HasColumnType("integer");
@@ -348,7 +348,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
@@ -357,7 +357,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -391,7 +391,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
@@ -400,18 +400,18 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("HesapNumarasi")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime?>("IslemTarihi")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime?>("IslemTarihi")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
@@ -449,7 +449,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
@@ -458,13 +458,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("IslemTarihi")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("MusteriId")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime?>("IslemTarihi")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("OnaylananTutar")
                         .HasColumnType("numeric");
@@ -506,13 +506,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("EkleyenKullaniciId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("SilindiMi")
                         .HasColumnType("boolean");

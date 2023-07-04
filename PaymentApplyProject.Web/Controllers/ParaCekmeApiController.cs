@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById;
 using PaymentApplyProject.Application.ControllerBases;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
+    [Authorize(Roles = "customer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParaCekmeApiController : CustomApiControllerBase
