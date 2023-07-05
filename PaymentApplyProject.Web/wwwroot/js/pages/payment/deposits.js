@@ -106,7 +106,7 @@ let goruntule = async (id, musteriAdSoyad) => {
 let goruntuleDefines = () => {
     let onaylaButton = $("#onayla")
     let reddetButton = $("#reddet")
-    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '.', decimal: ',', allowZero: false });
+    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '', precision:false, allowZero: false });
     let idInput = $("#id")
 
     onaylaButton.on("click", async () => {

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    //[Authorize(Roles = "user")]
+    [Authorize(Roles = "customer")]
     public class PaymentFrameController : CustomController
     {
         private readonly IMediator _mediator;

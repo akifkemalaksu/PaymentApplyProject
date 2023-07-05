@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class setubDb : Migration
+    public partial class setupDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,8 +22,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,8 +42,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,8 +62,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,8 +102,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,8 +126,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,8 +154,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,8 +179,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -210,8 +210,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -238,16 +238,16 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MusteriId = table.Column<int>(type: "integer", nullable: false),
                     ParaCekmeDurumId = table.Column<short>(type: "smallint", nullable: false),
-                    HesapNumarasi = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    HesapNumarasi = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Tutar = table.Column<decimal>(type: "numeric", nullable: false),
                     OnaylananTutar = table.Column<decimal>(type: "numeric", nullable: true),
-                    IslemTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IslemTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     EntegrasyonId = table.Column<int>(type: "integer", nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -277,13 +277,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                     BankaHesabiId = table.Column<int>(type: "integer", nullable: false),
                     Tutar = table.Column<decimal>(type: "numeric", nullable: false),
                     OnaylananTutar = table.Column<decimal>(type: "numeric", nullable: true),
-                    IslemTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IslemTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     EntegrasyonId = table.Column<int>(type: "integer", nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
-                    EklemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    EklemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    GuncellemeTarihi = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {

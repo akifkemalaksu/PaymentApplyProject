@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using System;
 using PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAndGetMusteri;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
+    [Authorize(Roles = "customer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParaYatirmaApiController : CustomApiControllerBase
