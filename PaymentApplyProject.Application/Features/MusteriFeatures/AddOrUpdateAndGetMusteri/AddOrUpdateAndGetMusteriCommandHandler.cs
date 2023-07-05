@@ -27,7 +27,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAn
             var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi, cancellationToken);
             if (musteri == null)
             {
-                musteri = new Musteri
+                musteri = new()
                 {
                     KullaniciAdi = request.MusteriKullaniciAdi,
                     Ad = request.MusteriAd,

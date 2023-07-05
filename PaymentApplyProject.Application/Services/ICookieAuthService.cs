@@ -11,5 +11,6 @@ namespace PaymentApplyProject.Application.Services
     public interface ICookieAuthService
     {
         public Task SignInAsync(KullaniciDto kullaniciDto, bool rememberMe);
+        public Task SignOutAsync();
     }
 }

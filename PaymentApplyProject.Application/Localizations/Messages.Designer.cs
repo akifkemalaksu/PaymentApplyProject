@@ -142,6 +142,15 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aynı hesap numarasına sahip kayıt mevcut..
+        /// </summary>
+        internal static string ThereIsSameAccountNumber {
+            get {
+                return ResourceManager.GetString("ThereIsSameAccountNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bu firma kodu tanımlı değil..
         /// </summary>
         internal static string ThisCodeNotDefined {

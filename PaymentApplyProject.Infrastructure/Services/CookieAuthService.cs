@@ -48,5 +48,7 @@ namespace PaymentApplyProject.Infrastructure.Services
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
         }
+
+        public Task SignOutAsync() => _httpContextAccessor.HttpContext.SignOutAsync();
     }
 }

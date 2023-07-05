@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
 
         public async Task<Response<AddParaYatirmaResult>> Handle(AddParaYatirmaCommand request, CancellationToken cancellationToken)
         {
-            var paraYatirma = new ParaYatirma
+            ParaYatirma paraYatirma = new()
             {
                 MusteriId = request.MusteriId,
                 ParaYatirmaDurumId = ParaYatirmaDurumSabitler.BEKLIYOR,
@@ -34,10 +34,10 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYa
             await _paymentContext.ParaYatirmalar.AddAsync(paraYatirma, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var isExistsParaYatirma = await _paymentContext.ParaYatirmalar.CountAsync(x =>
+            var isExistsParaYatirma = await _paymentContext.ParaYatirmalar.AnyAsync(x =>
                     x.MusteriId == request.MusteriId
                     && x.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.BEKLIYOR
-                    && !x.SilindiMi, cancellationToken) > 0;
+                    && !x.SilindiMi, cancellationToken);
             if (isExistsParaYatirma)
                 return Response<AddParaYatirmaResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 

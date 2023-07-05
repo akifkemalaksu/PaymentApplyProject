@@ -5,6 +5,7 @@ using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Features.KullaniciFeatures.Login;
+using PaymentApplyProject.Application.Features.KullaniciFeatures.Logout;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -22,6 +23,12 @@ namespace PaymentApplyProject.Web.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _mediator.Send(new LogoutCommand());
+            return RedirectToAction("Login");
         }
 
         [AllowAnonymous]

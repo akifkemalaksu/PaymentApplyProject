@@ -1,9 +1,11 @@
-﻿let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
+﻿let filtreleButton = $('#kt_search');
+let resetButton = $('#kt_reset');
+
+let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
 let firmaSelect = $("#firmaId").select2(GetSelectOption({ url: "Firmalar", extraOptions: extraOptions }));
 let musteriSelect = $("#musteriId").select2(GetSelectOption({ url: "Musteriler", extraOptions: extraOptions }));
 let durumSelect = $("#durumId").select2();
-let filtreleButton = $('#kt_search');
-let resetButton = $('#kt_reset');
+
 firmaSelect.on('select2:select', function (e) {
     let extraData = [];
     extraData.push({
@@ -29,7 +31,6 @@ datatableHelper.datatableOptions.ajax = {
         d.durumId = durumSelect.val()
     }
 };
-
 datatableHelper.datatableOptions.columnDefs = [
     { "className": "dt-center", "targets": [10] }
 ]
@@ -69,18 +70,17 @@ datatableHelper.datatableOptions.columns = [
         },
     }
 ];
-
 datatableHelper.initialize($("#kt_table_1"));
 
 let goruntule = async (id, musteriAdSoyad) => {
-    let resultJson = await fetchHelper.sendText(`/payment/ViewWithdrawPartial/${id}`, httpMethods.get);
+    let resultHtml = await fetchHelper.sendText(`/payment/ViewWithdrawPartial/${id}`, httpMethods.get);
 
     let ktModal = $("#kt_modal")
     let modalHeader = ktModal.find(".modal-title");
     let modalBody = ktModal.find(".modal-body");
 
     modalHeader.html(`${id} - ${musteriAdSoyad} - Para Çekme İşlemi`);
-    modalBody.html(resultJson);
+    modalBody.html(resultHtml);
 
     goruntuleDefines()
 
@@ -111,11 +111,11 @@ let goruntuleDefines = () => {
                     let result = await fetchHelper.send("/payment/Approvewithdraw", httpMethods.post, data)
 
                     if (!result.isSuccessful) {
-                        swal.basic("Hata!", result.message, icons.error)
+                        swal.basic("Hata", result.message, icons.error)
                         return;
                     }
 
-                    swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+                    swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => {
                         $("#kt_modal").modal('hide')
                         datatableHelper.dtTable.draw()
                     })
@@ -132,10 +132,10 @@ let goruntuleDefines = () => {
                 let result = await fetchHelper.send("/payment/Rejectwithdraw", httpMethods.post, data)
 
                 if (!result.isSuccessful) {
-                    swal.basic("Hata!", result.message, icons.error)
+                    swal.basic("Hata", result.message, icons.error)
                     return;
                 }
-                swal.basicWithOneButtonFunc("Başarılı!", result.message, icons.success, () => {
+                swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => {
                     $("#kt_modal").modal('hide')
                     datatableHelper.dtTable.draw()
                 })

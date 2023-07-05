@@ -14,12 +14,10 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
     public class AddParaCekmeCommandHandler : IRequestHandler<AddParaCekmeCommand, Response<AddParaCekmeResult>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AddParaCekmeCommandHandler(IPaymentContext paymentContext, IHttpContextAccessor httpContextAccessor)
+        public AddParaCekmeCommandHandler(IPaymentContext paymentContext)
         {
             _paymentContext = paymentContext;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Response<AddParaCekmeResult>> Handle(AddParaCekmeCommand request, CancellationToken cancellationToken)
@@ -46,14 +44,14 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekm
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
-            var isExistsParaCekme = await _paymentContext.ParaCekmeler.CountAsync(x =>
+            var isExistsParaCekme = await _paymentContext.ParaCekmeler.AnyAsync(x =>
                     x.MusteriId == musteri.Id
                     && x.ParaCekmeDurumId == ParaCekmeDurumSabitler.BEKLIYOR
-                    && !x.SilindiMi, cancellationToken) > 0;
+                    && !x.SilindiMi, cancellationToken);
             if (isExistsParaCekme)
                 return Response<AddParaCekmeResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
-            var addParaCekme = new ParaCekme
+            ParaCekme addParaCekme = new()
             {
                 MusteriId = musteri.Id,
                 Tutar = request.Tutar,

@@ -1,5 +1,4 @@
 ﻿let formEl = $('#kt_form');
-
 let validator = formEl.validate({
     ignore: ":hidden",
     rules: {
@@ -27,7 +26,6 @@ let bankButtonClickEventDefine = () => $(".bank").on('click', (btn) => {
     bankaIdInput.val(bankaId);
     btnNext.click();
 })
-
 bankButtonClickEventDefine()
 
 let btnNext = $('button[data-ktwizard-type="action-next"]')
@@ -86,7 +84,7 @@ let getBankaHesabiBilgisi = async () => {
     }
     let result = await fetchHelper.send("/paymentframe/getaccountinfo", httpMethods.post, data)
     if (!result.isSuccessful) {
-        swal.basic("Uyarı!", result.message, icons.warning)
+        swal.basic("Uyarı", result.message, icons.warning)
         return false
     }
     bankaHesapIdInput.val(result.data.bankaHesapId);
@@ -97,7 +95,6 @@ let getBankaHesabiBilgisi = async () => {
 
     return true
 }
-
 
 let fillBankaHesapBilgileriArea = (data) => {
 
