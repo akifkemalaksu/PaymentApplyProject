@@ -2,43 +2,57 @@
 @using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankAccountById
 @model Response<GetBankAccountByIdResult>
 
-<form asp-action="editbankaccount" class="kt-form" id="kt_form">
-    <input type="hidden" asp-for="Data.Id" />
-    <div class="kt-portlet__body">
-        <div class="form-group">
-            <label>Banka:</label>
-            <select class="form-control" asp-for="Data.BankaId">
-                <option selected value="@Model.Data.BankaId">@Model.Data.Banka</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Hesap Numarası:</label>
-            <input type="text" class="form-control" asp-for="Data.HesapNumarasi" value="@Model.Data.HesapNumarasi">
-        </div>
-        <div class="form-group">
-            <label>Ad:</label>
-            <input type="text" class="form-control" asp-for="Data.Ad" value="@Model.Data.Ad">
-        </div>
-        <div class="form-group">
-            <label>Soyad:</label>
-            <input type="text" class="form-control" asp-for="Data.Soyad" value="@Model.Data.Soyad">
-        </div>
-        <div class="form-group">
-            <label>Alt Limit:</label>
-            <input type="text" class="form-control money" asp-for="Data.AltLimit" value="@Model.Data.AltLimit">
-        </div>
-        <div class="form-group">
-            <label>Üst Limit:</label>
-            <input type="text" class="form-control money" asp-for="Data.UstLimit" value="@Model.Data.UstLimit">
-        </div>
-        <div class="form-group">
-            <label>Aktif:</label>
-            <span class="kt-switch kt-switch--lg kt-switch--icon kt-switch--primary">
-                <label>
-                    <input type="checkbox" class="form-control" asp-for="Data.AktifMi" checked="@Model.Data.AktifMi">
-                    <span></span>
-                </label>
-            </span>
+@if (!Model.IsSuccessful)
+{
+    <div class="alert alert-danger" role="alert">
+        <div class="alert-icon"><i class="flaticon-warning"></i></div>
+        <div class="alert-text">
+            <h4 class="alert-heading">Uyarı!</h4>
+            <p>@Model.Message</p>
         </div>
     </div>
-</form>
+}
+else
+{
+    <form asp-action="editbankaccount" class="kt-form" id="kt_form">
+        <input type="hidden" asp-for="Data.Id" name="Id" />
+        <div class="kt-portlet__body">
+            <div class="form-group">
+                <label>Banka:</label>
+                <select class="form-control" asp-for="Data.BankaId" name="BankaId">
+                    <option selected value="@Model.Data.BankaId">@Model.Data.Banka</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Hesap Numarası:</label>
+                <input type="text" class="form-control" asp-for="Data.HesapNumarasi" name="HesapNumarasi" value="@Model.Data.HesapNumarasi">
+            </div>
+            <div class="form-group">
+                <label>Ad:</label>
+                <input type="text" class="form-control" asp-for="Data.Ad" name="Ad" value="@Model.Data.Ad">
+            </div>
+            <div class="form-group">
+                <label>Soyad:</label>
+                <input type="text" class="form-control" asp-for="Data.Soyad" name="Soyad" value="@Model.Data.Soyad">
+            </div>
+            <div class="form-group">
+                <label>Alt Limit:</label>
+                <input type="text" class="form-control money" asp-for="Data.AltLimit" name="AltLimit" value="@Model.Data.AltLimit">
+            </div>
+            <div class="form-group">
+                <label>Üst Limit:</label>
+                <input type="text" class="form-control money" asp-for="Data.UstLimit" name="UstLimit" value="@Model.Data.UstLimit">
+            </div>
+            <div class="form-group row">
+                <label class="col-12">Aktif:</label>
+                <span class="kt-switch kt-switch--lg kt-switch--icon kt-switch--primary col-12">
+                    <label>
+                        <input type="checkbox" class="form-control" asp-for="Data.AktifMi" name="AktifMi" checked="@Model.Data.AktifMi">
+                        <span></span>
+                    </label>
+                </span>
+            </div>
+        </div>
+    </form>
+}
+

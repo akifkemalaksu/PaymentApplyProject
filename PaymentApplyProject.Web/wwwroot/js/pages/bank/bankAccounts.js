@@ -121,7 +121,7 @@ let addBankaAccountDefines = () => {
     });
 
     formEl.find('[name="BankaId"]').serverSelect2({ url: "Bankalar" })
-    formEl.find('.money').maskMoney({ thousands: '', precision: false, allowZero: false })
+    formEl.find('.money').maskMoney({ thousands: '', allowZero: true, precision: false })
 }
 
 let save = (form) => {
@@ -129,19 +129,14 @@ let save = (form) => {
 
     $(form).ajaxSubmit({
         success: function (response, status, xhr, $form) {
-            saveButton('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-            if (response.isSuccessful)
-                window.location.href = "/";
-            else {
-                showErrorMsg(form, 'danger', response.message);
-            }
+            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
 
-            if (!result.isSuccessful) {
-                swal.basic("Hata", result.message, icons.error)
+            if (!response.isSuccessful) {
+                swal.basic("Hata", response.message, icons.error)
                 return;
             }
 
-            swal.basicWithOneButtonFunc("Baþarýlý", result.message, icons.success, () => {
+            swal.basicWithOneButtonFunc("Baþarýlý", response.message, icons.success, () => {
                 $("#kt_modal").modal('hide')
                 datatableHelper.dtTable.draw()
             })

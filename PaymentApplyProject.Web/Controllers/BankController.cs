@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAccount;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.DeleteBankAccount;
+using PaymentApplyProject.Application.Features.BankaHesabiFeatures.EditBankAccount;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankAccountById;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankAccountsForDatatable;
 using System.Data;
@@ -52,6 +53,13 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> AddBankAccount(AddBankAccountCommand addBankAccountCommand)
         {
             var result = await _mediator.Send(addBankAccountCommand);
+            return CreateResult(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditBankAccount(EditBankAccountCommand editBankAccountCommand)
+        {
+            var result = await _mediator.Send(editBankAccountCommand);
             return CreateResult(result);
         }
 
