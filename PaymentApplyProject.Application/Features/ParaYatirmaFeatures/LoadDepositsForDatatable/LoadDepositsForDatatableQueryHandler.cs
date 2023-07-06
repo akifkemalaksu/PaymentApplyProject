@@ -50,8 +50,8 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepos
                 Durum = x.ParaYatirmaDurum.Ad,
                 DurumId = x.ParaYatirmaDurumId,
                 Id = x.Id,
-                IslemTarihi = x.IslemTarihi != null ? x.IslemTarihi.Value.ToString("dd.MM.yy hh:mm") : string.Empty,
-                TalepTarihi = x.EklemeTarihi.ToString("dd.MM.yy hh:mm"),
+                IslemTarihi = x.IslemTarihi,
+                TalepTarihi = x.EklemeTarihi,
             });
 
             var orderCriteria = "Id";

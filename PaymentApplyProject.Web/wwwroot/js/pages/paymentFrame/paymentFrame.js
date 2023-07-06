@@ -71,7 +71,6 @@ let bankaHesapIdInput = $("#bankaHesapId");
 let musteriIdInput = $("#musteriId");
 let tutarInput = $("#tutar");
 
-$.validator.messages.required = "Bu alan zorunludur."
 let tutarDefines = () => {
     tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
 }

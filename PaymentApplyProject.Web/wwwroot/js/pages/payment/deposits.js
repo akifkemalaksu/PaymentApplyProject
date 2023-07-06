@@ -2,10 +2,10 @@
 let resetButton = $('#kt_reset');
 
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let firmaSelect = $("#firmaId").select2(GetSelectOption({ url: "Firmalar", extraOptions: extraOptions }));
-let musteriSelect = $("#musteriId").select2(GetSelectOption({ url: "Musteriler", extraOptions: extraOptions }));
-let bankaSelect = $("#bankaId").select2(GetSelectOption({ url: "Bankalar", extraOptions: extraOptions }));
-let bankaHesapSelect = $("#bankaHesapId").select2(GetSelectOption({ url: "BankaHesaplar", extraOptions: extraOptions }));
+let firmaSelect = $("#firmaId").serverSelect2({ url: "Firmalar", extraOptions: extraOptions });
+let musteriSelect = $("#musteriId").serverSelect2({ url: "Musteriler", extraOptions: extraOptions });
+let bankaSelect = $("#bankaId").serverSelect2({ url: "Bankalar", extraOptions: extraOptions });
+let bankaHesapSelect = $("#bankaHesapId").serverSelect2({ url: "BankaHesaplar", extraOptions: extraOptions });
 let durumSelect = $("#durumId").select2();
 
 firmaSelect.on('select2:select', function (e) {
@@ -15,7 +15,7 @@ firmaSelect.on('select2:select', function (e) {
         value: this.value
     });
     musteriSelect.val(0).trigger("change");
-    musteriSelect.select2(GetSelectOption({ url: "Musteriler", extraOptions: extraOptions, extraData: extraData }));
+    musteriSelect.serverSelect2({ url: "Musteriler", extraOptions: extraOptions, extraData: extraData });
 });
 bankaSelect.on('select2:select', function (e) {
     let extraData = [];
@@ -24,7 +24,7 @@ bankaSelect.on('select2:select', function (e) {
         value: this.value
     });
     bankaHesapSelect.val(0).trigger("change");
-    bankaHesapSelect.select2(GetSelectOption({ url: "BankaHesaplar", extraOptions: extraOptions, extraData: extraData }));
+    bankaHesapSelect.serverSelect2({ url: "BankaHesaplar", extraOptions: extraOptions, extraData: extraData });
 });
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
@@ -65,15 +65,21 @@ datatableHelper.datatableOptions.columns = [
                 return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.durum}</span>`
         }
     },
-    { data: "talepTarihi" },
-    { data: "islemTarihi" },
+    {
+        data: "talepTarihi",
+        render: (date) => formatter.toGoodDate(date)
+    },
+    {
+        data: "islemTarihi",
+        render: (date) => formatter.toGoodDate(date)
+    },
     {
         data: "tutar",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
     },
     {
         data: "onaylananTutar",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
     },
     {
         data: function (data) {
@@ -105,7 +111,7 @@ let goruntule = async (id, musteriAdSoyad) => {
 let goruntuleDefines = () => {
     let onaylaButton = $("#onayla")
     let reddetButton = $("#reddet")
-    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '', precision:false, allowZero: false });
+    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '', precision: false, allowZero: false });
     let idInput = $("#id")
 
     onaylaButton.on("click", async () => {

@@ -18,9 +18,20 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAc
 
         public async Task<Response<NoContent>> Handle(AddBankAccountCommand request, CancellationToken cancellationToken)
         {
-            var isExistSameBankaHesabi = await _paymentContext.BankaHesaplari.AnyAsync(x => x.HesapNumarasi == request.HesapNumarasi && !x.SilindiMi, cancellationToken);
+            var isExistSameBankaHesabi = await _paymentContext.BankaHesaplari.AnyAsync(x =>
+                x.HesapNumarasi == request.HesapNumarasi
+                && !x.SilindiMi, cancellationToken);
             if (isExistSameBankaHesabi)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsSameAccountNumber);
+
+            var isExistsRange = await _paymentContext.BankaHesaplari.AnyAsync(x =>
+                x.BankaId == request.BankaId
+                && x.AltLimit <= request.AltLimit && x.UstLimit >= request.AltLimit
+                && x.AltLimit <= request.UstLimit && x.UstLimit >= request.UstLimit
+            , cancellationToken);
+            if (isExistsRange)
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPriceRange);
+
 
             BankaHesabi bankaHesap = new()
             {

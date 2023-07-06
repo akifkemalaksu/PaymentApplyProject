@@ -1,5 +1,5 @@
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let bankaSelect = $("#bankaId").select2(GetSelectOption({ url: "Bankalar", extraOptions: extraOptions }));
+let bankaSelect = $("#bankaId").serverSelect2({ url: "Bankalar", extraOptions: extraOptions });
 let durumSelect = $("#aktifMi").select2();
 let tutarInput = $("#tutar").maskMoney({ thousands: '', precision: false, allowZero: false });
 let filtreleButton = $('#kt_search');
@@ -35,11 +35,15 @@ datatableHelper.datatableOptions.columns = [
     { data: "adSoyad" },
     {
         data: "altLimit",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
     },
     {
         data: "ustLimit",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
+    },
+    {
+        data: "eklemeTarihi",
+        render: (date) => formatter.toGoodDate(date)
     },
     {
         data: "aktifMi",
@@ -47,14 +51,13 @@ datatableHelper.datatableOptions.columns = [
             `<span class="kt-badge kt-badge--inline kt-badge--success">Aktif</span>`
             : `<span class="kt-badge kt-badge--inline kt-badge--danger">Pasif</span>`
     },
-    { data: "eklemeTarihi" },
     {
         data: function (data) {
             return `
-            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Düzenle">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="edit(${data.id})" title="Düzenle">
                 <i class="flaticon-edit"></i>
             </button>
-            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="sil(${data.id})" title="Sil">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="deleteRecord(${data.id})" title="Sil">
                 <i class="flaticon-delete"></i>
             </button>
             `;
@@ -64,26 +67,110 @@ datatableHelper.datatableOptions.columns = [
 
 datatableHelper.initialize($("#kt_table_1"));
 
+let saveButton = $('<button type="submit" form="kt_form" class="btn btn-success">Kaydet</button>')
 $("#ekle").on('click', async () => {
     let resultHtml = await fetchHelper.sendText(`/bank/ViewAddBankAccountPartial`, httpMethods.get);
 
     let ktModal = $("#kt_modal")
     let modalHeader = ktModal.find(".modal-title");
     let modalBody = ktModal.find(".modal-body");
+    let modalFooter = ktModal.find(".modal-footer");
 
     modalHeader.html("Banka Hesabý Ekleme");
     modalBody.html(resultHtml);
 
     addBankaAccountDefines()
 
+    modalFooter.empty()
+    let closeButton = $('<button type="button" class="btn btn-secondary btn-hover-brand" data-dismiss="modal">Kapat</button>')
+    modalFooter.append(saveButton)
+    modalFooter.append(closeButton)
+
     ktModal.modal('show');
 })
 
 let addBankaAccountDefines = () => {
+    let formEl = $('#kt_form');
+    let validator = formEl.validate({
+        rules: {
+            BankaId: {
+                required: true
+            },
+            HesapNumarasi: {
+                required: true
+            },
+            Ad: {
+                required: true
+            },
+            Soyad: {
+                required: true
+            },
+            AltLimit: {
+                required: true
+            },
+            UstLimit: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            swal.basicWithTwoButtonFunc("Uyarý", "Kaydetmek istediðinize emin misiniz?", icons.warning, (result) => {
+                if (result.value)
+                    save(form)
+            })
+        }
+    });
 
+    formEl.find('[name="BankaId"]').serverSelect2({ url: "Bankalar" })
+    formEl.find('.money').maskMoney({ thousands: '', precision: false, allowZero: false })
 }
 
-let sil = (id) => swal.basicWithTwoButtonFunc("Uyarý", "Silmek istediðinize emin misiniz?", icons.warning,
+let save = (form) => {
+    saveButton.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
+
+    $(form).ajaxSubmit({
+        success: function (response, status, xhr, $form) {
+            saveButton('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+            if (response.isSuccessful)
+                window.location.href = "/";
+            else {
+                showErrorMsg(form, 'danger', response.message);
+            }
+
+            if (!result.isSuccessful) {
+                swal.basic("Hata", result.message, icons.error)
+                return;
+            }
+
+            swal.basicWithOneButtonFunc("Baþarýlý", result.message, icons.success, () => {
+                $("#kt_modal").modal('hide')
+                datatableHelper.dtTable.draw()
+            })
+        }
+    });
+}
+
+let edit = async (id) => {
+    let resultHtml = await fetchHelper.sendText(`/bank/ViewEditBankAccountPartial/${id}`, httpMethods.get);
+
+    let ktModal = $("#kt_modal")
+    let modalHeader = ktModal.find(".modal-title");
+    let modalBody = ktModal.find(".modal-body");
+    let modalFooter = ktModal.find(".modal-footer");
+
+    modalHeader.html("Banka Hesabý Ekleme");
+    modalBody.html(resultHtml);
+
+    addBankaAccountDefines()
+
+    modalFooter.empty()
+    let closeButton = $('<button type="button" class="btn btn-secondary btn-hover-brand" data-dismiss="modal">Kapat</button>')
+    modalFooter.append(saveButton)
+    modalFooter.append(closeButton)
+
+    ktModal.modal('show');
+}
+
+let deleteRecord = (id) => swal.basicWithTwoButtonFunc("Uyarý", "Silmek istediðinize emin misiniz?", icons.warning,
     async (result) => {
         if (result.value) {
             let data = {

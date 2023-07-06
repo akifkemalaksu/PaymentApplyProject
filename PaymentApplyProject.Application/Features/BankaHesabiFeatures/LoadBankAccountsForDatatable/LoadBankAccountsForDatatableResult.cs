@@ -19,6 +19,6 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankA
         [DisplayName("Durum")]
         public bool AktifMi { get; set; }
         [DisplayName("Ekleme Tarihi")]
-        public string EklemeTarihi { get; set; }
+        public DateTime EklemeTarihi { get; set; }
     }
 }

@@ -95,16 +95,14 @@ var KTLoginGeneral = function () {
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
                 success: function (response, status, xhr, $form) {
                     // similate 2s delay
                     if (response.isSuccessful)
                         window.location.href = "/";
-                    else
-                        setTimeout(function () {
-                            btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-                            showErrorMsg(form, 'danger', response.message);
-                        }, 500);
+                    else {
+                        btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+                        showErrorMsg(form, 'danger', response.message);
+                    }
                 }
             });
         });

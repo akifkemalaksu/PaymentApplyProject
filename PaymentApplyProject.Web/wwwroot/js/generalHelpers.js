@@ -41,14 +41,15 @@ const fetchHelper = {
 }
 
 const formatter = {
-    toMoney: new Intl.NumberFormat('tr-TR', {
+    toMoney: (price) => price ? new Intl.NumberFormat('tr-TR', {
         style: 'currency',
         currency: 'TRY',
-    })
+    }).format(price) : "",
+    toGoodDate: (date) => date ? moment(date).format("DD.MM.YY HH:mm") : ""
 }
 
 const parser = {
-    moneyToFloat: (money) => parseFloat(money.replaceAll('.', '').replaceAll(',', '.'))
+    moneyToFloat: money => money ? parseFloat(money.replaceAll('.', '').replaceAll(',', '.')) : null
 }
 
 const icons = {

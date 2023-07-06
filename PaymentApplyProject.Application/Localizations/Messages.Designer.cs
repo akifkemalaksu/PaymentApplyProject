@@ -142,6 +142,15 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bu banka için bu aralıkta kayıt mevcut..
+        /// </summary>
+        internal static string ThereIsPriceRange {
+            get {
+                return ResourceManager.GetString("ThereIsPriceRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aynı hesap numarasına sahip kayıt mevcut..
         /// </summary>
         internal static string ThereIsSameAccountNumber {

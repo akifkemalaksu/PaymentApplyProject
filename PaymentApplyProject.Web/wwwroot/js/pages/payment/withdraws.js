@@ -2,8 +2,8 @@
 let resetButton = $('#kt_reset');
 
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let firmaSelect = $("#firmaId").select2(GetSelectOption({ url: "Firmalar", extraOptions: extraOptions }));
-let musteriSelect = $("#musteriId").select2(GetSelectOption({ url: "Musteriler", extraOptions: extraOptions }));
+let firmaSelect = $("#firmaId").serverSelect2({ url: "Firmalar", extraOptions: extraOptions });
+let musteriSelect = $("#musteriId").serverSelect2({ url: "Musteriler", extraOptions: extraOptions });
 let durumSelect = $("#durumId").select2();
 
 firmaSelect.on('select2:select', function (e) {
@@ -13,7 +13,7 @@ firmaSelect.on('select2:select', function (e) {
         value: this.value
     });
     musteriSelect.val(0).trigger("change");
-    musteriSelect.select2(GetSelectOption({ url: "Musteriler", extraOptions: extraOptions, extraData: extraData }));
+    musteriSelect.serverSelect2({ url: "Musteriler", extraOptions: extraOptions, extraData: extraData });
 });
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
@@ -50,15 +50,21 @@ datatableHelper.datatableOptions.columns = [
                 return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.durum}</span>`
         }
     },
-    { data: "talepTarihi" },
-    { data: "islemTarihi" },
+    {
+        data: "talepTarihi",
+        render: (date) => formatter.toGoodDate(date)
+    },
+    {
+        data: "islemTarihi",
+        render: (date) => formatter.toGoodDate(date)
+    },
     {
         data: "tutar",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
     },
     {
         data: "onaylananTutar",
-        render: (data) => formatter.toMoney.format(data)
+        render: (data) => formatter.toMoney(data)
     },
     {
         data: function (data, type, full, meta) {

@@ -144,6 +144,9 @@
   <data name="ThereIsPendingTransaction" xml:space="preserve">
     <value>Mevcutta bekleyen işlem vardır.</value>
   </data>
+  <data name="ThereIsPriceRange" xml:space="preserve">
+    <value>Bu banka için bu aralıkta kayıt mevcut.</value>
+  </data>
   <data name="ThereIsSameAccountNumber" xml:space="preserve">
     <value>Aynı hesap numarasına sahip kayıt mevcut.</value>
   </data>

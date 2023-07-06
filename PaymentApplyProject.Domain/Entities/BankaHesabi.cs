@@ -16,7 +16,7 @@ namespace PaymentApplyProject.Domain.Entities
         public string Soyad { get; set; }
         public decimal UstLimit { get; set; }
         public decimal AltLimit { get; set; }
-        public bool AktifMi { get; set; } // hint: AktifMi
+        public bool AktifMi { get; set; }
 
         [ForeignKey("BankaId")]
         public virtual Banka Banka { get; set; }

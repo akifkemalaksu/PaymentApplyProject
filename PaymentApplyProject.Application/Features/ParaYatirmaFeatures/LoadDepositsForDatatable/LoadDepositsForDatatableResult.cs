@@ -26,8 +26,8 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepos
         [DisplayName("Onaylanan Tutar")]
         public decimal? OnaylananTutar { get; set; }
         [DisplayName("İşlem Tarihi")]
-        public string IslemTarihi { get; set; }
+        public DateTime? IslemTarihi { get; set; }
         [DisplayName("Talep Tarihi")]
-        public string TalepTarihi { get; set; }
+        public DateTime TalepTarihi { get; set; }
     }
 }

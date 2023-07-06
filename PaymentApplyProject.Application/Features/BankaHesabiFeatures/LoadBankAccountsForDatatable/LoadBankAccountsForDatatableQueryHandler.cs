@@ -39,7 +39,7 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankA
                 UstLimit = x.UstLimit,
                 AktifMi = x.AktifMi,
                 Id = x.Id,
-                EklemeTarihi = x.EklemeTarihi.ToString("dd.MM.yy hh:mm")
+                EklemeTarihi = x.EklemeTarihi
             });
 
             var orderCriteria = "Id";
