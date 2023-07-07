@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class setupDb : Migration
+    public partial class dbSetup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,6 +81,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Sifre = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Ad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Soyad = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    AktifMi = table.Column<bool>(type: "boolean", nullable: false),
                     SilindiMi = table.Column<bool>(type: "boolean", nullable: false),
                     EkleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),
                     DuzenleyenKullaniciId = table.Column<int>(type: "integer", nullable: false),

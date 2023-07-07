@@ -212,6 +212,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<bool>("AktifMi")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("DuzenleyenKullaniciId")
                         .HasColumnType("integer");
 
@@ -556,7 +559,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.Kullanici", "Kullanici")
-                        .WithMany()
+                        .WithMany("KullaniciFirmalar")
                         .HasForeignKey("KullaniciId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -654,6 +657,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Kullanici", b =>
                 {
+                    b.Navigation("KullaniciFirmalar");
+
                     b.Navigation("KullaniciYetkiler");
                 });
 
