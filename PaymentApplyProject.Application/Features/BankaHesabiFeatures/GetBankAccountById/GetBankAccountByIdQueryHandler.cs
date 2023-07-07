@@ -20,18 +20,28 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankAc
 
         public async Task<Response<GetBankAccountByIdResult>> Handle(GetBankAccountByIdQuery request, CancellationToken cancellationToken)
         {
-            var bankAccount = await _paymentContext.BankaHesaplari.Include(x => x.Banka).FirstOrDefaultAsync(x =>
-                x.Id == request.Id
-                && !x.SilindiMi
-            , cancellationToken);
+            var bankAccount = await _paymentContext.BankaHesaplari
+                .Where(x =>
+                    x.Id == request.Id
+                    && !x.SilindiMi)
+                .Select(x => new GetBankAccountByIdResult
+                {
+                    Ad = x.Ad,
+                    AktifMi = x.AktifMi,
+                    AltLimit = x.AltLimit,
+                    Banka = x.Banka.Ad,
+                    BankaId = x.BankaId,
+                    HesapNumarasi = x.HesapNumarasi,
+                    Id = request.Id,
+                    Soyad = x.Soyad,
+                    UstLimit = x.UstLimit
+                })
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (bankAccount is null)
                 return Response<GetBankAccountByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            var bankAccountMapped = _customMapper.Map<GetBankAccountByIdResult>(bankAccount);
-            bankAccountMapped.Banka = bankAccount.Banka.Ad;
-
-            return Response<GetBankAccountByIdResult>.Success(System.Net.HttpStatusCode.OK, bankAccountMapped);
+            return Response<GetBankAccountByIdResult>.Success(System.Net.HttpStatusCode.OK, bankAccount);
         }
     }
 }
