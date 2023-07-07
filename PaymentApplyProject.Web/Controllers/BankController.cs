@@ -11,7 +11,7 @@ using System.Data;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public class BankController : CustomController
     {
         private readonly IMediator _mediator;
@@ -43,6 +43,7 @@ namespace PaymentApplyProject.Web.Controllers
             return PartialView("_viewEditBankAccountPartial", result);
         }
 
+        [HttpPost]
         public async Task<IActionResult> LoadBankAccounts(LoadBankAccountsForDatatableQuery loadBankAccountsForDatatableQuery)
         {
             var result = await _mediator.Send(loadBankAccountsForDatatableQuery);

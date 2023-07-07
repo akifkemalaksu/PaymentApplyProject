@@ -16,8 +16,10 @@ namespace PaymentApplyProject.Application.Features.FirmaFeatures.LoadFirmalarFor
 
         public async Task<SelectResult> Handle(LoadFirmalarForSelectQuery request, CancellationToken cancellationToken)
         {
-            request.Search ??= string.Empty;
-            var firmalar = _paymentContext.Firmalar.Where(x => x.Ad.Contains(request.Search) && !x.SilindiMi);
+            var firmalar = _paymentContext.Firmalar.Where(x => !x.SilindiMi);
+
+            if (!string.IsNullOrEmpty(request.Search))
+                firmalar = firmalar.Where(x => x.Ad.Contains(request.Search));
 
             return new SelectResult
             {

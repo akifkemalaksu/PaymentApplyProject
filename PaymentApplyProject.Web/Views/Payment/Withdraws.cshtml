@@ -12,7 +12,7 @@
     <div class="kt-container  kt-container--fluid ">
         <div class="kt-subheader__main">
             <h3 class="kt-subheader__title">
-                Para Çekmeler
+                @ViewData["Title"]
             </h3>
         </div>
         <div class="kt-subheader__toolbar">
@@ -31,10 +31,10 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon">
-                    <i class="kt-font-brand la la-dollar"></i>
+                    <i class="kt-font-brand fa fa-lira-sign"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Para Çekmeler
+                    @ViewData["Title"]
                 </h3>
             </div>
         </div>
@@ -91,7 +91,7 @@
                         <th>@Html.DisplayNameFor(x => x.IslemTarihi)</th>
                         <th>@Html.DisplayNameFor(x => x.Tutar)</th>
                         <th>@Html.DisplayNameFor(x => x.OnaylananTutar)</th>
-                        <th>İşlemler</th>
+                        <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>
             </table>

@@ -8,8 +8,12 @@ namespace PaymentApplyProject.Domain.Constants
 {
     public static class RolSabitler
     {
+        public const string ADMIN = "admin";
         public const string USER = "user";
         public const string CUSTOMER = "customer";
-        public const string ADMIN = "admin";
+
+        public const short ADMIN_ID = 1;
+        public const short USER_ID = 2;
+        public const short CUSTOMER_ID = 3;
     }
 }

@@ -31,9 +31,7 @@ datatableHelper.datatableOptions.ajax = {
         d.durumId = durumSelect.val()
     }
 };
-datatableHelper.datatableOptions.columnDefs = [
-    { "className": "dt-center", "targets": [10] }
-]
+datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [10] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "firma" },

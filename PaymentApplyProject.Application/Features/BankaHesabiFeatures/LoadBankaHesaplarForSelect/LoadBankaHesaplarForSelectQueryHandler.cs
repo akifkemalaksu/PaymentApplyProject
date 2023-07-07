@@ -16,14 +16,15 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBanka
 
         public async Task<SelectResult> Handle(LoadBankaHesaplarForSelectQuery request, CancellationToken cancellationToken)
         {
-            request.Search ??= string.Empty;
             var bankaHesaplar = _paymentContext.BankaHesaplari.Where(x =>
                 (request.BankaId == 0 || x.BankaId == request.BankaId)
-                && (
+                && !x.SilindiMi);
+
+            if (!string.IsNullOrEmpty(request.Search))
+                bankaHesaplar = bankaHesaplar.Where(x =>
                     (x.Ad + " " + x.Soyad).Contains(request.Search)
                     || x.HesapNumarasi.Contains(request.Search)
-                )
-                && !x.SilindiMi);
+                );
 
             return new SelectResult
             {

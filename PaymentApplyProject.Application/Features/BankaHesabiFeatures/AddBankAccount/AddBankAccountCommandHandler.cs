@@ -4,16 +4,19 @@ using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Context;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Application.Mapping;
 
 namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAccount
 {
     public class AddBankAccountCommandHandler : IRequestHandler<AddBankAccountCommand, Response<NoContent>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _customMapper;
 
-        public AddBankAccountCommandHandler(IPaymentContext paymentContext)
+        public AddBankAccountCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
         {
             _paymentContext = paymentContext;
+            _customMapper = customMapper;
         }
 
         public async Task<Response<NoContent>> Handle(AddBankAccountCommand request, CancellationToken cancellationToken)
@@ -32,17 +35,8 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAc
             if (isExistsRange)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPriceRange);
 
-
-            BankaHesabi bankaHesap = new()
-            {
-                Ad = request.Ad,
-                Soyad = request.Soyad,
-                HesapNumarasi = request.HesapNumarasi,
-                BankaId = request.BankaId,
-                AltLimit = request.AltLimit,
-                UstLimit = request.UstLimit,
-                AktifMi = true
-            };
+            var bankaHesap = _customMapper.Map<BankaHesabi>(request);
+            bankaHesap.AktifMi = true;
 
             await _paymentContext.BankaHesaplari.AddAsync(bankaHesap, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);

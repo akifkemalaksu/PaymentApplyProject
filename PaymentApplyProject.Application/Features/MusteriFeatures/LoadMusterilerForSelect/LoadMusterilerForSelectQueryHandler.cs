@@ -16,14 +16,14 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.LoadMusterile
 
         public async Task<SelectResult> Handle(LoadMusterilerForSelectQuery request, CancellationToken cancellationToken)
         {
-            request.Search ??= string.Empty;
             var musteriler = _paymentContext.Musteriler.Where(x =>
                 (request.FirmaId == 0 || x.FirmaId == request.FirmaId)
-                && (
-                    (x.Ad + " " + x.Soyad).Contains(request.Search)
-                    || x.KullaniciAdi.Contains(request.Search)
-                )
                 && !x.SilindiMi);
+
+            if (!string.IsNullOrEmpty(request.Search))
+                musteriler = musteriler.Where(x =>
+                    (x.Ad + " " + x.Soyad).Contains(request.Search)
+                    || x.KullaniciAdi.Contains(request.Search));
 
             return new SelectResult
             {

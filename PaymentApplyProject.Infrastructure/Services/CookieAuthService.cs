@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using PaymentApplyProject.Application.Dtos;
+using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Services;
 using System;

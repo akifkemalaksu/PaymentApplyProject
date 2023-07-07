@@ -25,7 +25,7 @@ namespace PaymentApplyProject.Application.Features.ParaYatirmaFeatures.RejectPar
             , cancellationToken);
 
             if (paraYatirma == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(ParaYatirma)));
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             if (paraYatirma.ParaYatirmaDurumId == ParaYatirmaDurumSabitler.REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);

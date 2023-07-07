@@ -1,0 +1,28 @@
+﻿@using PaymentApplyProject.Application.Features.KullaniciFeatures.AddUser
+@model AddUserCommand
+
+<form asp-action="adduser" class="kt-form" id="kt_form">
+    <div class="kt-portlet__body">
+        <div class="form-group">
+            <label>Kullanıcı Adı:</label>
+            <input type="text" class="form-control" asp-for="KullaniciAdi">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" class="form-control" asp-for="Email">
+        </div>
+        <div class="form-group">
+            <label>Ad:</label>
+            <input type="text" class="form-control" asp-for="Ad">
+        </div>
+        <div class="form-group">
+            <label>Soyad:</label>
+            <input type="text" class="form-control" asp-for="Soyad">
+        </div>
+        <div class="form-group">
+            <label>Firmalar:</label>
+            <select class="form-control" asp-for="Firmalar" multiple>
+            </select>
+        </div>
+    </div>
+</form>

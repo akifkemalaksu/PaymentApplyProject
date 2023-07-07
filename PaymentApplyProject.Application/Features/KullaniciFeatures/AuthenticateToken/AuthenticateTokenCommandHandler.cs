@@ -7,6 +7,7 @@ using PaymentApplyProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
+using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 
 namespace PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken
 {
@@ -30,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Authenticat
                     && x.Sifre == request.Sifre
                     && !x.SilindiMi,cancellationToken);
             if (kullanici == null)
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(Kullanici)));
+                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             var yetkiler = await _paymentContext.Yetkiler.Where(x =>
                 x.KullaniciYetkiler.Any(ky =>

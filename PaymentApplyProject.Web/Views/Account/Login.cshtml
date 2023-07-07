@@ -1,8 +1,9 @@
-﻿@using PaymentApplyProject.Application.Dtos
+﻿@using PaymentApplyProject.Application.Dtos;
+@using PaymentApplyProject.Application.Dtos.KullaniciDtos
 
 @{
     Layout = null;
-    ViewData["Title"] = "Giriş";
+    ViewData["Title"] = "Panele Giriş";
 }
 
 @model LoginDto
@@ -42,7 +43,7 @@
                         </div>
                         <div class="kt-login__signin">
                             <div class="kt-login__head">
-                                <h3 class="kt-login__title">Sign In To Admin</h3>
+                                <h3 class="kt-login__title">@ViewData["Title"]</h3>
                             </div>
                             <form asp-action="login" method="post" class="kt-form">
                                 <div class="input-group">

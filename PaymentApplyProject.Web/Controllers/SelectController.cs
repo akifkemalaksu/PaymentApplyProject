@@ -8,7 +8,7 @@ using PaymentApplyProject.Application.Features.MusteriFeatures.LoadMusterilerFor
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public class SelectController : Controller
     {
         private readonly IMediator _mediator;

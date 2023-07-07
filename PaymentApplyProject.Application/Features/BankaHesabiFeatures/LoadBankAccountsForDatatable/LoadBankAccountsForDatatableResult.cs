@@ -6,7 +6,6 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankA
     {
         [DisplayName("Hesap Id")]
         public int Id { get; set; }
-        [DisplayName("Banka")]
         public string Banka { get; set; }
         [DisplayName("Hesap Numarası")]
         public string HesapNumarasi { get; set; }

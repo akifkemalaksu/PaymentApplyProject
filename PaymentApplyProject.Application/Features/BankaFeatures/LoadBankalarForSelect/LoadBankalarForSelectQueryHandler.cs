@@ -16,10 +16,10 @@ namespace PaymentApplyProject.Application.Features.BankaFeatures.LoadBankalarFor
 
         public async Task<SelectResult> Handle(LoadBankalarForSelectQuery request, CancellationToken cancellationToken)
         {
-            request.Search ??= string.Empty;
-            var bankalar = _paymentContext.Bankalar.Where(x =>
-                x.Ad.Contains(request.Search)
-                && !x.SilindiMi);
+            var bankalar = _paymentContext.Bankalar.Where(x => !x.SilindiMi);
+
+            if (!string.IsNullOrEmpty(request.Search))
+                bankalar = bankalar.Where(x => x.Ad.Contains(request.Search));
 
             return new SelectResult
             {

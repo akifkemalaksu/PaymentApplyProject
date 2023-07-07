@@ -23,8 +23,9 @@ namespace PaymentApplyProject.Domain.Entities
         public string Ad { get; set; }
         [StringLength(100)]
         public string Soyad { get; set; }
-
+        public bool AktifMi { get; set; }
         public virtual ICollection<KullaniciYetki> KullaniciYetkiler { get; set; }
+        public virtual ICollection<KullaniciFirma> KullaniciFirmalar { get; set; }
     }
 
 }

@@ -21,7 +21,7 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.DeleteBan
             var bankaHesap = await _paymentContext.BankaHesaplari.FirstOrDefaultAsync(x => x.Id == request.Id && !x.SilindiMi, cancellationToken);
 
             if (bankaHesap == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(BankaHesabi)));
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             _paymentContext.BankaHesaplari.Remove(bankaHesap);
 

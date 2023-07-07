@@ -1,4 +1,4 @@
-﻿using PaymentApplyProject.Application.Dtos;
+﻿using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

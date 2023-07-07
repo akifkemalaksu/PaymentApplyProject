@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentApplyProject.Application.Dtos
+namespace PaymentApplyProject.Application.Dtos.KullaniciDtos
 {
     public class KullaniciDto
     {
@@ -20,12 +20,5 @@ namespace PaymentApplyProject.Application.Dtos
         {
             Yetkiler = Enumerable.Empty<string>();
         }
-    }
-
-    public class LoginDto
-    {
-        public string EmailKullaniciAdi { get; set; }
-        public string Sifre { get; set; }
-        public bool BeniHatirla { get; set; }
     }
 }

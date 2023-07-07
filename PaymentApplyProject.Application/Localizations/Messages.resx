@@ -132,9 +132,6 @@
   <data name="NotFound" xml:space="preserve">
     <value>Veri bulunamadı.</value>
   </data>
-  <data name="NotFoundWithName" xml:space="preserve">
-    <value>{0} bulunamadı.</value>
-  </data>
   <data name="OperationSuccessful" xml:space="preserve">
     <value>İşlem başarılı.</value>
   </data>
@@ -149,6 +146,12 @@
   </data>
   <data name="ThereIsSameAccountNumber" xml:space="preserve">
     <value>Aynı hesap numarasına sahip kayıt mevcut.</value>
+  </data>
+  <data name="ThereIsSameEmail" xml:space="preserve">
+    <value>Bu email adresine sahip kullanıcı mevcut.</value>
+  </data>
+  <data name="ThereIsSameUsername" xml:space="preserve">
+    <value>Bu kullanıcı adına sahip kullanıcı mevcut.</value>
   </data>
   <data name="ThisCodeNotDefined" xml:space="preserve">
     <value>Bu firma kodu tanımlı değil.</value>

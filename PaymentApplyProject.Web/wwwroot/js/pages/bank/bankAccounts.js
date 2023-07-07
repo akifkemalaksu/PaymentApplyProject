@@ -24,10 +24,7 @@ datatableHelper.datatableOptions.ajax = {
         d.aktifMi = durum
     }
 };
-
-datatableHelper.datatableOptions.columnDefs = [
-    { "className": "dt-center", "targets": [6, 8] }
-]
+datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7, 8] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "banka" },
@@ -79,7 +76,7 @@ $("#ekle").on('click', async () => {
     modalHeader.html("Banka Hesabý Ekleme");
     modalBody.html(resultHtml);
 
-    addBankaAccountDefines()
+    addBankAccountDefines()
 
     modalFooter.empty()
     let closeButton = $('<button type="button" class="btn btn-secondary btn-hover-brand" data-dismiss="modal">Kapat</button>')
@@ -89,7 +86,7 @@ $("#ekle").on('click', async () => {
     ktModal.modal('show');
 })
 
-let addBankaAccountDefines = () => {
+let addBankAccountDefines = () => {
     let formEl = $('#kt_form');
     let validator = formEl.validate({
         rules: {
@@ -152,10 +149,10 @@ let edit = async (id) => {
     let modalBody = ktModal.find(".modal-body");
     let modalFooter = ktModal.find(".modal-footer");
 
-    modalHeader.html("Banka Hesabý Ekleme");
+    modalHeader.html("Banka Hesabý Düzenleme");
     modalBody.html(resultHtml);
 
-    addBankaAccountDefines()
+    addBankAccountDefines()
 
     modalFooter.empty()
     let closeButton = $('<button type="button" class="btn btn-secondary btn-hover-brand" data-dismiss="modal">Kapat</button>')

@@ -16,7 +16,7 @@ using PaymentApplyProject.Application.Features.ParaCekmeFeatures.RejectParaCekme
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public class PaymentController : CustomController
     {
         private readonly IMediator _mediator;
@@ -29,6 +29,11 @@ namespace PaymentApplyProject.Web.Controllers
         public IActionResult Deposits()
         {
             return View();
+        }
+
+        public IActionResult DepositsPartial()
+        {
+            return PartialView("Deposit");
         }
 
         public IActionResult Withdraws()

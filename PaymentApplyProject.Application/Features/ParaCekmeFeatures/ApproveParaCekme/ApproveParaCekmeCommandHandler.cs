@@ -25,7 +25,7 @@ namespace PaymentApplyProject.Application.Features.ParaCekmeFeatures.ApprovePara
                 , cancellationToken);
 
             if (paraCekme == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(ParaCekme)));
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             if (paraCekme.ParaCekmeDurumId == ParaCekmeDurumSabitler.REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);

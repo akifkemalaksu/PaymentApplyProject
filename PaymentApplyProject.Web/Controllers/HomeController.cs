@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public class HomeController : Controller
     {
         public IActionResult Index()

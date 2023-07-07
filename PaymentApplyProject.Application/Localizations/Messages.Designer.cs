@@ -106,15 +106,6 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} bulunamadı..
-        /// </summary>
-        internal static string NotFoundWithName {
-            get {
-                return ResourceManager.GetString("NotFoundWithName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to İşlem başarılı..
         /// </summary>
         internal static string OperationSuccessful {
@@ -156,6 +147,24 @@ namespace PaymentApplyProject.Application.Localizations {
         internal static string ThereIsSameAccountNumber {
             get {
                 return ResourceManager.GetString("ThereIsSameAccountNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu email adresine sahip kullanıcı mevcut..
+        /// </summary>
+        internal static string ThereIsSameEmail {
+            get {
+                return ResourceManager.GetString("ThereIsSameEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu kullanıcı adına sahip kullanıcı mevcut..
+        /// </summary>
+        internal static string ThereIsSameUsername {
+            get {
+                return ResourceManager.GetString("ThereIsSameUsername", resourceCulture);
             }
         }
         

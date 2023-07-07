@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.MusteriFeatures.AddOrUpdateAn
         {
             var firma = await _paymentContext.Firmalar.FirstOrDefaultAsync(x => x.RequestCode == request.FirmaKodu && !x.SilindiMi, cancellationToken);
             if (firma == null)
-                return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.NotFoundWithName, nameof(Firma)));
+                return Response<AddOrUpdateAndGetMusteriResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.FirmaId == firma.Id && x.KullaniciAdi == request.MusteriKullaniciAdi && !x.SilindiMi, cancellationToken);
             if (musteri == null)
