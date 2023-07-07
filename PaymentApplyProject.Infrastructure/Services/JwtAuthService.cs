@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Infrastructure.Services
             };
 
             Parallel.ForEach(kullaniciDto.Yetkiler, (yetki) =>
-                    claims.Add(new Claim(ClaimTypes.Role, yetki))
+                    claims.Add(new Claim(ClaimTypes.Role, yetki.Ad))
                     );
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey));

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.KullaniciDtos;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken
 {
@@ -26,23 +27,37 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Authenticat
 
         public async Task<Response<AuthenticateTokenResult>> Handle(AuthenticateTokenCommand request, CancellationToken cancellationToken)
         {
-            var kullanici = await _paymentContext.Kullanicilar.FirstOrDefaultAsync(x =>
+            var kullanici = await _paymentContext.Kullanicilar
+                .Where(x =>
                     x.KullaniciAdi == request.KullaniciAdi
                     && x.Sifre == request.Sifre
-                    && !x.SilindiMi,cancellationToken);
+                    && !x.SilindiMi)
+                .Select(x => new KullaniciDto
+                {
+                    Ad = x.Ad,
+                    Email = x.Email,
+                    KullaniciAdi = x.KullaniciAdi,
+                    Soyad = x.Soyad,
+                    Id = x.Id,
+                    Firmalar = x.KullaniciFirmalar.Select(kf => new FirmaDto
+                    {
+                        Ad = kf.Firma.Ad,
+                        Id = kf.FirmaId
+                    }),
+                    Yetkiler = x.KullaniciYetkiler.Select(ky => new YetkiDto
+                    {
+                        Ad = ky.Yetki.Ad,
+                        Id = ky.YetkiId
+                    })
+                })
+                .FirstOrDefaultAsync(cancellationToken);
             if (kullanici == null)
                 return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            var yetkiler = await _paymentContext.Yetkiler.Where(x =>
-                x.KullaniciYetkiler.Any(ky =>
-                    ky.KullaniciId == kullanici.Id
-                    && !ky.SilindiMi)
-                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync(cancellationToken);
+            if (!kullanici.Yetkiler.Any(x => x.Id == RolSabitler.CUSTOMER_ID))
+                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);
 
-            var kullaniciDto = _customMapper.Map<KullaniciDto>(kullanici);
-            kullaniciDto.Yetkiler = yetkiler;
-
-            return _jwtTokenService.CreateToken(kullaniciDto);
+            return _jwtTokenService.CreateToken(kullanici);
         }
     }
 }

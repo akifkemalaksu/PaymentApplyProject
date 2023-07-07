@@ -26,26 +26,38 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Login
 
         public async Task<Response<NoContent>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var kullanici = await _paymentContext.Kullanicilar.FirstOrDefaultAsync(x =>
+            var kullanici = await _paymentContext
+                .Kullanicilar
+                .Where(x =>
                     (x.Email == request.EmailKullaniciAdi || x.KullaniciAdi == request.EmailKullaniciAdi)
                     && x.Sifre == request.Sifre
-                    && !x.SilindiMi, cancellationToken);
+                    && !x.SilindiMi)
+                .Select(x => new KullaniciDto
+                {
+                    Ad = x.Ad,
+                    Email = x.Email,
+                    KullaniciAdi = x.KullaniciAdi,
+                    Soyad = x.Soyad,
+                    Id = x.Id,
+                    Firmalar = x.KullaniciFirmalar.Select(kf => new FirmaDto
+                    {
+                        Ad = kf.Firma.Ad,
+                        Id = kf.FirmaId
+                    }),
+                    Yetkiler = x.KullaniciYetkiler.Select(ky => new YetkiDto
+                    {
+                        Ad = ky.Yetki.Ad,
+                        Id = ky.YetkiId
+                    })
+                })
+                .FirstOrDefaultAsync(cancellationToken);
             if (kullanici == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.IncorrectLoginInfo);
 
-            var yetkiler = await _paymentContext.Yetkiler.Where(x =>
-                x.KullaniciYetkiler.Any(ky =>
-                    ky.KullaniciId == kullanici.Id
-                    && !ky.SilindiMi)
-                && !x.SilindiMi).Select(x => x.Ad).ToArrayAsync(cancellationToken);
-
-            if (!yetkiler.Any(x => x == RolSabitler.ADMIN))
+            if (!kullanici.Yetkiler.Any(x => x.Id == RolSabitler.ADMIN_ID))
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);
 
-            var kullaniciDto = _customMapper.Map<KullaniciDto>(kullanici);
-            kullaniciDto.Yetkiler = yetkiler;
-
-            await _cookieTokenService.SignInAsync(kullaniciDto, request.BeniHatirla);
+            await _cookieTokenService.SignInAsync(kullanici, request.BeniHatirla);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK);
         }

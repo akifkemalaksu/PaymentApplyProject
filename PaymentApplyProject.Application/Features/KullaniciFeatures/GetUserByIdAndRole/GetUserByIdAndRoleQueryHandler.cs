@@ -23,12 +23,12 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.GetUserById
         {
             var user = await _paymentContext.Kullanicilar
                 .Where(x =>
-                x.Id == request.Id
-                && x.KullaniciYetkiler.Any(ky =>
-                    ky.YetkiId == request.YetkiId
-                    && !ky.SilindiMi
-                )
-                && !x.SilindiMi)
+                    x.Id == request.Id
+                    && x.KullaniciYetkiler.Any(ky =>
+                        ky.YetkiId == request.YetkiId
+                        && !ky.SilindiMi
+                    )
+                    && !x.SilindiMi)
                 .Select(x => new GetUserByIdAndRoleResult
                 {
                     Id = request.Id,

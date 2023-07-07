@@ -12,5 +12,7 @@ namespace PaymentApplyProject.Application.Services
     {
         public Task SignInAsync(KullaniciDto kullaniciDto, bool rememberMe);
         public Task SignOutAsync();
+
+        public SignedInUserDto GetSignedInUserInfos();
     }
 }
