@@ -14,6 +14,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
         [DisplayName("Durum")]
         public bool AktifMi { get; set; }
         public string Firmalar { get; set; }
+        [DisplayName("Ekleme Tarihi")]
         public DateTime EklemeTarihi { get; set; }
     }
 }

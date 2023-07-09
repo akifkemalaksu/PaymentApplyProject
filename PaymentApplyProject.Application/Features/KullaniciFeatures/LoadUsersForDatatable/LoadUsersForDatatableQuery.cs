@@ -12,6 +12,6 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
 {
     public class LoadUsersForDatatableQuery : DtParameters, IRequest<DtResult<LoadUsersForDatatableResult>>
     {
-
+        public bool? AktifMi { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.KullaniciDtos;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Infrastructure.Services
 {
@@ -28,7 +29,8 @@ namespace PaymentApplyProject.Infrastructure.Services
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Sub,kullaniciDto.KullaniciAdi),
+                new Claim(JwtRegisteredClaimNames.Sub,kullaniciDto.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName,kullaniciDto.KullaniciAdi),
                 new Claim(JwtRegisteredClaimNames.Email,kullaniciDto.Email),
                 new Claim(JwtRegisteredClaimNames.Jti,guidString),
                 new Claim(JwtRegisteredClaimNames.Name,kullaniciDto.Ad),
@@ -36,8 +38,16 @@ namespace PaymentApplyProject.Infrastructure.Services
             };
 
             Parallel.ForEach(kullaniciDto.Yetkiler, (yetki) =>
-                    claims.Add(new Claim(ClaimTypes.Role, yetki.Ad))
-                    );
+            {
+                claims.Add(new Claim(ClaimTypes.Role, yetki.Ad));
+                claims.Add(new Claim(CustomClaimTypes.RoleId, yetki.Id.ToString()));
+            });
+
+            Parallel.ForEach(kullaniciDto.Firmalar, (firma) =>
+            {
+                claims.Add(new Claim(CustomClaimTypes.Company, firma.Ad));
+                claims.Add(new Claim(CustomClaimTypes.CompanyId, firma.Id.ToString()));
+            });
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

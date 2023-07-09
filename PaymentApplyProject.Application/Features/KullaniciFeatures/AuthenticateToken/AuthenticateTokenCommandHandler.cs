@@ -55,7 +55,7 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.Authenticat
                 return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             if (!kullanici.Yetkiler.Any(x => x.Id == RolSabitler.CUSTOMER_ID))
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);
+                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.Unauthorized, Messages.NotAuthorized);
 
             return _jwtTokenService.CreateToken(kullanici);
         }

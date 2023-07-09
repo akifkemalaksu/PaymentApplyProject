@@ -17,11 +17,10 @@ datatableHelper.datatableOptions.ajax = {
     data: function (d) {
         let tutar = parser.moneyToFloat(tutarInput.val())
         let durum = durumSelect.val()
-        durum = durum === 0 ? null : durum
 
         d.bankaId = bankaSelect.val()
         d.tutar = tutar
-        d.aktifMi = durum
+        d.aktifMi = durum == 0 ? null : durum
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7, 8] })

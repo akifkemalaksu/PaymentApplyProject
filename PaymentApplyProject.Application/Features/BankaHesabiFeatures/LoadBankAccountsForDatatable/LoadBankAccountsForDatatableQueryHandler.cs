@@ -55,7 +55,7 @@ namespace PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankA
                 : bankAccountsMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await bankAccounts.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.ParaYatirmalar.CountAsync(x => !x.SilindiMi, cancellationToken);
+            var totalResultsCount = await _paymentContext.BankaHesaplari.CountAsync(x => !x.SilindiMi, cancellationToken);
 
             return new DtResult<LoadBankAccountsForDatatableResult>
             {
