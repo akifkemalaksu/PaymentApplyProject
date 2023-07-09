@@ -29,10 +29,10 @@ namespace PaymentApplyProject.Infrastructure.Services
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
+                new Claim(JwtRegisteredClaimNames.Jti,guidString),
                 new Claim(JwtRegisteredClaimNames.Sub,kullaniciDto.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName,kullaniciDto.KullaniciAdi),
                 new Claim(JwtRegisteredClaimNames.Email,kullaniciDto.Email),
-                new Claim(JwtRegisteredClaimNames.Jti,guidString),
                 new Claim(JwtRegisteredClaimNames.Name,kullaniciDto.Ad),
                 new Claim(JwtRegisteredClaimNames.FamilyName, kullaniciDto.Soyad),
             };

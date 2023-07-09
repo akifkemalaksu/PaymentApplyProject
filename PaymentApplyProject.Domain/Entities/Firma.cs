@@ -16,6 +16,7 @@ namespace PaymentApplyProject.Domain.Entities
 
         [StringLength(100)]
         public string Ad { get; set; }
+        public bool AktifMi { get; set; }
         public virtual ICollection<Musteri> Musteriler { get; set; }
     }
 }
