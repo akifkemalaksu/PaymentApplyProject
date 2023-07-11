@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PaymentApplyProject.Persistence.Context;
@@ -11,9 +12,16 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    partial class PaymentContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:PaymentApplyProject.Persistence/Migrations/20230707212037_dbSetup.Designer.cs
+    [Migration("20230707212037_dbSetup")]
+    partial class dbSetup
+========
+    [Migration("20230709205001_setupDb")]
+    partial class setupDb
+>>>>>>>> akif:PaymentApplyProject.Persistence/Migrations/20230709205001_setupDb.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

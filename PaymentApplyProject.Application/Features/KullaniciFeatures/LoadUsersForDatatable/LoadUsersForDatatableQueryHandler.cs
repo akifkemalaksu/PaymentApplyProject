@@ -25,8 +25,6 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
                     && !ky.SilindiMi)
                 && !x.SilindiMi);
 
-            var totalResultsCount = await users.CountAsync(cancellationToken);
-
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
                 users = users.Where(x =>
@@ -63,6 +61,12 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
                 : usersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await users.CountAsync(cancellationToken);
+            var totalResultsCount = await _paymentContext.Kullanicilar.CountAsync(x =>
+                x.KullaniciYetkiler.Any(ky =>
+                    ky.Yetki.Id == RolSabitler.USER_ID
+                    && !ky.SilindiMi)
+                && !x.SilindiMi
+            , cancellationToken);
 
             return new DtResult<LoadUsersForDatatableResult>
             {
