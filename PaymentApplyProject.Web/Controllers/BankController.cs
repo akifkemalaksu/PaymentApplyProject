@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
+using PaymentApplyProject.Application.Features.BankaFeatures.LoadBanksForDatatable;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAccount;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.DeleteBankAccount;
 using PaymentApplyProject.Application.Features.BankaHesabiFeatures.EditBankAccount;
@@ -41,6 +42,14 @@ namespace PaymentApplyProject.Web.Controllers
         {
             var result = await _mediator.Send(new GetBankAccountByIdQuery { Id = id });
             return PartialView("_viewEditBankAccountPartial", result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> LoadBanks(LoadBanksForDatatableQuery loadBanksForDatatableQuery)
+        {
+            var result = await _mediator.Send(loadBanksForDatatableQuery);
+            return Json(result);
         }
 
         [HttpPost]

@@ -42,7 +42,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [Route("[controller]/[action]/{id}")]
-        [HttpGet]
         public async Task<IActionResult> ViewDepositPartial(int id)
         {
             var result = await _mediator.Send(new GetParaYatirmaByIdQuery { Id = id });
@@ -50,7 +49,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [Route("[controller]/[action]/{id}")]
-        [HttpGet]
         public async Task<IActionResult> ViewWithdrawPartial(int id)
         {
             var result = await _mediator.Send(new GetParaCekmeByIdQuery { Id = id });

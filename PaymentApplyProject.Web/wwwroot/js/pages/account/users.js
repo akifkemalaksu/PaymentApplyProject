@@ -1,13 +1,23 @@
-﻿let filtreleButton = $('#kt_search');
+﻿let durumSelect = $("#aktifMi").select2();
+let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
+resetButton.on("click", () => {
+    $('.kt-input').val(0).trigger("change");
+    filtreleButton.click();
+});
 
 datatableHelper.datatableOptions.ajax = {
     url: "/account/loadusers",
     type: "POST",
+    data: function (d) {
+        let durum = durumSelect.val()
+
+        d.aktifMi = durum == 0 ? null : durum
+    }
 };
-datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7,8] });
+datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7, 8] });
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "kullaniciAdi" },

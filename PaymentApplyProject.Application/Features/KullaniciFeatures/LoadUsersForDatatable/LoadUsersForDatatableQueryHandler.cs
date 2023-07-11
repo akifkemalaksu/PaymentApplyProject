@@ -19,7 +19,8 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
         public async Task<DtResult<LoadUsersForDatatableResult>> Handle(LoadUsersForDatatableQuery request, CancellationToken cancellationToken)
         {
             var users = _paymentContext.Kullanicilar.Where(x =>
-                x.KullaniciYetkiler.Any(ky =>
+                (request.AktifMi == null || x.AktifMi == request.AktifMi)
+                && x.KullaniciYetkiler.Any(ky =>
                     ky.Yetki.Id == RolSabitler.USER_ID
                     && !ky.SilindiMi)
                 && !x.SilindiMi);
@@ -59,8 +60,13 @@ namespace PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersFo
                 usersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
                 : usersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
-            var filteredResultsCount = await usersMapped.CountAsync(cancellationToken);
-            var totalResultsCount = await users.CountAsync(x => !x.SilindiMi, cancellationToken);
+            var filteredResultsCount = await users.CountAsync(cancellationToken);
+            var totalResultsCount = await _paymentContext.Kullanicilar.CountAsync(x =>
+                x.KullaniciYetkiler.Any(ky =>
+                    ky.Yetki.Id == RolSabitler.USER_ID
+                    && !ky.SilindiMi)
+                && !x.SilindiMi
+            , cancellationToken);
 
             return new DtResult<LoadUsersForDatatableResult>
             {

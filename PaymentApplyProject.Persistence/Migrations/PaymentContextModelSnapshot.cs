@@ -169,6 +169,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<bool>("AktifMi")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("DuzenleyenKullaniciId")
                         .HasColumnType("integer");
 
