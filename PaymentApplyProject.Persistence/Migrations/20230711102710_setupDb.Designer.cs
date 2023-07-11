@@ -12,13 +12,8 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-<<<<<<<< HEAD:PaymentApplyProject.Persistence/Migrations/20230707212037_dbSetup.Designer.cs
-    [Migration("20230707212037_dbSetup")]
-    partial class dbSetup
-========
-    [Migration("20230709205001_setupDb")]
+    [Migration("20230711102710_setupDb")]
     partial class setupDb
->>>>>>>> akif:PaymentApplyProject.Persistence/Migrations/20230709205001_setupDb.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
