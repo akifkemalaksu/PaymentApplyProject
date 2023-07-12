@@ -34,10 +34,9 @@ namespace PaymentApplyProject.Infrastructure.Services
             var claims = new List<Claim>()
             {
                 new Claim(JwtRegisteredClaimNames.Jti,guidString),
-                new Claim(JwtRegisteredClaimNames.Sub,kullaniciDto.Id.ToString()),
-
-                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
+                new Claim(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
                 new Claim(CustomClaimTypes.Email,kullaniciDto.Email),
+                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
                 new Claim(CustomClaimTypes.Name,kullaniciDto.Name),
                 new Claim(CustomClaimTypes.Surname, kullaniciDto.Surname),
             };
@@ -86,12 +85,37 @@ namespace PaymentApplyProject.Infrastructure.Services
 
             UserDto signedInUser = new()
             {
-                Name = claims.First(x => x.Type == JwtRegisteredClaimNames.Name).Value,
-                Surname = claims.First(x => x.Type == JwtRegisteredClaimNames.FamilyName).Value,
-                Email = claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value,
-                Username = claims.First(x => x.Type == JwtRegisteredClaimNames.UniqueName).Value,
-                Id = int.Parse(claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value),
+                Id = int.Parse(claims.First(x => x.Type == CustomClaimTypes.Id).Value),
+                Username = claims.First(x => x.Type == CustomClaimTypes.Username).Value,
+                Email = claims.First(x => x.Type == CustomClaimTypes.Email).Value,
+                Name = claims.First(x => x.Type == CustomClaimTypes.Name).Value,
+                Surname = claims.First(x => x.Type == CustomClaimTypes.Surname).Value,
             };
+
+            var companyNames = claims.Where(x => x.Type == CustomClaimTypes.Company).Select(x => x.Value).ToArray();
+            var companyIds = claims.Where(x => x.Type == CustomClaimTypes.CompanyId).Select(x => x.Value).ToArray();
+            var companyCount = companyNames.Count();
+            for (int i = 0; i < companyCount; i++)
+            {
+                (signedInUser.Companies as List<CompanyDto>).Add(new CompanyDto
+                {
+                    Id = short.Parse(companyIds[i]),
+                    Name = companyNames[i]
+                });
+            }
+
+            var rolesNames = claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToArray();
+            var rolesIds = claims.Where(x => x.Type == CustomClaimTypes.RoleId).Select(x => x.Value).ToArray();
+            var rolesCount = rolesNames.Count();
+            for (int i = 0; i < rolesCount; i++)
+            {
+                (signedInUser.Roles as List<RoleDto>).Add(new RoleDto
+                {
+                    Id = short.Parse(rolesIds[i]),
+                    Name = rolesNames[i]
+                });
+            }
+
             return signedInUser;
         }
     }

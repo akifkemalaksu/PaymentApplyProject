@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             //var url = _httpContextAccessor.HttpContext.Request.GetTypedHeaders().Referer;
 
             var userInfos = _jwtAuthService.GetSignedInUserInfos();
-            if (userInfos == null || userInfos.Companies == null || userInfos.Companies.Any())
+            if (userInfos == null || !userInfos.Companies.Any())
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             var company = userInfos.Companies.First();

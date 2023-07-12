@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
         public async Task<Response<AddOrUpdateAndGetCustomerResult>> Handle(AddOrUpdateAndGetCustomerCommand request, CancellationToken cancellationToken)
         {
             var userInfos = _jwtAuthService.GetSignedInUserInfos();
-            if (userInfos == null || userInfos.Companies == null || userInfos.Companies.Any())
+            if (userInfos == null || userInfos.Companies.Any())
                 return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
             var company = userInfos.Companies.First();
