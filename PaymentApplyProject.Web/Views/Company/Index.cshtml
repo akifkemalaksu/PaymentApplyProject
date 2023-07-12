@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Firmalar";
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.FirmaFeatures.LoadCompaniesForDatatable.LoadCompaniesForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForDatatable.LoadCompaniesForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -39,7 +39,7 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-6">
                     <label>Durum:</label>
-                    <select name="aktifMi" id="aktifMi" class="form-control kt-input">
+                    <select name="active" id="active" class="form-control kt-input">
                         <option value="0">Hepsi</option>
                         <option selected value="true">Aktif</option>
                         <option value="false">Pasif</option>
@@ -68,8 +68,8 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Ad)</th>
-                        <th>@Html.DisplayNameFor(x => x.AktifMi)</th>
+                        <th>@Html.DisplayNameFor(x => x.Name)</th>
+                        <th>@Html.DisplayNameFor(x => x.Active)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

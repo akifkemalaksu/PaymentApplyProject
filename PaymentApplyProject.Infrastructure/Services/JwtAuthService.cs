@@ -9,53 +9,58 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using PaymentApplyProject.Domain.Constants;
+using Microsoft.AspNetCore.Http;
+using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
+using System.Xml.Linq;
 
 namespace PaymentApplyProject.Infrastructure.Services
 {
     public class JwtAuthService : IJwtAuthService
     {
-        private readonly JwtSettings jwtSettings;
+        private readonly JwtSettings _jwtSettings;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public JwtAuthService(JwtSettings jwtSettings)
+        public JwtAuthService(JwtSettings jwtSettings, IHttpContextAccessor httpContextAccessor)
         {
-            this.jwtSettings = jwtSettings;
+            _jwtSettings = jwtSettings;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public Response<AuthenticateTokenResult> CreateToken(KullaniciDto kullaniciDto)
+        public Response<AuthenticateTokenResult> CreateToken(UserDto kullaniciDto)
         {
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
                 new Claim(JwtRegisteredClaimNames.Jti,guidString),
                 new Claim(JwtRegisteredClaimNames.Sub,kullaniciDto.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName,kullaniciDto.KullaniciAdi),
-                new Claim(JwtRegisteredClaimNames.Email,kullaniciDto.Email),
-                new Claim(JwtRegisteredClaimNames.Name,kullaniciDto.Ad),
-                new Claim(JwtRegisteredClaimNames.FamilyName, kullaniciDto.Soyad),
+
+                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
+                new Claim(CustomClaimTypes.Email,kullaniciDto.Email),
+                new Claim(CustomClaimTypes.Name,kullaniciDto.Name),
+                new Claim(CustomClaimTypes.Surname, kullaniciDto.Surname),
             };
 
-            Parallel.ForEach(kullaniciDto.Yetkiler, (yetki) =>
+            Parallel.ForEach(kullaniciDto.Roles, (yetki) =>
             {
-                claims.Add(new Claim(ClaimTypes.Role, yetki.Ad));
+                claims.Add(new Claim(ClaimTypes.Role, yetki.Name));
                 claims.Add(new Claim(CustomClaimTypes.RoleId, yetki.Id.ToString()));
             });
 
-            Parallel.ForEach(kullaniciDto.Firmalar, (firma) =>
+            Parallel.ForEach(kullaniciDto.Companies, (firma) =>
             {
-                claims.Add(new Claim(CustomClaimTypes.Company, firma.Ad));
+                claims.Add(new Claim(CustomClaimTypes.Company, firma.Name));
                 claims.Add(new Claim(CustomClaimTypes.CompanyId, firma.Id.ToString()));
             });
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SigningKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             JwtSecurityToken jwtSecurityToken = new(
-                issuer: jwtSettings.Issuer,
-                audience: jwtSettings.Audience,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromHours(jwtSettings.TokenTimeoutHours)),
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                expires: DateTime.UtcNow.Add(TimeSpan.FromHours(_jwtSettings.TokenTimeoutHours)),
                 claims: claims,
                 signingCredentials: signingCredentials
                 );
@@ -68,6 +73,26 @@ namespace PaymentApplyProject.Infrastructure.Services
                 ValidTo = jwtSecurityToken.ValidTo
             };
             return Response<AuthenticateTokenResult>.Success(System.Net.HttpStatusCode.OK, jsonToken);
+        }
+
+        // todo: burada ek olarak yetkiler de gelmeli ve firmalar
+        public UserDto GetSignedInUserInfos()
+        {
+            var claimsPrincipal = _httpContextAccessor.HttpContext.User;
+
+            if (claimsPrincipal == null) return null;
+
+            var claims = claimsPrincipal.Claims;
+
+            UserDto signedInUser = new()
+            {
+                Name = claims.First(x => x.Type == JwtRegisteredClaimNames.Name).Value,
+                Surname = claims.First(x => x.Type == JwtRegisteredClaimNames.FamilyName).Value,
+                Email = claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value,
+                Username = claims.First(x => x.Type == JwtRegisteredClaimNames.UniqueName).Value,
+                Id = int.Parse(claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value),
+            };
+            return signedInUser;
         }
     }
 }

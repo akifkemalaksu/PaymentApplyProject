@@ -1,4 +1,4 @@
-let durumSelect = $("#aktifMi").select2();
+let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
@@ -15,13 +15,13 @@ datatableHelper.datatableOptions.ajax = {
         let durum = durumSelect.val()
         durum = durum == 0 ? null : durum
 
-        d.aktifMi = durum
+        d.active = durum
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [2, 3] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
-    { data: "ad" },
+    { data: "name" },
     {
         data: "aktifMi",
         render: (data) => data ?
@@ -31,7 +31,7 @@ datatableHelper.datatableOptions.columns = [
     {
         data: function (data) {
             return `
-            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="activeOrPassive(${data.id},${data.aktifMi})" title="Durum değiştir">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="activeOrPassive(${data.id},${data.active})" title="Durum değiştir">
                 <i class="fa fa-exchange-alt"></i>
             </button>
             `;

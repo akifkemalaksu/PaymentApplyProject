@@ -1,11 +1,11 @@
-﻿@using PaymentApplyProject.Application.Features.KullaniciFeatures.AddUser
+﻿@using PaymentApplyProject.Application.Features.UserFeatures.AddUser
 @model AddUserCommand
 
 <form asp-action="adduser" class="kt-form" id="kt_form">
     <div class="kt-portlet__body">
         <div class="form-group">
             <label>Kullanıcı Adı:</label>
-            <input type="text" class="form-control" asp-for="KullaniciAdi">
+            <input type="text" class="form-control" asp-for="Username">
         </div>
         <div class="form-group">
             <label>Email:</label>
@@ -13,15 +13,15 @@
         </div>
         <div class="form-group">
             <label>Ad:</label>
-            <input type="text" class="form-control" asp-for="Ad">
+            <input type="text" class="form-control" asp-for="Name">
         </div>
         <div class="form-group">
             <label>Soyad:</label>
-            <input type="text" class="form-control" asp-for="Soyad">
+            <input type="text" class="form-control" asp-for="Surname">
         </div>
         <div class="form-group">
             <label>Firmalar:</label>
-            <select class="form-control" asp-for="Firmalar" multiple>
+            <select class="form-control" asp-for="Companies" multiple>
             </select>
         </div>
     </div>

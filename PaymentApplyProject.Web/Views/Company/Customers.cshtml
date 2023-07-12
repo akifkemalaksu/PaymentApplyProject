@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Müşteriler";
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.MusteriFeatures.LoadCustomersForDatatable.LoadCustomersForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable.LoadCustomersForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -39,7 +39,7 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-6">
                     <label>Durum:</label>
-                    <select name="aktifMi" id="aktifMi" class="form-control kt-input">
+                    <select name="active" id="active" class="form-control kt-input">
                         <option value="0">Hepsi</option>
                         <option selected value="true">Aktif</option>
                         <option value="false">Pasif</option>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
                     <label>Firma:</label>
-                    <select name="firmaId" id="firmaId" class="form-control kt-input">
+                    <select name="companyId" id="companyId" class="form-control kt-input">
                     </select>
                 </div>
             </div>
@@ -73,11 +73,11 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Firma)</th>
-                        <th>@Html.DisplayNameFor(x => x.KullaniciAdi)</th>
-                        <th>@Html.DisplayNameFor(x => x.AdSoyad)</th>
-                        <th>@Html.DisplayNameFor(x => x.EklemeTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.AktifMi)</th>
+                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th>@Html.DisplayNameFor(x => x.Username)</th>
+                        <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
+                        <th>@Html.DisplayNameFor(x => x.AddDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.Active)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

@@ -26,28 +26,28 @@ namespace PaymentApplyProject.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task SignInAsync(KullaniciDto kullaniciDto, bool rememberMe)
+        public Task SignInAsync(UserDto kullaniciDto, bool rememberMe)
         {
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
                 new Claim(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
-                new Claim(CustomClaimTypes.Username,kullaniciDto.KullaniciAdi),
-                new Claim(ClaimTypes.Name,kullaniciDto.Ad),
-                new Claim(ClaimTypes.Surname,kullaniciDto.Soyad),
+                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
+                new Claim(ClaimTypes.Name,kullaniciDto.Name),
+                new Claim(ClaimTypes.Surname,kullaniciDto.Surname),
                 new Claim(ClaimTypes.Email,kullaniciDto.Email),
             };
 
-            Parallel.ForEach(kullaniciDto.Yetkiler, (yetki) =>
+            Parallel.ForEach(kullaniciDto.Roles, (yetki) =>
             {
-                claims.Add(new Claim(ClaimTypes.Role, yetki.Ad));
+                claims.Add(new Claim(ClaimTypes.Role, yetki.Name));
                 claims.Add(new Claim(CustomClaimTypes.RoleId, yetki.Id.ToString()));
             });
 
-            Parallel.ForEach(kullaniciDto.Firmalar, (firma) =>
+            Parallel.ForEach(kullaniciDto.Companies, (firma) =>
             {
                 claims.Add(new Claim(CustomClaimTypes.CompanyId, firma.Id.ToString()));
-                claims.Add(new Claim(CustomClaimTypes.Company, firma.Ad));
+                claims.Add(new Claim(CustomClaimTypes.Company, firma.Name));
             });
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -64,9 +64,8 @@ namespace PaymentApplyProject.Infrastructure.Services
 
         public Task SignOutAsync() => _httpContextAccessor.HttpContext.SignOutAsync();
 
-        // todo: bu metot için ayrı servis yazılabilir, ISignedInUserService
         // todo: burada ek olarak yetkiler de gelmeli ve firmalar
-        public SignedInUserDto GetSignedInUserInfos()
+        public UserDto GetSignedInUserInfos()
         {
             var claimsPrincipal = _httpContextAccessor.HttpContext.User;
 
@@ -74,12 +73,12 @@ namespace PaymentApplyProject.Infrastructure.Services
 
             var claims = claimsPrincipal.Claims;
 
-            SignedInUserDto signedInUser = new()
+            UserDto signedInUser = new()
             {
-                Ad = claims.First(x => x.Type == ClaimTypes.Name).Value,
-                Soyad = claims.First(x => x.Type == ClaimTypes.Surname).Value,
+                Name = claims.First(x => x.Type == ClaimTypes.Name).Value,
+                Surname = claims.First(x => x.Type == ClaimTypes.Surname).Value,
                 Email = claims.First(x => x.Type == ClaimTypes.Email).Value,
-                KullaniciAdi = claims.First(x => x.Type == CustomClaimTypes.Username).Value,
+                Username = claims.First(x => x.Type == CustomClaimTypes.Username).Value,
                 Id = int.Parse(claims.First(x => x.Type == CustomClaimTypes.Id).Value),
             };
             return signedInUser;

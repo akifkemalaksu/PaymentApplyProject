@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.Dtos;
 using System.Data;
 using System.Linq.Expressions;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepositsForDatatable;
-using PaymentApplyProject.Application.Features.ParaCekmeFeatures.LoadWithdrawsForDatatable;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.ApproveParaYatirma;
 using PaymentApplyProject.Application.ControllerBases;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.RejectParaYatirma;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.GetParaYatirmaById;
-using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById;
-using PaymentApplyProject.Application.Features.ParaCekmeFeatures.ApproveParaCekme;
-using PaymentApplyProject.Application.Features.ParaCekmeFeatures.RejectParaCekme;
+using PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit;
+using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById;
+using PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable;
+using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -44,14 +44,14 @@ namespace PaymentApplyProject.Web.Controllers
         [Route("[controller]/[action]/{id}")]
         public async Task<IActionResult> ViewDepositPartial(int id)
         {
-            var result = await _mediator.Send(new GetParaYatirmaByIdQuery { Id = id });
+            var result = await _mediator.Send(new GetDepositByIdQuery { Id = id });
             return PartialView("_viewDepositPartial", result);
         }
 
         [Route("[controller]/[action]/{id}")]
         public async Task<IActionResult> ViewWithdrawPartial(int id)
         {
-            var result = await _mediator.Send(new GetParaCekmeByIdQuery { Id = id });
+            var result = await _mediator.Send(new GetWithdrawByIdQuery { Id = id });
             return PartialView("_viewWithdrawPartial", result);
         }
 
@@ -63,14 +63,14 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApproveDeposit([FromBody] ApproveParaYatirmaCommand approveParaYatirmaCommand)
+        public async Task<IActionResult> ApproveDeposit([FromBody] ApproveDepositCommand approveParaYatirmaCommand)
         {
             var result = await _mediator.Send(approveParaYatirmaCommand);
             return CreateResult(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RejectDeposit([FromBody] RejectParaYatirmaCommand rejectParaYatirmaCommand)
+        public async Task<IActionResult> RejectDeposit([FromBody] RejectDepositCommand rejectParaYatirmaCommand)
         {
             var result = await _mediator.Send(rejectParaYatirmaCommand);
             return CreateResult(result);
@@ -84,14 +84,14 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApproveWithdraw([FromBody] ApproveParaCekmeCommand approveParaCekmeCommand)
+        public async Task<IActionResult> ApproveWithdraw([FromBody] ApproveWithdrawCommand approveParaCekmeCommand)
         {
             var result = await _mediator.Send(approveParaCekmeCommand);
             return CreateResult(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RejectWithdraw([FromBody] RejectParaCekmeCommand rejectParaCekmeCommand)
+        public async Task<IActionResult> RejectWithdraw([FromBody] RejectWithdrawCommand rejectParaCekmeCommand)
         {
             var result = await _mediator.Send(rejectParaCekmeCommand);
             return CreateResult(result);

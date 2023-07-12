@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
-using PaymentApplyProject.Application.Features.ParaYatirmaFeatures.AddParaYatirma;
 using System.Data;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankaHesabiForPaymentFrame;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountForPaymentFrame;
+using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -34,14 +34,14 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAccountInfo([FromBody] GetBankaHesabiForPaymentFrameQuery getBankaHesabiQuery)
+        public async Task<IActionResult> GetAccountInfo([FromBody] GetBankAccountForPaymentFrameQuery getBankaHesabiQuery)
         {
             var result = await _mediator.Send(getBankaHesabiQuery);
             return CreateResult(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SavePayment([FromBody] AddParaYatirmaCommand addParaYatirmaCommand)
+        public async Task<IActionResult> SavePayment([FromBody] AddDepositCommand addParaYatirmaCommand)
         {
             var result = await _mediator.Send(addParaYatirmaCommand);
             return CreateResult(result);

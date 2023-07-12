@@ -1,5 +1,5 @@
 ﻿@using PaymentApplyProject.Application.Dtos
-@using PaymentApplyProject.Application.Features.KullaniciFeatures.GetUserByIdAndRole
+@using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 @model Response<GetUserByIdAndRoleResult>
 
 @if (!Model.IsSuccessful)
@@ -19,7 +19,7 @@ else
         <div class="kt-portlet__body">
             <div class="form-group">
                 <label>Kullanıcı Adı:</label>
-                <input type="text" class="form-control" asp-for="Data.KullaniciAdi" name="KullaniciAdi" value="@Model.Data.KullaniciAdi">
+                <input type="text" class="form-control" asp-for="Data.Username" name="Username" value="@Model.Data.Username">
             </div>
             <div class="form-group">
                 <label>Email:</label>
@@ -27,18 +27,18 @@ else
             </div>
             <div class="form-group">
                 <label>Ad:</label>
-                <input type="text" class="form-control" asp-for="Data.Ad" name="Ad" value="@Model.Data.Ad">
+                <input type="text" class="form-control" asp-for="Data.Name" name="Name" value="@Model.Data.Name">
             </div>
             <div class="form-group">
                 <label>Soyad:</label>
-                <input type="text" class="form-control" asp-for="Data.Soyad" name="Soyad" value="@Model.Data.Soyad">
+                <input type="text" class="form-control" asp-for="Data.Surname" name="Surname" value="@Model.Data.Surname">
             </div>
             <div class="form-group">
                 <label>Firmalar:</label>
-                <select class="form-control" asp-for="Data.Firmalar" name="Firmalar" multiple>
-                    @foreach (var firma in Model.Data.Firmalar)
+                <select class="form-control" asp-for="Data.Companies" name="Companies" multiple>
+                    @foreach (var company in Model.Data.Companies)
                     {
-                        <option value="@firma.Id" selected>@firma.Ad</option>
+                        <option value="@company.Id" selected>@company.Name</option>
                     }
                 </select>
             </div>
@@ -46,7 +46,7 @@ else
                 <label class="col-12">Aktif:</label>
                 <span class="kt-switch kt-switch--lg kt-switch--icon kt-switch--primary col-12">
                     <label>
-                        <input type="checkbox" class="form-control" asp-for="Data.AktifMi" name="AktifMi" checked="@Model.Data.AktifMi">
+                        <input type="checkbox" class="form-control" asp-for="Data.Active" name="Active" checked="@Model.Data.Active">
                         <span></span>
                     </label>
                 </span>

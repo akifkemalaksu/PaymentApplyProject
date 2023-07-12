@@ -1,6 +1,6 @@
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let firmaSelect = $("#firmaId").serverSelect2({ url: "Firmalar", extraOptions: extraOptions });
-let durumSelect = $("#aktifMi").select2();
+let firmaSelect = $("#companyId").serverSelect2({ url: "Companies", extraOptions: extraOptions });
+let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
@@ -17,22 +17,22 @@ datatableHelper.datatableOptions.ajax = {
         let durum = durumSelect.val()
         durum = durum == 0 ? null : durum
 
-        d.firmaId = firmaSelect.val()
-        d.aktifMi = durum
+        d.companyId = firmaSelect.val()
+        d.active = durum
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [5, 6] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
-    { data: "firma" },
-    { data: "kullaniciAdi" },
-    { data: "adSoyad" },
+    { data: "company" },
+    { data: "username" },
+    { data: "nameSurname" },
     {
-        data: "eklemeTarihi",
+        data: "addDate",
         render: (date) => formatter.toGoodDate(date)
     },
     {
-        data: "aktifMi",
+        data: "active",
         render: (data) => data ?
             `<span class="kt-badge kt-badge--inline kt-badge--success">Aktif</span>`
             : `<span class="kt-badge kt-badge--inline kt-badge--danger">Pasif</span>`
@@ -40,7 +40,7 @@ datatableHelper.datatableOptions.columns = [
     {
         data: function (data) {
             return `
-            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="activeOrPassive(${data.id},${data.aktifMi})" title="Durum deðiþtir">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="activeOrPassive(${data.id},${data.active})" title="Durum deðiþtir">
                 <i class="fa fa-exchange-alt"></i>
             </button>
             `;

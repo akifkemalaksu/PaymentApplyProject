@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
-using PaymentApplyProject.Application.Features.BankaFeatures.LoadBanksForDatatable;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAccount;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.DeleteBankAccount;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.EditBankAccount;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankAccountById;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankAccountsForDatatable;
 using System.Data;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAccount;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBankAccount;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankAccount;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById;
+using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable;
+using PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForDatatable;
 
 namespace PaymentApplyProject.Web.Controllers
 {

@@ -1,7 +1,7 @@
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let bankaSelect = $("#bankaId").serverSelect2({ url: "Bankalar", extraOptions: extraOptions });
-let durumSelect = $("#aktifMi").select2();
-let tutarInput = $("#tutar").maskMoney({ thousands: '', precision: false, allowZero: false });
+let bankaSelect = $("#bankId").serverSelect2({ url: "Banks", extraOptions: extraOptions });
+let durumSelect = $("#active").select2();
+let tutarInput = $("#amount").maskMoney({ thousands: '', precision: false, allowZero: false });
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
@@ -18,31 +18,31 @@ datatableHelper.datatableOptions.ajax = {
         let tutar = parser.moneyToFloat(tutarInput.val())
         let durum = durumSelect.val()
 
-        d.bankaId = bankaSelect.val()
-        d.tutar = tutar
-        d.aktifMi = durum == 0 ? null : durum
+        d.bankId = bankaSelect.val()
+        d.amount = tutar
+        d.active = durum == 0 ? null : durum
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7, 8] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
-    { data: "banka" },
-    { data: "hesapNumarasi" },
-    { data: "adSoyad" },
+    { data: "bank" },
+    { data: "accountNumber" },
+    { data: "nameSurname" },
     {
-        data: "altLimit",
+        data: "lowerLimit",
         render: (data) => formatter.toMoney(data)
     },
     {
-        data: "ustLimit",
+        data: "upperLimit",
         render: (data) => formatter.toMoney(data)
     },
     {
-        data: "eklemeTarihi",
+        data: "addDate",
         render: (date) => formatter.toGoodDate(date)
     },
     {
-        data: "aktifMi",
+        data: "active",
         render: (data) => data ?
             `<span class="kt-badge kt-badge--inline kt-badge--success">Aktif</span>`
             : `<span class="kt-badge kt-badge--inline kt-badge--danger">Pasif</span>`
@@ -89,22 +89,22 @@ let addBankAccountDefines = () => {
     let formEl = $('#kt_form');
     let validator = formEl.validate({
         rules: {
-            BankaId: {
+            BankId: {
                 required: true
             },
-            HesapNumarasi: {
+            AccountNumber: {
                 required: true
             },
-            Ad: {
+            Name: {
                 required: true
             },
-            Soyad: {
+            Surname: {
                 required: true
             },
-            AltLimit: {
+            LowerLimit: {
                 required: true
             },
-            UstLimit: {
+            UpperLimit: {
                 required: true
             }
         },
@@ -116,7 +116,7 @@ let addBankAccountDefines = () => {
         }
     });
 
-    formEl.find('[name="BankaId"]').serverSelect2({ url: "Bankalar" })
+    formEl.find('[name="BankId"]').serverSelect2({ url: "Banks" })
     formEl.find('.money').maskMoney({ thousands: '', allowZero: true, precision: false })
 }
 

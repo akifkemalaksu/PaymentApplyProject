@@ -2,18 +2,18 @@
 let resetButton = $('#kt_reset');
 
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
-let firmaSelect = $("#firmaId").serverSelect2({ url: "Firmalar", extraOptions: extraOptions });
-let musteriSelect = $("#musteriId").serverSelect2({ url: "Musteriler", extraOptions: extraOptions });
-let durumSelect = $("#durumId").select2();
+let firmaSelect = $("#companyId").serverSelect2({ url: "Companies", extraOptions: extraOptions });
+let musteriSelect = $("#customerId").serverSelect2({ url: "Customers", extraOptions: extraOptions });
+let durumSelect = $("#statusId").select2();
 
 firmaSelect.on('select2:select', function (e) {
     let extraData = [];
     extraData.push({
-        name: "firmaId",
+        name: "companyId",
         value: this.value
     });
     musteriSelect.val(0).trigger("change");
-    musteriSelect.serverSelect2({ url: "Musteriler", extraOptions: extraOptions, extraData: extraData });
+    musteriSelect.serverSelect2({ url: "Customers", extraOptions: extraOptions, extraData: extraData });
 });
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
@@ -26,48 +26,48 @@ datatableHelper.datatableOptions.ajax = {
     url: "/payment/LoadWithdraws",
     type: "POST",
     data: function (d) {
-        d.firmaId = firmaSelect.val()
-        d.musteriId = musteriSelect.val()
-        d.durumId = durumSelect.val()
+        d.companyId = firmaSelect.val()
+        d.customerId = musteriSelect.val()
+        d.statusId = durumSelect.val()
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [10] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
-    { data: "firma" },
-    { data: "musteriKullaniciAd" },
-    { data: "musteriAdSoyad" },
-    { data: "bankaHesapNo" },
+    { data: "company" },
+    { data: "username" },
+    { data: "nameSurname" },
+    { data: "accountNumber" },
     {
         data: (row) => {
-            if (row.durumId == "4")
-                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.durum}</span>`
-            else if (row.durumId == "5")
-                return `<span class="kt-badge kt-badge--inline kt-badge--danger">${row.durum}</span>`
-            else if (row.durumId == "6")
-                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.durum}</span>`
+            if (row.statusId == "4")
+                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.status}</span>`
+            else if (row.statusId == "5")
+                return `<span class="kt-badge kt-badge--inline kt-badge--danger">${row.status}</span>`
+            else if (row.statusId == "6")
+                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.status}</span>`
         }
     },
     {
-        data: "talepTarihi",
+        data: "addDate",
         render: (date) => formatter.toGoodDate(date)
     },
     {
-        data: "islemTarihi",
+        data: "transactionDate",
         render: (date) => formatter.toGoodDate(date)
     },
     {
-        data: "tutar",
+        data: "amount",
         render: (data) => formatter.toMoney(data)
     },
     {
-        data: "onaylananTutar",
+        data: "approvedAmount",
         render: (data) => formatter.toMoney(data)
     },
     {
         data: function (data, type, full, meta) {
             return `
-            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="goruntule(${data.id}, '${data.musteriAdSoyad}')" title="Görüntüle">
+            <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="goruntule(${data.id}, '${data.nameSurname}')" title="Görüntüle">
                 <i class="la la-eye"></i>
             </button>
             `;
@@ -76,14 +76,14 @@ datatableHelper.datatableOptions.columns = [
 ];
 datatableHelper.initialize($("#kt_table_1"));
 
-let goruntule = async (id, musteriAdSoyad) => {
+let goruntule = async (id, nameSurname) => {
     let resultHtml = await fetchHelper.sendText(`/payment/ViewWithdrawPartial/${id}`, httpMethods.get);
 
     let ktModal = $("#kt_modal")
     let modalHeader = ktModal.find(".modal-title");
     let modalBody = ktModal.find(".modal-body");
 
-    modalHeader.html(`${id} - ${musteriAdSoyad} - Para Çekme İşlemi`);
+    modalHeader.html(`${id} - ${nameSurname} - Para Çekme İşlemi`);
     modalBody.html(resultHtml);
 
     goruntuleDefines()
@@ -94,7 +94,7 @@ let goruntule = async (id, musteriAdSoyad) => {
 let goruntuleDefines = () => {
     let onaylaButton = $("#onayla")
     let reddetButton = $("#reddet")
-    let onaylanacakTutarInput = $("#onaylanacakTutar").maskMoney({ thousands: '', precision: false, allowZero: false });
+    let onaylanacakTutarInput = $("#approvedAmount").maskMoney({ thousands: '', precision: false, allowZero: false });
     let idInput = $("#id")
 
     onaylaButton.on("click", async () => {
@@ -110,7 +110,7 @@ let goruntuleDefines = () => {
                 if (result.value) {
                     let data = {
                         id: idInput.val(),
-                        tutar: onaylanacakTutar
+                        amount: onaylanacakTutar
                     }
                     let result = await fetchHelper.send("/payment/Approvewithdraw", httpMethods.post, data)
 

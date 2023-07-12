@@ -4,7 +4,7 @@
     ViewData["Title"] = "Para Çekmeler";
 }
 
-@model IEnumerable<PaymentApplyProject.Application.Features.ParaCekmeFeatures.LoadWithdrawsForDatatable.LoadWithdrawsForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable.LoadWithdrawsForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -42,21 +42,21 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
                     <label>Durum:</label>
-                    <select name="durumId" id="durumId" class="form-control kt-input">
+                    <select name="statusId" id="statusId" class="form-control kt-input">
                         <option value="0">Hepsi</option>
-                        <option selected value="@ParaCekmeDurumSabitler.BEKLIYOR">Bekliyor</option>
-                        <option value="@ParaCekmeDurumSabitler.REDDEDILDI">Reddedildi</option>
-                        <option value="@ParaCekmeDurumSabitler.ONAYLANDI">Onaylandı</option>
+                        <option selected value="@WithdrawStatusConstants.BEKLIYOR">Bekliyor</option>
+                        <option value="@WithdrawStatusConstants.REDDEDILDI">Reddedildi</option>
+                        <option value="@WithdrawStatusConstants.ONAYLANDI">Onaylandı</option>
                     </select>
                 </div>
                 <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
                     <label>Firma:</label>
-                    <select name="firmaId" id="firmaId" class="form-control kt-input">
+                    <select name="companyId" id="companyId" class="form-control kt-input">
                     </select>
                 </div>
                 <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
                     <label>Müşteri:</label>
-                    <select name="musteriId" id="musteriId" class="form-control kt-input">
+                    <select name="customerId" id="customerId" class="form-control kt-input">
                     </select>
                 </div>
             </div>
@@ -82,15 +82,15 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Firma)</th>
-                        <th>@Html.DisplayNameFor(x => x.MusteriKullaniciAd)</th>
-                        <th>@Html.DisplayNameFor(x => x.MusteriAdSoyad)</th>
-                        <th>@Html.DisplayNameFor(x => x.BankaHesapNo)</th>
-                        <th>@Html.DisplayNameFor(x => x.Durum)</th>
-                        <th>@Html.DisplayNameFor(x => x.TalepTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.IslemTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.Tutar)</th>
-                        <th>@Html.DisplayNameFor(x => x.OnaylananTutar)</th>
+                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th>@Html.DisplayNameFor(x => x.Username)</th>
+                        <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
+                        <th>@Html.DisplayNameFor(x => x.AccountNumber)</th>
+                        <th>@Html.DisplayNameFor(x => x.Status)</th>
+                        <th>@Html.DisplayNameFor(x => x.AddDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.TransactionDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.Amount)</th>
+                        <th>@Html.DisplayNameFor(x => x.ApprovedAmount)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

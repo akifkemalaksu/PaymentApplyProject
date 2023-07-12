@@ -1,4 +1,4 @@
-﻿let durumSelect = $("#aktifMi").select2();
+﻿let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
@@ -14,26 +14,26 @@ datatableHelper.datatableOptions.ajax = {
     data: function (d) {
         let durum = durumSelect.val()
 
-        d.aktifMi = durum == 0 ? null : durum
+        d.active = durum == 0 ? null : durum
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [7, 8] });
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
-    { data: "kullaniciAdi" },
+    { data: "username" },
     { data: "email" },
-    { data: "ad" },
-    { data: "soyad" },
+    { data: "name" },
+    { data: "surname" },
     {
-        data: "eklemeTarihi",
+        data: "addDate",
         render: (date) => formatter.toGoodDate(date)
     },
     {
-        data: "firmalar",
+        data: "companies",
         render: (data) => data.split(',').map((ad) => `<p class="kt-font-primary">${ad}</p>`).join('')
     },
     {
-        data: "aktifMi",
+        data: "active",
         render: (data) => data ?
             `<span class="kt-badge kt-badge--inline kt-badge--success">Aktif</span>`
             : `<span class="kt-badge kt-badge--inline kt-badge--danger">Pasif</span>`
@@ -80,17 +80,17 @@ let addUserDefines = () => {
     let formEl = $('#kt_form');
     let validator = formEl.validate({
         rules: {
-            KullaniciAdi: {
+            Username: {
                 required: true
             },
             Email: {
                 required: true,
                 email: true
             },
-            Ad: {
+            Name: {
                 required: true
             },
-            Soyad: {
+            Surname: {
                 required: true
             }
         },
@@ -102,8 +102,8 @@ let addUserDefines = () => {
         }
     });
 
-    formEl.find('[name="Firmalar"]').serverSelect2({ url: "Firmalar" })
-    formEl.find('[name="KullaniciAdi"]').on('input', function (e) {
+    formEl.find('[name="Companies"]').serverSelect2({ url: "Companies" })
+    formEl.find('[name="Username"]').on('input', function (e) {
         var inputValue = $(this).val();
         var sanitizedValue = inputValue.replace(/\s/g, ''); // Remove spaces
         $(this).val(sanitizedValue);

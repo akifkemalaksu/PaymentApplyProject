@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Banka Hesaplar";
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankAccountsForDatatable.LoadBankAccountsForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable.LoadBankAccountsForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -39,7 +39,7 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-4">
                     <label>Durum:</label>
-                    <select name="aktifMi" id="aktifMi" class="form-control kt-input">
+                    <select name="active" id="active" class="form-control kt-input">
                         <option value="0">Hepsi</option>
                         <option selected value="true">Aktif</option>
                         <option value="false">Pasif</option>
@@ -47,12 +47,12 @@
                 </div>
                 <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
                     <label>Banka:</label>
-                    <select name="bankaId" id="bankaId" class="form-control kt-input">
+                    <select name="bankId" id="bankId" class="form-control kt-input">
                     </select>
                 </div>
                 <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
                     <label>Tutar:</label>
-                    <input class="form-control kt-input" id="tutar" name="tutar" type="text">
+                    <input class="form-control kt-input" id="amount" name="amount" type="text">
                 </div>
             </div>
             <div class="kt-separator kt-separator--md kt-separator--dashed"></div>
@@ -83,13 +83,13 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Banka)</th>
-                        <th>@Html.DisplayNameFor(x => x.HesapNumarasi)</th>
-                        <th>@Html.DisplayNameFor(x => x.AdSoyad)</th>
-                        <th>@Html.DisplayNameFor(x => x.AltLimit)</th>
-                        <th>@Html.DisplayNameFor(x => x.UstLimit)</th>
-                        <th>@Html.DisplayNameFor(x => x.EklemeTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.AktifMi)</th>
+                        <th>@Html.DisplayNameFor(x => x.Bank)</th>
+                        <th>@Html.DisplayNameFor(x => x.AccountNumber)</th>
+                        <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
+                        <th>@Html.DisplayNameFor(x => x.LowerLimit)</th>
+                        <th>@Html.DisplayNameFor(x => x.UpperLimit)</th>
+                        <th>@Html.DisplayNameFor(x => x.InsertDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.Active)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

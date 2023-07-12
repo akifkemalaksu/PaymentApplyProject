@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Features.ParaCekmeFeatures.AddParaCekme;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
@@ -47,9 +46,9 @@ namespace PaymentApplyProject.Infrastructure
             services
                 .AddAuthentication(auth =>
                 {
-                    auth.DefaultScheme = AuthenticationSabitler.CustomAuthenticationScheme;
-                    auth.DefaultAuthenticateScheme = AuthenticationSabitler.CustomAuthenticationScheme;
-                    auth.DefaultChallengeScheme = AuthenticationSabitler.CustomAuthenticationScheme;
+                    auth.DefaultScheme = AuthenticationConstants.CustomAuthenticationScheme;
+                    auth.DefaultAuthenticateScheme = AuthenticationConstants.CustomAuthenticationScheme;
+                    auth.DefaultChallengeScheme = AuthenticationConstants.CustomAuthenticationScheme;
                 })
                 .AddJwtBearer(options =>
                 {
@@ -72,7 +71,7 @@ namespace PaymentApplyProject.Infrastructure
                     options.ExpireTimeSpan = TimeSpan.FromDays(7);
                     options.SlidingExpiration = true;
                 })
-                .AddPolicyScheme(AuthenticationSabitler.CustomAuthenticationScheme, AuthenticationSabitler.CustomAuthenticationScheme, options =>
+                .AddPolicyScheme(AuthenticationConstants.CustomAuthenticationScheme, AuthenticationConstants.CustomAuthenticationScheme, options =>
                 {
                     options.ForwardDefaultSelector = context =>
                     {

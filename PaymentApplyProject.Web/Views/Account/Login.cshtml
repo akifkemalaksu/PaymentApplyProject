@@ -1,12 +1,11 @@
 ﻿@using PaymentApplyProject.Application.Dtos;
-@using PaymentApplyProject.Application.Dtos.KullaniciDtos
-
+@using PaymentApplyProject.Application.Features.UserFeatures.Login
 @{
     Layout = null;
     ViewData["Title"] = "Panele Giriş";
 }
 
-@model LoginDto
+@model LoginCommand
 
 <!DOCTYPE html>
 
@@ -47,15 +46,15 @@
                             </div>
                             <form asp-action="login" method="post" class="kt-form">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Email veya Kullanıcı Adı" asp-for="EmailKullaniciAdi" autocomplete="off">
+                                    <input class="form-control" type="text" placeholder="Email veya Kullanıcı Adı" asp-for="EmailUsername" autocomplete="off">
                                 </div>
                                 <div class="input-group">
-                                    <input class="form-control" type="password" placeholder="Şifre" asp-for="Sifre">
+                                    <input class="form-control" type="password" placeholder="Şifre" asp-for="Password">
                                 </div>
                                 <div class="row kt-login__extra">
                                     <div class="col">
                                         <label class="kt-checkbox">
-                                            <input type="checkbox" asp-for="BeniHatirla"> Beni hatırla
+                                            <input type="checkbox" asp-for="RememberMe"> Beni hatırla
                                             <span></span>
                                         </label>
                                     </div>
@@ -113,13 +112,6 @@
                                 </div>
                             </form>
                         </div>
-                        @*<div class="kt-login__account">
-                        <span class="kt-login__account-msg">
-                        Don't have an account yet ?
-                        </span>
-                        &nbsp;&nbsp;
-                        <a href="javascript:;" id="kt_login_signup" class="kt-login__account-link">Sign Up!</a>
-                        </div>*@
                     </div>
                 </div>
             </div>

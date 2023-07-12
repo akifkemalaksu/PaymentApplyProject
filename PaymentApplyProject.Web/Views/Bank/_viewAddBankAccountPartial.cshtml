@@ -1,32 +1,32 @@
-﻿@using PaymentApplyProject.Application.Features.BankaHesabiFeatures.AddBankAccount
+﻿@using PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAccount
 @model AddBankAccountCommand
 
 <form asp-action="addbankaccount" class="kt-form" id="kt_form">
     <div class="kt-portlet__body">
         <div class="form-group">
             <label>Banka:</label>
-            <select class="form-control" asp-for="BankaId">
+            <select class="form-control" asp-for="BankId">
             </select>
         </div>
         <div class="form-group">
             <label>Hesap Numarası:</label>
-            <input type="text" class="form-control" asp-for="HesapNumarasi">
+            <input type="text" class="form-control" asp-for="AccountNumber">
         </div>
         <div class="form-group">
             <label>Ad:</label>
-            <input type="text" class="form-control" asp-for="Ad">
+            <input type="text" class="form-control" asp-for="Name">
         </div>
         <div class="form-group">
             <label>Soyad:</label>
-            <input type="text" class="form-control" asp-for="Soyad">
+            <input type="text" class="form-control" asp-for="Surname">
         </div>
         <div class="form-group">
             <label>Alt Limit:</label>
-            <input type="text" class="form-control money" asp-for="AltLimit">
+            <input type="text" class="form-control money" asp-for="LowerLimit">
         </div>
         <div class="form-group">
             <label>Üst Limit:</label>
-            <input type="text" class="form-control money" asp-for="UstLimit">
+            <input type="text" class="form-control money" asp-for="UpperLimit">
         </div>
     </div>
 </form>

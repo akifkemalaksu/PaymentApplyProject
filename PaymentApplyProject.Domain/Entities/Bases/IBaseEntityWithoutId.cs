@@ -2,11 +2,11 @@
 {
     public interface IBaseEntityWithoutId
     {
-        public bool SilindiMi { get; set; }
-        public int EkleyenKullaniciId { get; set; }
-        public int DuzenleyenKullaniciId { get; set; }
-        public DateTime EklemeTarihi { get; set; }
-        public DateTime GuncellemeTarihi { get; set; }
+        public bool Delete { get; set; }
+        public int AddedUserId { get; set; }
+        public int EditedUserId { get; set; }
+        public DateTime AddDate { get; set; }
+        public DateTime EditDate { get; set; }
     }
 
 }

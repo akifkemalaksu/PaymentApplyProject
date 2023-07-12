@@ -1,7 +1,7 @@
 ﻿@using PaymentApplyProject.Application.Dtos
 @using PaymentApplyProject.Domain.Constants
-@using PaymentApplyProject.Application.Features.ParaCekmeFeatures.GetParaCekmeById
-@model Response<GetParaCekmeByIdResult>
+@using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById
+@model Response<GetWithdrawByIdResult>
 
 <div class="row">
     @if (!Model.IsSuccessful)
@@ -24,23 +24,23 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Kullanıcı Adı:</span>
-                <span class="text-muted">@Model.Data.MusteriKullaniciAd</span>
+                <span class="text-muted">@Model.Data.Username</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Ad:</span>
-                <span class="text-muted">@Model.Data.MusteriAd</span>
+                <span class="text-muted">@Model.Data.Name</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Soyad:</span>
-                <span class="text-muted">@Model.Data.MusteriSoyad</span>
+                <span class="text-muted">@Model.Data.Surname</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Hesap No:</span>
-                <span class="text-muted">@Model.Data.HesapNumarasi</span>
+                <span class="text-muted">@Model.Data.AccountNumber</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Firma:</span>
-                <span class="text-muted">@Model.Data.Firma</span>
+                <span class="text-muted">@Model.Data.Company</span>
             </div>
         </div>
 
@@ -51,63 +51,63 @@
 
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Durum:</span>
-                @if (Model.Data.DurumId == ParaCekmeDurumSabitler.BEKLIYOR)
+                @if (Model.Data.StatusId == WithdrawStatusConstants.BEKLIYOR)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--warning">Bekliyor</span>
                 }
-                else if (Model.Data.DurumId == ParaCekmeDurumSabitler.REDDEDILDI)
+                else if (Model.Data.StatusId == WithdrawStatusConstants.REDDEDILDI)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--danger">Reddedildi</span>
                 }
-                else if (Model.Data.DurumId == ParaCekmeDurumSabitler.ONAYLANDI)
+                else if (Model.Data.StatusId == WithdrawStatusConstants.ONAYLANDI)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--success">Onaylandı</span>
                 }
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Tutar:</span>
-                <span class="text-muted">@Model.Data.Tutar.ToString("c")</span>
+                <span class="text-muted">@Model.Data.Amount.ToString("c")</span>
             </div>
-            @if (Model.Data.IslemTarihi != null)
+            @if (Model.Data.TransactionDate != null)
             {
-                if (Model.Data.DurumId == ParaCekmeDurumSabitler.REDDEDILDI)
+                if (Model.Data.StatusId == WithdrawStatusConstants.REDDEDILDI)
                 {
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Reddetme Tarihi:</span>
-                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("dd.MM.yy")</span>
+                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Reddetme Saati:</span>
-                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("hh.mm")</span>
+                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
                     </div>
                 }
-                else if (Model.Data.OnaylananTutar.HasValue)
+                else if (Model.Data.ApprovedAmount.HasValue)
                 {
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanan Tutar:</span>
-                        <span class="text-muted">@Model.Data.OnaylananTutar.Value.ToString("c")</span>
+                        <span class="text-muted">@Model.Data.ApprovedAmount.Value.ToString("c")</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanma Tarihi:</span>
-                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("dd.MM.yy")</span>
+                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanma Saati:</span>
-                        <span class="text-muted">@Model.Data.IslemTarihi.Value.ToString("hh.mm")</span>
+                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
                     </div>
                 }
             }
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Talep Tarihi:</span>
-                <span class="text-muted">@Model.Data.EklemeTarihi.ToString("dd.MM.yy")</span>
+                <span class="text-muted">@Model.Data.AddDate.ToString("dd.MM.yy")</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Talep Saati:</span>
-                <span class="text-muted">@Model.Data.EklemeTarihi.ToString("hh.mm")</span>
+                <span class="text-muted">@Model.Data.AddDate.ToString("hh.mm")</span>
             </div>
         </div>
 
-        if (Model.Data.DurumId == ParaCekmeDurumSabitler.BEKLIYOR)
+        if (Model.Data.StatusId == WithdrawStatusConstants.BEKLIYOR)
         {
             <div class="col-12">
                 <div class="kt-separator kt-separator--md kt-separator--dashed"></div>
@@ -119,7 +119,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label class="font-weight-bold">Onaylanacak Tutar</label>
-                        <input class="form-control" id="onaylanacakTutar" name="onaylanacakTutar" value="@Model.Data.Tutar.ToString("0")" type="text">
+                        <input class="form-control" id="approvedAmount" name="approvedAmount" value="@Model.Data.Amount.ToString("0")" type="text">
                         <input id="id" name="id" type="hidden" value="@Model.Data.Id">
                     </div>
                 </div>

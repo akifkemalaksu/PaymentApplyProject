@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Para Yatırmalar";
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.ParaYatirmaFeatures.LoadDepositsForDatatable.LoadDepositsForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable.LoadDepositsForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -39,7 +39,7 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-3">
                     <label>Durum:</label>
-                    <select name="durumId" id="durumId" class="form-control kt-input">
+                    <select name="statusId" id="statusId" class="form-control kt-input">
                         <option value="0">Hepsi</option>
                         <option selected value="1">Bekliyor</option>
                         <option value="2">Reddedildi</option>
@@ -50,22 +50,22 @@
             <div class="row kt-margin-b-20">
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                     <label>Firma:</label>
-                    <select name="firmaId" id="firmaId" class="form-control kt-input">
+                    <select name="companyId" id="companyId" class="form-control kt-input">
                     </select>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                     <label>Müşteri:</label>
-                    <select name="musteriId" id="musteriId" class="form-control kt-input">
+                    <select name="customerId" id="customerId" class="form-control kt-input">
                     </select>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                     <label>Banka:</label>
-                    <select name="bankaId" id="bankaId" class="form-control kt-input">
+                    <select name="bankId" id="bankId" class="form-control kt-input">
                     </select>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                     <label>Banka Hesap:</label>
-                    <select name="bankaHesapId" id="bankaHesapId" class="form-control kt-input">
+                    <select name="bankAccountId" id="bankAccountId" class="form-control kt-input">
                     </select>
                 </div>
             </div>
@@ -91,17 +91,17 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Firma)</th>
-                        <th>@Html.DisplayNameFor(x => x.MusteriKullaniciAd)</th>
-                        <th>@Html.DisplayNameFor(x => x.MusteriAdSoyad)</th>
-                        <th>@Html.DisplayNameFor(x => x.BankaHesapSahibi)</th>
-                        <th>@Html.DisplayNameFor(x => x.BankaHesapNo)</th>
-                        <th>@Html.DisplayNameFor(x => x.Banka)</th>
-                        <th>@Html.DisplayNameFor(x => x.Durum)</th>
-                        <th>@Html.DisplayNameFor(x => x.TalepTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.IslemTarihi)</th>
-                        <th>@Html.DisplayNameFor(x => x.Tutar)</th>
-                        <th>@Html.DisplayNameFor(x => x.OnaylananTutar)</th>
+                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th>@Html.DisplayNameFor(x => x.CustomerUsername)</th>
+                        <th>@Html.DisplayNameFor(x => x.CustomerNameSurname)</th>
+                        <th>@Html.DisplayNameFor(x => x.BankAccountOwner)</th>
+                        <th>@Html.DisplayNameFor(x => x.BankAccountNumber)</th>
+                        <th>@Html.DisplayNameFor(x => x.Bank)</th>
+                        <th>@Html.DisplayNameFor(x => x.Status)</th>
+                        <th>@Html.DisplayNameFor(x => x.AddDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.TransactionDate)</th>
+                        <th>@Html.DisplayNameFor(x => x.Amount)</th>
+                        <th>@Html.DisplayNameFor(x => x.ApprovedAmount)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

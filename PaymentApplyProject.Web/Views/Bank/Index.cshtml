@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Bankalar";
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.BankaFeatures.LoadBanksForDatatable.LoadBanksForDatatableResult>
+@model IEnumerable<PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForDatatable.LoadBanksForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -40,7 +40,7 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Ad)</th>
+                        <th>@Html.DisplayNameFor(x => x.Name)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

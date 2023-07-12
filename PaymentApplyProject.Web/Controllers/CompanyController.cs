@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
-using PaymentApplyProject.Application.Features.FirmaFeatures.ChangeCompanyStatus;
-using PaymentApplyProject.Application.Features.FirmaFeatures.LoadCompaniesForDatatable;
-using PaymentApplyProject.Application.Features.MusteriFeatures.ChangeCustomerStatus;
-using PaymentApplyProject.Application.Features.MusteriFeatures.LoadCustomersForDatatable;
+using PaymentApplyProject.Application.Features.CompanyFeatures.ChangeCompanyStatus;
+using PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForDatatable;
+using PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustomerStatus;
+using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable;
 
 namespace PaymentApplyProject.Web.Controllers
 {

@@ -18,19 +18,19 @@ namespace PaymentApplyProject.Persistence.Context
         {
         }
 
-        public DbSet<Banka> Bankalar { get; set; }
-        public DbSet<BankaHesabi> BankaHesaplari { get; set; }
-        public DbSet<Musteri> Musteriler { get; set; }
-        public DbSet<Durum> Durumlar { get; set; }
-        public DbSet<ParaCekmeDurum> ParaCekmeDurumlar { get; set; }
-        public DbSet<ParaYatirmaDurum> ParaYatirmaDurumlar { get; set; }
-        public DbSet<Firma> Firmalar { get; set; }
-        public DbSet<Kullanici> Kullanicilar { get; set; }
-        public DbSet<ParaCekme> ParaCekmeler { get; set; }
-        public DbSet<ParaYatirma> ParaYatirmalar { get; set; }
-        public DbSet<Yetki> Yetkiler { get; set; }
-        public DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }
-        public DbSet<KullaniciFirma> KullaniciFirmalar { get; set; }
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<WithdrawStatus> WithdrawStatuses { get; set; }
+        public DbSet<DepositStatus> DepositStatuses { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Withdraw> Withdraws { get; set; }
+        public DbSet<Deposit> Deposits { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserCompany> UserCompanies { get; set; }
 
         public override int SaveChanges()
         {
@@ -55,11 +55,11 @@ namespace PaymentApplyProject.Persistence.Context
 
             Parallel.ForEach(added, entity =>
             {
-                entity.EkleyenKullaniciId = 0;
-                entity.DuzenleyenKullaniciId = 0;
-                entity.EklemeTarihi = DateTime.UtcNow;
-                entity.GuncellemeTarihi = DateTime.UtcNow;
-                entity.SilindiMi = false;
+                entity.AddedUserId = 0;
+                entity.EditedUserId = 0;
+                entity.AddDate = DateTime.UtcNow;
+                entity.EditDate = DateTime.UtcNow;
+                entity.Delete = false;
             });
         }
 
@@ -70,8 +70,8 @@ namespace PaymentApplyProject.Persistence.Context
 
             Parallel.ForEach(updated, entity =>
             {
-                entity.DuzenleyenKullaniciId = 0;
-                entity.GuncellemeTarihi = DateTime.UtcNow;
+                entity.EditedUserId = 0;
+                entity.EditDate = DateTime.UtcNow;
             });
         }
 
@@ -83,9 +83,9 @@ namespace PaymentApplyProject.Persistence.Context
             Parallel.ForEach(deleted, entity =>
             {
                 entity.State = EntityState.Modified;
-                entity.Entity.DuzenleyenKullaniciId = 0;
-                entity.Entity.GuncellemeTarihi = DateTime.UtcNow;
-                entity.Entity.SilindiMi = true;
+                entity.Entity.EditedUserId = 0;
+                entity.Entity.EditDate = DateTime.UtcNow;
+                entity.Entity.Delete = true;
             });
         }
 

@@ -2,7 +2,7 @@
 let validator = formEl.validate({
     ignore: ":hidden",
     rules: {
-        tutar: {
+        amount: {
             required: true
         },
     },
@@ -66,10 +66,10 @@ wizard.on('change', function (wizard) {
 });
 
 
-let bankaIdInput = $("#bankaId");
-let bankaHesapIdInput = $("#bankaHesapId");
-let musteriIdInput = $("#musteriId");
-let tutarInput = $("#tutar");
+let bankaIdInput = $("#bankId");
+let bankaHesapIdInput = $("#bankAccountId");
+let musteriIdInput = $("#customerId");
+let tutarInput = $("#amount");
 
 let tutarDefines = () => {
     tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
@@ -78,8 +78,8 @@ let tutarDefines = () => {
 
 let getBankaHesabiBilgisi = async () => {
     let data = {
-        bankaId: bankaIdInput.val(),
-        tutar: parser.moneyToFloat(tutarInput.val())
+        bankId: bankaIdInput.val(),
+        amount: parser.moneyToFloat(tutarInput.val())
     }
     let result = await fetchHelper.send("/paymentframe/getaccountinfo", httpMethods.post, data)
     if (!result.isSuccessful) {
@@ -137,10 +137,9 @@ let resultDiv = $("#resultDiv")
 let odemeYap = async () => {
     let tutar = parser.moneyToFloat(tutarInput.val())
     let data = {
-        //musteriId: musteriIdInput.val(),
-        musteriId: "1",
-        bankaHesapId: bankaHesapIdInput.val(),
-        tutar: tutar
+        customerId: musteriIdInput.val(),
+        bankAccountId: bankaHesapIdInput.val(),
+        amount: tutar
     }
 
     let result = await fetchHelper.send("paymentframe/savepayment", httpMethods.post, data)

@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Banka", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Bank", b =>
                 {
                     b.Property<short>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,32 +30,32 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
-                    b.Property<string>("Ad")
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Bankalar");
+                    b.ToTable("Banks");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.BankaHesabi", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.BankAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,56 +63,56 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<bool>("AktifMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("AltLimit")
-                        .HasColumnType("numeric");
-
-                    b.Property<short>("BankaId")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("HesapNumarasi")
+                    b.Property<string>("AccountNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<bool>("SilindiMi")
+                    b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Soyad")
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("BankId")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("LowerLimit")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<decimal>("UstLimit")
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<decimal>("UpperLimit")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankaId");
+                    b.HasIndex("BankId");
 
-                    b.ToTable("BankaHesaplari");
+                    b.ToTable("BankAccounts");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Durum", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Company", b =>
                 {
                     b.Property<short>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,89 +120,218 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
-                    b.Property<string>("Aciklama")
-                        .HasColumnType("text");
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Ad")
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("CompanyId")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Deposit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("ApprovedAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("BankAccountId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IntegrationId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("StatusId")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("TransactionDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Deposits");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Status", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
+                    b.Property<DateTime>("EditDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("EkleyenKullaniciId")
+                    b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Durumlar");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Durum");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Firma", b =>
-                {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<string>("Ad")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<bool>("AktifMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("RequestCode")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("ResponseCode")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Firmalar");
+                    b.ToTable("Statuses");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Status");
+
+                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Kullanici", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,21 +339,22 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<bool>("AktifMi")
+                    b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
+                    b.Property<DateTime>("AddDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("EkleyenKullaniciId")
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -232,33 +362,32 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.Property<string>("KullaniciAdi")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<string>("Sifre")
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Soyad")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Kullanicilar");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciFirma", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.UserCompany", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,37 +395,37 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
+                    b.Property<DateTime>("AddDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("EkleyenKullaniciId")
+                    b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<short>("FirmaId")
+                    b.Property<short>("CompanyId")
                         .HasColumnType("smallint");
 
-                    b.Property<DateTime>("GuncellemeTarihi")
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("KullaniciId")
+                    b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirmaId");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("KullaniciId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("KullaniciFirmalar");
+                    b.ToTable("UserCompanies");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciYetki", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -304,37 +433,37 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
+                    b.Property<DateTime>("AddDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("EkleyenKullaniciId")
+                    b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("KullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("SilindiMi")
+                    b.Property<bool>("Delete")
                         .HasColumnType("boolean");
 
-                    b.Property<short>("YetkiId")
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("RoleId")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KullaniciId");
+                    b.HasIndex("RoleId");
 
-                    b.HasIndex("YetkiId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("KullaniciYetkiler");
+                    b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Musteri", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Withdraw", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -342,342 +471,203 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<bool>("AktifMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<short>("FirmaId")
-                        .HasColumnType("smallint");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("KullaniciAdi")
+                    b.Property<string>("AccountNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Soyad")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FirmaId");
-
-                    b.ToTable("Musteriler");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaCekme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
+                    b.Property<DateTime>("AddDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("EkleyenKullaniciId")
+                    b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EntegrasyonId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("HesapNumarasi")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<DateTime?>("IslemTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("MusteriId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal?>("OnaylananTutar")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<short>("ParaCekmeDurumId")
+                    b.Property<decimal?>("ApprovedAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Delete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IntegrationId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("StatusId")
                         .HasColumnType("smallint");
 
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("Tutar")
-                        .HasColumnType("numeric");
+                    b.Property<DateTime?>("TransactionDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MusteriId");
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("ParaCekmeDurumId");
+                    b.HasIndex("StatusId");
 
-                    b.ToTable("ParaCekmeler");
+                    b.ToTable("Withdraws");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaYatirma", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositStatus", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.HasBaseType("PaymentApplyProject.Domain.Entities.Status");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BankaHesabiId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EntegrasyonId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("IslemTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("MusteriId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal?>("OnaylananTutar")
-                        .HasColumnType("numeric");
-
-                    b.Property<short>("ParaYatirmaDurumId")
-                        .HasColumnType("smallint");
-
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("Tutar")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankaHesabiId");
-
-                    b.HasIndex("MusteriId");
-
-                    b.HasIndex("ParaYatirmaDurumId");
-
-                    b.ToTable("ParaYatirmalar");
+                    b.HasDiscriminator().HasValue("DepositStatus");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Yetki", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.WithdrawStatus", b =>
                 {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
+                    b.HasBaseType("PaymentApplyProject.Domain.Entities.Status");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<int>("DuzenleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EklemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EkleyenKullaniciId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("GuncellemeTarihi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("SilindiMi")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Yetkiler");
+                    b.HasDiscriminator().HasValue("WithdrawStatus");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaCekmeDurum", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.BankAccount", b =>
                 {
-                    b.HasBaseType("PaymentApplyProject.Domain.Entities.Durum");
-
-                    b.HasDiscriminator().HasValue("ParaCekmeDurum");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaYatirmaDurum", b =>
-                {
-                    b.HasBaseType("PaymentApplyProject.Domain.Entities.Durum");
-
-                    b.HasDiscriminator().HasValue("ParaYatirmaDurum");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.BankaHesabi", b =>
-                {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Banka", "Banka")
-                        .WithMany("BankaHesaplar")
-                        .HasForeignKey("BankaId")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Bank", "Bank")
+                        .WithMany("BankaAccounts")
+                        .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Banka");
+                    b.Navigation("Bank");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciFirma", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Customer", b =>
                 {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Firma", "Firma")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Company", "Company")
+                        .WithMany("Customers")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Deposit", b =>
+                {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.BankAccount", "BankAccount")
                         .WithMany()
-                        .HasForeignKey("FirmaId")
+                        .HasForeignKey("BankAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Kullanici", "Kullanici")
-                        .WithMany("KullaniciFirmalar")
-                        .HasForeignKey("KullaniciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Firma");
-
-                    b.Navigation("Kullanici");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.KullaniciYetki", b =>
-                {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Kullanici", "Kullanici")
-                        .WithMany("KullaniciYetkiler")
-                        .HasForeignKey("KullaniciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Yetki", "Yetki")
-                        .WithMany("KullaniciYetkiler")
-                        .HasForeignKey("YetkiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kullanici");
-
-                    b.Navigation("Yetki");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Musteri", b =>
-                {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Firma", "Firma")
-                        .WithMany("Musteriler")
-                        .HasForeignKey("FirmaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Firma");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaCekme", b =>
-                {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Musteri", "Musteri")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("MusteriId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaymentApplyProject.Domain.Entities.ParaCekmeDurum", "ParaCekmeDurum")
-                        .WithMany("ParaCekmeler")
-                        .HasForeignKey("ParaCekmeDurumId")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.DepositStatus", "DepositStatus")
+                        .WithMany("Deposits")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Musteri");
+                    b.Navigation("BankAccount");
 
-                    b.Navigation("ParaCekmeDurum");
+                    b.Navigation("Customer");
+
+                    b.Navigation("DepositStatus");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaYatirma", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.UserCompany", b =>
                 {
-                    b.HasOne("PaymentApplyProject.Domain.Entities.BankaHesabi", "BankaHesabi")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("BankaHesabiId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaymentApplyProject.Domain.Entities.Musteri", "Musteri")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.User", "User")
+                        .WithMany("UserCompanies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.UserRole", b =>
+                {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PaymentApplyProject.Domain.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Withdraw", b =>
+                {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("MusteriId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaymentApplyProject.Domain.Entities.ParaYatirmaDurum", "ParaYatirmaDurum")
-                        .WithMany("ParaYatirmalar")
-                        .HasForeignKey("ParaYatirmaDurumId")
+                    b.HasOne("PaymentApplyProject.Domain.Entities.WithdrawStatus", "WithdrawStatus")
+                        .WithMany("Withdraws")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BankaHesabi");
+                    b.Navigation("Customer");
 
-                    b.Navigation("Musteri");
-
-                    b.Navigation("ParaYatirmaDurum");
+                    b.Navigation("WithdrawStatus");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Banka", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Bank", b =>
                 {
-                    b.Navigation("BankaHesaplar");
+                    b.Navigation("BankaAccounts");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Firma", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Company", b =>
                 {
-                    b.Navigation("Musteriler");
+                    b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Kullanici", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>
                 {
-                    b.Navigation("KullaniciFirmalar");
-
-                    b.Navigation("KullaniciYetkiler");
+                    b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Yetki", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.User", b =>
                 {
-                    b.Navigation("KullaniciYetkiler");
+                    b.Navigation("UserCompanies");
+
+                    b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaCekmeDurum", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositStatus", b =>
                 {
-                    b.Navigation("ParaCekmeler");
+                    b.Navigation("Deposits");
                 });
 
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.ParaYatirmaDurum", b =>
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.WithdrawStatus", b =>
                 {
-                    b.Navigation("ParaYatirmalar");
+                    b.Navigation("Withdraws");
                 });
 #pragma warning restore 612, 618
         }

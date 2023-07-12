@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Dtos;
-using PaymentApplyProject.Application.Features.BankaHesabiFeatures.LoadBankAccountsForDatatable;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.AddUser;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.AuthenticateToken;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.EditUser;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.GetUserByIdAndRole;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.LoadUsersForDatatable;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.Login;
-using PaymentApplyProject.Application.Features.KullaniciFeatures.Logout;
 using PaymentApplyProject.Domain.Constants;
+using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
+using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
+using PaymentApplyProject.Application.Features.UserFeatures.EditUser;
+using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
+using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable;
+using PaymentApplyProject.Application.Features.UserFeatures.Login;
+using PaymentApplyProject.Application.Features.UserFeatures.Logout;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -53,7 +52,7 @@ namespace PaymentApplyProject.Web.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> ViewEditUserPartial(int id)
         {
-            var result = await _mediator.Send(new GetUserByIdAndRoleQuery { Id = id, YetkiId = RolSabitler.USER_ID });
+            var result = await _mediator.Send(new GetUserByIdAndRoleQuery { Id = id, RoleId = RoleConstants.USER_ID });
             return PartialView("_viewEditUserPartial", result);
         }
 

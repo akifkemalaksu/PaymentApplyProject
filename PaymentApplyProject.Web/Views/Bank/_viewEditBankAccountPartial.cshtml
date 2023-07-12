@@ -1,5 +1,5 @@
 ﻿@using PaymentApplyProject.Application.Dtos
-@using PaymentApplyProject.Application.Features.BankaHesabiFeatures.GetBankAccountById
+@using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById
 @model Response<GetBankAccountByIdResult>
 
 @if (!Model.IsSuccessful)
@@ -19,35 +19,35 @@ else
         <div class="kt-portlet__body">
             <div class="form-group">
                 <label>Banka:</label>
-                <select class="form-control" asp-for="Data.BankaId" name="BankaId">
-                    <option selected value="@Model.Data.BankaId">@Model.Data.Banka</option>
+                <select class="form-control" asp-for="Data.BankId" name="BankId">
+                    <option selected value="@Model.Data.BankId">@Model.Data.Bank</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Hesap Numarası:</label>
-                <input type="text" class="form-control" asp-for="Data.HesapNumarasi" name="HesapNumarasi" value="@Model.Data.HesapNumarasi">
+                <input type="text" class="form-control" asp-for="Data.AccountNumber" name="AccountNumber" value="@Model.Data.AccountNumber">
             </div>
             <div class="form-group">
                 <label>Ad:</label>
-                <input type="text" class="form-control" asp-for="Data.Ad" name="Ad" value="@Model.Data.Ad">
+                <input type="text" class="form-control" asp-for="Data.Name" name="Name" value="@Model.Data.Name">
             </div>
             <div class="form-group">
                 <label>Soyad:</label>
-                <input type="text" class="form-control" asp-for="Data.Soyad" name="Soyad" value="@Model.Data.Soyad">
+                <input type="text" class="form-control" asp-for="Data.Surname" name="Surname" value="@Model.Data.Surname">
             </div>
             <div class="form-group">
                 <label>Alt Limit:</label>
-                <input type="text" class="form-control money" asp-for="Data.AltLimit" name="AltLimit" value="@Model.Data.AltLimit">
+                <input type="text" class="form-control money" asp-for="Data.LowerLimit" name="LowerLimit" value="@Model.Data.LowerLimit">
             </div>
             <div class="form-group">
                 <label>Üst Limit:</label>
-                <input type="text" class="form-control money" asp-for="Data.UstLimit" name="UstLimit" value="@Model.Data.UstLimit">
+                <input type="text" class="form-control money" asp-for="Data.UpperLimit" name="UpperLimit" value="@Model.Data.UpperLimit">
             </div>
             <div class="form-group row">
                 <label class="col-12">Aktif:</label>
                 <span class="kt-switch kt-switch--lg kt-switch--icon kt-switch--primary col-12">
                     <label>
-                        <input type="checkbox" class="form-control" asp-for="Data.AktifMi" name="AktifMi" checked="@Model.Data.AktifMi">
+                        <input type="checkbox" class="form-control" asp-for="Data.Active" name="Active" checked="@Model.Data.Active">
                         <span></span>
                     </label>
                 </span>
