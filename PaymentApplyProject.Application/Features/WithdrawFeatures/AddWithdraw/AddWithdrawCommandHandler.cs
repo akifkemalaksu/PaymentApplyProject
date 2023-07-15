@@ -16,12 +16,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
     public class AddWithdrawCommandHandler : IRequestHandler<AddWithdrawCommand, Response<AddWithdrawResult>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly IJwtAuthService _jwtAuthService;
+        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public AddWithdrawCommandHandler(IPaymentContext paymentContext, IJwtAuthService jwtAuthService)
+        public AddWithdrawCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
         {
             _paymentContext = paymentContext;
-            _jwtAuthService = jwtAuthService;
+            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<Response<AddWithdrawResult>> Handle(AddWithdrawCommand request, CancellationToken cancellationToken)
@@ -30,7 +30,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             // todo: url i istekte mi alacağız yoksa biz mi yakalayacağız? Şimdilik istekte alıyoruz
             //var url = _httpContextAccessor.HttpContext.Request.GetTypedHeaders().Referer;
 
-            var userInfos = _jwtAuthService.GetSignedInUserInfos();
+            var userInfos = _authenticatedUserService.GetUserInfo();
             if (userInfos == null || !userInfos.Companies.Any())
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 

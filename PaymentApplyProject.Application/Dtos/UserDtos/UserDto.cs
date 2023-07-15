@@ -5,8 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Domain.Constants;
 
-namespace PaymentApplyProject.Application.Dtos.KullaniciDtos
+namespace PaymentApplyProject.Application.Dtos.UserDtos
 {
     public class UserDto
     {
@@ -23,5 +25,8 @@ namespace PaymentApplyProject.Application.Dtos.KullaniciDtos
             Roles = new List<RoleDto>();
             Companies = new List<CompanyDto>();
         }
+
+        public bool DoesHaveUserRole() => Roles.Any(x => x.Id == RoleConstants.USER_ID);
+        public bool DoesHaveAdminRole() => Roles.Any(x => x.Id == RoleConstants.ADMIN_ID);
     }
 }

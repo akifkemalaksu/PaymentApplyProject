@@ -1,5 +1,12 @@
-﻿@{
+﻿@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services
+
+@inject IAuthenticatedUserService authenticatedUserService
+
+@{
     ViewData["Title"] = "Para Yatırmalar";
+
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
 }
 @model IEnumerable<PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable.LoadDepositsForDatatableResult>
 
@@ -91,7 +98,7 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
                         <th>@Html.DisplayNameFor(x => x.CustomerUsername)</th>
                         <th>@Html.DisplayNameFor(x => x.CustomerNameSurname)</th>
                         <th>@Html.DisplayNameFor(x => x.BankAccountOwner)</th>

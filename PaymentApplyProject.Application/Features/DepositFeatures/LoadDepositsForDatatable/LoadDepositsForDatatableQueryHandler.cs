@@ -4,22 +4,29 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable;
+using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable
 {
     public class LoadDepositsForDatatableQueryHandler : IRequestHandler<LoadDepositsForDatatableQuery, DtResult<LoadDepositsForDatatableResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public LoadDepositsForDatatableQueryHandler(IPaymentContext paymentContext)
+        public LoadDepositsForDatatableQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
         {
             _paymentContext = paymentContext;
+            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<DtResult<LoadDepositsForDatatableResult>> Handle(LoadDepositsForDatatableQuery request, CancellationToken cancellationToken)
         {
+            var userInfo = _authenticatedUserService.GetUserInfo();
+
             var deposits = _paymentContext.Deposits.Where(x =>
-                (request.BankId == 0 || x.BankAccount.BankId == request.BankId)
+                (userInfo.DoesHaveUserRole() ? userInfo.Companies.Any(c => c.Id == x.Customer.CompanyId) : true)
+                && (request.BankId == 0 || x.BankAccount.BankId == request.BankId)
                 && (request.BankAccountId == 0 || x.BankAccountId == request.BankAccountId)
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)

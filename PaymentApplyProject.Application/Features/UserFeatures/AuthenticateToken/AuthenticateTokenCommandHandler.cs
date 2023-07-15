@@ -6,9 +6,9 @@ using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Mapping;
-using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
+using PaymentApplyProject.Application.Dtos.UserDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken
 {

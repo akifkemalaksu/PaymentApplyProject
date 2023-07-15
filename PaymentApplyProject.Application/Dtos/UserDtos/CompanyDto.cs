@@ -1,4 +1,4 @@
-﻿namespace PaymentApplyProject.Application.Dtos.KullaniciDtos
+﻿namespace PaymentApplyProject.Application.Dtos.UserDtos
 {
     public class CompanyDto
     {

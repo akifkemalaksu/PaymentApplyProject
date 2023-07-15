@@ -4,22 +4,29 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable;
+using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable
 {
     public class LoadWithdrawsForDatatableQueryHandler : IRequestHandler<LoadWithdrawsForDatatableQuery, DtResult<LoadWithdrawsForDatatableResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly IAuthenticatedUserService _userService;
 
-        public LoadWithdrawsForDatatableQueryHandler(IPaymentContext paymentContext)
+        public LoadWithdrawsForDatatableQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService userService)
         {
             _paymentContext = paymentContext;
+            _userService = userService;
         }
 
         public async Task<DtResult<LoadWithdrawsForDatatableResult>> Handle(LoadWithdrawsForDatatableQuery request, CancellationToken cancellationToken)
         {
+            var userInfo = _userService.GetUserInfo();
+
             var withdraws = _paymentContext.Withdraws.Where(x =>
-                (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
+                (userInfo.DoesHaveUserRole() ? userInfo.Companies.Any(c => c.Id == x.Customer.CompanyId) : true)
+                && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
                 && (request.StatusId == 0 || x.StatusId == request.StatusId)
                 && !x.Delete);

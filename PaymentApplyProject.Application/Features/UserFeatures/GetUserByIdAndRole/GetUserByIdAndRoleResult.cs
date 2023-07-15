@@ -1,4 +1,4 @@
-﻿using PaymentApplyProject.Application.Dtos.KullaniciDtos;
+﻿using PaymentApplyProject.Application.Dtos.UserDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {

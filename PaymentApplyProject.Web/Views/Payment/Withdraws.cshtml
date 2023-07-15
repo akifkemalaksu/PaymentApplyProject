@@ -1,7 +1,13 @@
 ﻿@using PaymentApplyProject.Domain.Constants
+@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services
+
+@inject IAuthenticatedUserService authenticatedUserService
 
 @{
     ViewData["Title"] = "Para Çekmeler";
+
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
 }
 
 @model IEnumerable<PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable.LoadWithdrawsForDatatableResult>
@@ -82,7 +88,7 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
                         <th>@Html.DisplayNameFor(x => x.Username)</th>
                         <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
                         <th>@Html.DisplayNameFor(x => x.AccountNumber)</th>

@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos;
-using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
+using PaymentApplyProject.Application.Dtos.UserDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {

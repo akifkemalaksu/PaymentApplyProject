@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos;
-using PaymentApplyProject.Application.Dtos.KullaniciDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.UserFeatures.Login;
+using PaymentApplyProject.Application.Dtos.UserDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.Login
 {
@@ -55,7 +55,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
             if (user == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.IncorrectLoginInfo);
 
-            if (!user.Roles.Any(x => x.Id == RoleConstants.ADMIN_ID))
+            if (!(user.DoesHaveAdminRole() || user.DoesHaveUserRole()))
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);
 
             await _cookieTokenService.SignInAsync(user, request.RememberMe);

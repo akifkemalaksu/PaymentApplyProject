@@ -13,17 +13,17 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
     public class AddOrUpdateAndGetCustomerCommandHandler : IRequestHandler<AddOrUpdateAndGetCustomerCommand, Response<AddOrUpdateAndGetCustomerResult>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly IJwtAuthService _jwtAuthService;
+        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public AddOrUpdateAndGetCustomerCommandHandler(IPaymentContext paymentContext, IJwtAuthService jwtAuthService)
+        public AddOrUpdateAndGetCustomerCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
         {
             _paymentContext = paymentContext;
-            _jwtAuthService = jwtAuthService;
+            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<Response<AddOrUpdateAndGetCustomerResult>> Handle(AddOrUpdateAndGetCustomerCommand request, CancellationToken cancellationToken)
         {
-            var userInfos = _jwtAuthService.GetSignedInUserInfos();
+            var userInfos = _authenticatedUserService.GetUserInfo();
             if (userInfos == null || userInfos.Companies.Any())
                 return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
@@ -35,8 +35,8 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
                 customer = new()
                 {
                     Username = request.Username,
-                    Name= request.Name,
-                    Surname= request.Surname,
+                    Name = request.Name,
+                    Surname = request.Surname,
                     CompanyId = company.Id,
                     Active = true
                 };

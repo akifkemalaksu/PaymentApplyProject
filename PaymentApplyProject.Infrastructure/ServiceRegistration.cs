@@ -37,6 +37,7 @@ namespace PaymentApplyProject.Infrastructure
 
             services.AddScoped<IJwtAuthService, JwtAuthService>();
             services.AddScoped<ICookieAuthService, CookieAuthService>();
+            services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>
