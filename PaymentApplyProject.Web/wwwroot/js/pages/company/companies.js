@@ -23,7 +23,7 @@ datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "name" },
     {
-        data: "aktifMi",
+        data: "active",
         render: (data) => data ?
             `<span class="kt-badge kt-badge--inline kt-badge--success">Aktif</span>`
             : `<span class="kt-badge kt-badge--inline kt-badge--danger">Pasif</span>`
