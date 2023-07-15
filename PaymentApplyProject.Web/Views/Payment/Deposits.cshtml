@@ -45,6 +45,17 @@
         <div class="kt-portlet__body">
             <div class="row kt-margin-b-20">
                 <div class="col-lg-3">
+                    <label>Tarih</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="kt_daterangepicker" readonly>
+                        <input type="hidden" name="startDate" id="startDate">
+                        <input type="hidden" name="endDate" id="endDate">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="la la-calendar-check-o"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
                     <label>Durum:</label>
                     <select name="statusId" id="statusId" class="form-control kt-input">
                         <option value="0">Hepsi</option>

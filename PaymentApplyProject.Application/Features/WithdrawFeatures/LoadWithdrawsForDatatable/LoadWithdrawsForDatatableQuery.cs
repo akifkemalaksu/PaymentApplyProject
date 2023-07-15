@@ -11,6 +11,8 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
 {
     public class LoadWithdrawsForDatatableQuery : DtParameters, IRequest<DtResult<LoadWithdrawsForDatatableResult>>
     {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public int CompanyId { get; set; }
         public int CustomerId { get; set; }
         public int StatusId { get; set; }

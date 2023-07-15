@@ -26,6 +26,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
 
             var deposits = _paymentContext.Deposits.Where(x =>
                 (userInfo.DoesHaveUserRole() ? userInfo.Companies.Any(c => c.Id == x.Customer.CompanyId) : true)
+                && (x.AddDate >= request.StartDate && x.AddDate <= request.EndDate)
                 && (request.BankId == 0 || x.BankAccount.BankId == request.BankId)
                 && (request.BankAccountId == 0 || x.BankAccountId == request.BankAccountId)
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
@@ -74,7 +75,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 : depositsMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await deposits.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.Deposits.CountAsync(x => !x.Delete, cancellationToken);
+            var totalResultsCount = await _paymentContext.Deposits.CountAsync(x =>
+            (userInfo.DoesHaveUserRole() ? userInfo.Companies.Any(c => c.Id == x.Customer.CompanyId) : true)
+            && !x.Delete, cancellationToken);
 
             return new DtResult<LoadDepositsForDatatableResult>
             {

@@ -7,6 +7,21 @@ let musteriSelect = $("#customerId").serverSelect2({ url: "Customers", extraOpti
 let bankaSelect = $("#bankId").serverSelect2({ url: "Banks", extraOptions: extraOptions });
 let bankaHesapSelect = $("#bankAccountId").serverSelect2({ url: "BankAccounts", extraOptions: extraOptions });
 let durumSelect = $("#statusId").select2();
+let startDateInput = $("#startDate");
+let endDateInput = $("#endDate");
+
+const startDate = moment().startOf('month')
+const endDate = moment().add(1, 'days').subtract(1, 'seconds')
+
+startDateInput.val(startDate.format("DD.MM.YYYY"));
+endDateInput.val(endDate.format("DD.MM.YYYY"));
+
+dateRangePickerOptions.startDate = startDate
+dateRangePickerOptions.endDate = endDate
+let tarihInput = $('#kt_daterangepicker').daterangepicker(dateRangePickerOptions, (start, end, label) => {
+    startDateInput.val(start.format("DD.MM.YYYY"));
+    endDateInput.val(end.format("DD.MM.YYYY"));
+});
 
 firmaSelect.on('select2:select', function (e) {
     let extraData = [];
@@ -42,6 +57,8 @@ datatableHelper.datatableOptions.ajax = {
         d.bankId = bankaSelect.val()
         d.bankAccountId = bankaHesapSelect.val()
         d.statusId = durumSelect.val()
+        d.startDate = startDateInput.val()
+        d.endDate = endDateInput.val()
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [12] })
@@ -56,11 +73,11 @@ datatableHelper.datatableOptions.columns = [
     {
         data: (row) => {
             if (row.statusId == "1")
-                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.status}</span>`
+                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.status}</span>`
             else if (row.statusId == "2")
                 return `<span class="kt-badge kt-badge--inline kt-badge--danger">${row.status}</span>`
             else if (row.statusId == "3")
-                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.status}</span>`
+                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.status}</span>`
         }
     },
     {

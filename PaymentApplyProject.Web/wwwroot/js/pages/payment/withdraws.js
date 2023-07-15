@@ -5,6 +5,21 @@ let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: t
 let firmaSelect = $("#companyId").serverSelect2({ url: "Companies", extraOptions: extraOptions });
 let musteriSelect = $("#customerId").serverSelect2({ url: "Customers", extraOptions: extraOptions });
 let durumSelect = $("#statusId").select2();
+let startDateInput = $("#startDate");
+let endDateInput = $("#endDate");
+
+const startDate = moment().startOf('month')
+const endDate = moment().add(1, 'days').subtract(1, 'seconds')
+
+startDateInput.val(startDate.format("DD.MM.YYYY"));
+endDateInput.val(endDate.format("DD.MM.YYYY"));
+
+dateRangePickerOptions.startDate = startDate
+dateRangePickerOptions.endDate = endDate
+let tarihInput = $('#kt_daterangepicker').daterangepicker(dateRangePickerOptions, (start, end, label) => {
+    startDateInput.val(start.format("DD.MM.YYYY"));
+    endDateInput.val(end.format("DD.MM.YYYY"));
+});
 
 firmaSelect.on('select2:select', function (e) {
     let extraData = [];
@@ -29,6 +44,8 @@ datatableHelper.datatableOptions.ajax = {
         d.companyId = firmaSelect.val()
         d.customerId = musteriSelect.val()
         d.statusId = durumSelect.val()
+        d.startDate = startDateInput.val()
+        d.endDate = endDateInput.val()
     }
 };
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [10] })
@@ -41,11 +58,11 @@ datatableHelper.datatableOptions.columns = [
     {
         data: (row) => {
             if (row.statusId == "4")
-                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.status}</span>`
+                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.status}</span>`
             else if (row.statusId == "5")
                 return `<span class="kt-badge kt-badge--inline kt-badge--danger">${row.status}</span>`
             else if (row.statusId == "6")
-                return `<span class="kt-badge kt-badge--inline kt-badge--success">${row.status}</span>`
+                return `<span class="kt-badge kt-badge--inline kt-badge--warning">${row.status}</span>`
         }
     },
     {
@@ -65,7 +82,7 @@ datatableHelper.datatableOptions.columns = [
         render: (data) => formatter.toMoney(data)
     },
     {
-        data: function (data, type, full, meta) {
+        data: function (data) {
             return `
             <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="goruntule(${data.id}, '${data.nameSurname}')" title="Görüntüle">
                 <i class="la la-eye"></i>
