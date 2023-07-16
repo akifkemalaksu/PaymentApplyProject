@@ -1,6 +1,6 @@
-﻿connection.on('displayNotification', (data) => {
-    datatableHelper.dtTable.draw()
-});
+﻿//connection.on('displayNotification', (data) => {
+//    datatableHelper.dtTable.draw()
+//});
 
 let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
