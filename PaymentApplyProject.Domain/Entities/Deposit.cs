@@ -7,7 +7,7 @@ namespace PaymentApplyProject.Domain.Entities
     public class Deposit : BaseEntity<int>
     {
         public int CustomerId { get; set; }
-        public short StatusId { get; set; }
+        public short DepositStatusId { get; set; }
         public int BankAccountId { get; set; }
         public decimal Amount { get; set; }
         public decimal? ApprovedAmount { get; set; }
@@ -16,7 +16,7 @@ namespace PaymentApplyProject.Domain.Entities
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
-        [ForeignKey("StatusId")]
+        [ForeignKey("DepositStatusId")]
         public virtual DepositStatus DepositStatus { get; set; }
         [ForeignKey("BankAccountId")]
         public virtual BankAccount BankAccount { get; set; }

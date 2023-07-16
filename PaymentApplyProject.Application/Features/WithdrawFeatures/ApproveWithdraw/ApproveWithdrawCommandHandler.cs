@@ -28,12 +28,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
             if (paraCekme == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            if (paraCekme.StatusId == WithdrawStatusConstants.REDDEDILDI)
+            if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
-            else if (paraCekme.StatusId == WithdrawStatusConstants.ONAYLANDI)
+            else if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
 
-            paraCekme.StatusId = WithdrawStatusConstants.ONAYLANDI;
+            paraCekme.WithdrawStatusId = WithdrawStatusConstants.ONAYLANDI;
             paraCekme.ApprovedAmount = request.Tutar;
             paraCekme.TransactionDate = DateTime.Now;
 

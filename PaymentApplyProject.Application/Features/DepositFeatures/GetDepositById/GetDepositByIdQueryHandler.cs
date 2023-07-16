@@ -26,7 +26,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
                 .Select(x => new GetDepositByIdResult
                 {
                     Bank = x.BankAccount.Bank.Name,
-                    StatusId = x.StatusId,
+                    StatusId = x.DepositStatusId,
                     Status = x.DepositStatus.Name,
                     Company = x.Customer.Company.Name,
                     BankAccountNumber = x.BankAccount.AccountNumber,

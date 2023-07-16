@@ -28,12 +28,12 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
             if (deposit == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            if (deposit.StatusId == DepositStatusConstants.REDDEDILDI)
+            if (deposit.DepositStatusId == DepositStatusConstants.REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
-            else if (deposit.StatusId == DepositStatusConstants.ONAYLANDI)
+            else if (deposit.DepositStatusId == DepositStatusConstants.ONAYLANDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
 
-            deposit.StatusId = DepositStatusConstants.ONAYLANDI;
+            deposit.DepositStatusId = DepositStatusConstants.ONAYLANDI;
             deposit.Amount = request.Amount;
             deposit.TransactionDate = DateTime.Now;
 

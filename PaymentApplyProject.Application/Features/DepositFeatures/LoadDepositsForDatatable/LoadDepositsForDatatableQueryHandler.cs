@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 && (request.BankAccountId == 0 || x.BankAccountId == request.BankAccountId)
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
-                && (request.StatusId == 0 || x.StatusId == request.StatusId)
+                && (request.StatusId == 0 || x.DepositStatusId == request.StatusId)
                 && !x.Delete);
 
             var searchBy = request.Search?.Value;
@@ -56,7 +56,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 Amount = x.Amount,
                 ApprovedAmount = x.ApprovedAmount,
                 Status = x.DepositStatus.Name,
-                StatusId = x.StatusId,
+                StatusId = x.DepositStatusId,
                 Id = x.Id,
                 TransactionDate = x.TransactionDate,
                 AddDate = x.AddDate,

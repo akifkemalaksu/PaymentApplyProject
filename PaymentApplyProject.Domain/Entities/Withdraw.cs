@@ -8,7 +8,7 @@ namespace PaymentApplyProject.Domain.Entities
     public class Withdraw : BaseEntity<int>
     {
         public int CustomerId { get; set; }
-        public short StatusId { get; set; }
+        public short WithdrawStatusId { get; set; }
         [StringLength(50)]
         public string AccountNumber { get; set; }
         public decimal Amount { get; set; }
@@ -18,7 +18,7 @@ namespace PaymentApplyProject.Domain.Entities
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
-        [ForeignKey("StatusId")]
+        [ForeignKey("WithdrawStatusId")]
         public virtual WithdrawStatus WithdrawStatus { get; set; }
     }
 

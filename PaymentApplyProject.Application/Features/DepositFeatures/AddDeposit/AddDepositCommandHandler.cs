@@ -27,7 +27,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             Deposit deposit = new()
             {
                 CustomerId = request.CustomerId,
-                StatusId = DepositStatusConstants.BEKLIYOR,
+                DepositStatusId = DepositStatusConstants.BEKLIYOR,
                 BankAccountId = request.BankAccountId,
                 Amount = request.Amount,
             };
@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 
             var isExistsDeposit = await _paymentContext.Deposits.AnyAsync(x =>
                     x.CustomerId == request.CustomerId
-                    && x.StatusId == DepositStatusConstants.BEKLIYOR
+                    && x.DepositStatusId == DepositStatusConstants.BEKLIYOR
                     && !x.Delete, cancellationToken);
             if (isExistsDeposit)
                 return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);

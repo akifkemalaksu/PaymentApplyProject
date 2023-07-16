@@ -12,7 +12,7 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20230712162850_setupDb")]
+    [Migration("20230716092045_setupDb")]
     partial class setupDb
     {
         /// <inheritdoc />
@@ -231,6 +231,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<bool>("Delete")
                         .HasColumnType("boolean");
 
+                    b.Property<short>("DepositStatusId")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTime>("EditDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -239,9 +242,6 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<int>("IntegrationId")
                         .HasColumnType("integer");
-
-                    b.Property<short>("StatusId")
-                        .HasColumnType("smallint");
 
                     b.Property<DateTime?>("TransactionDate")
                         .HasColumnType("timestamp without time zone");
@@ -252,7 +252,7 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("DepositStatusId");
 
                     b.ToTable("Deposits");
                 });
@@ -506,17 +506,17 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("IntegrationId")
                         .HasColumnType("integer");
 
-                    b.Property<short>("StatusId")
-                        .HasColumnType("smallint");
-
                     b.Property<DateTime?>("TransactionDate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<short>("WithdrawStatusId")
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("WithdrawStatusId");
 
                     b.ToTable("Withdraws");
                 });
@@ -573,7 +573,7 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.DepositStatus", "DepositStatus")
                         .WithMany("Deposits")
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("DepositStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -632,7 +632,7 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.WithdrawStatus", "WithdrawStatus")
                         .WithMany("Withdraws")
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("WithdrawStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
