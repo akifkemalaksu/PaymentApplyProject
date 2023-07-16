@@ -17,11 +17,13 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
     {
         private readonly IPaymentContext _paymentContext;
         private readonly IAuthenticatedUserService _authenticatedUserService;
+        private readonly INotificationService _notificationService;
 
-        public AddWithdrawCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
+        public AddWithdrawCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService, INotificationService notificationService)
         {
             _paymentContext = paymentContext;
             _authenticatedUserService = authenticatedUserService;
+            _notificationService = notificationService;
         }
 
         public async Task<Response<AddWithdrawResult>> Handle(AddWithdrawCommand request, CancellationToken cancellationToken)
@@ -68,6 +70,14 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
             await _paymentContext.Withdraws.AddAsync(addParaCekme, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
+
+            NotificationDto notification = new()
+            {
+                Id = Guid.NewGuid(),
+                Message = "Yeni para çekme talebi!",
+                Path = "/payment/withdraws"
+            };
+            _notificationService.CreateNotification(cancellationToken, notification);
 
             return Response<AddWithdrawResult>.Success(System.Net.HttpStatusCode.OK,
                 new()

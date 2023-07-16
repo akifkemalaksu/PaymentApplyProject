@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Text.Unicode;
+using PaymentApplyProject.Infrastructure.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +55,12 @@ builder.Services.AddResponseCaching();
 builder.Services.RegisterInfrastructure(builder.Configuration);
 builder.Services.RegisterPersistence(builder.Configuration);
 
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+    options.MaximumReceiveMessageSize = 102400000;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -77,8 +85,12 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<NotificationHub>("notification");
+    endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();
