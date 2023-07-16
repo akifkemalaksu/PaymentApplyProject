@@ -23,7 +23,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
         public async Task<DtResult<LoadWithdrawsForDatatableResult>> Handle(LoadWithdrawsForDatatableQuery request, CancellationToken cancellationToken)
         {
             var userInfo = _userService.GetUserInfo();
-
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var withdraws = _paymentContext.Withdraws.Where(x =>

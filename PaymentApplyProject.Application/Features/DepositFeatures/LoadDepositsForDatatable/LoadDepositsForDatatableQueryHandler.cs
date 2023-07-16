@@ -23,7 +23,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
         public async Task<DtResult<LoadDepositsForDatatableResult>> Handle(LoadDepositsForDatatableQuery request, CancellationToken cancellationToken)
         {
             var userInfo = _authenticatedUserService.GetUserInfo();
-
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var deposits = _paymentContext.Deposits.Where(x =>

@@ -1,12 +1,158 @@
-﻿@{
+﻿@using PaymentApplyProject.Application.Dtos
+@using PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReports
+
+@{
     ViewData["Title"] = "Ana Sayfa";
+
+    GetMainReportsResult getMainReportsResult = Model.Data;
 }
 
+@model Response<GetMainReportsResult>
 
-@await Html.PartialAsync("/views/payment/deposits.cshtml");
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                @ViewData["Title"]
+            </h3>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Quick actions">
+                    <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-container kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-6">
+            <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Para Çekme İşlemleri
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-widget25">
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.WithdrawAmounts</span>
+                        <span class="kt-widget25__subtitle">Toplam Para Çekme Tutarı</span>
+                        <div class="kt-widget25__items">
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.PendingWithdrawPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.PendingWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Bekleyenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.PendingWithdrawAmounts
+                                </span>
+                            </div>
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.ApprovedWithdrawPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.ApprovedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Onaylananlar
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.ApprovedWithdrawAmounts
+                                </span>
+                            </div>
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.RejectedWithdrawPercent%
+                                </span>
+                                <div class="progress kt-progress--sm">
+                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: @(getMainReportsResult.RejectedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Reddedilenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.RejectedWithdrawAmounts
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Para Yatırma İşlemleri
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-widget25">
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DepositAmounts</span>
+                        <span class="kt-widget25__subtitle">Toplam Para Yatırma Tutarı</span>
+                        <div class="kt-widget25__items">
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.PendingDepositPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.PendingDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Bekleyenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.PendingDepositAmounts
+                                </span>
+                            </div>
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.ApprovedDepositPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.ApprovedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Onaylananlar
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.ApprovedDepositAmounts
+                                </span>
+                            </div>
+                            <div class="kt-widget25__item">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.RejectedDepositPercent%
+                                </span>
+                                <div class="progress kt-progress--sm">
+                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: @(getMainReportsResult.RejectedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Reddedilenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.RejectedDepositAmounts
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
-    <script src="~/assets/plugins/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
-    <script src="~/js/datatableHelper.js" type="text/javascript"></script>
-    <script src="~/js/pages/payment/deposits.js" type="text/javascript"></script>
+    <script src="~/js/pages/home/index.js" type="text/javascript"></script>
 }
