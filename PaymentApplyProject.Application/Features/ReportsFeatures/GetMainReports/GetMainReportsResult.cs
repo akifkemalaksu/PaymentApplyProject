@@ -13,28 +13,28 @@
 
         public int ApprovedDepositPercent
         {
-            get => (int)(100 * ApprovedDepositAmounts / DepositAmounts);
+            get => (int)(100 * ApprovedDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
         }
         public int RejectedDepositPercent
         {
-            get => (int)(100 * RejectedDepositAmounts / DepositAmounts);
+            get => (int)(100 * RejectedDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
         }
         public int PendingDepositPercent
         {
-            get => (int)(100 * PendingDepositAmounts / DepositAmounts);
+            get => (int)(100 * PendingDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
         }
 
         public int ApprovedWithdrawPercent
         {
-            get => (int)(100 * ApprovedWithdrawAmounts / WithdrawAmounts);
+            get => (int)(100 * ApprovedWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
         }
         public int RejectedWithdrawPercent
         {
-            get => (int)(100 * RejectedWithdrawAmounts / WithdrawAmounts);
+            get => (int)(100 * RejectedWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
         }
         public int PendingWithdrawPercent
         {
-            get => (int)(100 * PendingWithdrawAmounts / WithdrawAmounts);
+            get => (int)(100 * PendingWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
         }
     }
 }
