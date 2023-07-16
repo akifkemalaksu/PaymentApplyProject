@@ -28,13 +28,13 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(response);
         }
 
-        [HttpPost("AddDeposit")]
+        [HttpGet("AddDeposit")]
         /**
          * [FromQuery] tarayıcı da denemek için, normalde ise json olarak göndermesi gerekli
          * tarayıcı da denemek için alttaki linkten gidilebilir
          * http://localhost:6020/api/parayatirmaapi?FirmaKodu=GrandPasha&MusteriAd=Akif%20Kemal&MusteriSoyad=Aksu&MusteriKullaniciAdi=akifkemalaksu
          */
-        public async Task<IActionResult> Post(AddOrUpdateAndGetCustomerCommand addOrUpdateAndGetCustomerCommand)
+        public async Task<IActionResult> Get(AddOrUpdateAndGetCustomerCommand addOrUpdateAndGetCustomerCommand)
         {
             var response = await _mediator.Send(addOrUpdateAndGetCustomerCommand);
             if (!response.IsSuccessful)

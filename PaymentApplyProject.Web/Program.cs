@@ -52,14 +52,15 @@ builder.Services.AddSession(configure =>
 });
 builder.Services.AddResponseCaching();
 
-builder.Services.RegisterInfrastructure(builder.Configuration);
-builder.Services.RegisterPersistence(builder.Configuration);
-
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
     options.MaximumReceiveMessageSize = 102400000;
 });
+
+builder.Services.RegisterInfrastructure(builder.Configuration);
+builder.Services.RegisterPersistence(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -87,7 +88,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<NotificationHub>("notification");
+    endpoints.MapHub<NotificationHub>("/notification");
     endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

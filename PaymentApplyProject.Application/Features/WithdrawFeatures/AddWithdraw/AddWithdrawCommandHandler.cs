@@ -52,12 +52,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
-            var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
-                    x.CustomerId == musteri.Id
-                    && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
-                    && !x.Delete, cancellationToken);
-            if (isExistsParaCekme)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
+            //var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
+            //        x.CustomerId == musteri.Id
+            //        && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
+            //        && !x.Delete, cancellationToken);
+            //if (isExistsParaCekme)
+            //    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
             Withdraw addParaCekme = new()
             {
@@ -73,11 +73,16 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
             NotificationDto notification = new()
             {
-                Id = Guid.NewGuid(),
                 Message = "Yeni para çekme talebi!",
                 Path = "/payment/withdraws"
             };
-            _notificationService.CreateNotification(cancellationToken, notification);
+            var usernames = await _paymentContext.Users.Where(x =>
+                (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.ADMIN_ID && !ur.Delete)
+                || (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.USER_ID && !ur.Delete)
+                    && x.UserCompanies.Any(uc => uc.CompanyId == company.Id && !uc.Delete)))
+                && !x.Delete
+            ).Select(x => x.Username).ToListAsync(cancellationToken);
+            _notificationService.CreateNotificationToSpecificUsers(usernames, notification, cancellationToken);
 
             return Response<AddWithdrawResult>.Success(System.Net.HttpStatusCode.OK,
                 new()

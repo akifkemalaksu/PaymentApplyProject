@@ -20,6 +20,36 @@ namespace PaymentApplyProject.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public int GetUserId()
+        {
+            var claimsPrincipal = _httpContextAccessor.HttpContext.User;
+
+            if (claimsPrincipal == null) return 0;
+
+            var claims = claimsPrincipal.Claims;
+
+            var idString = claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Id)?.Value;
+
+            if (string.IsNullOrEmpty(idString)) return 0;
+
+            return int.Parse(idString);
+        }
+
+        public string GetUsername()
+        {
+            var claimsPrincipal = _httpContextAccessor.HttpContext.User;
+
+            if (claimsPrincipal == null) return string.Empty;
+
+            var claims = claimsPrincipal.Claims;
+
+            var username = claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Username)?.Value;
+
+            if (string.IsNullOrEmpty(username)) return string.Empty;
+
+            return username;
+        }
+
         public UserDto GetUserInfo()
         {
             var claimsPrincipal = _httpContextAccessor.HttpContext.User;

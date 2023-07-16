@@ -10,5 +10,7 @@ namespace PaymentApplyProject.Application.Services
     public interface IAuthenticatedUserService
     {
         UserDto GetUserInfo();
+        int GetUserId();
+        string GetUsername();
     }
 }

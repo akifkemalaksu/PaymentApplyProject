@@ -26,7 +26,7 @@ namespace PaymentApplyProject.Application.Dtos.UserDtos
             Companies = new List<CompanyDto>();
         }
 
-        public bool DoesHaveUserRole() => Roles.Any(x => x.Id == RoleConstants.USER_ID);
-        public bool DoesHaveAdminRole() => Roles.Any(x => x.Id == RoleConstants.ADMIN_ID);
+        public bool DoesHaveUserRole() => Roles.ToList().Any(x => x.Id == RoleConstants.USER_ID);
+        public bool DoesHaveAdminRole() => Roles.ToList().Any(x => x.Id == RoleConstants.ADMIN_ID);
     }
 }

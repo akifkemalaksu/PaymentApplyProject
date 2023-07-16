@@ -35,10 +35,12 @@ namespace PaymentApplyProject.Infrastructure
 
             services.AddSingleton<ICustomMapper, MapstersMapper>();
 
-            services.AddScoped<IJwtAuthService, JwtAuthService>();
-            services.AddScoped<ICookieAuthService, CookieAuthService>();
-            services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
-            services.AddScoped<INotificationService, NotificationService>();
+            services.AddSingleton<IJwtAuthService, JwtAuthService>();
+            services.AddSingleton<ICookieAuthService, CookieAuthService>();
+            services.AddSingleton<IAuthenticatedUserService, AuthenticatedUserService>();
+            services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<ICacheService, InMemoryCacheService>();
+            services.AddSingleton<IHubUserConnectionService, HubUserConnectionService>();
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>

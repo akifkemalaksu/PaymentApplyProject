@@ -1,18 +1,18 @@
-﻿let connection = new signalR.HubConnectionBuilder().withUrl("notification").build();
+﻿let connection = new signalR.HubConnectionBuilder().withUrl("/notification", {
+    skipNegotiation: true,
+    transport: signalR.HttpTransportType.WebSockets
+}).build();
 connection.on('displayNotification', (data) => {
-    showNotification(notification)
-    console.log("called");
+    showNotification(data)
 });
-connection.start().catch(e => console.error(e.toString())).then(response => console.log("connected"))
-console.log(connection);
+connection.start().then(() => console.log("SignalR connected.")).catch(e => console.error("There is an error with SignalR connection: " + e.toString()));
 const showNotification = (notification) => {
-    console.log(notification);
-    var audio = new Audio('uploads/sounds/notification.mp3')
-    //toastr.onclick = () => {
-    //    window.location.href = notification.path
-    //}
+    var audio = new Audio('/uploads/sounds/notification.mp3')
+    toastr.options.onclick = () => {
+        window.location.href = notification.path
+    }
     toastr.success(notification.message)
     audio.play().catch((e) => {
-        console.error(`Bir hata oluştu: ${e.toString()}`)
+        console.error(`There is an error: ${e.toString()}`)
     })
 }

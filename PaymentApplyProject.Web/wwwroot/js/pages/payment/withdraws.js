@@ -1,4 +1,8 @@
-﻿let filtreleButton = $('#kt_search');
+﻿connection.on('displayNotification', (data) => {
+    datatableHelper.dtTable.draw()
+});
+
+let filtreleButton = $('#kt_search');
 let resetButton = $('#kt_reset');
 
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];

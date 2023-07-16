@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using PaymentApplyProject.Application.Dtos.SignalRDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace PaymentApplyProject.Application.Services
 {
     public interface INotificationService
     {
-        public Task CreateNotification(CancellationToken cancellationToken = default, params object[]? args);
+        public Task CreateNotification(object data, CancellationToken cancellationToken = default);
+        public Task CreateNotificationToSpecificUsers(IEnumerable<string> usernames, object data, CancellationToken cancellationToken = default);
     }
 }

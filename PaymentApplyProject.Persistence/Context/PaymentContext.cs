@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace PaymentApplyProject.Persistence.Context
     public class PaymentContext : DbContext, IPaymentContext
     {
         private IDbContextTransaction _transaction;
+        private readonly int _userId;
 
-        public PaymentContext(DbContextOptions options) : base(options)
+        public PaymentContext(DbContextOptions options, IAuthenticatedUserService authenticatedUserService) : base(options)
         {
+            _userId = authenticatedUserService.GetUserId();
         }
 
         public DbSet<Bank> Banks { get; set; }
@@ -55,8 +58,8 @@ namespace PaymentApplyProject.Persistence.Context
 
             Parallel.ForEach(added, entity =>
             {
-                entity.AddedUserId = 0;
-                entity.EditedUserId = 0;
+                entity.AddedUserId = _userId;
+                entity.EditedUserId = _userId;
                 entity.AddDate = DateTime.UtcNow;
                 entity.EditDate = DateTime.UtcNow;
                 entity.Delete = false;
@@ -70,7 +73,7 @@ namespace PaymentApplyProject.Persistence.Context
 
             Parallel.ForEach(updated, entity =>
             {
-                entity.EditedUserId = 0;
+                entity.EditedUserId = _userId;
                 entity.EditDate = DateTime.UtcNow;
             });
         }
@@ -83,7 +86,7 @@ namespace PaymentApplyProject.Persistence.Context
             Parallel.ForEach(deleted, entity =>
             {
                 entity.State = EntityState.Modified;
-                entity.Entity.EditedUserId = 0;
+                entity.Entity.EditedUserId = _userId;
                 entity.Entity.EditDate = DateTime.UtcNow;
                 entity.Entity.Delete = true;
             });

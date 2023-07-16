@@ -72,7 +72,7 @@
                 <span class="font-weight-bold mr-2">Durum:</span>
                 @if (Model.Data.StatusId == DepositStatusConstants.BEKLIYOR)
                 {
-                    <span class="kt-badge kt-badge--inline kt-badge--warning">Bekliyor</span>
+                    <span class="kt-badge kt-badge--inline kt-badge--success">Bekliyor</span>
                 }
                 else if (Model.Data.StatusId == DepositStatusConstants.REDDEDILDI)
                 {
@@ -80,7 +80,7 @@
                 }
                 else if (Model.Data.StatusId == DepositStatusConstants.ONAYLANDI)
                 {
-                    <span class="kt-badge kt-badge--inline kt-badge--success">Onaylandı</span>
+                    <span class="kt-badge kt-badge--inline kt-badge--warning">Onaylandı</span>
                 }
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
