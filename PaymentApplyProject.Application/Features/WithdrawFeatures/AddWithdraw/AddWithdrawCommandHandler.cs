@@ -54,7 +54,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
             var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
                     x.CustomerId == musteri.Id
-                    && x.StatusId == WithdrawStatusConstants.BEKLIYOR
+                    && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
                     && !x.Delete, cancellationToken);
             if (isExistsParaCekme)
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
@@ -64,7 +64,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 CustomerId = musteri.Id,
                 Amount = request.Amount,
                 AccountNumber = request.AccountNumber,
-                StatusId = WithdrawStatusConstants.BEKLIYOR,
+                WithdrawStatusId = WithdrawStatusConstants.BEKLIYOR,
                 IntegrationId = request.IntegrationId
             };
 

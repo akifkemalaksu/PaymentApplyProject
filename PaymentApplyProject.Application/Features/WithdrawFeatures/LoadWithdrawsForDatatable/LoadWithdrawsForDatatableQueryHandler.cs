@@ -29,7 +29,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 && (x.AddDate >= request.StartDate && x.AddDate <= request.EndDate)
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
-                && (request.StatusId == 0 || x.StatusId == request.StatusId)
+                && (request.StatusId == 0 || x.WithdrawStatusId == request.StatusId)
                 && !x.Delete);
 
             var searchBy = request.Search?.Value;
@@ -50,7 +50,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 TransactionDate = x.TransactionDate,
                 AddDate = x.AddDate,
                 Status = x.WithdrawStatus.Name,
-                StatusId = x.StatusId,
+                StatusId = x.WithdrawStatusId,
                 Amount = x.Amount,
                 Id = x.Id,
             });

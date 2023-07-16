@@ -237,7 +237,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    StatusId = table.Column<short>(type: "smallint", nullable: false),
+                    DepositStatusId = table.Column<short>(type: "smallint", nullable: false),
                     BankAccountId = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     ApprovedAmount = table.Column<decimal>(type: "numeric", nullable: true),
@@ -265,8 +265,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Deposits_Statuses_StatusId",
-                        column: x => x.StatusId,
+                        name: "FK_Deposits_Statuses_DepositStatusId",
+                        column: x => x.DepositStatusId,
                         principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -279,7 +279,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    StatusId = table.Column<short>(type: "smallint", nullable: false),
+                    WithdrawStatusId = table.Column<short>(type: "smallint", nullable: false),
                     AccountNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     ApprovedAmount = table.Column<decimal>(type: "numeric", nullable: true),
@@ -301,8 +301,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Withdraws_Statuses_StatusId",
-                        column: x => x.StatusId,
+                        name: "FK_Withdraws_Statuses_WithdrawStatusId",
+                        column: x => x.WithdrawStatusId,
                         principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -329,9 +329,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deposits_StatusId",
+                name: "IX_Deposits_DepositStatusId",
                 table: "Deposits",
-                column: "StatusId");
+                column: "DepositStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserCompanies_CompanyId",
@@ -359,9 +359,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Withdraws_StatusId",
+                name: "IX_Withdraws_WithdrawStatusId",
                 table: "Withdraws",
-                column: "StatusId");
+                column: "WithdrawStatusId");
         }
 
         /// <inheritdoc />

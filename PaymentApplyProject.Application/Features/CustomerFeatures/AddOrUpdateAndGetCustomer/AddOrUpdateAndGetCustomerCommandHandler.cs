@@ -61,7 +61,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
                  */
                 var isExistsParaYatirma = await _paymentContext.Deposits.CountAsync(x =>
                     x.CustomerId == customer.Id
-                    && x.StatusId == DepositStatusConstants.BEKLIYOR
+                    && x.DepositStatusId == DepositStatusConstants.BEKLIYOR
                     && !x.Delete, cancellationToken) > 0;
                 if (isExistsParaYatirma)
                     return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);

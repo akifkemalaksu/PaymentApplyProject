@@ -28,12 +28,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
             if (withdraw == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            if (withdraw.StatusId == WithdrawStatusConstants.REDDEDILDI)
+            if (withdraw.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
-            else if (withdraw.StatusId == WithdrawStatusConstants.ONAYLANDI)
+            else if (withdraw.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
 
-            withdraw.StatusId = WithdrawStatusConstants.REDDEDILDI;
+            withdraw.WithdrawStatusId = WithdrawStatusConstants.REDDEDILDI;
             withdraw.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
