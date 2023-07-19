@@ -52,12 +52,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
-            var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
-                    x.CustomerId == musteri.Id
-                    && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
-                    && !x.Delete, cancellationToken);
-            if (isExistsParaCekme)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
+            //var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
+            //        x.CustomerId == musteri.Id
+            //        && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
+            //        && !x.Delete, cancellationToken);
+            //if (isExistsParaCekme)
+            //    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
             Withdraw addParaCekme = new()
             {
