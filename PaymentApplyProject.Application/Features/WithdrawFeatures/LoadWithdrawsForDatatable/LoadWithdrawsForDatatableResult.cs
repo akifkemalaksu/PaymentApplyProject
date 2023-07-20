@@ -12,9 +12,11 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
         [DisplayName("Müsteri Ad Soyad")]
         public string NameSurname { get; set; }
         public short StatusId { get; set; }
+        [DisplayName("Durum")]
         public string Status { get; set; }
         [DisplayName("Hesap Numarası")]
         public string AccountNumber { get; set; }
+        [DisplayName("Tutar")]
         public decimal Amount { get; set; }
         [DisplayName("Onaylanan Tutar")]
         public decimal? ApprovedAmount { get; set; }

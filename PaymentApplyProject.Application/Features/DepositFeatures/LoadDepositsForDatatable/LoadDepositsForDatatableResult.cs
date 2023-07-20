@@ -20,6 +20,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
         public string BankAccountNumber { get; set; }
         [DisplayName("Banka")]
         public string Bank { get; set; }
+        [DisplayName("Tutar")]
         public decimal Amount { get; set; }
         [DisplayName("Onaylanan Tutar")]
         public decimal? ApprovedAmount { get; set; }

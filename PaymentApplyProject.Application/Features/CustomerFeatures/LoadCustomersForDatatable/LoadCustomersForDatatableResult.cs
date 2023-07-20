@@ -6,6 +6,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
     {
         [DisplayName("Müşteri Id")]
         public int Id { get; set; }
+        [DisplayName("Firma")]
         public string Company { get; set; }
         [DisplayName("Kullanıcı Adı")]
         public string Username { get; set; }
@@ -13,6 +14,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
         public string NameSurname { get; set; }
         [DisplayName("Durum")]
         public bool Active { get; set; }
+        [DisplayName("Ekleme Tarihi")]
         public DateTime AddDate { get; set; }
     }
 }
