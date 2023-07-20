@@ -28,10 +28,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
         public async Task<Response<AddWithdrawResult>> Handle(AddWithdrawCommand request, CancellationToken cancellationToken)
         {
-            // todo: para çekme veya para yatırmada istek atan tarafın talep id sini request te almalıyız
-            // todo: url i istekte mi alacağız yoksa biz mi yakalayacağız? Şimdilik istekte alıyoruz
-            //var url = _httpContextAccessor.HttpContext.Request.GetTypedHeaders().Referer;
-
             var userInfos = _authenticatedUserService.GetUserInfo();
             if (userInfos == null || !userInfos.Companies.Any())
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);

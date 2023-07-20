@@ -87,7 +87,6 @@ namespace PaymentApplyProject.Infrastructure
                 });
 
             var clientServiceSettings = configuration.GetSection(nameof(ClientServiceSettings)).Get<ClientServiceSettings>();
-            // todo: buraya dinamik bir client servis gerekebilir, her müşteriye aynı request ve response ile işlem yapmak lazım
             services.AddHttpClient<IGrandPashaBetService, GrandPashaBetService>(configure =>
             {
                 configure.BaseAddress = new Uri(clientServiceSettings.GrandPashaBetUrl);

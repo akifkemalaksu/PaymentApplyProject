@@ -53,12 +53,6 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
             }
             else
             {
-                /*
-                 * todo: burada sadece para yatırma için kontrol yapıldı 
-                 * ancak bu işlem genel bir işlem olarak kullanılabilir 
-                 * bu para yatırma var mı kontrolünü farklı bir feature olarak tanımlanabilir
-                 * (**gereksiz işlem olmaması için yeni eklenen müşteriye kontrol yapılmaması lazım)
-                 */
                 var isExistsParaYatirma = await _paymentContext.Deposits.CountAsync(x =>
                     x.CustomerId == customer.Id
                     && x.DepositStatusId == DepositStatusConstants.BEKLIYOR
