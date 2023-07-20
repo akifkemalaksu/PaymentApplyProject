@@ -78,11 +78,25 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 Draw = request.Draw,
                 RecordsFiltered = filteredResultsCount,
                 RecordsTotal = totalResultsCount,
-                Data = await withdrawsMapped
-                        .Skip(request.Start)
-                        .Take(request.Length)
-                        .ToListAsync(cancellationToken)
-            };
+                //Data = await withdrawsMapped
+                //        .Skip(request.Start)
+                //        .Take(request.Length)
+                //        .ToListAsync(cancellationToken)
+                Data = await _paymentContext.Withdraws.Select(x => new LoadWithdrawsForDatatableResult
+                {
+                    AccountNumber = x.AccountNumber,
+                    Company = x.Customer.Company.Name,
+                    NameSurname = x.Customer.Name + " " + x.Customer.Surname,
+                    Username = x.Customer.Username,
+                    ApprovedAmount = x.ApprovedAmount,
+                    TransactionDate = x.TransactionDate,
+                    AddDate = x.AddDate,
+                    Status = x.WithdrawStatus.Name,
+                    StatusId = x.WithdrawStatusId,
+                    Amount = x.Amount,
+                    Id = x.Id,
+                }).ToListAsync()
+        };
         }
     }
 }
