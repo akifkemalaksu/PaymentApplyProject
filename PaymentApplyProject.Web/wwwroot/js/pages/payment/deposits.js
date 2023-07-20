@@ -3,7 +3,6 @@
 });
 
 let filtreleButton = $('#kt_search');
-let resetButton = $('#kt_reset');
 
 let extraOptions = [{ id: "0", text: "Hepsi", defaultSelected: true, selected: true }];
 let firmaSelect = $("#companyId").serverSelect2({ url: "Companies", extraOptions: extraOptions });
@@ -47,10 +46,6 @@ bankaSelect.on('select2:select', function (e) {
 });
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
-resetButton.on("click", () => {
-    $('.kt-input').val(0).trigger("change");
-    filtreleButton.click();
-});
 
 datatableHelper.datatableOptions.ajax = {
     url: "/payment/LoadDeposits",

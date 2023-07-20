@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// hint: default TR culture
+//// hint: default TR culture
 //var cultureInfo = new CultureInfo("tr-TR");
 //cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
 //cultureInfo.NumberFormat.CurrencyDecimalSeparator = ",";

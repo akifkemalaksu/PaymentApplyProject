@@ -1,12 +1,7 @@
 let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
-let resetButton = $('#kt_reset');
 
 filtreleButton.on("click", () => datatableHelper.dtTable.draw());
-resetButton.on("click", () => {
-    $('.kt-input').val(0).trigger("change");
-    filtreleButton.click();
-});
 
 datatableHelper.datatableOptions.ajax = {
     url: "/company/LoadCompanies",
