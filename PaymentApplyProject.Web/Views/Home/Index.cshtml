@@ -28,7 +28,7 @@
 </div>
 <div class="kt-container kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-12 col-6">
             <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="kt-portlet__body">
                     <div class="kt-widget25">
-                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.WithdrawAmounts</span>
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.WithdrawAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Çekme Tutarı</span>
                         <div class="kt-widget25__items">
                             <div class="kt-widget25__item">
@@ -53,7 +53,7 @@
                                     Bekleyenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.PendingWithdrawAmounts
+                                    @getMainReportsResult.PendingWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item">
@@ -67,7 +67,7 @@
                                     Onaylananlar
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.ApprovedWithdrawAmounts
+                                    @getMainReportsResult.ApprovedWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item">
@@ -81,7 +81,7 @@
                                     Reddedilenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.RejectedWithdrawAmounts
+                                    @getMainReportsResult.RejectedWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-sm-12 col-6">
             <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
@@ -100,7 +100,7 @@
                 </div>
                 <div class="kt-portlet__body">
                     <div class="kt-widget25">
-                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DepositAmounts</span>
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DepositAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Yatırma Tutarı</span>
                         <div class="kt-widget25__items">
                             <div class="kt-widget25__item">
@@ -114,7 +114,7 @@
                                     Bekleyenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.PendingDepositAmounts
+                                    @getMainReportsResult.PendingDepositAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item">
@@ -128,7 +128,7 @@
                                     Onaylananlar
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.ApprovedDepositAmounts
+                                    @getMainReportsResult.ApprovedDepositAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item">
@@ -142,7 +142,7 @@
                                     Reddedilenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.RejectedDepositAmounts
+                                    @getMainReportsResult.RejectedDepositAmounts.ToString("c")
                                 </span>
                             </div>
                         </div>
