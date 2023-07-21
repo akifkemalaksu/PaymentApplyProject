@@ -12,6 +12,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
     public class ApproveWithdrawCommand : IRequest<Response<NoContent>>, ITransactional
     {
         public int Id { get; set; }
-        public decimal Tutar { get; set; }
+        public decimal Amount { get; set; }
     }
 }
