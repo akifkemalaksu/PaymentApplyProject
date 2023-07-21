@@ -34,7 +34,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
 
             paraCekme.WithdrawStatusId = WithdrawStatusConstants.ONAYLANDI;
-            paraCekme.ApprovedAmount = request.Tutar;
+            paraCekme.ApprovedAmount = request.Amount;
             paraCekme.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
