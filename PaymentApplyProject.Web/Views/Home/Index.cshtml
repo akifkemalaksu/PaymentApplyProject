@@ -28,7 +28,7 @@
 </div>
 <div class="kt-container kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
-        <div class="col-sm-12 col-6">
+        <div class="col-sm-12 col-md-6">
             <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
@@ -41,8 +41,8 @@
                     <div class="kt-widget25">
                         <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.WithdrawAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Çekme Tutarı</span>
-                        <div class="kt-widget25__items">
-                            <div class="kt-widget25__item">
+                        <div class="kt-widget25__items row">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.PendingWithdrawPercent%
                                 </span>
@@ -56,7 +56,7 @@
                                     @getMainReportsResult.PendingWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
-                            <div class="kt-widget25__item">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.ApprovedWithdrawPercent%
                                 </span>
@@ -70,7 +70,7 @@
                                     @getMainReportsResult.ApprovedWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
-                            <div class="kt-widget25__item">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.RejectedWithdrawPercent%
                                 </span>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-6">
+        <div class="col-sm-12 col-md-6">
             <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
@@ -102,8 +102,8 @@
                     <div class="kt-widget25">
                         <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DepositAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Yatırma Tutarı</span>
-                        <div class="kt-widget25__items">
-                            <div class="kt-widget25__item">
+                        <div class="kt-widget25__items row">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.PendingDepositPercent%
                                 </span>
@@ -117,7 +117,7 @@
                                     @getMainReportsResult.PendingDepositAmounts.ToString("c")
                                 </span>
                             </div>
-                            <div class="kt-widget25__item">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.ApprovedDepositPercent%
                                 </span>
@@ -131,7 +131,7 @@
                                     @getMainReportsResult.ApprovedDepositAmounts.ToString("c")
                                 </span>
                             </div>
-                            <div class="kt-widget25__item">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
                                     @getMainReportsResult.RejectedDepositPercent%
                                 </span>
