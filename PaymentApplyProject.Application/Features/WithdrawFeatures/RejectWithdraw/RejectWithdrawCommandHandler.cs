@@ -26,19 +26,19 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                , cancellationToken);
 
             if (withdraw == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             if (withdraw.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Reddedilmis);
             else if (withdraw.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Onaylanmis);
 
             withdraw.WithdrawStatusId = WithdrawStatusConstants.REDDEDILDI;
             withdraw.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

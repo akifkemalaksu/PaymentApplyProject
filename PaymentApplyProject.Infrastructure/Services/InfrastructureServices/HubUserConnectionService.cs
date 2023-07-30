@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentApplyProject.Infrastructure.Services
+namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
     public class HubUserConnectionService : IHubUserConnectionService
     {

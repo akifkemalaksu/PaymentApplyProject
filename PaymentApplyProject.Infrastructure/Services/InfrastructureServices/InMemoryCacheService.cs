@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentApplyProject.Infrastructure.Services
+namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
     internal class InMemoryCacheService : ICacheService
     {

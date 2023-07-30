@@ -26,7 +26,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
                 x.AccountNumber == request.AccountNumber
                 && !x.Delete, cancellationToken);
             if (isExistSameBankAccount)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsSameAccountNumber);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);
 
             var isExistsRange = await _paymentContext.BankAccounts.AnyAsync(x =>
                 x.BankId == request.BankId
@@ -34,7 +34,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
                 && x.LowerLimit <= request.UpperLimit && x.UpperLimit >= request.UpperLimit
             , cancellationToken);
             if (isExistsRange)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPriceRange);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.BuAraliktaBankaHesabiVar);
 
             var bankAccount = _customMapper.Map<BankAccount>(request);
             bankAccount.Active = true;
@@ -42,7 +42,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
             await _paymentContext.BankAccounts.AddAsync(bankAccount, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

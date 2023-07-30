@@ -40,7 +40,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraCekme is null)
-                return Response<GetWithdrawByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<GetWithdrawByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             return Response<GetWithdrawByIdResult>.Success(System.Net.HttpStatusCode.OK, paraCekme);
         }

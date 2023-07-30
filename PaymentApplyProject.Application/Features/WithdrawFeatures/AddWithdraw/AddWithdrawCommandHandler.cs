@@ -85,7 +85,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 {
                     WithdrawId = addParaCekme.Id
                 },
-                Messages.OperationSuccessful
+                Messages.TransactionSuccessful
                 );
         }
     }

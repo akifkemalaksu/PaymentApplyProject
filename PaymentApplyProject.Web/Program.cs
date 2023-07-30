@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Text.Unicode;
 using PaymentApplyProject.Infrastructure.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using PaymentApplyProject.Application.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,5 +89,7 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.Run();

@@ -27,14 +27,14 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankA
                 && x.AccountNumber == request.AccountNumber
                 , cancellationToken);
             if (isExistSameAccountNumber)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsSameAccountNumber);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);
 
             var bankAccount = _customMapper.Map<BankAccount>(request);
             _paymentContext.BankAccounts.Entry(bankAccount).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

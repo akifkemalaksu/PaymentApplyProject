@@ -117,43 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlreadyApproved" xml:space="preserve">
-    <value>Bu kayıt onaylanmış.</value>
+  <data name="AuthenticatedUserHaveNoValidCompany" xml:space="preserve">
+    <value>The authenticated user does not have a valid company.</value>
   </data>
-  <data name="AlreadyRejected" xml:space="preserve">
-    <value>Bu kayıt reddedilmiş.</value>
-  </data>
-  <data name="IncorrectLoginInfo" xml:space="preserve">
-    <value>Giriş bilgileriniz yanlıştır.</value>
-  </data>
-  <data name="NotAuthorized" xml:space="preserve">
-    <value>Sisteme giriş için yetkiniz yok.</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>Veri bulunamadı.</value>
-  </data>
-  <data name="OperationSuccessful" xml:space="preserve">
-    <value>İşlem başarılı.</value>
-  </data>
-  <data name="PassiveCustomer" xml:space="preserve">
-    <value>Bu müşteriye işlemler kapalıdır.</value>
-  </data>
-  <data name="ThereIsPendingTransaction" xml:space="preserve">
-    <value>Mevcutta bekleyen işlem vardır.</value>
-  </data>
-  <data name="ThereIsPriceRange" xml:space="preserve">
-    <value>Bu banka için bu aralıkta kayıt mevcut.</value>
-  </data>
-  <data name="ThereIsSameAccountNumber" xml:space="preserve">
+  <data name="AyniHesapNumarasinaSahipKayitVar" xml:space="preserve">
     <value>Aynı hesap numarasına sahip kayıt mevcut.</value>
   </data>
-  <data name="ThereIsSameEmail" xml:space="preserve">
-    <value>Bu email adresine sahip kullanıcı mevcut.</value>
-  </data>
-  <data name="ThereIsSameUsername" xml:space="preserve">
+  <data name="AyniKullaniciAdinaSahipKayitVar" xml:space="preserve">
     <value>Bu kullanıcı adına sahip kullanıcı mevcut.</value>
   </data>
-  <data name="ThisCodeNotDefined" xml:space="preserve">
-    <value>Bu firma kodu tanımlı değil.</value>
+  <data name="AyniMailAdresineSahipKayitVar" xml:space="preserve">
+    <value>Bu email adresine sahip kullanıcı mevcut.</value>
+  </data>
+  <data name="BekleyenIslemVar" xml:space="preserve">
+    <value>Mevcutta bekleyen işlem vardır.</value>
+  </data>
+  <data name="BuAraliktaBankaHesabiVar" xml:space="preserve">
+    <value>Bu banka için bu aralıkta kayıt mevcut.</value>
+  </data>
+  <data name="GirisBilgisiYanlis" xml:space="preserve">
+    <value>Giriş bilgileriniz yanlıştır.</value>
+  </data>
+  <data name="IslemBasarili" xml:space="preserve">
+    <value>İşlem başarılı.</value>
+  </data>
+  <data name="MusteriyeIslemlerKapali" xml:space="preserve">
+    <value>Bu müşteriye işlemler kapalıdır.</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found.</value>
+  </data>
+  <data name="Onaylanmis" xml:space="preserve">
+    <value>Bu kayıt onaylanmış.</value>
+  </data>
+  <data name="Reddedilmis" xml:space="preserve">
+    <value>Bu kayıt reddedilmiş.</value>
+  </data>
+  <data name="ThereIsPendingTransaction" xml:space="preserve">
+    <value>There is a pending transaction.</value>
+  </data>
+  <data name="TransactionSuccessful" xml:space="preserve">
+    <value>Transaction Successful</value>
+  </data>
+  <data name="VeriBulunamadi" xml:space="preserve">
+    <value>Veri bulunamadı.</value>
+  </data>
+  <data name="YetkinizYok" xml:space="preserve">
+    <value>Sisteme giriş için yetkiniz yok.</value>
   </data>
 </root>

@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PaymentApplyProject.Infrastructure.Services
+namespace PaymentApplyProject.Infrastructure.Services.WebServices
 {
     public class GrandPashaBetService : IGrandPashaBetService
     {

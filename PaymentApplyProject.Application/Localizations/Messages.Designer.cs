@@ -61,43 +61,88 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu kayıt onaylanmış..
+        ///   Looks up a localized string similar to The authenticated user does not have a valid company..
         /// </summary>
-        internal static string AlreadyApproved {
+        internal static string AuthenticatedUserHaveNoValidCompany {
             get {
-                return ResourceManager.GetString("AlreadyApproved", resourceCulture);
+                return ResourceManager.GetString("AuthenticatedUserHaveNoValidCompany", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu kayıt reddedilmiş..
+        ///   Looks up a localized string similar to Aynı hesap numarasına sahip kayıt mevcut..
         /// </summary>
-        internal static string AlreadyRejected {
+        internal static string AyniHesapNumarasinaSahipKayitVar {
             get {
-                return ResourceManager.GetString("AlreadyRejected", resourceCulture);
+                return ResourceManager.GetString("AyniHesapNumarasinaSahipKayitVar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu kullanıcı adına sahip kullanıcı mevcut..
+        /// </summary>
+        internal static string AyniKullaniciAdinaSahipKayitVar {
+            get {
+                return ResourceManager.GetString("AyniKullaniciAdinaSahipKayitVar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu email adresine sahip kullanıcı mevcut..
+        /// </summary>
+        internal static string AyniMailAdresineSahipKayitVar {
+            get {
+                return ResourceManager.GetString("AyniMailAdresineSahipKayitVar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mevcutta bekleyen işlem vardır..
+        /// </summary>
+        internal static string BekleyenIslemVar {
+            get {
+                return ResourceManager.GetString("BekleyenIslemVar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bu banka için bu aralıkta kayıt mevcut..
+        /// </summary>
+        internal static string BuAraliktaBankaHesabiVar {
+            get {
+                return ResourceManager.GetString("BuAraliktaBankaHesabiVar", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Giriş bilgileriniz yanlıştır..
         /// </summary>
-        internal static string IncorrectLoginInfo {
+        internal static string GirisBilgisiYanlis {
             get {
-                return ResourceManager.GetString("IncorrectLoginInfo", resourceCulture);
+                return ResourceManager.GetString("GirisBilgisiYanlis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sisteme giriş için yetkiniz yok..
+        ///   Looks up a localized string similar to İşlem başarılı..
         /// </summary>
-        internal static string NotAuthorized {
+        internal static string IslemBasarili {
             get {
-                return ResourceManager.GetString("NotAuthorized", resourceCulture);
+                return ResourceManager.GetString("IslemBasarili", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Veri bulunamadı..
+        ///   Looks up a localized string similar to Bu müşteriye işlemler kapalıdır..
+        /// </summary>
+        internal static string MusteriyeIslemlerKapali {
+            get {
+                return ResourceManager.GetString("MusteriyeIslemlerKapali", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found..
         /// </summary>
         internal static string NotFound {
             get {
@@ -106,25 +151,25 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to İşlem başarılı..
+        ///   Looks up a localized string similar to Bu kayıt onaylanmış..
         /// </summary>
-        internal static string OperationSuccessful {
+        internal static string Onaylanmis {
             get {
-                return ResourceManager.GetString("OperationSuccessful", resourceCulture);
+                return ResourceManager.GetString("Onaylanmis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu müşteriye işlemler kapalıdır..
+        ///   Looks up a localized string similar to Bu kayıt reddedilmiş..
         /// </summary>
-        internal static string PassiveCustomer {
+        internal static string Reddedilmis {
             get {
-                return ResourceManager.GetString("PassiveCustomer", resourceCulture);
+                return ResourceManager.GetString("Reddedilmis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mevcutta bekleyen işlem vardır..
+        ///   Looks up a localized string similar to There is a pending transaction..
         /// </summary>
         internal static string ThereIsPendingTransaction {
             get {
@@ -133,47 +178,29 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu banka için bu aralıkta kayıt mevcut..
+        ///   Looks up a localized string similar to Transaction Successful.
         /// </summary>
-        internal static string ThereIsPriceRange {
+        internal static string TransactionSuccessful {
             get {
-                return ResourceManager.GetString("ThereIsPriceRange", resourceCulture);
+                return ResourceManager.GetString("TransactionSuccessful", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aynı hesap numarasına sahip kayıt mevcut..
+        ///   Looks up a localized string similar to Veri bulunamadı..
         /// </summary>
-        internal static string ThereIsSameAccountNumber {
+        internal static string VeriBulunamadi {
             get {
-                return ResourceManager.GetString("ThereIsSameAccountNumber", resourceCulture);
+                return ResourceManager.GetString("VeriBulunamadi", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bu email adresine sahip kullanıcı mevcut..
+        ///   Looks up a localized string similar to Sisteme giriş için yetkiniz yok..
         /// </summary>
-        internal static string ThereIsSameEmail {
+        internal static string YetkinizYok {
             get {
-                return ResourceManager.GetString("ThereIsSameEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bu kullanıcı adına sahip kullanıcı mevcut..
-        /// </summary>
-        internal static string ThereIsSameUsername {
-            get {
-                return ResourceManager.GetString("ThereIsSameUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bu firma kodu tanımlı değil..
-        /// </summary>
-        internal static string ThisCodeNotDefined {
-            get {
-                return ResourceManager.GetString("ThisCodeNotDefined", resourceCulture);
+                return ResourceManager.GetString("YetkinizYok", resourceCulture);
             }
         }
     }

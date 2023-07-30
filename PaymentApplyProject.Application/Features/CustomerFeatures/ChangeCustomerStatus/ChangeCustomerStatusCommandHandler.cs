@@ -20,12 +20,12 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustom
         {
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Delete, cancellationToken);
             if (customer is null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             customer.Active = !customer.Active;
             _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

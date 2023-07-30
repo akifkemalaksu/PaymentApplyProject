@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PaymentApplyProject.Infrastructure.Pipelines;
+using PaymentApplyProject.Application.Pipelines;
 
-namespace PaymentApplyProject.Infrastructure.Pipelines
+namespace PaymentApplyProject.Application.Pipelines
 {
     public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ITransactional
     {

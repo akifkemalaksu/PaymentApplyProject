@@ -53,10 +53,10 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
                 })
                 .FirstOrDefaultAsync(cancellationToken);
             if (user == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.IncorrectLoginInfo);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.GirisBilgisiYanlis);
 
             if (!(user.DoesHaveAdminRole() || user.DoesHaveUserRole()))
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.NotAuthorized);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.YetkinizYok);
 
             await _cookieTokenService.SignInAsync(user, request.RememberMe);
 

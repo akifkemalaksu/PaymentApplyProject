@@ -22,13 +22,13 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBan
             var bankAccount = await _paymentContext.BankAccounts.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Delete, cancellationToken);
 
             if (bankAccount == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             _paymentContext.BankAccounts.Remove(bankAccount);
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

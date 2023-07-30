@@ -12,14 +12,18 @@ using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping;
-using PaymentApplyProject.Infrastructure.Pipelines;
-using PaymentApplyProject.Infrastructure.Services;
+using PaymentApplyProject.Infrastructure.Services.InfrastructureServices;
+using PaymentApplyProject.Infrastructure.Services.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentApplyProject.Application.Pipelines;
+using Serilog;
+using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Middlewares;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -91,6 +95,13 @@ namespace PaymentApplyProject.Infrastructure
             {
                 configure.BaseAddress = new Uri(clientServiceSettings.GrandPashaBetUrl);
             });
+
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddSeq(configuration.GetSection("SeqSettings"));
+            });
+
+            services.AddTransient<ErrorHandlerMiddleware>();
 
             return services;
         }

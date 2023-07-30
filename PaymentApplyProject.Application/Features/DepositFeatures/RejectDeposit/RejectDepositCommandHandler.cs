@@ -26,19 +26,19 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit
             , cancellationToken);
 
             if (deposit == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             if (deposit.DepositStatusId == DepositStatusConstants.REDDEDILDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Reddedilmis);
             else if (deposit.DepositStatusId == DepositStatusConstants.ONAYLANDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Onaylanmis);
 
             deposit.DepositStatusId = DepositStatusConstants.REDDEDILDI;
             deposit.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }
