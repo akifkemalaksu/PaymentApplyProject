@@ -25,7 +25,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
         {
             var userInfos = _authenticatedUserService.GetUserInfo();
             if (userInfos == null || userInfos.Companies.Any())
-                return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.AuthenticatedUserHaveNoValidCompany);
 
             var company = userInfos.Companies.First();
 
@@ -44,7 +44,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else if (!customer.Active)
-                return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.PassiveCustomer);
+                return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.MusteriyeIslemlerKapali);
             else if (customer.Name != request.Name || customer.Surname != request.Surname)
             {
                 customer.Name = request.Name;
@@ -58,7 +58,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateA
                     && x.DepositStatusId == DepositStatusConstants.BEKLIYOR
                     && !x.Delete, cancellationToken) > 0;
                 if (isExistsParaYatirma)
-                    return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
+                    return Response<AddOrUpdateAndGetCustomerResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.BekleyenIslemVar);
             }
 
             var addOrUpdateAndGetMusteriResult = new AddOrUpdateAndGetCustomerResult { CustomerId = customer.Id };

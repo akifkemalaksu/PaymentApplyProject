@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 
-namespace PaymentApplyProject.Infrastructure.Services
+namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
     public class CookieAuthService : ICookieAuthService
     {

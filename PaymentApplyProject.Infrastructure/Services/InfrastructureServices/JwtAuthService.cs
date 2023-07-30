@@ -15,7 +15,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
 using System.Xml.Linq;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 
-namespace PaymentApplyProject.Infrastructure.Services
+namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
     public class JwtAuthService : IJwtAuthService
     {

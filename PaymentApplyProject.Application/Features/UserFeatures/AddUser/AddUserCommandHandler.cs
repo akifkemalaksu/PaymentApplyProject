@@ -26,11 +26,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
         {
             var isExistSameUsername = await _paymentContext.Users.AnyAsync(x => x.Username == request.Username && !x.Delete, cancellationToken);
             if (isExistSameUsername)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsSameUsername);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniKullaniciAdinaSahipKayitVar);
 
             var isExistSameEmail = await _paymentContext.Users.AnyAsync(x => x.Email == request.Email && !x.Delete, cancellationToken);
             if (isExistSameEmail)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsSameEmail);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniMailAdresineSahipKayitVar);
 
             var password = PasswordGenerator.GeneratePassword();
             var user = _customMapper.Map<User>(request);
@@ -48,7 +48,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
             await _paymentContext.Users.AddAsync(user, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

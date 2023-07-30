@@ -52,10 +52,10 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToke
                 })
                 .FirstOrDefaultAsync(cancellationToken);
             if (user == null)
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             if (!user.Roles.Any(x => x.Id == RoleConstants.CUSTOMER_ID))
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthorized);
+                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.YetkinizYok);
 
             return _jwtTokenService.CreateToken(user);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos;
 
@@ -32,6 +33,8 @@ namespace PaymentApplyProject.Application.Dtos
         public static Response<T> Error(HttpStatusCode statusCode, T data) => Error(statusCode, data, string.Empty);
         public static Response<T> Error(HttpStatusCode statusCode, string message) => Error(statusCode, default, message);
         public static Response<T> Error(HttpStatusCode statusCode) => Error(statusCode, default, string.Empty);
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 
     public class NoContent { }

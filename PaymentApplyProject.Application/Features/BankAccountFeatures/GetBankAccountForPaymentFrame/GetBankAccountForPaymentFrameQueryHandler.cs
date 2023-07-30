@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (bankAccount == null)
-                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             return Response<GetBankAccountForPaymentFrameResult>.Success(System.Net.HttpStatusCode.OK, bankAccount);
         }

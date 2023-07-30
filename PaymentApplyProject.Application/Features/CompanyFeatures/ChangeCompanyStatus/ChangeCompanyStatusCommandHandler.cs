@@ -20,12 +20,12 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.ChangeCompany
         {
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Delete, cancellationToken);
             if (company is null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             company.Active = !company.Active;
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

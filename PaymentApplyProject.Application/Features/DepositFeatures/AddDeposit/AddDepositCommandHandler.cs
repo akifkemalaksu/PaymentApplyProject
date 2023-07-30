@@ -42,7 +42,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                     && x.DepositStatusId == DepositStatusConstants.BEKLIYOR
                     && !x.Delete, cancellationToken);
             if (isExistsDeposit)
-                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
+                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.BekleyenIslemVar);
 
             //var musteri = await _paymentContext.Musteriler.FirstOrDefaultAsync(x => x.Id == request.MusteriId);
             //CreateDepositDto createDeposit = new()
@@ -82,7 +82,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                 {
                     DepositId = deposit.Id
                 },
-                Messages.OperationSuccessful
+                Messages.IslemBasarili
                 );
         }
     }

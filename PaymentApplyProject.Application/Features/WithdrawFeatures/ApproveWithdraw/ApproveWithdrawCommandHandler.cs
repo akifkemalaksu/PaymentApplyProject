@@ -26,12 +26,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
                 , cancellationToken);
 
             if (paraCekme == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
             if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyRejected);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Reddedilmis);
             else if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AlreadyApproved);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Onaylanmis);
 
             paraCekme.WithdrawStatusId = WithdrawStatusConstants.ONAYLANDI;
             paraCekme.ApprovedAmount = request.Amount;
@@ -39,7 +39,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.OperationSuccessful);
+            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }
