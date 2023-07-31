@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,10 @@ namespace PaymentApplyProject.Application.Dtos.LogDtos
         public string QueryString { get; set; }
         public string Body { get; set; }
 
-        public override string ToString() => JsonSerializer.Serialize(this);
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 
-    public class ErrorLogDto: HttpLogDto
+    public class ErrorLogDto : HttpLogDto
     {
         public Exception Exception { get; set; }
     }
