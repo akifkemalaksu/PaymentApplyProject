@@ -82,6 +82,10 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<NotificationHub>("/notification");
@@ -89,7 +93,5 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
-app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.Run();

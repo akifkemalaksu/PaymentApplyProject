@@ -101,8 +101,6 @@ namespace PaymentApplyProject.Infrastructure
                 loggingBuilder.AddSeq(configuration.GetSection("SeqSettings"));
             });
 
-            services.AddTransient<ErrorHandlerMiddleware>();
-
             return services;
         }
     }
