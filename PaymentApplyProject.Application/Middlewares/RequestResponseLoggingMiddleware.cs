@@ -34,14 +34,14 @@ namespace PaymentApplyProject.Application.Middlewares
             context.Request.EnableBuffering();
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await context.Request.Body.CopyToAsync(requestStream);
-            _logger.LogInformation(new HttpLogDto
+            _logger.LogInformation($"Request: {new HttpLogDto
             {
                 Body = ReadStreamInChunks(requestStream),
                 Host = context.Request.Host.ToString(),
                 Path = context.Request.Path,
                 QueryString = context.Request.QueryString.ToString(),
                 Schema = context.Request.Scheme
-            }.ToString());
+            }}");
             context.Request.Body.Position = 0;
         }
 
@@ -72,14 +72,14 @@ namespace PaymentApplyProject.Application.Middlewares
             context.Response.Body.Seek(0, SeekOrigin.Begin);
             var text = await new StreamReader(context.Response.Body).ReadToEndAsync();
             context.Response.Body.Seek(0, SeekOrigin.Begin);
-            _logger.LogInformation(new HttpLogDto
+            _logger.LogInformation($"Response: {new HttpLogDto
             {
                 Body = text,
                 Host = context.Request.Host.ToString(),
                 Path = context.Request.Path,
                 QueryString = context.Request.QueryString.ToString(),
                 Schema = context.Request.Scheme
-            }.ToString());
+            }}");
             await responseBody.CopyToAsync(originalBodyStream);
         }
     }
