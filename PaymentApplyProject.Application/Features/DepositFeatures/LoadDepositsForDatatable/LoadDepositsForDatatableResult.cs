@@ -22,8 +22,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
         public string Bank { get; set; }
         [DisplayName("Tutar")]
         public decimal Amount { get; set; }
-        [DisplayName("Onaylanan Tutar")]
-        public decimal? ApprovedAmount { get; set; }
         [DisplayName("İşlem Tarihi")]
         public DateTime? TransactionDate { get; set; }
         [DisplayName("Talep Tarihi")]

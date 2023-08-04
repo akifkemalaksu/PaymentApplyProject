@@ -18,7 +18,8 @@ namespace PaymentApplyProject.Persistence.Context
 
         public PaymentContext(DbContextOptions options, IAuthenticatedUserService authenticatedUserService) : base(options)
         {
-            _userId = authenticatedUserService.GetUserId();
+            //_userId = authenticatedUserService.GetUserId();
+            _userId = 0;
         }
 
         public DbSet<Bank> Banks { get; set; }
@@ -34,6 +35,7 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<DepositRequest> DepositRequests { get; set; }
 
         public override int SaveChanges()
         {
@@ -62,7 +64,7 @@ namespace PaymentApplyProject.Persistence.Context
                 entity.EditedUserId = _userId;
                 entity.AddDate = DateTime.UtcNow;
                 entity.EditDate = DateTime.UtcNow;
-                entity.Delete = false;
+                entity.Deleted = false;
             });
         }
 
@@ -88,7 +90,7 @@ namespace PaymentApplyProject.Persistence.Context
                 entity.State = EntityState.Modified;
                 entity.Entity.EditedUserId = _userId;
                 entity.Entity.EditDate = DateTime.UtcNow;
-                entity.Entity.Delete = true;
+                entity.Entity.Deleted = true;
             });
         }
 

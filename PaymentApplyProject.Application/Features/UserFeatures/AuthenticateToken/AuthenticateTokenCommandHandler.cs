@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Entities;
@@ -9,6 +8,7 @@ using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken
 {
@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToke
                 .Where(x =>
                     x.Username == request.Username
                     && x.Password == request.Password
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new UserDto
                 {
                     Name = x.Name,

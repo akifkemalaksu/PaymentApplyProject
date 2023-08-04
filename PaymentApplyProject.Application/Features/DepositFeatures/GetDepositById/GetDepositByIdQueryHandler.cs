@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
 {
@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
                 .AsNoTracking()
                 .Where(x =>
                     x.Id == request.Id
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new GetDepositByIdResult
                 {
                     Bank = x.BankAccount.Bank.Name,
@@ -35,7 +35,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
                     CustomerUsername = x.Customer.Username,
                     CustomerName = x.Customer.Name,
                     CustomerSurname = x.Customer.Surname,
-                    ApprovedAmount = x.ApprovedAmount,
                     Amount = x.Amount,
                     TransactionDate = x.TransactionDate,
                     AddDate = x.AddDate,

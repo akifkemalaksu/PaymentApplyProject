@@ -1,4 +1,4 @@
-﻿@using PaymentApplyProject.Application.Dtos
+﻿@using PaymentApplyProject.Application.Dtos.ResponseDtos
 @using PaymentApplyProject.Domain.Constants
 @using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
 @model Response<GetDepositByIdResult>
@@ -70,15 +70,15 @@
 
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Durum:</span>
-                @if (Model.Data.StatusId == DepositStatusConstants.BEKLIYOR)
+                @if (Model.Data.StatusId == StatusConstants.DEPOSIT_BEKLIYOR)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--success">Bekliyor</span>
                 }
-                else if (Model.Data.StatusId == DepositStatusConstants.REDDEDILDI)
+                else if (Model.Data.StatusId == StatusConstants.DEPOSIT_REDDEDILDI)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--danger">Reddedildi</span>
                 }
-                else if (Model.Data.StatusId == DepositStatusConstants.ONAYLANDI)
+                else if (Model.Data.StatusId == StatusConstants.DEPOSIT_ONAYLANDI)
                 {
                     <span class="kt-badge kt-badge--inline kt-badge--warning">Onaylandı</span>
                 }
@@ -89,7 +89,7 @@
             </div>
             @if (Model.Data.TransactionDate != null)
             {
-                if (Model.Data.StatusId == DepositStatusConstants.REDDEDILDI)
+                if (Model.Data.StatusId == StatusConstants.DEPOSIT_REDDEDILDI)
                 {
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Reddetme Tarihi:</span>
@@ -100,12 +100,8 @@
                         <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
                     </div>
                 }
-                else if (Model.Data.ApprovedAmount.HasValue)
+                else if (Model.Data.StatusId == StatusConstants.DEPOSIT_ONAYLANDI)
                 {
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="font-weight-bold mr-2">Onaylanan Tutar:</span>
-                        <span class="text-muted">@Model.Data.ApprovedAmount.Value.ToString("c")</span>
-                    </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanma Tarihi:</span>
                         <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
@@ -125,20 +121,14 @@
                 <span class="text-muted">@Model.Data.AddDate.ToString("hh.mm")</span>
             </div>
         </div>
-        if (Model.Data.StatusId == DepositStatusConstants.BEKLIYOR)
+        if (Model.Data.StatusId == StatusConstants.DEPOSIT_BEKLIYOR)
         {
             <div class="col-lg-6 col-md-12">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <h3 class="display-6">Onaylama Reddetme İşlemi</h3>
                 </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Onaylanacak Tutar</label>
-                        <input class="form-control" id="approvedAmount" name="approvedAmount" value="@Model.Data.Amount.ToString("0")" type="text">
-                        <input id="id" name="id" type="hidden" value="@Model.Data.Id">
-                    </div>
-                </div>
                 <div class="col-12 kt-align-right">
+                    <input id="id" name="id" type="hidden" value="@Model.Data.Id">
                     <button type="button" id="onayla" class="btn btn-success">Onayla</button>
                     <button type="button" id="reddet" class="btn btn-danger">Reddet</button>
                 </div>

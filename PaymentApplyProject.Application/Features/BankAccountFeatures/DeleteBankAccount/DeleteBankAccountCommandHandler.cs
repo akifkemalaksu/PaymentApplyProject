@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBankAccount;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBankAccount
 {
@@ -19,7 +19,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBan
 
         public async Task<Response<NoContent>> Handle(DeleteBankAccountCommand request, CancellationToken cancellationToken)
         {
-            var bankAccount = await _paymentContext.BankAccounts.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Delete, cancellationToken);
+            var bankAccount = await _paymentContext.BankAccounts.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Deleted, cancellationToken);
 
             if (bankAccount == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);

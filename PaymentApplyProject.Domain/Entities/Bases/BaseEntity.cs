@@ -8,7 +8,7 @@ namespace PaymentApplyProject.Domain.Entities
     {
         [Key]
         public virtual T Id { get; set; }
-        public virtual bool Delete { get; set; }
+        public virtual bool Deleted { get; set; }
         public virtual int AddedUserId { get; set; }
         public virtual int EditedUserId { get; set; }
         public virtual DateTime AddDate { get; set; }

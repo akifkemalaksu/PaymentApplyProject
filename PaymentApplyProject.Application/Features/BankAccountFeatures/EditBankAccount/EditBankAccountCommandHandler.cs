@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankAccount;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankAccount
 {

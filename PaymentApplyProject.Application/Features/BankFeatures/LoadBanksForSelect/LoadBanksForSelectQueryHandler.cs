@@ -17,7 +17,7 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForSele
 
         public async Task<SelectResult> Handle(LoadBanksForSelectQuery request, CancellationToken cancellationToken)
         {
-            var banks = _paymentContext.Banks.Where(x => !x.Delete);
+            var banks = _paymentContext.Banks.Where(x => !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 banks = banks.Where(x => x.Name.Contains(request.Search));

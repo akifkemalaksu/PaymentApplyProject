@@ -5,6 +5,8 @@ using PaymentApplyProject.Application.ControllerBases;
 using System.Data;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountForPaymentFrame;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
+using PaymentApplyProject.Domain.Constants;
+using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -18,19 +20,18 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [Route("[controller]/[action]/{musteriKey}")]
-        public IActionResult Panel(string musteriKey)
+        [Route("[controller]/[action]/{key}")]
+        public async Task<IActionResult> Panel(string key)
         {
-            if (string.IsNullOrEmpty(musteriKey))
-                return RedirectToAction("notfound", "error", new { message = "Müşteri bulunamadı." });
+            if (string.IsNullOrEmpty(key))
+                return RedirectToAction("notfound", "error", new { message = $"Error code: {ErrorCodes.KeyValueIsNull}" });
 
-            string musteriId = HttpContext.Session.GetString(musteriKey);
+            var depositRequest = await _mediator.Send(new GetDepositRequestFromHashQuery { HashKey = key });
 
-            if (string.IsNullOrEmpty(musteriId))
-                return RedirectToAction("notfound", "error", new { message = "Müşteri bulunamadı." });
+            if (!depositRequest.IsSuccessful)
+                return RedirectToAction("index", "error", new { message = $"Error code: {depositRequest.ErrorCode}", statusCode = depositRequest.StatusCode });
 
-            ViewBag.MusteriId = musteriId;
-            return View();
+            return View(depositRequest.Data);
         }
 
         [HttpPost]

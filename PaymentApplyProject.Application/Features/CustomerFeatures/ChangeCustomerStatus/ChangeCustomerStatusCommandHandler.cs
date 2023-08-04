@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustomerStatus;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustomerStatus
 {
@@ -18,7 +18,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustom
 
         public async Task<Response<NoContent>> Handle(ChangeCustomerStatusCommand request, CancellationToken cancellationToken)
         {
-            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Delete, cancellationToken);
+            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Deleted, cancellationToken);
             if (customer is null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 

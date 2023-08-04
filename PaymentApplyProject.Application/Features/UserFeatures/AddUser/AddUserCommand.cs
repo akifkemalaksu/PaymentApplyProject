@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Dtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

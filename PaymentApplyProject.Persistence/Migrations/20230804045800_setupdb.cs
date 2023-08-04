@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class setupDb : Migration
+    public partial class setupdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -38,7 +38,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -50,13 +50,40 @@ namespace PaymentApplyProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DepositRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CallbackUrl = table.Column<string>(type: "text", nullable: false),
+                    SuccessUrl = table.Column<string>(type: "text", nullable: false),
+                    FailedUrl = table.Column<string>(type: "text", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Username = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    MethodType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    UniqueTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    UniqueTransactionIdHash = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    AddedUserId = table.Column<int>(type: "integer", nullable: false),
+                    EditedUserId = table.Column<int>(type: "integer", nullable: false),
+                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepositRequests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -76,7 +103,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -99,7 +126,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -123,7 +150,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     UpperLimit = table.Column<decimal>(type: "numeric", nullable: false),
                     LowerLimit = table.Column<decimal>(type: "numeric", nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -150,8 +177,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    ExternalCustomerId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -176,7 +204,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<short>(type: "smallint", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -207,7 +235,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     RoleId = table.Column<short>(type: "smallint", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -236,14 +264,14 @@ namespace PaymentApplyProject.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DepositRequestId = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     DepositStatusId = table.Column<short>(type: "smallint", nullable: false),
                     BankAccountId = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    ApprovedAmount = table.Column<decimal>(type: "numeric", nullable: true),
                     TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IntegrationId = table.Column<int>(type: "integer", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -265,6 +293,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Deposits_DepositRequests_DepositRequestId",
+                        column: x => x.DepositRequestId,
+                        principalTable: "DepositRequests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Deposits_Statuses_DepositStatusId",
                         column: x => x.DepositStatusId,
                         principalTable: "Statuses",
@@ -282,10 +316,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     WithdrawStatusId = table.Column<short>(type: "smallint", nullable: false),
                     AccountNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    ApprovedAmount = table.Column<decimal>(type: "numeric", nullable: true),
                     TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IntegrationId = table.Column<int>(type: "integer", nullable: false),
-                    Delete = table.Column<bool>(type: "boolean", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
                     AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -327,6 +360,11 @@ namespace PaymentApplyProject.Persistence.Migrations
                 name: "IX_Deposits_CustomerId",
                 table: "Deposits",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deposits_DepositRequestId",
+                table: "Deposits",
+                column: "DepositRequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Deposits_DepositStatusId",
@@ -381,6 +419,9 @@ namespace PaymentApplyProject.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "BankAccounts");
+
+            migrationBuilder.DropTable(
+                name: "DepositRequests");
 
             migrationBuilder.DropTable(
                 name: "Roles");

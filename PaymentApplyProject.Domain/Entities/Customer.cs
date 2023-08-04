@@ -14,6 +14,8 @@ namespace PaymentApplyProject.Domain.Entities
         public string Name { get; set; }
         [StringLength(100)]
         public string Surname { get; set; }
+        [StringLength(100)]
+        public string ExternalCustomerId { get; set; }
         public bool Active { get; set; }
 
         [ForeignKey("CompanyId")]

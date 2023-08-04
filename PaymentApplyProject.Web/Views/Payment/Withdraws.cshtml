@@ -61,9 +61,9 @@
                     <label>Durum:</label>
                     <select name="statusId" id="statusId" class="form-control kt-input">
                         <option value="0">Hepsi</option>
-                        <option selected value="@WithdrawStatusConstants.BEKLIYOR">Bekliyor</option>
-                        <option value="@WithdrawStatusConstants.REDDEDILDI">Reddedildi</option>
-                        <option value="@WithdrawStatusConstants.ONAYLANDI">Onaylandı</option>
+                        <option selected value="@StatusConstants.WITHDRAW_BEKLIYOR">Bekliyor</option>
+                        <option value="@StatusConstants.WITHDRAW_REDDEDILDI">Reddedildi</option>
+                        <option value="@StatusConstants.WITHDRAW_ONAYLANDI">Onaylandı</option>
                     </select>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
@@ -101,7 +101,6 @@
                         <th>@Html.DisplayNameFor(x => x.AddDate)</th>
                         <th>@Html.DisplayNameFor(x => x.TransactionDate)</th>
                         <th>@Html.DisplayNameFor(x => x.Amount)</th>
-                        <th>@Html.DisplayNameFor(x => x.ApprovedAmount)</th>
                         <th class="no-sort">İşlemler</th>
                     </tr>
                 </thead>

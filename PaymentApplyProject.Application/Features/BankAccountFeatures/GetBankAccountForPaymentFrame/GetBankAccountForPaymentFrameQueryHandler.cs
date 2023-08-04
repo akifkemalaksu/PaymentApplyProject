@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountForPaymentFrame;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountForPaymentFrame
 {
@@ -25,7 +25,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
                     && x.LowerLimit <= request.Amount
                     && x.UpperLimit >= request.Amount
                     && x.Active
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x =>
                 new GetBankAccountForPaymentFrameResult
                 {

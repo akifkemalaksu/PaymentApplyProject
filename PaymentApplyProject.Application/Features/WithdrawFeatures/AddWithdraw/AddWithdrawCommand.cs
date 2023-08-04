@@ -6,8 +6,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 {

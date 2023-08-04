@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById
 {
@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                 .AsNoTracking()
                 .Where(x =>
                     x.Id.Equals(request.Id)
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new GetWithdrawByIdResult
                 {
                     AccountNumber = x.AccountNumber,
@@ -32,7 +32,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                     Username = x.Customer.Username,
                     Name = x.Customer.Name,
                     Surname = x.Customer.Surname,
-                    ApprovedAmount = x.ApprovedAmount,
                     Amount = x.Amount,
                     AddDate = x.AddDate,
                     Id = x.Id,

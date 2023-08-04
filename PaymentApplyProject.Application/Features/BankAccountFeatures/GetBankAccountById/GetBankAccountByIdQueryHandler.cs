@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Mapping;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById
 {
@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
             var bankAccount = await _paymentContext.BankAccounts
                 .Where(x =>
                     x.Id == request.Id
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new GetBankAccountByIdResult
                 {
                     Name = x.Name,

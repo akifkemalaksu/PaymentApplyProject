@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services;
@@ -9,6 +8,7 @@ using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.UserFeatures.Login;
 using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.Login
 {
@@ -32,7 +32,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
                 .Where(x =>
                     (x.Email == request.EmailUsername || x.Username == request.EmailUsername)
                     && x.Password == request.Password
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new UserDto
                 {
                     Name = x.Name,

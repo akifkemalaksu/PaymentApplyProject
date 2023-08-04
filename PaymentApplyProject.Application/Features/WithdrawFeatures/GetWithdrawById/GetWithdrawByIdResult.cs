@@ -11,7 +11,6 @@
         public string Status { get; set; }
         public string AccountNumber { get; set; }
         public decimal Amount { get; set; }
-        public decimal? ApprovedAmount { get; set; }
         public DateTime? TransactionDate { get; set; }
         public DateTime AddDate { get; set; }
     }

@@ -23,8 +23,8 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
                 (request.Active == null || x.Active == request.Active)
                 && x.UserRoles.Any(ky =>
                     ky.Role.Id == RoleConstants.USER_ID
-                    && !ky.Delete)
-                && !x.Delete);
+                    && !ky.Deleted)
+                && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -34,7 +34,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
                     || (x.Name + " " + x.Surname).Contains(searchBy)
                     || x.UserCompanies.Any(kf =>
                         kf.Company.Name.Contains(searchBy)
-                        && !kf.Delete)
+                        && !kf.Deleted)
                 );
 
             var usersMapped = users.Select(x => new LoadUsersForDatatableResult
@@ -43,7 +43,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
                 Surname = x.Surname,
                 Email = x.Email,
                 Username = x.Username,
-                Companies = string.Join(',', x.UserCompanies.Where(x => !x.Delete).Select(x => x.Company.Name).AsEnumerable()),
+                Companies = string.Join(',', x.UserCompanies.Where(x => !x.Deleted).Select(x => x.Company.Name).AsEnumerable()),
                 AddDate = x.AddDate,
                 Id = x.Id,
                 Active = x.Active,
@@ -65,8 +65,8 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
             var totalResultsCount = await _paymentContext.Users.CountAsync(x =>
                 x.UserRoles.Any(ky =>
                     ky.Role.Id == RoleConstants.USER_ID
-                    && !ky.Delete)
-                && !x.Delete
+                    && !ky.Deleted)
+                && !x.Deleted
             , cancellationToken);
 
             return new DtResult<LoadUsersForDatatableResult>

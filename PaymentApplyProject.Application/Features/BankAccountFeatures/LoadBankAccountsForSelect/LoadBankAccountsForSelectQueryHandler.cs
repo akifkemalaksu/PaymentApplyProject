@@ -19,7 +19,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
         {
             var bankaHesaplar = _paymentContext.BankAccounts.Where(x =>
                 (request.BankId == 0 || x.BankId == request.BankId)
-                && !x.Delete);
+                && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 bankaHesaplar = bankaHesaplar.Where(x =>

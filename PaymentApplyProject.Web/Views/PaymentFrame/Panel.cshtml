@@ -1,4 +1,7 @@
-﻿@{
+﻿@using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash
+@model GetDepositRequestFromHashResult
+
+@{
     Layout = null;
 }
 
@@ -212,7 +215,7 @@
                                         <div class="kt-form__section kt-form__section--first">
                                             <div class="kt-wizard-v1__form row">
                                                 <input type="hidden" name="bankAccountId" id="bankAccountId" />
-                                                <input type="hidden" name="customerId" id="customerId" value="@ViewBag.MusteriId" />
+                                                <input type="hidden" name="customerId" id="customerId" value="@Model.CustomerId" />
                                                 <div class="col-12 mt-4">
                                                     <p>
                                                         Ödeme yapınız.
@@ -256,8 +259,10 @@
                                         <button class="btn btn-block btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u d-none" data-ktwizard-type="action-next">
                                             Sonraki Adım
                                         </button>
-                                        <a class="btn btn-block btn-secondary" id="back-to-main-page" href="https://grandpashabet1333.com" style="display:none;">Sayfaya Geri Dön</a>
+                                        <a class="btn btn-block btn-secondary" id="successful-back-to-main-page" href="@Model.SuccessUrl" style="display:none;">Sayfaya Geri Dön</a>
+                                        <a class="btn btn-block btn-secondary" id="failed-back-to-main-page" href="@Model.FailedUrl" style="display:none;">Sayfaya Geri Dön</a>
                                     </div>
+                                    <input type="hidden" name="depositRequestId" value="@Model.DepositRequestId" />
                                 </form>
 
                             </div>

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw
 {
@@ -22,18 +22,18 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
         {
             var withdraw = await _paymentContext.Withdraws.FirstOrDefaultAsync(x =>
                x.Id == request.Id
-               && !x.Delete
+               && !x.Deleted
                , cancellationToken);
 
             if (withdraw == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
-            if (withdraw.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
+            if (withdraw.WithdrawStatusId == StatusConstants.WITHDRAW_REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Reddedilmis);
-            else if (withdraw.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
+            else if (withdraw.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Onaylanmis);
 
-            withdraw.WithdrawStatusId = WithdrawStatusConstants.REDDEDILDI;
+            withdraw.WithdrawStatusId = StatusConstants.WITHDRAW_REDDEDILDI;
             withdraw.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw
 {
@@ -22,19 +22,18 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
         {
             var paraCekme = await _paymentContext.Withdraws.FirstOrDefaultAsync(x =>
                 x.Id == request.Id
-                && !x.Delete
+                && !x.Deleted
                 , cancellationToken);
 
             if (paraCekme == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
 
-            if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.REDDEDILDI)
+            if (paraCekme.WithdrawStatusId == StatusConstants.WITHDRAW_REDDEDILDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Reddedilmis);
-            else if (paraCekme.WithdrawStatusId == WithdrawStatusConstants.ONAYLANDI)
+            else if (paraCekme.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.Onaylanmis);
 
-            paraCekme.WithdrawStatusId = WithdrawStatusConstants.ONAYLANDI;
-            paraCekme.ApprovedAmount = request.Amount;
+            paraCekme.WithdrawStatusId = StatusConstants.WITHDRAW_ONAYLANDI;
             paraCekme.TransactionDate = DateTime.Now;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);

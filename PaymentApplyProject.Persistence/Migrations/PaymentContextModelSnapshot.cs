@@ -17,7 +17,7 @@ namespace PaymentApplyProject.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.8")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -80,7 +80,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<short>("BankId")
                         .HasColumnType("smallint");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -129,7 +129,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -168,7 +168,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<short>("CompanyId")
                         .HasColumnType("smallint");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -176,6 +176,11 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ExternalCustomerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -216,17 +221,17 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("ApprovedAmount")
-                        .HasColumnType("numeric");
-
                     b.Property<int>("BankAccountId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("DepositRequestId")
+                        .HasColumnType("integer");
 
                     b.Property<short>("DepositStatusId")
                         .HasColumnType("smallint");
@@ -249,9 +254,86 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("DepositRequestId");
+
                     b.HasIndex("DepositStatusId");
 
                     b.ToTable("Deposits");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CallbackUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FailedUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MethodType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("SuccessUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UniqueTransactionId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UniqueTransactionIdHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DepositRequests");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>
@@ -268,7 +350,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -301,7 +383,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Description")
@@ -348,7 +430,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -404,7 +486,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<short>("CompanyId")
                         .HasColumnType("smallint");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -439,7 +521,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -485,13 +567,10 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("ApprovedAmount")
-                        .HasColumnType("numeric");
-
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Delete")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
@@ -568,6 +647,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PaymentApplyProject.Domain.Entities.DepositRequest", "DepositRequest")
+                        .WithMany()
+                        .HasForeignKey("DepositRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PaymentApplyProject.Domain.Entities.DepositStatus", "DepositStatus")
                         .WithMany("Deposits")
                         .HasForeignKey("DepositStatusId")
@@ -577,6 +662,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Navigation("BankAccount");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("DepositRequest");
 
                     b.Navigation("DepositStatus");
                 });

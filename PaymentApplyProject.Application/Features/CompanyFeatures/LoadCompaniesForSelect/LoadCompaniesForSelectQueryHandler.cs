@@ -17,7 +17,7 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
 
         public async Task<SelectResult> Handle(LoadCompaniesForSelectQuery request, CancellationToken cancellationToken)
         {
-            var companies = _paymentContext.Companies.Where(x => !x.Delete);
+            var companies = _paymentContext.Companies.Where(x => !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 companies = companies.Where(x => x.Name.Contains(request.Search));

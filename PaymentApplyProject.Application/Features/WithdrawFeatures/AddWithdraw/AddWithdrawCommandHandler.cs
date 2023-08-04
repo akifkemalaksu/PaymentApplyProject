@@ -3,13 +3,14 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Dtos.NotificationDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 {
@@ -34,7 +35,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
             var company = userInfos.Companies.First();
 
-            var musteri = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.CompanyId == company.Id && x.Username == request.Username && !x.Delete, cancellationToken);
+            var musteri = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.CompanyId == company.Id && x.Username == request.Username && !x.Deleted, cancellationToken);
             if (musteri == null)
             {
                 musteri = new()
@@ -50,8 +51,8 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
             var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
                     x.CustomerId == musteri.Id
-                    && x.WithdrawStatusId == WithdrawStatusConstants.BEKLIYOR
-                    && !x.Delete, cancellationToken);
+                    && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR
+                    && !x.Deleted, cancellationToken);
             if (isExistsParaCekme)
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
 
@@ -60,7 +61,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 CustomerId = musteri.Id,
                 Amount = request.Amount,
                 AccountNumber = request.AccountNumber,
-                WithdrawStatusId = WithdrawStatusConstants.BEKLIYOR,
+                WithdrawStatusId = StatusConstants.WITHDRAW_BEKLIYOR,
                 IntegrationId = request.IntegrationId
             };
 
@@ -73,10 +74,10 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                 Path = "/payment/withdraws"
             };
             var usernames = await _paymentContext.Users.Where(x =>
-                (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.ADMIN_ID && !ur.Delete)
-                || (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.USER_ID && !ur.Delete)
-                    && x.UserCompanies.Any(uc => uc.CompanyId == company.Id && !uc.Delete)))
-                && !x.Delete
+                (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.ADMIN_ID && !ur.Deleted)
+                || (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.USER_ID && !ur.Deleted)
+                    && x.UserCompanies.Any(uc => uc.CompanyId == company.Id && !uc.Deleted)))
+                && !x.Deleted
             ).Select(x => x.Username).ToListAsync(cancellationToken);
             _notificationService.CreateNotificationToSpecificUsers(usernames, notification, cancellationToken);
 

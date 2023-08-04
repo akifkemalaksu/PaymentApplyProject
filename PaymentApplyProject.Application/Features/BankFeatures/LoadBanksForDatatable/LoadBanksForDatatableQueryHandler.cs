@@ -18,7 +18,7 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForData
 
         public async Task<DtResult<LoadBanksForDatatableResult>> Handle(LoadBanksForDatatableQuery request, CancellationToken cancellationToken)
         {
-            var banks = _paymentContext.Banks.Where(x => !x.Delete);
+            var banks = _paymentContext.Banks.Where(x => !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -46,7 +46,7 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForData
                 : banksMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await banks.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.Banks.CountAsync(x => !x.Delete, cancellationToken);
+            var totalResultsCount = await _paymentContext.Banks.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadBanksForDatatableResult>
             {

@@ -19,7 +19,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
         {
             var customers = _paymentContext.Customers.Where(x =>
                 (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
-                && !x.Delete);
+                && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 customers = customers.Where(x =>

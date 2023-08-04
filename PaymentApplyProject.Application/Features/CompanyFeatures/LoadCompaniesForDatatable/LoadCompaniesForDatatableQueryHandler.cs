@@ -20,7 +20,7 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
         {
             var companies = _paymentContext.Companies.Where(x =>
             (request.Active == null || x.Active == request.Active)
-            && !x.Delete);
+            && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -49,7 +49,7 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
                 : companiesMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await companies.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.Companies.CountAsync(x => !x.Delete, cancellationToken);
+            var totalResultsCount = await _paymentContext.Companies.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadCompaniesForDatatableResult>
             {

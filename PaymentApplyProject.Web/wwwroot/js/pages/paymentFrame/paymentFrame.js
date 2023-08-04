@@ -29,7 +29,9 @@ let bankButtonClickEventDefine = () => $(".bank").on('click', (btn) => {
 bankButtonClickEventDefine()
 
 let btnNext = $('button[data-ktwizard-type="action-next"]')
-let btnToMainPage = $('#back-to-main-page')
+let btnToMainPageSuccessful = $('#successful-back-to-main-page')
+let btnToMainPageFailed = $('#failed-back-to-main-page')
+
 wizard.on('beforeNext', async (wizardObj) => {
     if (validator.form() !== true) {
         wizardObj.stop();
@@ -70,6 +72,7 @@ let bankaIdInput = $("#bankId");
 let bankaHesapIdInput = $("#bankAccountId");
 let musteriIdInput = $("#customerId");
 let tutarInput = $("#amount");
+let depositRequestIdInput = $("#depositRequestId");
 
 let tutarDefines = () => {
     tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
@@ -128,7 +131,7 @@ let counterFunc = () => {
         sayac--
         counterSpan.html(sayac)
         if (sayac === 0) {
-            window.location.href = "https://grandpashabet1333.com"
+            window.location.href = btnToMainPageFailed.prop("href")
         }
     }, 1000)
 }
@@ -139,24 +142,28 @@ let odemeYap = async () => {
     let data = {
         customerId: musteriIdInput.val(),
         bankAccountId: bankaHesapIdInput.val(),
+        depositRequestId: depositRequestIdInput.val(),
         amount: tutar
     }
 
     let result = await fetchHelper.send("paymentframe/savepayment", httpMethods.post, data)
 
-    if (!result.isSuccessful)
+    if (!result.isSuccessful) {
         resultDiv.html(`
             <h3>İşlemde bir hata oluştu, ${result.message}</h3>  
         `)
-    else
+        btnToMainPageFailed.show()
+    }
 
+    else {
         resultDiv.html(`
             <h2> 
                 <i class="la la-try"></i> ${tutarInput.val()}
             </h2>
             <h3>Tutarında ödemeniz alınmıştır.</h3>  
         `)
+        btnToMainPageSuccessful.show()
+    }
 
     btnNext.hide();
-    btnToMainPage.show()
 }

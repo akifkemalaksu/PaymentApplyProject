@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
 using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {
@@ -27,9 +27,9 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
                     x.Id == request.Id
                     && x.UserRoles.Any(ky =>
                         ky.RoleId == request.RoleId
-                        && !ky.Delete
+                        && !ky.Deleted
                     )
-                    && !x.Delete)
+                    && !x.Deleted)
                 .Select(x => new GetUserByIdAndRoleResult
                 {
                     Id = request.Id,
@@ -38,13 +38,13 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
                     Email = x.Email,
                     Username = x.Username,
                     Active = x.Active,
-                    Companies = x.UserCompanies.Where(x => !x.Delete).Select(kf => new CompanyDto
+                    Companies = x.UserCompanies.Where(x => !x.Deleted).Select(kf => new CompanyDto
                     {
                         Name = kf.Company.Name,
                         Id = kf.CompanyId
                     })
                     .ToList(),
-                    Roles = x.UserRoles.Where(x => !x.Delete).Select(ky => new RoleDto
+                    Roles = x.UserRoles.Where(x => !x.Deleted).Select(ky => new RoleDto
                     {
                         Name = ky.Role.Name,
                         Id = ky.RoleId

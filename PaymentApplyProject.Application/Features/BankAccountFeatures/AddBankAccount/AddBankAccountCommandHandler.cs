@@ -1,11 +1,11 @@
 ﻿using PaymentApplyProject.Domain.Entities;
 using MediatR;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Context;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAccount;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAccount
 {
@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
         {
             var isExistSameBankAccount = await _paymentContext.BankAccounts.AnyAsync(x =>
                 x.AccountNumber == request.AccountNumber
-                && !x.Delete, cancellationToken);
+                && !x.Deleted, cancellationToken);
             if (isExistSameBankAccount)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);
 

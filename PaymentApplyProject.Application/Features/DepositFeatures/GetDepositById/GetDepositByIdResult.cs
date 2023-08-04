@@ -16,7 +16,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
         public string BankAccountNumber { get; set; }
         public string Bank { get; set; }
         public decimal Amount { get; set; }
-        public decimal? ApprovedAmount { get; set; }
         public DateTime? TransactionDate { get; set; }
         public DateTime AddDate { get; set; }
     }

@@ -13,7 +13,6 @@ using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping;
 using PaymentApplyProject.Infrastructure.Services.InfrastructureServices;
-using PaymentApplyProject.Infrastructure.Services.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +23,11 @@ using PaymentApplyProject.Application.Pipelines;
 using Serilog;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Middlewares;
+using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
+using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit;
+using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -38,13 +42,16 @@ namespace PaymentApplyProject.Infrastructure
             });
 
             services.AddSingleton<ICustomMapper, MapstersMapper>();
-
             services.AddSingleton<IJwtAuthService, JwtAuthService>();
             services.AddSingleton<ICookieAuthService, CookieAuthService>();
             services.AddSingleton<IAuthenticatedUserService, AuthenticatedUserService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ICacheService, InMemoryCacheService>();
             services.AddSingleton<IHubUserConnectionService, HubUserConnectionService>();
+
+            services.AddHttpClient<IRequestHandler<AddDepositCommand, Response<AddDepositResult>>, AddDepositCommandHandler>();
+            services.AddHttpClient<IRequestHandler<ApproveDepositCommand, Response<NoContent>>, ApproveDepositCommandHandler>();
+            services.AddHttpClient<IRequestHandler<RejectDepositCommand, Response<NoContent>>, RejectDepositCommandHandler>();
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>
@@ -89,12 +96,6 @@ namespace PaymentApplyProject.Infrastructure
                         return CookieAuthenticationDefaults.AuthenticationScheme;
                     };
                 });
-
-            var clientServiceSettings = configuration.GetSection(nameof(ClientServiceSettings)).Get<ClientServiceSettings>();
-            services.AddHttpClient<IGrandPashaBetService, GrandPashaBetService>(configure =>
-            {
-                configure.BaseAddress = new Uri(clientServiceSettings.GrandPashaBetUrl);
-            });
 
             services.AddLogging(loggingBuilder =>
             {

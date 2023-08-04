@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById
 {

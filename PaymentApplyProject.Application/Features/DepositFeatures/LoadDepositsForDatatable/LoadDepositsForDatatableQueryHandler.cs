@@ -33,7 +33,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
                 && (request.StatusId == 0 || x.DepositStatusId == request.StatusId)
-                && !x.Delete);
+                && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -55,7 +55,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 CustomerNameSurname = x.Customer.Name + " " + x.Customer.Surname,
                 CustomerUsername = x.Customer.Username,
                 Amount = x.Amount,
-                ApprovedAmount = x.ApprovedAmount,
                 Status = x.DepositStatus.Name,
                 StatusId = x.DepositStatusId,
                 Id = x.Id,
@@ -78,7 +77,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
             var filteredResultsCount = await deposits.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Deposits.CountAsync(x =>
             (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
-            && !x.Delete, cancellationToken);
+            && !x.Deleted, cancellationToken);
 
             return new DtResult<LoadDepositsForDatatableResult>
             {

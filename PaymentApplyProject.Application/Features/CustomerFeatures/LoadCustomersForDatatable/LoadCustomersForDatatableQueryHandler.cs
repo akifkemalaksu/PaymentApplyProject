@@ -21,7 +21,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
             var customers = _paymentContext.Customers.Where(x =>
                 (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
                 && (request.Active == null || x.Active == request.Active)
-                && !x.Delete
+                && !x.Deleted
             );
 
             var searchBy = request.Search?.Value;
@@ -55,7 +55,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                 : customersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await customers.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.Customers.CountAsync(x => !x.Delete, cancellationToken);
+            var totalResultsCount = await _paymentContext.Customers.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadCustomersForDatatableResult>
             {

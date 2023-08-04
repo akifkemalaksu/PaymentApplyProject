@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                 (request.BankId == 0 || x.BankId == request.BankId)
                 && (request.Active == null || x.Active == request.Active)
                 && (request.Amount == 0 || (request.Amount >= x.LowerLimit && request.Amount <= x.UpperLimit))
-                && !x.Delete);
+                && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -56,7 +56,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                 : bankAccountsMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
             var filteredResultsCount = await bankAccounts.CountAsync(cancellationToken);
-            var totalResultsCount = await _paymentContext.BankAccounts.CountAsync(x => !x.Delete, cancellationToken);
+            var totalResultsCount = await _paymentContext.BankAccounts.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadBankAccountsForDatatableResult>
             {

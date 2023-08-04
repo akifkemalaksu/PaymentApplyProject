@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Dtos;
 using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 {
@@ -24,15 +24,15 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 
         public async Task<Response<NoContent>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            var isExistSameUsername = await _paymentContext.Users.AnyAsync(x => x.Username == request.Username && !x.Delete, cancellationToken);
+            var isExistSameUsername = await _paymentContext.Users.AnyAsync(x => x.Username == request.Username && !x.Deleted, cancellationToken);
             if (isExistSameUsername)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniKullaniciAdinaSahipKayitVar);
 
-            var isExistSameEmail = await _paymentContext.Users.AnyAsync(x => x.Email == request.Email && !x.Delete, cancellationToken);
+            var isExistSameEmail = await _paymentContext.Users.AnyAsync(x => x.Email == request.Email && !x.Deleted, cancellationToken);
             if (isExistSameEmail)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniMailAdresineSahipKayitVar);
 
-            var password = PasswordGenerator.GeneratePassword();
+            var password = GeneratorHelper.GeneratePassword();
             var user = _customMapper.Map<User>(request);
             user.Password = password;
             user.Active = true;

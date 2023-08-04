@@ -92,10 +92,6 @@ datatableHelper.datatableOptions.columns = [
         render: (data) => formatter.toMoney(data)
     },
     {
-        data: "approvedAmount",
-        render: (data) => formatter.toMoney(data)
-    },
-    {
         data: function (data) {
             return `
             <button class="btn btn-sm btn-clean btn-icon btn-icon-md" onclick="goruntule(${data.id}, '${data.customerNameSurname}')" title="Görüntüle">
@@ -125,23 +121,14 @@ let goruntule = async (id, customerNameSurname) => {
 let goruntuleDefines = () => {
     let onaylaButton = $("#onayla")
     let reddetButton = $("#reddet")
-    let onaylanacakTutarInput = $("#approvedAmount").maskMoney({ thousands: '', precision: false, allowZero: false });
     let idInput = $("#id")
 
     onaylaButton.on("click", async () => {
-        let onaylanacakTutar = parser.moneyToFloat(onaylanacakTutarInput.val())
-
-        if (!onaylanacakTutar || isNaN(onaylanacakTutar)) {
-            onaylanacakTutarInput.addClass("is-invalid");
-            return;
-        }
-
         swal.basicWithTwoButtonFunc("Uyarı", "Talebi onaylamak istediğinize emin misiniz?", icons.warning,
             async (result) => {
                 if (result.value) {
                     let data = {
-                        id: idInput.val(),
-                        amount: onaylanacakTutar
+                        id: idInput.val()
                     }
                     let result = await fetchHelper.send("/payment/ApproveDeposit", httpMethods.post, data)
 

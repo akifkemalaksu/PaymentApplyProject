@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
-using PaymentApplyProject.Application.Features.CustomerFeatures.AddOrUpdateAndGetCustomer;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
+using PaymentApplyProject.Domain.Entities;
+using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -28,21 +29,11 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(response);
         }
 
-        [HttpGet("AddDeposit")]
-        /**
-         * [FromQuery] tarayıcı da denemek için, normalde ise json olarak göndermesi gerekli
-         * tarayıcı da denemek için alttaki linkten gidilebilir
-         * http://localhost:6020/api/parayatirmaapi?FirmaKodu=GrandPasha&MusteriAd=Akif%20Kemal&MusteriSoyad=Aksu&MusteriKullaniciAdi=akifkemalaksu
-         */
-        public async Task<IActionResult> Get(AddOrUpdateAndGetCustomerCommand addOrUpdateAndGetCustomerCommand)
+        [HttpPost("AddDeposit")]
+        public async Task<IActionResult> Post(DepositRequestCommand depositRequestCommand)
         {
-            var response = await _mediator.Send(addOrUpdateAndGetCustomerCommand);
-            if (!response.IsSuccessful)
-                return CreateResult(response);
-
-            string musteriKey = Guid.NewGuid().ToString();
-            HttpContext.Session.SetString(musteriKey, response.Data.CustomerId.ToString());
-            return RedirectToAction("Panel", "PaymentFrame", new { musteriKey });
+            var response = await _mediator.Send(depositRequestCommand);
+            return CreateResult(response);
         }
     }
 }

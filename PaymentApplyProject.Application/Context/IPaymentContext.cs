@@ -24,6 +24,7 @@ namespace PaymentApplyProject.Application.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<DepositRequest> DepositRequests { get; set; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

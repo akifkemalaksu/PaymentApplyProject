@@ -6,14 +6,16 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class Deposit : BaseEntity<int>
     {
+        public int DepositRequestId { get; set; }
         public int CustomerId { get; set; }
         public short DepositStatusId { get; set; }
         public int BankAccountId { get; set; }
         public decimal Amount { get; set; }
-        public decimal? ApprovedAmount { get; set; }
         public DateTime? TransactionDate { get; set; }
         public int IntegrationId { get; set; }
 
+        [ForeignKey("DepositRequestId")]
+        public virtual DepositRequest DepositRequest { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
         [ForeignKey("DepositStatusId")]

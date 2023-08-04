@@ -12,7 +12,6 @@ namespace PaymentApplyProject.Domain.Entities
         [StringLength(50)]
         public string AccountNumber { get; set; }
         public decimal Amount { get; set; }
-        public decimal? ApprovedAmount { get; set; }
         public DateTime? TransactionDate { get; set; }
         public int IntegrationId { get; set; }
 

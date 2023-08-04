@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
                 && (request.StatusId == 0 || x.WithdrawStatusId == request.StatusId)
-                && !x.Delete);
+                && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
@@ -47,7 +47,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 Company = x.Customer.Company.Name,
                 NameSurname = x.Customer.Name + " " + x.Customer.Surname,
                 Username = x.Customer.Username,
-                ApprovedAmount = x.ApprovedAmount,
                 TransactionDate = x.TransactionDate,
                 AddDate = x.AddDate,
                 Status = x.WithdrawStatus.Name,
@@ -71,7 +70,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
             var filteredResultsCount = await withdraws.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Withdraws.CountAsync(x =>
             (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
-            && !x.Delete, cancellationToken);
+            && !x.Deleted, cancellationToken);
 
             return new DtResult<LoadWithdrawsForDatatableResult>
             {
