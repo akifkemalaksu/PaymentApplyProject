@@ -5,6 +5,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Dtos.ResponseDtos
@@ -12,6 +13,7 @@ namespace PaymentApplyProject.Application.Dtos.ResponseDtos
     [DataContract]
     public class Response<T>
     {
+        [JsonIgnore]
         public HttpStatusCode StatusCode { get; set; }
         [DataMember]
         public bool IsSuccessful { get; set; }

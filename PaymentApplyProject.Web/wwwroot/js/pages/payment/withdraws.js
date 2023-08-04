@@ -47,7 +47,7 @@ datatableHelper.datatableOptions.ajax = {
         d.endDate = endDateInput.val()
     }
 };
-datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [10] })
+datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [9] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "company" },

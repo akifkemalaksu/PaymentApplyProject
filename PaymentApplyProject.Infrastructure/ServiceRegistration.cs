@@ -28,6 +28,8 @@ using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit;
 using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -52,6 +54,8 @@ namespace PaymentApplyProject.Infrastructure
             services.AddHttpClient<IRequestHandler<AddDepositCommand, Response<AddDepositResult>>, AddDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveDepositCommand, Response<NoContent>>, ApproveDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectDepositCommand, Response<NoContent>>, RejectDepositCommandHandler>();
+            services.AddHttpClient<IRequestHandler<ApproveWithdrawCommand, Response<NoContent>>, ApproveWithdrawCommandHandler>();
+            services.AddHttpClient<IRequestHandler<RejectWithdrawCommand, Response<NoContent>>, RejectWithdrawCommandHandler>();
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>

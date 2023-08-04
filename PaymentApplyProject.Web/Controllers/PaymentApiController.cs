@@ -7,6 +7,7 @@ using System.Data;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
+using PaymentApplyProject.Application.Features.BankFeatures.GetBanks;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -33,6 +34,13 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> Post(DepositRequestCommand depositRequestCommand)
         {
             var response = await _mediator.Send(depositRequestCommand);
+            return CreateResult(response);
+        }
+
+        [HttpGet("GetBanks")]
+        public async Task<IActionResult> Get()
+        {
+            var response = await _mediator.Send(new GetBanksQuery());
             return CreateResult(response);
         }
     }

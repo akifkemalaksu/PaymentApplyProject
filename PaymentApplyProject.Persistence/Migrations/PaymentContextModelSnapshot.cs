@@ -575,6 +575,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
+                    b.Property<short>("BankId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("CallbackUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
@@ -587,8 +594,15 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("IntegrationId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ExternalTransactionId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("MethodType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("TransactionDate")
                         .HasColumnType("timestamp without time zone");

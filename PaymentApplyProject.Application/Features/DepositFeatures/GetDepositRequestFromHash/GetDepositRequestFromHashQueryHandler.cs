@@ -21,11 +21,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
         {
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.UniqueTransactionIdHash == request.HashKey && !x.Deleted);
             if (depositRequest == null)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.NotFound, string.Empty, ErrorCodes.DepositRequestIsNotFound);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsNotFound);
 
             var isExistsDeposit = await _paymentContext.Deposits.AnyAsync(x => x.DepositRequestId == depositRequest.Id && !x.Deleted, cancellationToken);
             if (isExistsDeposit)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.NotFound, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
 
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == depositRequest.CompanyId && !x.Deleted, cancellationToken);
 

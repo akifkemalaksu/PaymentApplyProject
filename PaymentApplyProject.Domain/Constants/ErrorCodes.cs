@@ -9,8 +9,10 @@ namespace PaymentApplyProject.Domain.Constants
     public static class ErrorCodes
     {
         // 0 - 100 user errors
-        public const string NotAuthenticated = "0001";
-        public const string UserHasNoCompany = "0002";
+        public const string UserNotFound = "0001";
+        public const string UserHasNoAuthorization = "0002";
+        public const string NotAuthenticated = "0003";
+        public const string UserHasNoCompany = "0004";
 
         // 100 - 200 company errors
         public const string CompanyIsNotFound = "0101";
@@ -29,6 +31,7 @@ namespace PaymentApplyProject.Domain.Constants
         public const string DepositRequestIsTimeout = "0305";
 
         // 400 - 500 withdraw errors
-
+        public const string ThereIsPendingWithdraw = "0401";
+        public const string WithdrawCallbackException = "0402";
     }
 }

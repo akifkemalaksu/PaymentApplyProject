@@ -50,7 +50,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
             var callbackBody = new DepositCallbackBodyDto
             {
                 CustomerId = depositRequest.CustomerId,
-                Method = depositRequest.MethodType,
+                MethodType = depositRequest.MethodType,
                 Status = StatusConstants.APPROVED,
                 TransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
@@ -60,7 +60,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
             if (!callbackResponse.IsSuccessStatusCode)
             {
                 string responseContent = await callbackResponse.Content.ReadAsStringAsync();
-                throw new CallbackException(responseContent);
+                throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
             }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);

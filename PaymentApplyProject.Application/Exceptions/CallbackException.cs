@@ -8,8 +8,10 @@ namespace PaymentApplyProject.Application.Exceptions
 {
     public class CallbackException : Exception
     {
-        public CallbackException(string? message) : base(message)
+        public string ErrorCode { get; set; }
+        public CallbackException(string? message, string errorCode) : base(message)
         {
+            ErrorCode = errorCode;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace PaymentApplyProject.Application.Middlewares
                 Exception = callbackEx
             }.ToString());
 
-            await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, callbackEx.Message,ErrorCodes.DepositCallbackException).ToString());
+            await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, callbackEx.Message, callbackEx.ErrorCode).ToString());
         }
 
         private async Task HandleExceptionAsync(HttpContext httpContext, Exception ex)

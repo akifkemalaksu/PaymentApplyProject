@@ -11,6 +11,8 @@ using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.NotificationDtos;
+using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
+using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 {
@@ -33,39 +35,63 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             if (userInfos == null || !userInfos.Companies.Any())
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
 
-            var company = userInfos.Companies.First();
+            var companyId = userInfos.Companies.First().Id;
+            var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
-            var musteri = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.CompanyId == company.Id && x.Username == request.Username && !x.Deleted, cancellationToken);
-            if (musteri == null)
+            if (company == null)
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+
+            if (!company.Active)
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+
+            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
+
+            if (customer != null)
             {
-                musteri = new()
+                var isExistPendingWithdraw = await _paymentContext.Withdraws.AnyAsync(x => x.CustomerId == customer.Id && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR && !x.Deleted, cancellationToken);
+                if (isExistPendingWithdraw)
+                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsPendingWithdraw);
+
+                if (!customer.Active)
+                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                else if (customer.Name != request.CustomerInfo.Name ||
+                    customer.Surname != request.CustomerInfo.Surname ||
+                    customer.Username != request.CustomerInfo.Username)
                 {
-                    CompanyId = company.Id,
-                    Username = request.Username,
-                    Name = request.Name,
-                    Surname = request.Surname
+                    customer.Name = request.CustomerInfo.Name;
+                    customer.Surname = request.CustomerInfo.Surname;
+                    customer.Username = request.CustomerInfo.Username;
+                }
+            }
+            else
+            {
+                customer = new()
+                {
+                    Active = true,
+                    CompanyId = companyId,
+                    ExternalCustomerId = request.CustomerInfo.CustomerId,
+                    Name = request.CustomerInfo.Name,
+                    Surname = request.CustomerInfo.Surname,
+                    Username = request.CustomerInfo.Username,
                 };
-                await _paymentContext.Customers.AddAsync(musteri, cancellationToken);
+
+                await _paymentContext.Customers.AddAsync(customer, cancellationToken);
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
 
-            var isExistsParaCekme = await _paymentContext.Withdraws.AnyAsync(x =>
-                    x.CustomerId == musteri.Id
-                    && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR
-                    && !x.Deleted, cancellationToken);
-            if (isExistsParaCekme)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingTransaction);
-
-            Withdraw addParaCekme = new()
+            Withdraw withdraw = new()
             {
-                CustomerId = musteri.Id,
+                CustomerId = customer.Id,
                 Amount = request.Amount,
                 AccountNumber = request.AccountNumber,
                 WithdrawStatusId = StatusConstants.WITHDRAW_BEKLIYOR,
-                IntegrationId = request.IntegrationId
+                ExternalTransactionId = request.TransactionId,
+                BankId = request.BankId,
+                CallbackUrl = request.CallbackUrl,
+                MethodType = request.MethodType,
             };
 
-            await _paymentContext.Withdraws.AddAsync(addParaCekme, cancellationToken);
+            await _paymentContext.Withdraws.AddAsync(withdraw, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             NotificationDto notification = new()
@@ -81,13 +107,12 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             ).Select(x => x.Username).ToListAsync(cancellationToken);
             _notificationService.CreateNotificationToSpecificUsers(usernames, notification, cancellationToken);
 
-            return Response<AddWithdrawResult>.Success(System.Net.HttpStatusCode.OK,
-                new()
-                {
-                    WithdrawId = addParaCekme.Id
-                },
-                Messages.TransactionSuccessful
-                );
+            var addWithdrawResult = new AddWithdrawResult
+            {
+                ExternalTransactionId = withdraw.Id,
+                Status = StatusConstants.PENDING
+            };
+            return Response<AddWithdrawResult>.Success(System.Net.HttpStatusCode.OK, addWithdrawResult, Messages.TransactionSuccessful);
         }
     }
 }

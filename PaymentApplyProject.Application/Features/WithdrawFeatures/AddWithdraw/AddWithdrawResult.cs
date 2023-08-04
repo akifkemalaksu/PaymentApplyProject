@@ -2,6 +2,7 @@
 {
     public class AddWithdrawResult
     {
-        public int WithdrawId { get; set; }
+        public int ExternalTransactionId { get; set; }
+        public string Status { get; set; }
     }
 }

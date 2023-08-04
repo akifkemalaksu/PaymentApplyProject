@@ -35,11 +35,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
         {
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == request.DepositRequestId, cancellationToken);
             if (depositRequest == null)
-                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.NotFound, string.Empty, ErrorCodes.DepositRequestIsNotFound);
+                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsNotFound);
 
             var isExistsDeposit = await _paymentContext.Deposits.AnyAsync(x => x.DepositRequestId == depositRequest.Id && !x.Deleted, cancellationToken);
             if (isExistsDeposit)
-                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.NotFound, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
+                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
 
             Deposit deposit = new()
             {
@@ -57,7 +57,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             var callbackBody = new DepositCallbackBodyDto
             {
                 CustomerId = depositRequest.CustomerId,
-                Method = depositRequest.MethodType,
+                MethodType = depositRequest.MethodType,
                 Status = StatusConstants.PENDING,
                 TransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
@@ -68,7 +68,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             if (!callbackResponse.IsSuccessStatusCode)
             {
                 string responseContent = await callbackResponse.Content.ReadAsStringAsync();
-                throw new CallbackException(responseContent);
+                throw new CallbackException(responseContent,ErrorCodes.DepositCallbackException);
             }
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId, cancellationToken);
