@@ -52,7 +52,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsPendingDeposit);
 
                 if (!customer.Active)
-                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
                 else if (customer.Name != request.CustomerInfo.Name ||
                     customer.Surname != request.CustomerInfo.Surname ||
                     customer.Username != request.CustomerInfo.Username)

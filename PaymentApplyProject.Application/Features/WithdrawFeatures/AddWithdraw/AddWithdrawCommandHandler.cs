@@ -31,11 +31,15 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
 
         public async Task<Response<AddWithdrawResult>> Handle(AddWithdrawCommand request, CancellationToken cancellationToken)
         {
-            var userInfos = _authenticatedUserService.GetUserInfo();
-            if (userInfos == null || !userInfos.Companies.Any())
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.NotFound);
+            var userInfo = _authenticatedUserService.GetUserInfo();
 
-            var companyId = userInfos.Companies.First().Id;
+            if (userInfo == null)
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
+
+            if (!userInfo.Companies.Any())
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
+
+            var companyId = userInfo.Companies.First().Id;
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
             if (company == null)
@@ -53,7 +57,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
                     return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsPendingWithdraw);
 
                 if (!customer.Active)
-                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
                 else if (customer.Name != request.CustomerInfo.Name ||
                     customer.Surname != request.CustomerInfo.Surname ||
                     customer.Username != request.CustomerInfo.Username)
