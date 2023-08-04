@@ -1,4 +1,25 @@
-﻿let formEl = $('#kt_form');
+﻿let counterFunc = () => {
+    let progressBar = $(".progress-bar")
+    let counterSpan = $("#counter-text")
+    let fullSeconds = parseInt(progressBar.attr("aria-valuemax"))
+    let seconds = parseInt(counterSpan.data('second'))
+
+    counterSpan.html(seconds);
+    progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
+
+    setInterval(() => {
+        seconds--
+        counterSpan.html(seconds)
+        progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
+        if (seconds === 0) {
+            window.location.href = btnToMainPageFailed.prop("href")
+        }
+    }, 1000)
+}
+
+counterFunc()
+
+let formEl = $('#kt_form');
 let validator = formEl.validate({
     ignore: ":hidden",
     rules: {
@@ -89,7 +110,6 @@ let getBankaHesabiBilgisi = async () => {
         swal.basic("Uyarı", result.message, icons.warning)
         return false
     }
-    bankaHesapIdInput.val(result.data.bankaHesapId);
 
     fillBankaHesapBilgileriArea(result.data)
 
@@ -99,16 +119,17 @@ let getBankaHesabiBilgisi = async () => {
 }
 
 let fillBankaHesapBilgileriArea = (data) => {
-
-    $("#iban").html(data.hesapNumarasi)
-    let hesapSahibi = `${data.ad} ${data.soyad}`
+    $("#iban").html(data.accountNumber)
+    let hesapSahibi = `${data.name} ${data.surname}`
     $("#hesapSahibi").html(hesapSahibi)
+
+    bankaHesapIdInput.val(data.bankAccountId);
 
     let ibanCopySpan = $("#ibanCopy")
     let hesapSahibiCopySpan = $("#hesapSahibiCopy")
 
     ibanCopySpan.on("click", () => {
-        navigator.clipboard.writeText(data.hesapNumarasi)
+        navigator.clipboard.writeText(data.accountNumber)
         ibanCopySpan.popover('show')
         setTimeout(() => ibanCopySpan.popover('hide'), 3000)
     })
@@ -117,23 +138,6 @@ let fillBankaHesapBilgileriArea = (data) => {
         hesapSahibiCopySpan.popover('show')
         setTimeout(() => hesapSahibiCopySpan.popover('hide'), 3000)
     })
-
-    counterFunc()
-}
-
-let counterFunc = () => {
-    let counterSpan = $("#counter-text")
-    let seconds = counterSpan.data('second')
-    counterSpan.html(seconds);
-    let sayac = parseInt(seconds)
-
-    setInterval(() => {
-        sayac--
-        counterSpan.html(sayac)
-        if (sayac === 0) {
-            window.location.href = btnToMainPageFailed.prop("href")
-        }
-    }, 1000)
 }
 
 let resultDiv = $("#resultDiv")

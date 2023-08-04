@@ -3,6 +3,10 @@
 
 @{
     Layout = null;
+
+    int remainingSeconds = (int)(Model.ValidTo - DateTime.Now).TotalSeconds;
+
+    int fullSeconds = 300;
 }
 
 <!DOCTYPE html>
@@ -23,7 +27,7 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="assets/media/logos/kolayodeme.ico" />
 
     <style>
         .zoom {
@@ -49,6 +53,13 @@
                     <div class="kt-portlet__body kt-portlet__body--fit">
                         <div class="kt-grid kt-wizard-v1 kt-wizard-v1--white" id="kt_wizard_v1" data-ktwizard-state="first">
                             <div class="kt-grid__item">
+                                <p class="text-center mt-3">
+                                    İşleminizi gerçekleştirmenize <span id="counter-text" data-second="@remainingSeconds"></span> saniye kaldı.
+                                </p>
+                                <div class="progress mx-1">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@((100 * remainingSeconds) / fullSeconds)" aria-valuemin="0" aria-valuemax="@fullSeconds" style="width: @((100 * remainingSeconds) / fullSeconds)%"></div>
+                                </div>
+                                
 
                                 <div class="kt-wizard-v1__nav">
 
@@ -220,9 +231,6 @@
                                                     <p>
                                                         Ödeme yapınız.
                                                     </p>
-                                                    <p>
-                                                        İşleminizi gerçekleştirmenize <span id="counter-text" data-second="300"></span> saniye kaldı.
-                                                    </p>
                                                 </div>
                                                 <div class="col-12 mt-4">
                                                     <div class="input-group input-group-lg">
@@ -262,7 +270,7 @@
                                         <a class="btn btn-block btn-secondary" id="successful-back-to-main-page" href="@Model.SuccessUrl" style="display:none;">Sayfaya Geri Dön</a>
                                         <a class="btn btn-block btn-secondary" id="failed-back-to-main-page" href="@Model.FailedUrl" style="display:none;">Sayfaya Geri Dön</a>
                                     </div>
-                                    <input type="hidden" name="depositRequestId" value="@Model.DepositRequestId" />
+                                    <input type="hidden" id="depositRequestId" name="depositRequestId" value="@Model.DepositRequestId" />
                                 </form>
 
                             </div>

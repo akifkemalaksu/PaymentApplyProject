@@ -10,7 +10,6 @@ using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequest
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "customer")]
     public class PaymentFrameController : CustomController
     {
         private readonly IMediator _mediator;
@@ -29,7 +28,8 @@ namespace PaymentApplyProject.Web.Controllers
             var depositRequest = await _mediator.Send(new GetDepositRequestFromHashQuery { HashKey = key });
 
             if (!depositRequest.IsSuccessful)
-                return RedirectToAction("index", "error", new { message = $"Error code: {depositRequest.ErrorCode}", statusCode = depositRequest.StatusCode });
+                return RedirectToAction("index", "error", new { message = $"Error code: {depositRequest.ErrorCode}", statusCode = (int)depositRequest.StatusCode });
+
 
             return View(depositRequest.Data);
         }

@@ -50,33 +50,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DepositRequests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CallbackUrl = table.Column<string>(type: "text", nullable: false),
-                    SuccessUrl = table.Column<string>(type: "text", nullable: false),
-                    FailedUrl = table.Column<string>(type: "text", nullable: false),
-                    CustomerId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Username = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    MethodType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    UniqueTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    UniqueTransactionIdHash = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AddedUserId = table.Column<int>(type: "integer", nullable: false),
-                    EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DepositRequests", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -197,6 +170,41 @@ namespace PaymentApplyProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DepositRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<short>(type: "smallint", nullable: false),
+                    CallbackUrl = table.Column<string>(type: "text", nullable: false),
+                    SuccessUrl = table.Column<string>(type: "text", nullable: false),
+                    FailedUrl = table.Column<string>(type: "text", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Username = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    MethodType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    UniqueTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    UniqueTransactionIdHash = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    ValidTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    AddedUserId = table.Column<int>(type: "integer", nullable: false),
+                    EditedUserId = table.Column<int>(type: "integer", nullable: false),
+                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepositRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DepositRequests_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserCompanies",
                 columns: table => new
                 {
@@ -259,6 +267,41 @@ namespace PaymentApplyProject.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Withdraws",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CustomerId = table.Column<int>(type: "integer", nullable: false),
+                    WithdrawStatusId = table.Column<short>(type: "smallint", nullable: false),
+                    AccountNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    IntegrationId = table.Column<int>(type: "integer", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    AddedUserId = table.Column<int>(type: "integer", nullable: false),
+                    EditedUserId = table.Column<int>(type: "integer", nullable: false),
+                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Withdraws", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Withdraws_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Withdraws_Statuses_WithdrawStatusId",
+                        column: x => x.WithdrawStatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Deposits",
                 columns: table => new
                 {
@@ -306,41 +349,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Withdraws",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    WithdrawStatusId = table.Column<short>(type: "smallint", nullable: false),
-                    AccountNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IntegrationId = table.Column<int>(type: "integer", nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AddedUserId = table.Column<int>(type: "integer", nullable: false),
-                    EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Withdraws", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Withdraws_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Withdraws_Statuses_WithdrawStatusId",
-                        column: x => x.WithdrawStatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_BankId",
                 table: "BankAccounts",
@@ -349,6 +357,11 @@ namespace PaymentApplyProject.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CompanyId",
                 table: "Customers",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DepositRequests_CompanyId",
+                table: "DepositRequests",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(

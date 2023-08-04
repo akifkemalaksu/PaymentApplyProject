@@ -26,6 +26,7 @@ namespace PaymentApplyProject.Domain.Constants
         public const string DepositRequestHashIsUsed = "0302";
         public const string ThereIsPendingDeposit = "0303";
         public const string DepositCallbackException = "0304";
+        public const string DepositRequestIsTimeout = "0305";
 
         // 400 - 500 withdraw errors
 

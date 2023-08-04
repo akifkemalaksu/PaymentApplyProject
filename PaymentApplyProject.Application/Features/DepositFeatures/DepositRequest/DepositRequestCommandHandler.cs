@@ -91,6 +91,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 SuccessUrl = request.SuccessUrl,
                 UniqueTransactionId = request.UniqueTransactionId,
                 UniqueTransactionIdHash = GeneratorHelper.GenerateSha256Key(request.UniqueTransactionId),
+                CompanyId = companyId
             };
 
             await _paymentContext.DepositRequests.AddAsync(depositRequest, cancellationToken);

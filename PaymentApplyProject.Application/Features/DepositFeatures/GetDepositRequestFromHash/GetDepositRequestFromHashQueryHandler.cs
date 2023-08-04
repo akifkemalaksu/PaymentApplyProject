@@ -4,18 +4,17 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash
 {
     public class GetDepositRequestFromHashQueryHandler : IRequestHandler<GetDepositRequestFromHashQuery, Response<GetDepositRequestFromHashResult>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public GetDepositRequestFromHashQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
+        public GetDepositRequestFromHashQueryHandler(IPaymentContext paymentContext)
         {
             _paymentContext = paymentContext;
-            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<Response<GetDepositRequestFromHashResult>> Handle(GetDepositRequestFromHashQuery request, CancellationToken cancellationToken)
@@ -28,16 +27,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
             if (isExistsDeposit)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.NotFound, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
 
-            var userInfo = _authenticatedUserService.GetUserInfo();
-
-            if (userInfo == null)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
-
-            if (!userInfo.Companies.Any())
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
-
-            var companyId = userInfo.Companies.First().Id;
-            var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
+            var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == depositRequest.CompanyId && !x.Deleted, cancellationToken);
 
             if (company == null)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
@@ -45,19 +35,28 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
             if (!company.Active)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
 
-            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == depositRequest.CustomerId && x.CompanyId == companyId && x.Deleted, cancellationToken);
+            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == depositRequest.CustomerId && x.CompanyId == depositRequest.CompanyId && !x.Deleted, cancellationToken);
 
             if (customer == null)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotFound);
             else if (!customer.Active)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
 
+            if (!depositRequest.ValidTo.HasValue)
+            {
+                depositRequest.ValidTo = DateTime.Now.AddMinutes(5);
+                await _paymentContext.SaveChangesAsync(cancellationToken);
+            }
+            else if (depositRequest.ValidTo.HasValue && depositRequest.ValidTo.Value <= DateTime.Now)
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsTimeout);
+
             var getDepositRequestFromHashResult = new GetDepositRequestFromHashResult
             {
                 CustomerId = customer.Id,
                 FailedUrl = depositRequest.FailedUrl,
                 SuccessUrl = depositRequest.SuccessUrl,
-                DepositRequestId = depositRequest.Id
+                DepositRequestId = depositRequest.Id,
+                ValidTo = depositRequest.ValidTo.Value
             };
 
             return Response<GetDepositRequestFromHashResult>.Success(System.Net.HttpStatusCode.OK, getDepositRequestFromHashResult);

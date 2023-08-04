@@ -6,5 +6,6 @@
         public int CustomerId { get; set; }
         public string SuccessUrl { get; set; }
         public string FailedUrl { get; set; }
+        public DateTime ValidTo { get; set; }
     }
 }

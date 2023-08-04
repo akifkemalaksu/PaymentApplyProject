@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace PaymentApplyProject.Domain.Entities
 {
     public class DepositRequest : BaseEntity<int>
     {
+        public short CompanyId { get; set; }
         public string CallbackUrl { get; set; }
         public string SuccessUrl { get; set; }
         public string FailedUrl { get; set; }
@@ -26,5 +28,9 @@ namespace PaymentApplyProject.Domain.Entities
         public string UniqueTransactionId { get; set; }
         [StringLength(64)]
         public string UniqueTransactionIdHash { get; set; }
+        public DateTime? ValidTo { get; set; }
+
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
     }
 }

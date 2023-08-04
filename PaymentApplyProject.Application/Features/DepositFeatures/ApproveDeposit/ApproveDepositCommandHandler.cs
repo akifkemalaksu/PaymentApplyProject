@@ -59,8 +59,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
 
             if (!callbackResponse.IsSuccessStatusCode)
             {
-                var exceptionResponse = await callbackResponse.ExceptionResponse();
-                throw new CallbackException(exceptionResponse.ToString());
+                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+                throw new CallbackException(responseContent);
             }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);

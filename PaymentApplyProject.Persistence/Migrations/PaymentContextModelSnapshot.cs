@@ -279,6 +279,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<short>("CompanyId")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -331,7 +334,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("DepositRequests");
                 });
@@ -666,6 +674,17 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Navigation("DepositRequest");
 
                     b.Navigation("DepositStatus");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositRequest", b =>
+                {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.UserCompany", b =>

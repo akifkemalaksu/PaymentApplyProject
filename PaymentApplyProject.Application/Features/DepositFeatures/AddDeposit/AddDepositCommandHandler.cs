@@ -14,6 +14,7 @@ using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
 using PaymentApplyProject.Application.Exceptions;
 using PaymentApplyProject.Application.Extensions;
+using System.Net.Http;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 {
@@ -66,8 +67,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 
             if (!callbackResponse.IsSuccessStatusCode)
             {
-                var exceptionResponse = await callbackResponse.ExceptionResponse();
-                throw new CallbackException(exceptionResponse.ToString());
+                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+                throw new CallbackException(responseContent);
             }
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId, cancellationToken);
