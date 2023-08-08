@@ -60,7 +60,6 @@ datatableHelper.datatableOptions.ajax = {
         d.endDate = endDateInput.val()
     }
 };
-datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [12] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
     { data: "company" },

@@ -316,7 +316,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     BankAccountId = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IntegrationId = table.Column<int>(type: "integer", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),

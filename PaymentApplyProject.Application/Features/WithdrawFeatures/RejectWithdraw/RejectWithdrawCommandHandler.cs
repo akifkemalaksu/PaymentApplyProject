@@ -9,6 +9,8 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Exceptions;
 using System.Net.Http.Json;
+using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Dtos.LogDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw
 {
@@ -16,11 +18,13 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
     {
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
+        private readonly ILogger<RejectWithdrawCommandHandler> _logger;
 
-        public RejectWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient)
+        public RejectWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<RejectWithdrawCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<Response<NoContent>> Handle(RejectWithdrawCommand request, CancellationToken cancellationToken)
@@ -50,15 +54,20 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                 CustomerId = withdraw.Customer.ExternalCustomerId,
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.REJECTED,
-                TransactionId = withdraw.ExternalTransactionId
+                TransactionId = withdraw.ExternalTransactionId,
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
+            string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+
+            _logger.LogInformation(new HttpClientLogDto
+            {
+                Request = callbackBody,
+                Response = responseContent,
+                Url = withdraw.CallbackUrl
+            }.ToString());
 
             if (!callbackResponse.IsSuccessStatusCode)
-            {
-                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
                 throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException);
-            }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

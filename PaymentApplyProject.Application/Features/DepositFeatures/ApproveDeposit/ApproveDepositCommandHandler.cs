@@ -11,6 +11,8 @@ using PaymentApplyProject.Application.Exceptions;
 using System.Net.Http;
 using System.Net.Http.Json;
 using PaymentApplyProject.Application.Extensions;
+using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Dtos.LogDtos;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit
 {
@@ -18,11 +20,13 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
     {
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
+        private readonly ILogger<ApproveDepositCommandHandler> _logger;
 
-        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient)
+        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<Response<NoContent>> Handle(ApproveDepositCommand request, CancellationToken cancellationToken)
@@ -54,14 +58,20 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
                 Status = StatusConstants.APPROVED,
                 TransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
+                Amount = deposit.Amount,
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
+            string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+
+            _logger.LogInformation(new HttpClientLogDto
+            {
+                Request = callbackBody,
+                Response = responseContent,
+                Url = depositRequest.CallbackUrl
+            }.ToString());
 
             if (!callbackResponse.IsSuccessStatusCode)
-            {
-                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
                 throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
-            }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

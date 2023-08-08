@@ -46,7 +46,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
 
             var isExistDepositWithSameTransactionId = await _paymentContext.DepositRequests.AnyAsync(x => x.UniqueTransactionId == request.UniqueTransactionId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
             if (isExistDepositWithSameTransactionId)
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsWithdrawSameTransactionId);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsDepositSameTransactionId);
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
 

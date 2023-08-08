@@ -17,13 +17,8 @@ namespace PaymentApplyProject.Application.Dtos.LogDtos
         public string Host { get; set; }
         public string Path { get; set; }
         public string QueryString { get; set; }
-        public string Body { get; set; }
+        public object Body { get; set; }
 
         public override string ToString() => JsonConvert.SerializeObject(this);
-    }
-
-    public class ErrorLogDto : HttpLogDto
-    {
-        public Exception Exception { get; set; }
     }
 }

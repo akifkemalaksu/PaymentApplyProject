@@ -15,6 +15,9 @@ using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequest
 using PaymentApplyProject.Application.Exceptions;
 using PaymentApplyProject.Application.Extensions;
 using System.Net.Http;
+using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Dtos.LogDtos;
+using System.Text.Json;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 {
@@ -23,12 +26,14 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
         private readonly IPaymentContext _paymentContext;
         private readonly INotificationService _notificationService;
         private readonly HttpClient _httpClient;
+        private readonly ILogger<AddDepositCommandHandler> _logger;
 
-        public AddDepositCommandHandler(IPaymentContext paymentContext, INotificationService notificationService, HttpClient httpClient)
+        public AddDepositCommandHandler(IPaymentContext paymentContext, INotificationService notificationService, HttpClient httpClient, ILogger<AddDepositCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _notificationService = notificationService;
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<Response<AddDepositResult>> Handle(AddDepositCommand request, CancellationToken cancellationToken)
@@ -64,12 +69,17 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                 Amount = request.Amount
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
+            string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+
+            _logger.LogInformation(new HttpClientLogDto
+            {
+                Request = callbackBody,
+                Response = responseContent,
+                Url = depositRequest.CallbackUrl
+            }.ToString());
 
             if (!callbackResponse.IsSuccessStatusCode)
-            {
-                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
-                throw new CallbackException(responseContent,ErrorCodes.DepositCallbackException);
-            }
+                throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId, cancellationToken);
 

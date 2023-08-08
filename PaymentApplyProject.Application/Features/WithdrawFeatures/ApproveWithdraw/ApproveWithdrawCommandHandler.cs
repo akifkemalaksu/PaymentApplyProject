@@ -9,6 +9,8 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Exceptions;
 using System.Net.Http.Json;
+using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Dtos.LogDtos;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw
 {
@@ -16,11 +18,13 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
     {
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
+        private readonly ILogger<ApproveWithdrawCommandHandler> _logger;
 
-        public ApproveWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient)
+        public ApproveWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveWithdrawCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         public async Task<Response<NoContent>> Handle(ApproveWithdrawCommand request, CancellationToken cancellationToken)
@@ -51,12 +55,18 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
                 TransactionId = withdraw.ExternalTransactionId
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
+            string responseContent = await callbackResponse.Content.ReadAsStringAsync();
+
+            _logger.LogInformation(new HttpClientLogDto
+            {
+                Request = callbackBody,
+                Response = responseContent,
+                Url = withdraw.CallbackUrl
+            }.ToString());
 
             if (!callbackResponse.IsSuccessStatusCode)
-            {
-                string responseContent = await callbackResponse.Content.ReadAsStringAsync();
                 throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException);
-            }
+
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
