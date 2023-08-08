@@ -12,7 +12,6 @@ namespace PaymentApplyProject.Domain.Entities
         public int BankAccountId { get; set; }
         public decimal Amount { get; set; }
         public DateTime? TransactionDate { get; set; }
-        public int IntegrationId { get; set; }
 
         [ForeignKey("DepositRequestId")]
         public virtual DepositRequest DepositRequest { get; set; }

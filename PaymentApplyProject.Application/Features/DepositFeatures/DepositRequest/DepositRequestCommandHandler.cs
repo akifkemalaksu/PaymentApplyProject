@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
@@ -43,7 +44,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             if (!company.Active)
                 return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
 
-            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && x.Deleted, cancellationToken);
+            var isExistDepositWithSameTransactionId = await _paymentContext.DepositRequests.AnyAsync(x => x.UniqueTransactionId == request.UniqueTransactionId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
+            if (isExistDepositWithSameTransactionId)
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsWithdrawSameTransactionId);
+
+            var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
 
             if (customer != null)
             {

@@ -48,6 +48,11 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             if (!company.Active)
                 return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
 
+            var isExistWithdrawWithSameTransactionId = await _paymentContext.Withdraws.AnyAsync(x => x.ExternalTransactionId == request.TransactionId && x.Customer.CompanyId == companyId && !x.Deleted, cancellationToken);
+            if (isExistWithdrawWithSameTransactionId)
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsWithdrawSameTransactionId);
+
+
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
 
             if (customer != null)

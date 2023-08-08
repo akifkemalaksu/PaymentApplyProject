@@ -29,9 +29,13 @@ namespace PaymentApplyProject.Domain.Constants
         public const string ThereIsPendingDeposit = "0303";
         public const string DepositCallbackException = "0304";
         public const string DepositRequestIsTimeout = "0305";
+        public const string ThereIsDepositSameTransactionId = "0306";
+        public const string DepositIsNotFound = "0307";
 
         // 400 - 500 withdraw errors
         public const string ThereIsPendingWithdraw = "0401";
         public const string WithdrawCallbackException = "0402";
+        public const string ThereIsWithdrawSameTransactionId = "0403";
+        public const string WithdrawIsNotFound = "0404";
     }
 }

@@ -25,6 +25,8 @@ namespace PaymentApplyProject.Domain.Entities
         public virtual Customer Customer { get; set; }
         [ForeignKey("WithdrawStatusId")]
         public virtual WithdrawStatus WithdrawStatus { get; set; }
+        [ForeignKey("BankId")]
+        public virtual Bank Bank { get; set; }
     }
 
 }
