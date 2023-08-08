@@ -1,9 +1,11 @@
 ﻿using PaymentApplyProject.Domain.Constants;
+using System.Text.Json.Serialization;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus
 {
     public class GetDepositStatusResult
     {
+        [JsonIgnore]
         public short DepositStatusId { get; set; }
         public string DepositStatus
         {
