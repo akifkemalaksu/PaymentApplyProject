@@ -12,5 +12,6 @@ namespace PaymentApplyProject.Application.Services
         UserDto GetUserInfo();
         int GetUserId();
         string GetUsername();
+        string GetBearerToken();
     }
 }

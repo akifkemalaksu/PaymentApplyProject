@@ -7,6 +7,7 @@ using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
+using PaymentApplyProject.Domain.Entities;
 using System.Net.Http.Json;
 using DepositRequestModel = PaymentApplyProject.Domain.Entities.DepositRequest;
 
@@ -101,6 +102,16 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
 
             await _paymentContext.DepositRequests.AddAsync(depositRequest, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
+
+            var insertLog = new InsertLog()
+            {
+                InsertedId = depositRequest.Id.ToString(),
+                Token = _authenticatedUserService.GetBearerToken(),
+                TableName = nameof(_paymentContext.DepositRequests)
+            };
+            _paymentContext.InsertLogs.Add(insertLog);
+            await _paymentContext.SaveChangesAsync(cancellationToken);
+
 
             var httpRequest = _httpContextAccessor.HttpContext.Request;
             var redirectUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/PaymentFrame/Panel/{uniqueTransactionIDHash}";

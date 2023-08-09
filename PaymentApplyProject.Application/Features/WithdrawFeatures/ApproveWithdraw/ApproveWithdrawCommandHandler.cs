@@ -47,12 +47,15 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
+            var insertlog = await _paymentContext.InsertLogs.FirstOrDefaultAsync(x => x.InsertedId == withdraw.Id.ToString() && x.TableName == nameof(_paymentContext.Withdraws), cancellationToken);
+
             var callbackBody = new WithdrawCallbackDto
             {
                 CustomerId = withdraw.Customer.ExternalCustomerId,
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.APPROVED,
-                TransactionId = withdraw.ExternalTransactionId
+                TransactionId = withdraw.ExternalTransactionId,
+                Token = insertlog.Token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

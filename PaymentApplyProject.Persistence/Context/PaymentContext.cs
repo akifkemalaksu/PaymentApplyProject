@@ -36,6 +36,7 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
         public DbSet<DepositRequest> DepositRequests { get; set; }
+        public DbSet<InsertLog> InsertLogs { get; set; }
 
         public override int SaveChanges()
         {

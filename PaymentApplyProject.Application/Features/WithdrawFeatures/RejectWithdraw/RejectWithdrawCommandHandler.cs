@@ -29,7 +29,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
 
         public async Task<Response<NoContent>> Handle(RejectWithdrawCommand request, CancellationToken cancellationToken)
         {
-            var withdraw = await _paymentContext.Withdraws.FirstOrDefaultAsync(x =>
+            var withdraw = await _paymentContext.Withdraws.Include(x => x.Customer).FirstOrDefaultAsync(x =>
                x.Id == request.Id
                && !x.Deleted
                , cancellationToken);
@@ -47,7 +47,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            await _paymentContext.SaveChangesAsync(cancellationToken);
+            var insertlog = await _paymentContext.InsertLogs.FirstOrDefaultAsync(x => x.InsertedId == withdraw.Id.ToString() && x.TableName == nameof(_paymentContext.Withdraws), cancellationToken);
 
             var callbackBody = new WithdrawCallbackDto
             {
@@ -55,6 +55,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.REJECTED,
                 TransactionId = withdraw.ExternalTransactionId,
+                Token = insertlog.Token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

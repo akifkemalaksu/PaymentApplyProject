@@ -103,6 +103,15 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             await _paymentContext.Withdraws.AddAsync(withdraw, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
+            var insertLog = new InsertLog()
+            {
+                InsertedId = withdraw.Id.ToString(),
+                Token = _authenticatedUserService.GetBearerToken(),
+                TableName = nameof(_paymentContext.Withdraws)
+            };
+            _paymentContext.InsertLogs.Add(insertLog);
+            await _paymentContext.SaveChangesAsync(cancellationToken);
+
             NotificationDto notification = new()
             {
                 Message = "Yeni para çekme talebi!",

@@ -17,7 +17,7 @@ namespace PaymentApplyProject.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -242,9 +242,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("IntegrationId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("TransactionDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -342,6 +339,48 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("DepositRequests");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.InsertLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("AddedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EditDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("InsertedId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InsertLogs");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>
@@ -612,6 +651,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BankId");
+
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("WithdrawStatusId");
@@ -741,6 +782,12 @@ namespace PaymentApplyProject.Persistence.Migrations
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Withdraw", b =>
                 {
+                    b.HasOne("PaymentApplyProject.Domain.Entities.Bank", "Bank")
+                        .WithMany()
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PaymentApplyProject.Domain.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
@@ -752,6 +799,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasForeignKey("WithdrawStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Bank");
 
                     b.Navigation("Customer");
 

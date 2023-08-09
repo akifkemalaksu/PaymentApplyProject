@@ -58,6 +58,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
+            var insertlog = await _paymentContext.InsertLogs.FirstOrDefaultAsync(x => x.InsertedId == depositRequest.Id.ToString() && x.TableName == nameof(_paymentContext.DepositRequests), cancellationToken);
 
             var callbackBody = new DepositCallbackBodyDto
             {
@@ -66,7 +67,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                 Status = StatusConstants.PENDING,
                 TransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
-                Amount = request.Amount
+                Amount = request.Amount,
+                Token = insertlog.Token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

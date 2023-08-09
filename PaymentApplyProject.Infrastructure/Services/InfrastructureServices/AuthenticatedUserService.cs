@@ -8,6 +8,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.UserDtos;
+using MediatR;
+using Microsoft.Net.Http.Headers;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
@@ -93,5 +95,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
             return signedInUser;
         }
+
+        public string GetBearerToken() => _httpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
     }
 }

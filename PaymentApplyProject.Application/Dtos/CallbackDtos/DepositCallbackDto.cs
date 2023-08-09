@@ -14,5 +14,6 @@ namespace PaymentApplyProject.Application.Dtos.CallbackDtos
         public string CustomerId { get; set; }
         public decimal Amount { get; set; }
         public string Status { get; set; }
+        public string Token { get; set; }
     }
 }
