@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.CompanyFeatures.ChangeCompanyStatus;
@@ -8,6 +9,7 @@ using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersFor
 
 namespace PaymentApplyProject.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CompanyController : CustomController
     {
         private readonly IMediator _mediator;

@@ -31,26 +31,24 @@ namespace PaymentApplyProject.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await _mediator.Send(new LogoutCommand());
             return RedirectToAction("Login");
         }
 
-        [Authorize(Roles = "admin")]
         public IActionResult Users()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin")]
         public IActionResult ViewAddUserPartial()
         {
             return PartialView("_viewAddUserPartial");
         }
 
         [Route("[controller]/[action]/{id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ViewEditUserPartial(int id)
         {
             var result = await _mediator.Send(new GetUserByIdAndRoleQuery { Id = id, RoleId = RoleConstants.USER_ID });
@@ -73,7 +71,6 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> LoadUsers(LoadUsersForDatatableQuery loadUsersForDatatableQuery)
         {
@@ -81,7 +78,6 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserCommand addUserCommand)
         {
@@ -89,7 +85,6 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserCommand editUserCommand)
         {
@@ -97,7 +92,6 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand deleteUserCommand)
         {
