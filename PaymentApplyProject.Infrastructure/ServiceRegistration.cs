@@ -50,12 +50,17 @@ namespace PaymentApplyProject.Infrastructure
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ICacheService, InMemoryCacheService>();
             services.AddSingleton<IHubUserConnectionService, HubUserConnectionService>();
+            services.AddSingleton<IMailSenderService, MailSenderService>();
 
             services.AddHttpClient<IRequestHandler<AddDepositCommand, Response<AddDepositResult>>, AddDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveDepositCommand, Response<NoContent>>, ApproveDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectDepositCommand, Response<NoContent>>, RejectDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveWithdrawCommand, Response<NoContent>>, ApproveWithdrawCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectWithdrawCommand, Response<NoContent>>, RejectWithdrawCommandHandler>();
+
+            services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
+            services.AddSingleton(serviceProvider =>
+                serviceProvider.GetRequiredService<IOptions<SmtpSettings>>().Value);
 
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
             services.AddSingleton(serviceProvider =>

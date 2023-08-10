@@ -8,6 +8,8 @@ using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Dtos.MailDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 {
@@ -15,11 +17,13 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
     {
         private readonly IPaymentContext _paymentContext;
         private readonly ICustomMapper _customMapper;
+        private readonly IMailSenderService _mailSenderService;
 
-        public AddUserCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
+        public AddUserCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper, IMailSenderService mailSenderService)
         {
             _paymentContext = paymentContext;
             _customMapper = customMapper;
+            _mailSenderService = mailSenderService;
         }
 
         public async Task<Response<NoContent>> Handle(AddUserCommand request, CancellationToken cancellationToken)
@@ -47,6 +51,26 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 
             await _paymentContext.Users.AddAsync(user, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
+
+            var mailBody = string.Format(
+            @"Sisteme yeni kullanıcı olarak eklendiniz.
+
+              Kullanıcı adı: {0}
+
+              Şifre: {1}
+
+              Aşağıdaki linkten giriş yapabilirsiniz.
+
+              https://www.kolayodemeonline.com/account/login", user.Username, user.Password);
+
+            var mail = new MailDto
+            {
+                Subject = MailConstants.NEW_USER_ADDING_SUBJECT,
+                Body = mailBody,
+                Recipients = new string[] { user.Email }
+            };
+
+            await _mailSenderService.SendAsync(mail);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

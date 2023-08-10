@@ -153,7 +153,7 @@ let deleteRecord = (id) => swal.basicWithTwoButtonFunc("UyarÄ±", "Silmek istediÄ
             let data = {
                 id: id
             }
-            let result = await fetchHelper.send("/bank/deleteuser", httpMethods.post, data)
+            let result = await fetchHelper.send("/account/deleteuser", httpMethods.post, data)
 
             if (!result.isSuccessful) {
                 swal.basic("Hata", result.message, icons.error)

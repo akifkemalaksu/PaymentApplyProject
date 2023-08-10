@@ -11,6 +11,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
 using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable;
 using PaymentApplyProject.Application.Features.UserFeatures.Login;
 using PaymentApplyProject.Application.Features.UserFeatures.Logout;
+using PaymentApplyProject.Application.Features.UserFeatures.DeleteUser;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -93,6 +94,14 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> EditUser(EditUserCommand editUserCommand)
         {
             var result = await _mediator.Send(editUserCommand);
+            return CreateResult(result);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand deleteUserCommand)
+        {
+            var result = await _mediator.Send(deleteUserCommand);
             return CreateResult(result);
         }
     }
