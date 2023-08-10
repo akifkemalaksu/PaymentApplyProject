@@ -291,6 +291,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Withdraws", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Withdraws_Banks_BankId",
+                        column: x => x.BankId,
+                        principalTable: "Banks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Withdraws_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
@@ -405,6 +411,11 @@ namespace PaymentApplyProject.Persistence.Migrations
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Withdraws_BankId",
+                table: "Withdraws",
+                column: "BankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Withdraws_CustomerId",

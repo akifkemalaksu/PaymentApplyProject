@@ -11,6 +11,7 @@ using PaymentApplyProject.Application.Exceptions;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
+using PaymentApplyProject.Application.Dtos.Settings;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw
 {
@@ -19,12 +20,14 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
         private readonly ILogger<ApproveWithdrawCommandHandler> _logger;
+        private readonly string _token;
 
-        public ApproveWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveWithdrawCommandHandler> logger)
+        public ApproveWithdrawCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveWithdrawCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
             _logger = logger;
+            _token = clientIntegrationSettings.Token;
         }
 
         public async Task<Response<NoContent>> Handle(ApproveWithdrawCommand request, CancellationToken cancellationToken)
@@ -47,15 +50,13 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var insertlog = await _paymentContext.InsertLogs.FirstOrDefaultAsync(x => x.InsertedId == withdraw.Id.ToString() && x.TableName == nameof(_paymentContext.Withdraws), cancellationToken);
-
             var callbackBody = new WithdrawCallbackDto
             {
                 CustomerId = withdraw.Customer.ExternalCustomerId,
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.APPROVED,
                 TransactionId = withdraw.ExternalTransactionId,
-                Token = insertlog.Token
+                Token = _token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

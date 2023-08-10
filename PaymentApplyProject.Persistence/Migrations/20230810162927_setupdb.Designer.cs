@@ -12,8 +12,8 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20230809184649_setupdb-1")]
-    partial class setupdb1
+    [Migration("20230810162927_setupdb")]
+    partial class setupdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -342,48 +342,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("DepositRequests");
-                });
-
-            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.InsertLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("AddedUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("EditedUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("InsertedId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InsertLogs");
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>

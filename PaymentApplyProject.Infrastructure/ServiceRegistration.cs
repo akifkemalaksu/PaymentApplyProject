@@ -58,6 +58,10 @@ namespace PaymentApplyProject.Infrastructure
             services.AddHttpClient<IRequestHandler<ApproveWithdrawCommand, Response<NoContent>>, ApproveWithdrawCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectWithdrawCommand, Response<NoContent>>, RejectWithdrawCommandHandler>();
 
+            services.Configure<ClientIntegrationSettings>(configuration.GetSection(nameof(ClientIntegrationSettings)));
+            services.AddSingleton(serviceProvider =>
+                serviceProvider.GetRequiredService<IOptions<ClientIntegrationSettings>>().Value);
+
             services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
             services.AddSingleton(serviceProvider =>
                 serviceProvider.GetRequiredService<IOptions<SmtpSettings>>().Value);

@@ -13,6 +13,7 @@ using System.Net.Http.Json;
 using PaymentApplyProject.Application.Extensions;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
+using PaymentApplyProject.Application.Dtos.Settings;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit
 {
@@ -21,12 +22,14 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
         private readonly ILogger<ApproveDepositCommandHandler> _logger;
+        private readonly string _token;
 
-        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger)
+        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
             _logger = logger;
+            _token = clientIntegrationSettings.Token;
         }
 
         public async Task<Response<NoContent>> Handle(ApproveDepositCommand request, CancellationToken cancellationToken)
@@ -51,8 +54,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
 
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == deposit.DepositRequestId && !x.Deleted, cancellationToken);
 
-            var insertlog = await _paymentContext.InsertLogs.FirstOrDefaultAsync(x => x.InsertedId == depositRequest.Id.ToString() && x.TableName == nameof(_paymentContext.DepositRequests), cancellationToken);
-
             var callbackBody = new DepositCallbackBodyDto
             {
                 CustomerId = depositRequest.CustomerId,
@@ -61,7 +62,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
                 TransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
                 Amount = deposit.Amount,
-                Token = insertlog.Token
+                Token = _token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

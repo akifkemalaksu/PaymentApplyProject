@@ -18,8 +18,8 @@ namespace PaymentApplyProject.Persistence.Context
 
         public PaymentContext(DbContextOptions options, IAuthenticatedUserService authenticatedUserService) : base(options)
         {
-            _userId = authenticatedUserService.GetUserId();
-            //_userId = 0;
+            //_userId = authenticatedUserService.GetUserId();
+            _userId = 0;
         }
 
         public DbSet<Bank> Banks { get; set; }
@@ -36,7 +36,6 @@ namespace PaymentApplyProject.Persistence.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
         public DbSet<DepositRequest> DepositRequests { get; set; }
-        public DbSet<InsertLog> InsertLogs { get; set; }
 
         public override int SaveChanges()
         {
