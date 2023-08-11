@@ -10,6 +10,8 @@ namespace PaymentApplyProject.Application.Dtos.CallbackDtos
     {
         public string MethodType { get; set; }
         public string TransactionId { get; set; }
+        public int ExternalTransactionId { get; set; }
+        public decimal Amount { get; set; }
         public string CustomerId { get; set; }
         public string Status { get; set; }
         public string Token { get; set; }
