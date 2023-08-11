@@ -18,7 +18,6 @@ using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using System.Text.Json;
-using PaymentApplyProject.Application.Dtos.Settings;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 {
@@ -28,15 +27,13 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
         private readonly INotificationService _notificationService;
         private readonly HttpClient _httpClient;
         private readonly ILogger<AddDepositCommandHandler> _logger;
-        private readonly string _token;
 
-        public AddDepositCommandHandler(IPaymentContext paymentContext, INotificationService notificationService, HttpClient httpClient, ILogger<AddDepositCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
+        public AddDepositCommandHandler(IPaymentContext paymentContext, INotificationService notificationService, HttpClient httpClient, ILogger<AddDepositCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _notificationService = notificationService;
             _httpClient = httpClient;
             _logger = logger;
-            _token = clientIntegrationSettings.Token;
         }
 
         public async Task<Response<AddDepositResult>> Handle(AddDepositCommand request, CancellationToken cancellationToken)
@@ -61,15 +58,15 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
+
             var callbackBody = new DepositCallbackBodyDto
             {
                 CustomerId = depositRequest.CustomerId,
                 MethodType = depositRequest.MethodType,
                 Status = StatusConstants.PENDING,
-                TransactionId = depositRequest.Id,
+                ExternalTransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
-                Amount = request.Amount,
-                Token = _token
+                Amount = request.Amount
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

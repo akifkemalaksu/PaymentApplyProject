@@ -13,7 +13,6 @@ using System.Net.Http.Json;
 using PaymentApplyProject.Application.Extensions;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
-using PaymentApplyProject.Application.Dtos.Settings;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit
 {
@@ -22,14 +21,12 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
         private readonly IPaymentContext _paymentContext;
         private readonly HttpClient _httpClient;
         private readonly ILogger<ApproveDepositCommandHandler> _logger;
-        private readonly string _token;
 
-        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
+        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger)
         {
             _paymentContext = paymentContext;
             _httpClient = httpClient;
             _logger = logger;
-            _token = clientIntegrationSettings.Token;
         }
 
         public async Task<Response<NoContent>> Handle(ApproveDepositCommand request, CancellationToken cancellationToken)
@@ -59,10 +56,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
                 CustomerId = depositRequest.CustomerId,
                 MethodType = depositRequest.MethodType,
                 Status = StatusConstants.APPROVED,
-                TransactionId = depositRequest.Id,
+                ExternalTransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
                 Amount = deposit.Amount,
-                Token = _token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();

@@ -9,7 +9,7 @@ namespace PaymentApplyProject.Application.Dtos.CallbackDtos
     public class DepositCallbackBodyDto
     {
         public string MethodType { get; set; }
-        public int TransactionId { get; set; }
+        public int ExternalTransactionId { get; set; }
         public string UniqueTransactionId { get; set; }
         public string CustomerId { get; set; }
         public decimal Amount { get; set; }

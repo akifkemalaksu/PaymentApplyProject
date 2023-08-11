@@ -56,6 +56,8 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.REJECTED,
                 TransactionId = withdraw.ExternalTransactionId,
+                ExternalTransactionId = withdraw.Id,
+                Amount = withdraw.Amount,
                 Token = _token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
