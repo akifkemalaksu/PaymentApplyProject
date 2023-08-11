@@ -47,6 +47,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
                 Surname = x.Customer.Surname,
                 TransactionDate = x.TransactionDate,
                 UniqueTransactionId = request.TransactionId,
+                ExternalTransactionId = x.DepositRequestId,
                 Username = x.Customer.Username,
                 DepositStatusId = x.DepositStatusId,
             }).FirstOrDefaultAsync(cancellationToken);
@@ -61,7 +62,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
                     Name = x.Name,
                     Surname = x.Surname,
                     UniqueTransactionId = x.UniqueTransactionId,
-                    Username = x.Username
+                    ExternalTransactionId = x.Id,
+                    Username = x.Username,
                 }).FirstOrDefaultAsync(cancellationToken);
 
                 if (depositRequest == null)

@@ -22,6 +22,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
         public DateTime AddDate { get; set; }
         public DateTime? TransactionDate { get; set; }
         public string TransactionId { get; set; }
+        public int ExternalTransactionId { get; set; }
         public string MethodType { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }

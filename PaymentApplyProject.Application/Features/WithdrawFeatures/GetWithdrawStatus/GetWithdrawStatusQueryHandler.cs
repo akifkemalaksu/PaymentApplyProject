@@ -45,6 +45,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
                 Bank = x.Bank.Name,
                 CustomerId = x.Customer.ExternalCustomerId,
                 TransactionId = x.ExternalTransactionId,
+                ExternalTransactionId = x.Id,
                 MethodType = x.MethodType,
                 Name = x.Customer.Name,
                 Surname = x.Customer.Surname,
