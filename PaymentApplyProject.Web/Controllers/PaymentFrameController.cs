@@ -7,6 +7,7 @@ using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccoun
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
+using PaymentApplyProject.Application.Localizations;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -23,7 +24,7 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> Panel(string key)
         {
             if (string.IsNullOrEmpty(key))
-                return RedirectToAction("notfound", "error", new { message = $"Error code: {ErrorCodes.KeyValueIsNull}" });
+                return RedirectToAction("notfound", "error", new { message = $"Error code: {ErrorCodes.KeyValueIsNull} \n{Messages.KeyValueIsNull}" });
 
             var depositRequest = await _mediator.Send(new GetDepositRequestFromHashQuery { HashKey = key });
 

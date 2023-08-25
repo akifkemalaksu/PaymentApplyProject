@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Localizations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Localizations {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PaymentApplyProject.Application.Localizations.Messages", typeof(Messages).Assembly);
@@ -51,7 +51,7 @@ namespace PaymentApplyProject.Application.Localizations {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to The authenticated user does not have a valid company..
         /// </summary>
-        internal static string AuthenticatedUserHaveNoValidCompany {
+        public static string AuthenticatedUserHaveNoValidCompany {
             get {
                 return ResourceManager.GetString("AuthenticatedUserHaveNoValidCompany", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Aynı hesap numarasına sahip kayıt mevcut..
         /// </summary>
-        internal static string AyniHesapNumarasinaSahipKayitVar {
+        public static string AyniHesapNumarasinaSahipKayitVar {
             get {
                 return ResourceManager.GetString("AyniHesapNumarasinaSahipKayitVar", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Bu kullanıcı adına sahip kullanıcı mevcut..
         /// </summary>
-        internal static string AyniKullaniciAdinaSahipKayitVar {
+        public static string AyniKullaniciAdinaSahipKayitVar {
             get {
                 return ResourceManager.GetString("AyniKullaniciAdinaSahipKayitVar", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Bu email adresine sahip kullanıcı mevcut..
         /// </summary>
-        internal static string AyniMailAdresineSahipKayitVar {
+        public static string AyniMailAdresineSahipKayitVar {
             get {
                 return ResourceManager.GetString("AyniMailAdresineSahipKayitVar", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Mevcutta bekleyen işlem vardır..
         /// </summary>
-        internal static string BekleyenIslemVar {
+        public static string BekleyenIslemVar {
             get {
                 return ResourceManager.GetString("BekleyenIslemVar", resourceCulture);
             }
@@ -108,16 +108,88 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Bu banka için bu aralıkta kayıt mevcut..
         /// </summary>
-        internal static string BuAraliktaBankaHesabiVar {
+        public static string BuAraliktaBankaHesabiVar {
             get {
                 return ResourceManager.GetString("BuAraliktaBankaHesabiVar", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your company is not active..
+        /// </summary>
+        public static string CompanyIsNotActive {
+            get {
+                return ResourceManager.GetString("CompanyIsNotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your company is not found..
+        /// </summary>
+        public static string CompanyIsNotFound {
+            get {
+                return ResourceManager.GetString("CompanyIsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The customer is not active..
+        /// </summary>
+        public static string CustomerIsNotActive {
+            get {
+                return ResourceManager.GetString("CustomerIsNotActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer is not found..
+        /// </summary>
+        public static string CustomerIsNotFound {
+            get {
+                return ResourceManager.GetString("CustomerIsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deposit is not found..
+        /// </summary>
+        public static string DepositIsNotFound {
+            get {
+                return ResourceManager.GetString("DepositIsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This deposit request was used..
+        /// </summary>
+        public static string DepositRequestHashIsUsed {
+            get {
+                return ResourceManager.GetString("DepositRequestHashIsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The deposit request is not found..
+        /// </summary>
+        public static string DepositRequestIsNotFound {
+            get {
+                return ResourceManager.GetString("DepositRequestIsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The deposit request is timeout..
+        /// </summary>
+        public static string DepositRequestIsTimeout {
+            get {
+                return ResourceManager.GetString("DepositRequestIsTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giriş bilgileriniz yanlıştır..
         /// </summary>
-        internal static string GirisBilgisiYanlis {
+        public static string GirisBilgisiYanlis {
             get {
                 return ResourceManager.GetString("GirisBilgisiYanlis", resourceCulture);
             }
@@ -126,25 +198,43 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to İşlem başarılı..
         /// </summary>
-        internal static string IslemBasarili {
+        public static string IslemBasarili {
             get {
                 return ResourceManager.GetString("IslemBasarili", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The key is null..
+        /// </summary>
+        public static string KeyValueIsNull {
+            get {
+                return ResourceManager.GetString("KeyValueIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bu müşteriye işlemler kapalıdır..
         /// </summary>
-        internal static string MusteriyeIslemlerKapali {
+        public static string MusteriyeIslemlerKapali {
             get {
                 return ResourceManager.GetString("MusteriyeIslemlerKapali", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user is not authenticated..
+        /// </summary>
+        public static string NotAuthenticated {
+            get {
+                return ResourceManager.GetString("NotAuthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not found..
         /// </summary>
-        internal static string NotFound {
+        public static string NotFound {
             get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
             }
@@ -153,7 +243,7 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Bu kayıt onaylanmış..
         /// </summary>
-        internal static string Onaylanmis {
+        public static string Onaylanmis {
             get {
                 return ResourceManager.GetString("Onaylanmis", resourceCulture);
             }
@@ -162,43 +252,115 @@ namespace PaymentApplyProject.Application.Localizations {
         /// <summary>
         ///   Looks up a localized string similar to Bu kayıt reddedilmiş..
         /// </summary>
-        internal static string Reddedilmis {
+        public static string Reddedilmis {
             get {
                 return ResourceManager.GetString("Reddedilmis", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a deposit with the same transaction ID..
+        /// </summary>
+        public static string ThereIsDepositSameTransactionId {
+            get {
+                return ResourceManager.GetString("ThereIsDepositSameTransactionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a pending deposit. You cannot create a new transaction until this one has ended..
+        /// </summary>
+        public static string ThereIsPendingDeposit {
+            get {
+                return ResourceManager.GetString("ThereIsPendingDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a pending transaction..
         /// </summary>
-        internal static string ThereIsPendingTransaction {
+        public static string ThereIsPendingTransaction {
             get {
                 return ResourceManager.GetString("ThereIsPendingTransaction", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a pending withdraw. You cannot create a new transaction until this one has ended..
+        /// </summary>
+        public static string ThereIsPendingWithdraw {
+            get {
+                return ResourceManager.GetString("ThereIsPendingWithdraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a withdraw with the same transaction ID..
+        /// </summary>
+        public static string ThereIsWithdrawSameTransactionId {
+            get {
+                return ResourceManager.GetString("ThereIsWithdrawSameTransactionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction Successful.
         /// </summary>
-        internal static string TransactionSuccessful {
+        public static string TransactionSuccessful {
             get {
                 return ResourceManager.GetString("TransactionSuccessful", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user has no authorization..
+        /// </summary>
+        public static string UserHasNoAuthorization {
+            get {
+                return ResourceManager.GetString("UserHasNoAuthorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has no company..
+        /// </summary>
+        public static string UserHasNoCompany {
+            get {
+                return ResourceManager.GetString("UserHasNoCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is not found..
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veri bulunamadı..
         /// </summary>
-        internal static string VeriBulunamadi {
+        public static string VeriBulunamadi {
             get {
                 return ResourceManager.GetString("VeriBulunamadi", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Withdraw is not found..
+        /// </summary>
+        public static string WithdrawIsNotFound {
+            get {
+                return ResourceManager.GetString("WithdrawIsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sisteme giriş için yetkiniz yok..
         /// </summary>
-        internal static string YetkinizYok {
+        public static string YetkinizYok {
             get {
                 return ResourceManager.GetString("YetkinizYok", resourceCulture);
             }

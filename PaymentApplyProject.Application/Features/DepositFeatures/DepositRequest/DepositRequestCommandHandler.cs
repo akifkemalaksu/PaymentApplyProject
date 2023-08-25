@@ -5,6 +5,7 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Application.Helpers;
+using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
@@ -31,23 +32,23 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             var userInfo = _authenticatedUserService.GetUserInfo();
 
             if (userInfo == null)
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthenticated, ErrorCodes.NotAuthenticated);
 
             if (!userInfo.Companies.Any())
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoCompany, ErrorCodes.UserHasNoCompany);
 
             var companyId = userInfo.Companies.First().Id;
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
             if (company == null)
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotFound, ErrorCodes.CompanyIsNotFound);
 
             if (!company.Active)
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotActive, ErrorCodes.CompanyIsNotActive);
 
             var isExistDepositWithSameTransactionId = await _paymentContext.DepositRequests.AnyAsync(x => x.UniqueTransactionId == request.UniqueTransactionId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
             if (isExistDepositWithSameTransactionId)
-                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsDepositSameTransactionId);
+                return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsDepositSameTransactionId, ErrorCodes.ThereIsDepositSameTransactionId);
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
 
@@ -55,10 +56,10 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             {
                 var isExistPendingDeposit = await _paymentContext.Deposits.AnyAsync(x => x.CustomerId == customer.Id && x.DepositStatusId == StatusConstants.DEPOSIT_BEKLIYOR && !x.Deleted, cancellationToken);
                 if (isExistPendingDeposit)
-                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsPendingDeposit);
+                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingDeposit, ErrorCodes.ThereIsPendingDeposit);
 
                 if (!customer.Active)
-                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
+                    return Response<DepositRequestResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CustomerIsNotActive, ErrorCodes.CustomerIsNotActive);
                 else if (customer.Name != request.CustomerInfo.Name ||
                     customer.Surname != request.CustomerInfo.Surname ||
                     customer.Username != request.CustomerInfo.Username)

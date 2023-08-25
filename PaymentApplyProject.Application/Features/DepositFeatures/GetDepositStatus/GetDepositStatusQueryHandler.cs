@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 
@@ -23,19 +24,19 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
             var userInfo = _authenticatedUserService.GetUserInfo();
 
             if (userInfo == null)
-                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
+                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthenticated, ErrorCodes.NotAuthenticated);
 
             if (!userInfo.Companies.Any())
-                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
+                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthenticated, ErrorCodes.UserHasNoCompany);
 
             var companyId = userInfo.Companies.First().Id;
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
             if (company == null)
-                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotFound, ErrorCodes.CompanyIsNotFound);
 
             if (!company.Active)
-                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotActive, ErrorCodes.CompanyIsNotActive);
 
             var deposit = await _paymentContext.Deposits.Where(x => x.DepositRequest.UniqueTransactionId == request.TransactionId && x.Customer.CompanyId == companyId && !x.Deleted).Select(x => new GetDepositStatusResult
             {
@@ -67,7 +68,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
                 }).FirstOrDefaultAsync(cancellationToken);
 
                 if (depositRequest == null)
-                    return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositIsNotFound);
+                    return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositIsNotFound, ErrorCodes.DepositIsNotFound);
 
                 return Response<GetDepositStatusResult>.Success(System.Net.HttpStatusCode.OK, depositRequest);
             }

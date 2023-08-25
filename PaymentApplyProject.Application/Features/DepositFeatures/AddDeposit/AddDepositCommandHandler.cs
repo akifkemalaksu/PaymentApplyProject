@@ -43,11 +43,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
         {
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == request.DepositRequestId, cancellationToken);
             if (depositRequest == null)
-                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsNotFound);
+                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestIsNotFound, ErrorCodes.DepositRequestIsNotFound);
 
             var isExistsDeposit = await _paymentContext.Deposits.AnyAsync(x => x.DepositRequestId == depositRequest.Id && !x.Deleted, cancellationToken);
             if (isExistsDeposit)
-                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
+                return Response<AddDepositResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestHashIsUsed, ErrorCodes.DepositRequestHashIsUsed);
 
             Deposit deposit = new()
             {

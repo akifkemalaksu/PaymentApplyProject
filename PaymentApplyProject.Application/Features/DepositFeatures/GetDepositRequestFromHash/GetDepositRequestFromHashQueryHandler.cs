@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using System.ComponentModel.DataAnnotations;
@@ -21,26 +22,26 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
         {
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.UniqueTransactionIdHash == request.HashKey && !x.Deleted);
             if (depositRequest == null)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsNotFound);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestIsNotFound, ErrorCodes.DepositRequestIsNotFound);
 
             var isExistsDeposit = await _paymentContext.Deposits.AnyAsync(x => x.DepositRequestId == depositRequest.Id && !x.Deleted, cancellationToken);
             if (isExistsDeposit)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestHashIsUsed);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestHashIsUsed, ErrorCodes.DepositRequestHashIsUsed);
 
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == depositRequest.CompanyId && !x.Deleted, cancellationToken);
 
             if (company == null)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotFound, ErrorCodes.CompanyIsNotFound);
 
             if (!company.Active)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotActive, ErrorCodes.CompanyIsNotActive);
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == depositRequest.CustomerId && x.CompanyId == depositRequest.CompanyId && !x.Deleted, cancellationToken);
 
             if (customer == null)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotFound);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CustomerIsNotFound, ErrorCodes.CustomerIsNotFound);
             else if (!customer.Active)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CustomerIsNotActive, ErrorCodes.CustomerIsNotActive);
 
             if (!depositRequest.ValidTo.HasValue)
             {
@@ -48,7 +49,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else if (depositRequest.ValidTo.HasValue && depositRequest.ValidTo.Value <= DateTime.Now)
-                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.DepositRequestIsTimeout);
+                return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestIsTimeout, ErrorCodes.DepositRequestIsTimeout);
 
             var getDepositRequestFromHashResult = new GetDepositRequestFromHashResult
             {

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 
@@ -23,19 +24,19 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
             var userInfo = _authenticatedUserService.GetUserInfo();
 
             if (userInfo == null)
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
+                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthenticated, ErrorCodes.NotAuthenticated);
 
             if (!userInfo.Companies.Any())
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
+                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoCompany, ErrorCodes.UserHasNoCompany);
 
             var companyId = userInfo.Companies.First().Id;
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
             if (company == null)
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotFound, ErrorCodes.CompanyIsNotFound);
 
             if (!company.Active)
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotActive, ErrorCodes.CompanyIsNotActive);
 
             var withdraw = await _paymentContext.Withdraws.Where(x => x.ExternalTransactionId == request.TransactionId && x.Customer.CompanyId == companyId && !x.Deleted).Select(x => new GetWithdrawStatusResult
             {
@@ -55,7 +56,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
             }).FirstOrDefaultAsync(cancellationToken);
 
             if (withdraw == null)
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.WithdrawIsNotFound);
+                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.WithdrawIsNotFound, ErrorCodes.WithdrawIsNotFound);
 
             return Response<GetWithdrawStatusResult>.Success(System.Net.HttpStatusCode.OK, withdraw);
         }

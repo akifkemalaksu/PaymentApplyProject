@@ -135,14 +135,44 @@
   <data name="BuAraliktaBankaHesabiVar" xml:space="preserve">
     <value>Bu banka için bu aralıkta kayıt mevcut.</value>
   </data>
+  <data name="CompanyIsNotActive" xml:space="preserve">
+    <value>Your company is not active.</value>
+  </data>
+  <data name="CompanyIsNotFound" xml:space="preserve">
+    <value>Your company is not found.</value>
+  </data>
+  <data name="CustomerIsNotActive" xml:space="preserve">
+    <value>The customer is not active.</value>
+  </data>
+  <data name="CustomerIsNotFound" xml:space="preserve">
+    <value>Customer is not found.</value>
+  </data>
+  <data name="DepositIsNotFound" xml:space="preserve">
+    <value>Deposit is not found.</value>
+  </data>
+  <data name="DepositRequestHashIsUsed" xml:space="preserve">
+    <value>This deposit request was used.</value>
+  </data>
+  <data name="DepositRequestIsNotFound" xml:space="preserve">
+    <value>The deposit request is not found.</value>
+  </data>
+  <data name="DepositRequestIsTimeout" xml:space="preserve">
+    <value>The deposit request is timeout.</value>
+  </data>
   <data name="GirisBilgisiYanlis" xml:space="preserve">
     <value>Giriş bilgileriniz yanlıştır.</value>
   </data>
   <data name="IslemBasarili" xml:space="preserve">
     <value>İşlem başarılı.</value>
   </data>
+  <data name="KeyValueIsNull" xml:space="preserve">
+    <value>The key is null.</value>
+  </data>
   <data name="MusteriyeIslemlerKapali" xml:space="preserve">
     <value>Bu müşteriye işlemler kapalıdır.</value>
+  </data>
+  <data name="NotAuthenticated" xml:space="preserve">
+    <value>The user is not authenticated.</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>Not found.</value>
@@ -153,14 +183,38 @@
   <data name="Reddedilmis" xml:space="preserve">
     <value>Bu kayıt reddedilmiş.</value>
   </data>
+  <data name="ThereIsDepositSameTransactionId" xml:space="preserve">
+    <value>There is a deposit with the same transaction ID.</value>
+  </data>
+  <data name="ThereIsPendingDeposit" xml:space="preserve">
+    <value>There is a pending deposit. You cannot create a new transaction until this one has ended.</value>
+  </data>
   <data name="ThereIsPendingTransaction" xml:space="preserve">
     <value>There is a pending transaction.</value>
+  </data>
+  <data name="ThereIsPendingWithdraw" xml:space="preserve">
+    <value>There is a pending withdraw. You cannot create a new transaction until this one has ended.</value>
+  </data>
+  <data name="ThereIsWithdrawSameTransactionId" xml:space="preserve">
+    <value>There is a withdraw with the same transaction ID.</value>
   </data>
   <data name="TransactionSuccessful" xml:space="preserve">
     <value>Transaction Successful</value>
   </data>
+  <data name="UserHasNoAuthorization" xml:space="preserve">
+    <value>The user has no authorization.</value>
+  </data>
+  <data name="UserHasNoCompany" xml:space="preserve">
+    <value>The user has no company.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User is not found.</value>
+  </data>
   <data name="VeriBulunamadi" xml:space="preserve">
     <value>Veri bulunamadı.</value>
+  </data>
+  <data name="WithdrawIsNotFound" xml:space="preserve">
+    <value>Withdraw is not found.</value>
   </data>
   <data name="YetkinizYok" xml:space="preserve">
     <value>Sisteme giriş için yetkiniz yok.</value>

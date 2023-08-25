@@ -34,23 +34,23 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             var userInfo = _authenticatedUserService.GetUserInfo();
 
             if (userInfo == null)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.NotAuthenticated);
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.NotAuthenticated, ErrorCodes.NotAuthenticated);
 
             if (!userInfo.Companies.Any())
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.UserHasNoCompany);
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoCompany, ErrorCodes.UserHasNoCompany);
 
             var companyId = userInfo.Companies.First().Id;
             var company = await _paymentContext.Companies.FirstOrDefaultAsync(x => x.Id == companyId && !x.Deleted, cancellationToken);
 
             if (company == null)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotFound);
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotFound, ErrorCodes.CompanyIsNotFound);
 
             if (!company.Active)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CompanyIsNotActive);
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CompanyIsNotActive, ErrorCodes.CompanyIsNotActive);
 
             var isExistWithdrawWithSameTransactionId = await _paymentContext.Withdraws.AnyAsync(x => x.ExternalTransactionId == request.TransactionId && x.Customer.CompanyId == companyId && !x.Deleted, cancellationToken);
             if (isExistWithdrawWithSameTransactionId)
-                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsWithdrawSameTransactionId);
+                return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsWithdrawSameTransactionId, ErrorCodes.ThereIsWithdrawSameTransactionId);
 
 
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.ExternalCustomerId == request.CustomerInfo.CustomerId && x.CompanyId == companyId && !x.Deleted, cancellationToken);
@@ -59,10 +59,10 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
             {
                 var isExistPendingWithdraw = await _paymentContext.Withdraws.AnyAsync(x => x.CustomerId == customer.Id && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR && !x.Deleted, cancellationToken);
                 if (isExistPendingWithdraw)
-                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.ThereIsPendingWithdraw);
+                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.ThereIsPendingWithdraw, ErrorCodes.ThereIsPendingWithdraw);
 
                 if (!customer.Active)
-                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, string.Empty, ErrorCodes.CustomerIsNotActive);
+                    return Response<AddWithdrawResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.CustomerIsNotActive, ErrorCodes.CustomerIsNotActive);
                 else if (customer.Name != request.CustomerInfo.Name ||
                     customer.Surname != request.CustomerInfo.Surname ||
                     customer.Username != request.CustomerInfo.Username)
