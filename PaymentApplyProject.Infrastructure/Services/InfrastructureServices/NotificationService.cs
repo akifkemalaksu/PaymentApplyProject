@@ -14,10 +14,10 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
     public class NotificationService : INotificationService
     {
         private readonly IHubContext<NotificationHub> _hubContext;
-        private readonly IHubUserConnectionService _hubUserConnectionService;
+        private readonly IHubConnectionUniqueKeyCacheService _hubUserConnectionService;
 
 
-        public NotificationService(IHubContext<NotificationHub> hubContext, IHubUserConnectionService hubUserConnectionService)
+        public NotificationService(IHubContext<NotificationHub> hubContext, IHubConnectionUniqueKeyCacheService hubUserConnectionService)
         {
             _hubContext = hubContext;
             _hubUserConnectionService = hubUserConnectionService;
@@ -27,8 +27,8 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
         public Task CreateNotificationToSpecificUsers(IEnumerable<string> usernames, object data, CancellationToken cancellationToken = default)
         {
-            var userConnections = _hubUserConnectionService.GetUserConnections();
-            var connectionIds = userConnections.Where(x => usernames.Contains(x.Username)).Select(x => x.ConnectionId);
+            var userConnections = _hubUserConnectionService.GetConnections();
+            var connectionIds = userConnections.Where(x => usernames.Contains(x.UniqueKey)).Select(x => x.ConnectionId);
             return _hubContext.Clients.Clients(connectionIds).SendAsync("displayNotification", data, cancellationToken);
         }
     }

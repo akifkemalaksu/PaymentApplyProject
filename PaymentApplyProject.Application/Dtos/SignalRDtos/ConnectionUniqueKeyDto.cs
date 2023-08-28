@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Dtos.SignalRDtos
 {
-    public class UserConnectionDto
+    public class ConnectionUniqueKeyDto
     {
-        public string Username { get; set; }
+        public string UniqueKey { get; set; }
         public string ConnectionId { get; set; }
     }
 }

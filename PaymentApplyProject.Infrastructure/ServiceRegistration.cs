@@ -49,7 +49,7 @@ namespace PaymentApplyProject.Infrastructure
             services.AddSingleton<IAuthenticatedUserService, AuthenticatedUserService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ICacheService, InMemoryCacheService>();
-            services.AddSingleton<IHubUserConnectionService, HubUserConnectionService>();
+            services.AddSingleton<IHubConnectionUniqueKeyCacheService, HubConnectionUniqueKeyCacheService>();
             services.AddSingleton<IMailSenderService, MailSenderService>();
 
             services.AddHttpClient<IRequestHandler<AddDepositCommand, Response<AddDepositResult>>, AddDepositCommandHandler>();

@@ -45,7 +45,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
 
             if (!depositRequest.ValidTo.HasValue)
             {
-                depositRequest.ValidTo = DateTime.Now.AddMinutes(5);
+                depositRequest.ValidTo = DateTime.Now.AddMinutes(10);
                 await _paymentContext.SaveChangesAsync(cancellationToken);
             }
             else if (depositRequest.ValidTo.HasValue && depositRequest.ValidTo.Value <= DateTime.Now)

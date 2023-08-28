@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Services
 {
-    public interface IHubUserConnectionService
+    public interface IHubConnectionUniqueKeyCacheService
     {
-        void AddUserConnection(UserConnectionDto userConnection);
-        void RemoveUserConnection(string connectionId);
-        List<UserConnectionDto> GetUserConnections();
+        void AddUserConnection(ConnectionUniqueKeyDto userConnection);
+        void RemoveConnection(string connectionId);
+        List<ConnectionUniqueKeyDto> GetConnections();
     }
 }

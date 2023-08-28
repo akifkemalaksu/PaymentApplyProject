@@ -11,10 +11,32 @@ using System.Threading.Tasks;
 namespace PaymentApplyProject.Infrastructure.Hubs
 {
 
-    public class NotificationHub : BaseHub
+    public class NotificationHub : Hub
     {
-        public NotificationHub(IAuthenticatedUserService authenticatedUserService, IHubUserConnectionService hubUserConnectionService) : base(authenticatedUserService, hubUserConnectionService)
+        private readonly IAuthenticatedUserService _authenticatedUserService;
+        private readonly IHubConnectionUniqueKeyCacheService _hubUserConnectionService;
+        public NotificationHub(IAuthenticatedUserService authenticatedUserService, IHubConnectionUniqueKeyCacheService hubUserConnectionService)
         {
+            _authenticatedUserService = authenticatedUserService;
+            _hubUserConnectionService = hubUserConnectionService;
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            _hubUserConnectionService.AddUserConnection(new()
+            {
+                ConnectionId = Context.ConnectionId,
+                UniqueKey = _authenticatedUserService.GetUsername()
+            });
+
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            _hubUserConnectionService.RemoveConnection(Context.ConnectionId);
+
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }
