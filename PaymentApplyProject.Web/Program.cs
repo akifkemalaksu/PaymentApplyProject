@@ -11,9 +11,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Text.Unicode;
-using PaymentApplyProject.Infrastructure.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using PaymentApplyProject.Application.Middlewares;
+using PaymentApplyProject.Infrastructure.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,6 +84,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<NotificationHub>("/notification");
+    endpoints.MapHub<DepositPaymentHub>("/depositpayment");
     endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

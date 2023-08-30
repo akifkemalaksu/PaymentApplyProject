@@ -1,7 +1,4 @@
-﻿let connection = new signalR.HubConnectionBuilder().withUrl("/notification", {
-    skipNegotiation: true,
-    transport: signalR.HttpTransportType.WebSockets
-}).build();
+﻿let connection = new signalR.HubConnectionBuilder().withUrl("/notification").build();
 connection.on('displayNotification', (data) => {
     showNotification(data)
 });

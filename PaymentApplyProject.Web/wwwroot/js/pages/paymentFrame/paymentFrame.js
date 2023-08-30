@@ -1,4 +1,9 @@
-﻿let counterFunc = () => {
+﻿let counterFunc = (cancel = false) => {
+    if (cancel) {
+        $(".countdown").hide()
+        return
+    }
+
     let progressBar = $(".progress-bar")
     let counterSpan = $("#counter-text")
     let fullSeconds = parseInt(progressBar.attr("aria-valuemax"))
@@ -50,8 +55,7 @@ let bankButtonClickEventDefine = () => $(".bank").on('click', (btn) => {
 bankButtonClickEventDefine()
 
 let btnNext = $('button[data-ktwizard-type="action-next"]')
-let btnToMainPageSuccessful = $('#successful-back-to-main-page')
-let btnToMainPageFailed = $('#failed-back-to-main-page')
+let btnPayment = $('button.payment').on("click", async () => await odemeYap())
 
 wizard.on('beforeNext', async (wizardObj) => {
     if (validator.form() !== true) {
@@ -67,7 +71,7 @@ wizard.on('beforeNext', async (wizardObj) => {
         if (isNaN(tutar)) {
             wizardObj.stop();
             swal.basic("Uyarı", "Geçerli bir tutar giriniz.", icons.warning)
-            return;
+            return
         }
 
         let result = await getBankaHesabiBilgisi()
@@ -75,10 +79,10 @@ wizard.on('beforeNext', async (wizardObj) => {
             wizard.goTo(1)
             btnNext.addClass("d-none")
             bankButtonClickEventDefine()
+            return
         }
-    }
-    else if (wizard.currentStep === 3) {
-        await odemeYap()
+
+        btnPayment.removeClass("d-none");
     }
 });
 
@@ -87,7 +91,6 @@ wizard.on('change', function (wizard) {
         KTUtil.scrollTop();
     }, 500);
 });
-
 
 let bankaIdInput = $("#bankId");
 let bankaHesapIdInput = $("#bankAccountId");
@@ -98,7 +101,6 @@ let depositRequestIdInput = $("#depositRequestId");
 let tutarDefines = () => {
     tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
 }
-
 
 let getBankaHesabiBilgisi = async () => {
     let data = {
@@ -112,8 +114,6 @@ let getBankaHesabiBilgisi = async () => {
     }
 
     fillBankaHesapBilgileriArea(result.data)
-
-    btnNext.html("Ödeme Yaptım");
 
     return true
 }
@@ -140,7 +140,6 @@ let fillBankaHesapBilgileriArea = (data) => {
     })
 }
 
-let resultDiv = $("#resultDiv")
 let odemeYap = async () => {
     let tutar = parser.moneyToFloat(tutarInput.val())
     let data = {
@@ -153,21 +152,27 @@ let odemeYap = async () => {
     let result = await fetchHelper.send("paymentframe/savepayment", httpMethods.post, data)
 
     if (!result.isSuccessful) {
-        resultDiv.html(`
-            <h3>İşlemde bir hata oluştu, ${result.message}</h3>  
-        `)
-        btnToMainPageFailed.show()
+        swal.basic("Hata", result.message, icons.error)
     }
-
     else {
-        resultDiv.html(`
-            <h2> 
-                <i class="la la-try"></i> ${tutarInput.val()}
-            </h2>
-            <h3>Tutarında ödemeniz alınmıştır.</h3>  
-        `)
-        btnToMainPageSuccessful.show()
-    }
+        btnPayment.addClass("kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light");
+        btnPayment.html("Ödemenin onaylanması bekleniyor");
+        btnPayment.prop("disabled", true);
 
-    btnNext.hide();
+        openConnection()
+    }
+}
+
+let openConnection = () => {
+    let connection = new signalR.HubConnectionBuilder().withUrl("/depositpayment").build()
+
+    let uniqueHash = btnPayment.data("uniquehash")
+    connection.start().then(() => {
+        console.log("SignalR connected.")
+        connection.invoke("Subscribe", uniqueHash)
+    }).catch(e => console.error("There is an error with SignalR connection: " + e.toString()));
+
+    connection.on('redirect', (url) => {
+        window.location.href = url
+    });
 }

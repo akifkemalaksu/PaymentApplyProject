@@ -30,6 +30,7 @@ using PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit;
 using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
+using PaymentApplyProject.Infrastructure.Services.HubServices;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -48,6 +49,7 @@ namespace PaymentApplyProject.Infrastructure
             services.AddSingleton<ICookieAuthService, CookieAuthService>();
             services.AddSingleton<IAuthenticatedUserService, AuthenticatedUserService>();
             services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<IDepositPaymentHubRedirectionService, DepositPaymentHubRedirectionService>();
             services.AddSingleton<ICacheService, InMemoryCacheService>();
             services.AddSingleton<IHubConnectionUniqueKeyCacheService, HubConnectionUniqueKeyCacheService>();
             services.AddSingleton<IMailSenderService, MailSenderService>();

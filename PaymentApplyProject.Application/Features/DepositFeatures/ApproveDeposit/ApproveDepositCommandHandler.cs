@@ -14,19 +14,22 @@ using PaymentApplyProject.Application.Extensions;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Services;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit
 {
     public class ApproveDepositCommandHandler : IRequestHandler<ApproveDepositCommand, Response<NoContent>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly IDepositPaymentHubRedirectionService _depositPaymentHubRedirectionService;
         private readonly HttpClient _httpClient;
         private readonly ILogger<ApproveDepositCommandHandler> _logger;
         private readonly string _token;
 
-        public ApproveDepositCommandHandler(IPaymentContext paymentContext, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
+        public ApproveDepositCommandHandler(IPaymentContext paymentContext, IDepositPaymentHubRedirectionService depositPaymentHubRedirectionService, HttpClient httpClient, ILogger<ApproveDepositCommandHandler> logger, ClientIntegrationSettings clientIntegrationSettings)
         {
             _paymentContext = paymentContext;
+            _depositPaymentHubRedirectionService = depositPaymentHubRedirectionService;
             _httpClient = httpClient;
             _logger = logger;
             _token = clientIntegrationSettings.Token;
@@ -76,6 +79,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
 
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
+
+            _depositPaymentHubRedirectionService.Redirect(depositRequest.SuccessUrl, depositRequest.UniqueTransactionIdHash);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

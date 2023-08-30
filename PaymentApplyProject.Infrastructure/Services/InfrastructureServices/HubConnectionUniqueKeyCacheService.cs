@@ -31,10 +31,20 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
         public List<ConnectionUniqueKeyDto> GetConnections()
         {
-            var userConnections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
-            if (userConnections == null) return new List<ConnectionUniqueKeyDto>();
+            var connections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
+            if (connections == null) return new List<ConnectionUniqueKeyDto>();
 
-            return userConnections;
+            return connections;
+        }
+
+        public string GetConnection(string uniqueKey)
+        {
+            var connections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
+            if (connections == null) return string.Empty;
+
+            var connection = connections.FirstOrDefault(x => x.UniqueKey == uniqueKey);
+            if (connection == null) return string.Empty;
+            return connection.ConnectionId;
         }
 
         public void RemoveConnection(string connectionId)
