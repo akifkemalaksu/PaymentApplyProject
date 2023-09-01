@@ -12,5 +12,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit
     public class RejectDepositCommand : IRequest<Response<NoContent>>, ITransactional
     {
         public int Id { get; set; }
+        public string Message { get; set; }
     }
 }

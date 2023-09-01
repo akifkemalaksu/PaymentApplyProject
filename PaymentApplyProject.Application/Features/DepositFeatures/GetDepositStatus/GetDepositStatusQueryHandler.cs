@@ -5,6 +5,7 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
+using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus
 {
@@ -65,6 +66,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
                     UniqueTransactionId = x.UniqueTransactionId,
                     ExternalTransactionId = x.Id,
                     Username = x.Username,
+                    Amount = default,
+                    DepositStatusId = StatusConstants.DEPOSIT_REDDEDILDI
                 }).FirstOrDefaultAsync(cancellationToken);
 
                 if (depositRequest == null)

@@ -11,7 +11,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
         {
             get => DepositStatusId switch
             {
-                0 => StatusConstants.NOT_INTEGRATED, // deposit kaydı oluşmamışsa bu değere 0 veriliyor
                 StatusConstants.DEPOSIT_BEKLIYOR => StatusConstants.PENDING,
                 StatusConstants.DEPOSIT_REDDEDILDI => StatusConstants.REJECTED,
                 StatusConstants.DEPOSIT_ONAYLANDI => StatusConstants.APPROVED,

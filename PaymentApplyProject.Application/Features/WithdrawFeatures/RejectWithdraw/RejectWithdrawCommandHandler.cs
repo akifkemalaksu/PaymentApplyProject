@@ -55,6 +55,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                 CustomerId = withdraw.Customer.ExternalCustomerId,
                 MethodType = withdraw.MethodType,
                 Status = StatusConstants.REJECTED,
+                Message = request.Message,
                 TransactionId = withdraw.ExternalTransactionId,
                 ExternalTransactionId = withdraw.Id,
                 Amount = withdraw.Amount,

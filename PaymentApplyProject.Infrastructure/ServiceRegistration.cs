@@ -31,6 +31,7 @@ using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 using PaymentApplyProject.Infrastructure.Services.HubServices;
+using PaymentApplyProject.Application.Features.DepositFeatures.FailedPaymentFromTimeout;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -59,6 +60,7 @@ namespace PaymentApplyProject.Infrastructure
             services.AddHttpClient<IRequestHandler<RejectDepositCommand, Response<NoContent>>, RejectDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveWithdrawCommand, Response<NoContent>>, ApproveWithdrawCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectWithdrawCommand, Response<NoContent>>, RejectWithdrawCommandHandler>();
+            services.AddHttpClient<IRequestHandler<FailedPaymentFromTimeoutCommand, Response<NoContent>>, FailedPaymentFromTimeoutCommandHandler>();
 
             services.Configure<ClientIntegrationSettings>(configuration.GetSection(nameof(ClientIntegrationSettings)));
             services.AddSingleton(serviceProvider =>

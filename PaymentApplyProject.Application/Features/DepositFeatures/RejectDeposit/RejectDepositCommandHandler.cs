@@ -62,6 +62,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit
                 CustomerId = depositRequest.CustomerId,
                 MethodType = depositRequest.MethodType,
                 Status = StatusConstants.REJECTED,
+                Message = request.Message,
                 ExternalTransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
                 Amount = deposit.Amount,

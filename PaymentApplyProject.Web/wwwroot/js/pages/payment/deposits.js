@@ -144,19 +144,20 @@ let goruntuleDefines = () => {
             })
     })
 
-    reddetButton.on("click", () => swal.basicWithTwoButtonFunc("Uyarı", "Talebi reddetmek istediğinize emin misiniz?", icons.warning,
+    reddetButton.on("click", () => swal.basicWithTwoButtonAndOneInputFunc("Uyarı", "Talebi reddetmek istediğinize emin misiniz?\nReddetme sebebini yazabilirsiniz.", icons.warning, inputTypes.text,
         async (result) => {
-            if (result.value) {
+            if ('value' in result) {
                 let data = {
-                    id: idInput.val()
+                    id: idInput.val(),
+                    message: result.value
                 }
-                let result = await fetchHelper.send("/payment/RejectDeposit", httpMethods.post, data)
+                let response = await fetchHelper.send("/payment/RejectDeposit", httpMethods.post, data)
 
-                if (!result.isSuccessful) {
-                    swal.basic("Hata", result.message, icons.error)
+                if (!response.isSuccessful) {
+                    swal.basic("Hata", response.message, icons.error)
                     return;
                 }
-                swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => {
+                swal.basicWithOneButtonFunc("Başarılı", response.message, icons.success, () => {
                     $("#kt_modal").modal('hide')
                     datatableHelper.dtTable.draw()
                 })

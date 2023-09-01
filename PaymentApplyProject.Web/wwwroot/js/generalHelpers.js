@@ -59,6 +59,19 @@ const icons = {
     info: 'info',
     question: 'question'
 }
+const inputTypes = {
+    text: 'text',
+    email: 'email',
+    password: 'password',
+    number: 'number',
+    tel: 'tel',
+    textarea: 'textarea',
+    select: 'select',
+    radio: 'radio',
+    checkbox: 'checkbox',
+    file: 'file',
+    url: 'url',
+}
 const swal = {
     basic: (title, text, icon) => Swal.fire({
         title: title,
@@ -81,6 +94,18 @@ const swal = {
     basicWithTwoButtonFunc: (title, text, icon, func) => Swal.fire({
         title: title,
         text: text,
+        type: icon,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCancelButton: true,
+        confirmButtonText: 'Tamam',
+        cancelButtonText: 'Kapat'
+    }).then(func),
+    basicWithTwoButtonAndOneInputFunc: (title, text, icon,inputType, func) => Swal.fire({
+        title: title,
+        text: text,
+        input: inputType,
         type: icon,
         allowOutsideClick: false,
         allowEscapeKey: false,

@@ -1,4 +1,6 @@
-﻿let connection = new signalR.HubConnectionBuilder().withUrl("/notification").build();
+﻿$.fn.modal.Constructor.prototype._enforceFocus = function () { };
+
+let connection = new signalR.HubConnectionBuilder().withUrl("/notification").build();
 connection.on('displayNotification', (data) => {
     showNotification(data)
 });

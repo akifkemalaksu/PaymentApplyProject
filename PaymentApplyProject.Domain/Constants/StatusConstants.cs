@@ -11,7 +11,6 @@
         public const int WITHDRAW_REDDEDILDI = 5;
         public const int WITHDRAW_ONAYLANDI = 6;
 
-        public const string NOT_INTEGRATED = "notintegrated";
         public const string PENDING = "pending";
         public const string REJECTED = "rejected";
         public const string APPROVED = "approved";

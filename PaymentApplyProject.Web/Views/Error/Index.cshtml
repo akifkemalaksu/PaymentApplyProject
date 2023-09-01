@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
-    var message = Context.Request.Query["message"];
+    var errorCode = Context.Request.Query["errorCode"];
     var statusCode = Context.Request.Query["statusCode"];
+    var message = Context.Request.Query["message"];
 }
 
 <!DOCTYPE html>
@@ -32,16 +33,9 @@
             <div class="kt-error-v1__container">
                 <h1 class="kt-error-v1__number">@statusCode</h1>
                 <p class="kt-error-v1__desc">
-                    @if (string.IsNullOrEmpty(message))
-                    {
-                        <text>
-                            Hata.
-                        </text>
-                    }
-                    else
-                    {
-                        @Html.Raw(message)
-                    }
+                    Error Code: @Html.Raw(errorCode)
+                    <br />
+                    @Html.Raw(message)
                 </p>
             </div>
         </div>

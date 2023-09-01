@@ -1,4 +1,6 @@
-﻿let counterFunc = (cancel = false) => {
+﻿let depositRequestIdInput = $("#depositRequestId");
+
+let counterFunc = (cancel = false) => {
     if (cancel) {
         $(".countdown").hide()
         return
@@ -17,6 +19,10 @@
         counterSpan.html(seconds)
         progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
         if (seconds === 0) {
+            let data = {
+                id: depositRequestIdInput.val()
+            }
+            fetchHelper.send(`/paymentframe/FailedPaymentFromTimeout`, httpMethods.post, data)
             window.location.href = btnToMainPageFailed.prop("href")
         }
     }, 1000)
@@ -96,7 +102,6 @@ let bankaIdInput = $("#bankId");
 let bankaHesapIdInput = $("#bankAccountId");
 let musteriIdInput = $("#customerId");
 let tutarInput = $("#amount");
-let depositRequestIdInput = $("#depositRequestId");
 
 let tutarDefines = () => {
     tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
@@ -158,6 +163,7 @@ let odemeYap = async () => {
         btnPayment.addClass("kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light");
         btnPayment.html("Ödemenin onaylanması bekleniyor");
         btnPayment.prop("disabled", true);
+        counterFunc(true);
 
         openConnection()
     }
