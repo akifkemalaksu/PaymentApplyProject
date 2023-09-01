@@ -23,7 +23,7 @@ let counterFunc = (cancel = false) => {
                 id: depositRequestIdInput.val()
             }
             fetchHelper.send(`/paymentframe/FailedPaymentFromTimeout`, httpMethods.post, data)
-            window.location.href = btnToMainPageFailed.prop("href")
+            window.location.href = depositRequestIdInput.data("failedurl")
         }
     }, 1000)
 }

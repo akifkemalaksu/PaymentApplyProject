@@ -54,6 +54,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
             var getDepositRequestFromHashResult = new GetDepositRequestFromHashResult
             {
                 CustomerId = customer.Id,
+                FailedUrl = depositRequest.FailedUrl,
                 UniqueTransactionIdHash = depositRequest.UniqueTransactionIdHash,
                 DepositRequestId = depositRequest.Id,
                 ValidTo = depositRequest.ValidTo.Value
