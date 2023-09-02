@@ -1,0 +1,26 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  paymentdb:
+    image: postgres
+    container_name: paymentdb
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=PaymentDb
+  paymentapplyprojectweb:
+    image: paymentapplyprojectweb
+    container_name: paymentapplyprojectweb
+    build:
+      context: .
+      dockerfile: PaymentApplyProject.Web/Dockerfile
+    ports:
+      - 5000:80
+      - 5001:443
+    environment:
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=localhost;Port=5432;Database=PaymentDb;Pooling=true;
