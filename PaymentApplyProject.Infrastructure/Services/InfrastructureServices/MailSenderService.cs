@@ -1,5 +1,4 @@
 ﻿using PaymentApplyProject.Application.Dtos.MailDtos;
-using PaymentApplyProject.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

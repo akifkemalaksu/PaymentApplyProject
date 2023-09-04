@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 using MediatR;
 using Microsoft.Net.Http.Headers;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
         public int GetUserId()
         {
-            var claimsPrincipal = _httpContextAccessor.HttpContext.User;
+            var claimsPrincipal = _httpContextAccessor.HttpContext?.User;
 
             if (claimsPrincipal == null) return 0;
 

@@ -14,6 +14,9 @@ using System.Text.Unicode;
 using Microsoft.AspNetCore.SignalR;
 using PaymentApplyProject.Application.Middlewares;
 using PaymentApplyProject.Infrastructure.Hubs;
+using PaymentApplyProject.Application.Context;
+using Microsoft.EntityFrameworkCore;
+using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +57,7 @@ builder.Services.AddSignalR(options =>
 builder.Services.RegisterInfrastructure(builder.Configuration);
 builder.Services.RegisterPersistence(builder.Configuration);
 
+builder.Services.AddAuthorizationBuilder().AddPolicy("background_service", policy => policy.RequireRole("admin"));
 
 var app = builder.Build();
 
@@ -89,5 +93,15 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+
+app.MapGet("/background", (DepositRequestControlBackgroundService service) =>
+{
+    return new DepositRequestControlBackgroundServiceState(service.IsEnabled);
+});
+
+app.MapMethods("/background", new[] { "PATCH" }, (DepositRequestControlBackgroundServiceState state, DepositRequestControlBackgroundService service) =>
+{
+    service.IsEnabled = state.IsEnabled;
+}).RequireAuthorization("background_service");
 
 app.Run();

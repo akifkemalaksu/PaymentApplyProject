@@ -65,6 +65,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
 
             _logger.LogInformation(new HttpClientLogDto
             {
+                StatusCode = (int)callbackResponse.StatusCode,
                 Request = callbackBody,
                 Response = responseContent,
                 Url = withdraw.CallbackUrl

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using PaymentApplyProject.Application.Dtos.SignalRDtos;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Infrastructure.Hubs;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Application.Services.HubServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

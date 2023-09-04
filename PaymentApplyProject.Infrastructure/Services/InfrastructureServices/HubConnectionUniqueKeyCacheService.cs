@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.RenderTree;
 using PaymentApplyProject.Application.Dtos.SignalRDtos;
-using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 using System;
 using System.Collections.Generic;

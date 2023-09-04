@@ -9,7 +9,6 @@ using Microsoft.Net.Http.Headers;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Mapping;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping;
 using PaymentApplyProject.Infrastructure.Services.InfrastructureServices;
@@ -31,7 +30,10 @@ using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 using PaymentApplyProject.Infrastructure.Services.HubServices;
-using PaymentApplyProject.Application.Features.DepositFeatures.FailedPaymentFromTimeout;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Application.Services.HubServices;
+using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequestsTimeoutControl;
+using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
 
 namespace PaymentApplyProject.Infrastructure
 {
@@ -54,13 +56,16 @@ namespace PaymentApplyProject.Infrastructure
             services.AddSingleton<ICacheService, InMemoryCacheService>();
             services.AddSingleton<IHubConnectionUniqueKeyCacheService, HubConnectionUniqueKeyCacheService>();
             services.AddSingleton<IMailSenderService, MailSenderService>();
+            services.AddSingleton<DepositRequestControlBackgroundService>();
 
             services.AddHttpClient<IRequestHandler<AddDepositCommand, Response<AddDepositResult>>, AddDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveDepositCommand, Response<NoContent>>, ApproveDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectDepositCommand, Response<NoContent>>, RejectDepositCommandHandler>();
             services.AddHttpClient<IRequestHandler<ApproveWithdrawCommand, Response<NoContent>>, ApproveWithdrawCommandHandler>();
             services.AddHttpClient<IRequestHandler<RejectWithdrawCommand, Response<NoContent>>, RejectWithdrawCommandHandler>();
-            services.AddHttpClient<IRequestHandler<FailedPaymentFromTimeoutCommand, Response<NoContent>>, FailedPaymentFromTimeoutCommandHandler>();
+            services.AddHttpClient<IRequestHandler<DepositRequestsTimeoutControlCommand, Response<NoContent>>, DepositRequestsTimeoutControlCommandHandler>();
+
+            services.AddHostedService(provider => provider.GetRequiredService<DepositRequestControlBackgroundService>());
 
             services.Configure<ClientIntegrationSettings>(configuration.GetSection(nameof(ClientIntegrationSettings)));
             services.AddSingleton(serviceProvider =>

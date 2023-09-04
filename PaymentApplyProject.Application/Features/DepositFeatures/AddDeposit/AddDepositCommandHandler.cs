@@ -4,7 +4,6 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Net.Http.Json;
@@ -19,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using System.Text.Json;
 using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Services.HubServices;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 {
@@ -77,6 +77,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 
             _logger.LogInformation(new HttpClientLogDto
             {
+                StatusCode = (int)callbackResponse.StatusCode,
                 Request = callbackBody,
                 Response = responseContent,
                 Url = depositRequest.CallbackUrl

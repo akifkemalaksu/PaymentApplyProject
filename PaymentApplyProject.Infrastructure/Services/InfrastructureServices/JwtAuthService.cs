@@ -1,6 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,6 +13,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
 using System.Xml.Linq;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

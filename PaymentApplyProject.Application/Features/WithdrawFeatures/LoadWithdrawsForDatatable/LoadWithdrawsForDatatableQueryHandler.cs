@@ -4,7 +4,7 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable;
-using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable

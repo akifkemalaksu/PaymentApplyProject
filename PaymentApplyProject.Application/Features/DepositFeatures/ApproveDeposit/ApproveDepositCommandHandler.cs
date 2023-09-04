@@ -14,7 +14,7 @@ using PaymentApplyProject.Application.Extensions;
 using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Services.HubServices;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit
 {
@@ -72,6 +72,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
 
             _logger.LogInformation(new HttpClientLogDto
             {
+                StatusCode = (int)callbackResponse.StatusCode,
                 Request = callbackBody,
                 Response = responseContent,
                 Url = depositRequest.CallbackUrl

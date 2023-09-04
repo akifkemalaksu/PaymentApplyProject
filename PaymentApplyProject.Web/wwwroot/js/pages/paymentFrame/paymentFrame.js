@@ -1,4 +1,8 @@
-﻿let depositRequestIdInput = $("#depositRequestId");
+﻿if (performance.navigation.type == 2) {
+    location.reload(true);
+}
+
+let depositRequestIdInput = $("#depositRequestId");
 
 let counterFunc = (cancel = false) => {
     if (cancel) {
@@ -22,7 +26,6 @@ let counterFunc = (cancel = false) => {
             let data = {
                 id: depositRequestIdInput.val()
             }
-            fetchHelper.send(`/paymentframe/FailedPaymentFromTimeout`, httpMethods.post, data)
             window.location.href = depositRequestIdInput.data("failedurl")
         }
     }, 1000)

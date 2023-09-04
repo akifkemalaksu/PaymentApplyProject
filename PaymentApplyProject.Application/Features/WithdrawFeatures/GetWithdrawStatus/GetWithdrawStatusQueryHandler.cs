@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawStatus

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Services;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Entities;
 using System;
 using System.Collections.Generic;

@@ -8,7 +8,6 @@ using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Features.DepositFeatures.FailedPaymentFromTimeout;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -47,13 +46,6 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> SavePayment([FromBody] AddDepositCommand addParaYatirmaCommand)
         {
             var result = await _mediator.Send(addParaYatirmaCommand);
-            return CreateResult(result);
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> FailedPaymentFromTimeout([FromBody] FailedPaymentFromTimeoutCommand failedPaymentFromTimeoutCommand)
-        {
-            var result = await _mediator.Send(failedPaymentFromTimeoutCommand);
             return CreateResult(result);
         }
     }

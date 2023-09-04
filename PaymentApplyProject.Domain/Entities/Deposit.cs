@@ -9,7 +9,7 @@ namespace PaymentApplyProject.Domain.Entities
         public int DepositRequestId { get; set; }
         public int CustomerId { get; set; }
         public short DepositStatusId { get; set; }
-        public int BankAccountId { get; set; }
+        public int? BankAccountId { get; set; }
         public decimal Amount { get; set; }
         public DateTime? TransactionDate { get; set; }
 

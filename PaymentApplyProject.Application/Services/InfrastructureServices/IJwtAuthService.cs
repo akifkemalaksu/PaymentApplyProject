@@ -7,7 +7,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
-namespace PaymentApplyProject.Application.Services
+namespace PaymentApplyProject.Application.Services.InfrastructureServices
 {
     public interface IJwtAuthService
     {

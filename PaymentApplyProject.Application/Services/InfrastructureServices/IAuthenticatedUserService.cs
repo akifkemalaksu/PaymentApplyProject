@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 
-namespace PaymentApplyProject.Application.Services
+namespace PaymentApplyProject.Application.Services.InfrastructureServices
 {
     public interface IAuthenticatedUserService
     {

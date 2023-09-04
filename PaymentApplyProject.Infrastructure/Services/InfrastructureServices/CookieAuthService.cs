@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

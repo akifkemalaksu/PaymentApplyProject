@@ -32,5 +32,7 @@ namespace PaymentApplyProject.Domain.Entities
 
         [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
+
+        public virtual Deposit Deposit { get; set; }
     }
 }

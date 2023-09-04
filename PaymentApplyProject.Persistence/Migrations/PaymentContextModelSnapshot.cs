@@ -221,7 +221,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BankAccountId")
+                    b.Property<int?>("BankAccountId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<int>("CustomerId")
@@ -251,7 +252,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("DepositRequestId");
+                    b.HasIndex("DepositRequestId")
+                        .IsUnique();
 
                     b.HasIndex("DepositStatusId");
 
@@ -669,8 +671,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.DepositRequest", "DepositRequest")
-                        .WithMany()
-                        .HasForeignKey("DepositRequestId")
+                        .WithOne("Deposit")
+                        .HasForeignKey("PaymentApplyProject.Domain.Entities.Deposit", "DepositRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -773,6 +775,12 @@ namespace PaymentApplyProject.Persistence.Migrations
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositRequest", b =>
+                {
+                    b.Navigation("Deposit")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>

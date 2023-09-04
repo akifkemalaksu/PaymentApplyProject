@@ -319,7 +319,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     DepositRequestId = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     DepositStatusId = table.Column<short>(type: "smallint", nullable: false),
-                    BankAccountId = table.Column<int>(type: "integer", nullable: false),
+                    BankAccountId = table.Column<int>(type: "integer", nullable: true),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),

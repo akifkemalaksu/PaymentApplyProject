@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Mapping;
@@ -9,6 +8,7 @@ using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken
 {
@@ -54,7 +54,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToke
             if (user == null)
                 return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserNotFound, ErrorCodes.UserNotFound);
 
-            if (!user.Roles.Any(x => x.Id == RoleConstants.CUSTOMER_ID))
+            if (!user.Roles.Any(x => new int[] { RoleConstants.CUSTOMER_ID, RoleConstants.ADMIN_ID }.Contains(x.Id)))
                 return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoAuthorization, ErrorCodes.UserHasNoAuthorization);
 
             return _jwtTokenService.CreateToken(user);

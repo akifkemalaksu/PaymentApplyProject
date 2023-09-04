@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Application.Features.UserFeatures.Logout;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.Logout
 {

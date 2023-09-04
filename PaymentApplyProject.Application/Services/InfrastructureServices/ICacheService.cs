@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentApplyProject.Application.Services
+namespace PaymentApplyProject.Application.Services.InfrastructureServices
 {
     public interface ICacheService
     {

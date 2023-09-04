@@ -8,8 +8,8 @@ using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Application.Dtos.MailDtos;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 {
