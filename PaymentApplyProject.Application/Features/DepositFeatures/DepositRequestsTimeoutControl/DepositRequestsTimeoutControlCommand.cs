@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositRequestsTimeoutControl
 {
-    public class DepositRequestsTimeoutControlCommand : IRequest<Response<NoContent>>, ITransactional
+    public class DepositRequestsTimeoutControlCommand : IRequest<Response<NoContent>>
     {
     }
 }
