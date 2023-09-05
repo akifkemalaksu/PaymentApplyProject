@@ -36,7 +36,7 @@ namespace PaymentApplyProject.Application.Pipelines
                     response = await next();
 
                     await _paymentContext.CommitTransactionAsync(cancellationToken);
-                    _logger.LogInformation($"End transaction: {typeof(TRequest)}.");
+                    _logger.LogInformation($"End transaction: {typeof(TRequest).Name}.");
                 });
             }
             catch (Exception e)
