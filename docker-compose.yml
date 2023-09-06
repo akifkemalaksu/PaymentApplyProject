@@ -15,6 +15,15 @@ services:
       - POSTGRES_DB=PaymentDb
     volumes:
       - paymentdb_volume:/var/lib/postgresql/data
+  paymentseq:
+    image: datalust/seq
+    container_name: paymentseq
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - paymentseq_volume:/data
+    ports:
+      - 5341:80
   paymentapplyprojectweb:
     image: paymentapplyprojectweb
     container_name: paymentapplyprojectweb
@@ -23,11 +32,13 @@ services:
       context: .
       dockerfile: PaymentApplyProject.Web/Dockerfile
     ports:
-      - 5000:80
-      - 5001:443
+      - 8080:80
+      - 8081:443
     environment:
-      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=localhost;Port=5432;Database=PaymentDb;Pooling=true;
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentDb;Pooling=true;
+      - SeqSettings:ServerUrl=http://paymentseq:5341
     depends_on:
       - paymentdb
 volumes:
   paymentdb_volume:
+  paymentseq_volume:
