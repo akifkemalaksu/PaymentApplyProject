@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=12345678
-      - POSTGRES_DB=PaymentDb
+      - POSTGRES_DB=PaymentTestDb
     volumes:
       - paymentdb_volume:/var/lib/postgresql/data
   paymentseq:
@@ -32,10 +32,25 @@ services:
       context: .
       dockerfile: PaymentApplyProject.Web/Dockerfile
     ports:
-      - 8080:80
-      - 8081:443
+      - 5000:80
+      - 5001:443
     environment:
-      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentDb;Pooling=true;
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentTestDb;Pooling=true;
+      - SeqSettings:ServerUrl=http://paymentseq:5341
+    depends_on:
+      - paymentdb
+  paymentapplyprojectwebtest:
+    image: paymentapplyprojectwebtest
+    container_name: paymentapplyprojectwebtest
+    restart: always
+    build:
+      context: .
+      dockerfile: PaymentApplyProject.Web/Dockerfile
+    ports:
+      - 5010:80
+      - 5011:443
+    environment:
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentTestDb;Pooling=true;
       - SeqSettings:ServerUrl=http://paymentseq:5341
     depends_on:
       - paymentdb
