@@ -60,7 +60,7 @@ services:
     ports:
       - 6000:80
     environment:
-      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymenttestdb;Port=5010;Database=PaymentDb;Pooling=true;
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymenttestdb;Port=6010;Database=PaymentDb;Pooling=true;
       - SeqSettings:ServerUrl=http://paymentseq:5341
     depends_on:
       - paymenttestdb
