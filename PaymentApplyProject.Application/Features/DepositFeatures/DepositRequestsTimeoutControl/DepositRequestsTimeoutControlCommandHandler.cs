@@ -41,15 +41,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             {
                 var customer = await _paymentContext.Customers.FirstOrDefaultAsync(c => c.ExternalCustomerId == timeoutDepositRequest.CustomerId && c.CompanyId == timeoutDepositRequest.CompanyId && !c.Deleted, cancellationToken);
 
-                Uri uri = new Uri(timeoutDepositRequest.SuccessUrl);
-                var amount = Convert.ToDecimal(HttpUtility.ParseQueryString(uri.Query).Get("transactionAmount"));
-
                 Deposit deposit = new()
                 {
                     CustomerId = customer.Id,
                     DepositStatusId = StatusConstants.DEPOSIT_REDDEDILDI,
                     DepositRequestId = timeoutDepositRequest.Id,
-                    Amount = amount,
                 };
                 await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
                 await _paymentContext.SaveChangesAsync();
@@ -62,7 +58,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     Message = Messages.DepositRequestIsTimeout,
                     ExternalTransactionId = timeoutDepositRequest.Id,
                     UniqueTransactionId = timeoutDepositRequest.UniqueTransactionId,
-                    Amount = amount,
+                    Amount = default,
                     Token = _token
                 };
                 var callbackResponse = await _httpClient.PostAsJsonAsync(timeoutDepositRequest.CallbackUrl, callbackBody, cancellationToken);
