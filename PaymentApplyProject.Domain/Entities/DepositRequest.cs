@@ -28,6 +28,7 @@ namespace PaymentApplyProject.Domain.Entities
         public string UniqueTransactionId { get; set; }
         [StringLength(64)]
         public string UniqueTransactionIdHash { get; set; }
+        public decimal Amount { get; set; }
         public DateTime? ValidTo { get; set; }
 
         [ForeignKey("CompanyId")]

@@ -46,6 +46,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     CustomerId = customer.Id,
                     DepositStatusId = StatusConstants.DEPOSIT_REDDEDILDI,
                     DepositRequestId = timeoutDepositRequest.Id,
+                    Amount = timeoutDepositRequest.Amount,
                 };
                 await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
                 await _paymentContext.SaveChangesAsync();
@@ -58,7 +59,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     Message = Messages.DepositRequestIsTimeout,
                     ExternalTransactionId = timeoutDepositRequest.Id,
                     UniqueTransactionId = timeoutDepositRequest.UniqueTransactionId,
-                    Amount = default,
+                    Amount = timeoutDepositRequest.Amount,
                     Token = _token
                 };
                 var callbackResponse = await _httpClient.PostAsJsonAsync(timeoutDepositRequest.CallbackUrl, callbackBody, cancellationToken);

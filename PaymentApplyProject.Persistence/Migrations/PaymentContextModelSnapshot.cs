@@ -274,6 +274,9 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("CallbackUrl")
                         .IsRequired()
                         .HasColumnType("text");

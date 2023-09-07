@@ -186,6 +186,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     MethodType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     UniqueTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     UniqueTransactionIdHash = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     ValidTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),

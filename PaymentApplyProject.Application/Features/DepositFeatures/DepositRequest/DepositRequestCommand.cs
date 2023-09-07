@@ -19,5 +19,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
         public CustomerInfoDto CustomerInfo { get; set; }
         public string MethodType { get; set; }
         public string UniqueTransactionId { get; set; }
+        public decimal Amount { get; set; }
     }
 }
