@@ -8,13 +8,25 @@ services:
     container_name: paymentdb
     restart: always
     ports:
-      - 5432:5432
+      - 5010:5432
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=12345678
-      - POSTGRES_DB=PaymentTestDb
+      - POSTGRES_DB=PaymentDb
     volumes:
       - paymentdb_volume:/var/lib/postgresql/data
+  paymenttestdb:
+    image: postgres
+    container_name: paymenttestdb
+    restart: always
+    ports:
+      - 6010:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=PaymentDb
+    volumes:
+      - paymenttestdb_volume:/var/lib/postgresql/data
   paymentseq:
     image: datalust/seq
     container_name: paymentseq
@@ -35,25 +47,26 @@ services:
       - 5000:80
       - 5001:443
     environment:
-      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentTestDb;Pooling=true;
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5010;Database=PaymentDb;Pooling=true;
       - SeqSettings:ServerUrl=http://paymentseq:5341
     depends_on:
       - paymentdb
-  paymentapplyprojectwebtest:
-    image: paymentapplyprojectwebtest
-    container_name: paymentapplyprojectwebtest
+  paymentapplyprojecttestweb:
+    image: paymentapplyprojectweb
+    container_name: paymentapplyprojecttestweb
     restart: always
     build:
       context: .
       dockerfile: PaymentApplyProject.Web/Dockerfile
     ports:
-      - 5010:80
-      - 5011:443
+      - 6000:80
+      - 6001:443
     environment:
-      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymentdb;Port=5432;Database=PaymentTestDb;Pooling=true;
+      - ConnectionStrings:DefaultConnection=User ID=admin;Password=12345678;Host=paymenttestdb;Port=5010;Database=PaymentDb;Pooling=true;
       - SeqSettings:ServerUrl=http://paymentseq:5341
     depends_on:
-      - paymentdb
+      - paymenttestdb
 volumes:
   paymentdb_volume:
+  paymenttestdb_volume:
   paymentseq_volume:
