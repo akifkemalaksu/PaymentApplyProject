@@ -6,6 +6,7 @@
         public string FailedUrl { get; set; }
         public int CustomerId { get; set; }
         public DateTime ValidTo { get; set; }
+        public decimal Amount { get; set; }
         public string UniqueTransactionIdHash { get; set; }
     }
 }

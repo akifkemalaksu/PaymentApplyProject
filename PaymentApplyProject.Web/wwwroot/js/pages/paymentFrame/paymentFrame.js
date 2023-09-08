@@ -2,36 +2,23 @@
     location.reload(true);
 }
 
-let depositRequestIdInput = $("#depositRequestId");
+let progressBar = $(".progress-bar")
+let counterSpan = $("#counter-text")
+let fullSeconds = parseInt(progressBar.attr("aria-valuemax"))
+let seconds = parseInt(counterSpan.data('second'))
 
-let counterFunc = (cancel = false) => {
-    if (cancel) {
-        $(".countdown").hide()
-        return
-    }
+counterSpan.html(seconds);
+progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
 
-    let progressBar = $(".progress-bar")
-    let counterSpan = $("#counter-text")
-    let fullSeconds = parseInt(progressBar.attr("aria-valuemax"))
-    let seconds = parseInt(counterSpan.data('second'))
-
-    counterSpan.html(seconds);
+const counter = setInterval(() => {
+    seconds--
+    counterSpan.html(seconds)
     progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
+    if (seconds === 0)
+        window.location.href = depositRequestIdInput.data("failedurl")
+}, 1000)
 
-    setInterval(() => {
-        seconds--
-        counterSpan.html(seconds)
-        progressBar.css("width", ((100 * seconds) / fullSeconds) + "%");
-        if (seconds === 0) {
-            let data = {
-                id: depositRequestIdInput.val()
-            }
-            window.location.href = depositRequestIdInput.data("failedurl")
-        }
-    }, 1000)
-}
-
-counterFunc()
+let depositRequestIdInput = $("#depositRequestId");
 
 let formEl = $('#kt_form');
 let validator = formEl.validate({
@@ -166,7 +153,9 @@ let odemeYap = async () => {
         btnPayment.addClass("kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light");
         btnPayment.html("Ödemenin onaylanması bekleniyor");
         btnPayment.prop("disabled", true);
-        counterFunc(true);
+
+        $(".countdown").hide()
+        clearInterval(counter)
 
         openConnection()
     }

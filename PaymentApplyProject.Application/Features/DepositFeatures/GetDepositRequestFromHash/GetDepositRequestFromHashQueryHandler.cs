@@ -57,7 +57,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
                 FailedUrl = depositRequest.FailedUrl,
                 UniqueTransactionIdHash = depositRequest.UniqueTransactionIdHash,
                 DepositRequestId = depositRequest.Id,
-                ValidTo = depositRequest.ValidTo.Value
+                ValidTo = depositRequest.ValidTo.Value,
+                Amount = depositRequest.Amount
             };
 
             return Response<GetDepositRequestFromHashResult>.Success(System.Net.HttpStatusCode.OK, getDepositRequestFromHashResult);
