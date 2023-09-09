@@ -19,7 +19,6 @@ namespace PaymentApplyProject.Persistence.Context
         public PaymentContext(DbContextOptions options, IAuthenticatedUserService authenticatedUserService) : base(options)
         {
             _userId = authenticatedUserService.GetUserId();
-            //_userId = 0;
         }
 
         public DbSet<Bank> Banks { get; set; }
