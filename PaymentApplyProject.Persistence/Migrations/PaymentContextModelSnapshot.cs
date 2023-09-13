@@ -222,7 +222,6 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<int?>("BankAccountId")
-                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<int>("CustomerId")
@@ -663,9 +662,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                 {
                     b.HasOne("PaymentApplyProject.Domain.Entities.BankAccount", "BankAccount")
                         .WithMany()
-                        .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BankAccountId");
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.Customer", "Customer")
                         .WithMany()

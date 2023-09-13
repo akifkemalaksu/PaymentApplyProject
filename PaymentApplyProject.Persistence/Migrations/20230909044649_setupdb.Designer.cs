@@ -12,8 +12,8 @@ using PaymentApplyProject.Persistence.Context;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20230810162927_setupdb")]
-    partial class setupdb
+    [Migration("20230909105957_setupDb")]
+    partial class setupDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,7 +224,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BankAccountId")
+                    b.Property<int?>("BankAccountId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CustomerId")
@@ -254,7 +254,8 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("DepositRequestId");
+                    b.HasIndex("DepositRequestId")
+                        .IsUnique();
 
                     b.HasIndex("DepositStatusId");
 
@@ -274,6 +275,9 @@ namespace PaymentApplyProject.Persistence.Migrations
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("CallbackUrl")
                         .IsRequired()
@@ -661,9 +665,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                 {
                     b.HasOne("PaymentApplyProject.Domain.Entities.BankAccount", "BankAccount")
                         .WithMany()
-                        .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BankAccountId");
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.Customer", "Customer")
                         .WithMany()
@@ -672,8 +674,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("PaymentApplyProject.Domain.Entities.DepositRequest", "DepositRequest")
-                        .WithMany()
-                        .HasForeignKey("DepositRequestId")
+                        .WithOne("Deposit")
+                        .HasForeignKey("PaymentApplyProject.Domain.Entities.Deposit", "DepositRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -776,6 +778,12 @@ namespace PaymentApplyProject.Persistence.Migrations
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("PaymentApplyProject.Domain.Entities.DepositRequest", b =>
+                {
+                    b.Navigation("Deposit")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PaymentApplyProject.Domain.Entities.Role", b =>

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PaymentApplyProject.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class setupdb : Migration
+    public partial class setupDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -336,8 +336,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         name: "FK_Deposits_BankAccounts_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "BankAccounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Deposits_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -386,7 +385,8 @@ namespace PaymentApplyProject.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Deposits_DepositRequestId",
                 table: "Deposits",
-                column: "DepositRequestId");
+                column: "DepositRequestId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Deposits_DepositStatusId",

@@ -20,6 +20,6 @@ namespace PaymentApplyProject.Domain.Entities
         [ForeignKey("DepositStatusId")]
         public virtual DepositStatus DepositStatus { get; set; }
         [ForeignKey("BankAccountId")]
-        public virtual BankAccount BankAccount { get; set; }
+        public virtual BankAccount? BankAccount { get; set; }
     }
 }
