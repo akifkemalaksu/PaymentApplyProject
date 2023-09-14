@@ -53,15 +53,15 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            _logger.LogError(new ErrorLogDto
+            var log = new HttpLogDto
             {
                 Body = StreamHelper.ReadStreamInChunks(requestStream),
                 Host = httpContext.Request.Host.ToString(),
                 Path = httpContext.Request.Path,
                 QueryString = httpContext.Request.QueryString.ToString(),
                 Schema = httpContext.Request.Scheme,
-                Exception = callbackEx
-            }.ToString());
+            };
+            _logger.LogError(callbackEx, "Error {@log}", log);
 
             await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, callbackEx.Message, callbackEx.ErrorCode).ToString());
         }
@@ -75,15 +75,15 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            _logger.LogError(new ErrorLogDto
+            var log = new HttpLogDto
             {
                 Body = StreamHelper.ReadStreamInChunks(requestStream),
                 Host = httpContext.Request.Host.ToString(),
                 Path = httpContext.Request.Path,
                 QueryString = httpContext.Request.QueryString.ToString(),
                 Schema = httpContext.Request.Scheme,
-                Exception = ex
-            }.ToString());
+            };
+            _logger.LogError(ex, "Error {@log}", log);
 
             await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, ex.Message).ToString());
         }

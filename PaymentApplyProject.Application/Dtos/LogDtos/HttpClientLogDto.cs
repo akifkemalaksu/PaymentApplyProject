@@ -8,7 +8,5 @@ namespace PaymentApplyProject.Application.Dtos.LogDtos
         public string Url { get; set; }
         public object Request { get; set; }
         public object Response { get; set; }
-
-        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

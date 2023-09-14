@@ -64,13 +64,14 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
-            _logger.LogInformation(new HttpClientLogDto
+            var log = new HttpClientLogDto
             {
                 StatusCode = (int)callbackResponse.StatusCode,
                 Request = callbackBody,
                 Response = responseContent,
                 Url = withdraw.CallbackUrl
-            }.ToString());
+            };
+            _logger.LogInformation("Callback Response {@log}", log);
 
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException);

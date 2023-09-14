@@ -65,13 +65,14 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 var callbackResponse = await _httpClient.PostAsJsonAsync(timeoutDepositRequest.CallbackUrl, callbackBody, cancellationToken);
                 string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
-                _logger.LogInformation(new HttpClientLogDto
+                var log = new HttpClientLogDto
                 {
                     StatusCode = (int)callbackResponse.StatusCode,
                     Request = callbackBody,
                     Response = responseContent,
                     Url = timeoutDepositRequest.CallbackUrl
-                }.ToString());
+                };
+                _logger.LogInformation("Callback Response {@log}", log);
             }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK);

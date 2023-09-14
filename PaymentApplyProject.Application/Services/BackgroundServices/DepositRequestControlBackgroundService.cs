@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequestsTimeoutControl;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var name = nameof(DepositRequestControlBackgroundService);
+
             using PeriodicTimer timer = new PeriodicTimer(_period);
             while (!stoppingToken.IsCancellationRequested &&
                 await timer.WaitForNextTickAsync(stoppingToken))
@@ -43,14 +46,21 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
                         await mediator.Send(new DepositRequestsTimeoutControlCommand());
 
                         _executionCount++;
-                        _logger.LogInformation($"Executed {nameof(DepositRequestControlBackgroundService)} - Count: {_executionCount}");
+
+                        var log = new BackgroundServiceLogDto
+                        {
+                            ExecutionCount = _executionCount,
+                        };
+                        _logger.LogInformation("Executed {@name} {@log}", name, log);
                     }
-                    else
-                        _logger.LogInformation($"Disabled {nameof(DepositRequestControlBackgroundService)}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogInformation($"Failed to execute {nameof(DepositRequestControlBackgroundService)} with exception message {ex.Message}. Good luck next round!");
+                    var log = new BackgroundServiceLogDto
+                    {
+                        ExecutionCount = _executionCount,
+                    };
+                    _logger.LogError(ex,"Failed to execute {@name} {@log}",name, log);
                 }
             }
         }

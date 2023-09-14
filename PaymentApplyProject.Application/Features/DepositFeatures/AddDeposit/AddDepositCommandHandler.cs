@@ -75,13 +75,14 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
-            _logger.LogInformation(new HttpClientLogDto
+            var log = new HttpClientLogDto
             {
                 StatusCode = (int)callbackResponse.StatusCode,
                 Request = callbackBody,
                 Response = responseContent,
                 Url = depositRequest.CallbackUrl
-            }.ToString());
+            };
+            _logger.LogInformation("Callback Response {@log}", log);
 
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
