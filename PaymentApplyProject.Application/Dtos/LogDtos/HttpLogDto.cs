@@ -10,10 +10,8 @@ using System.Xml;
 
 namespace PaymentApplyProject.Application.Dtos.LogDtos
 {
-    public class HttpLogDto
+    public class HttpLogDto : LogDto
     {
-        public string MachineName { get; } = Environment.MachineName;
-        public string OSVersion { get; } = Environment.OSVersion.ToString();
         public string Schema { get; set; }
         public string Host { get; set; }
         public string Path { get; set; }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Dtos.LogDtos
 {
-    internal class BackgroundServiceLogDto: LogDto
+    public abstract class LogDto
     {
-        public int ExecutionCount { get; set; }
+        public string MachineName { get; } = Environment.MachineName;
+        public string OSVersion { get; } = Environment.OSVersion.ToString();
     }
 }
