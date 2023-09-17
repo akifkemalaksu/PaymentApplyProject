@@ -26,7 +26,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var deposits = _paymentContext.Deposits.Where(x =>
-                (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
+                x.BankAccount != null
+                && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
                 && (x.AddDate >= request.StartDate && x.AddDate <= request.EndDate)
                 && (request.BankId == 0 || x.BankAccount.BankId == request.BankId)
                 && (request.BankAccountId == 0 || x.BankAccountId == request.BankAccountId)
