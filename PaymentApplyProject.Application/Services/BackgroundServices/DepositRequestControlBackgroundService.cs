@@ -21,7 +21,7 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
         private readonly ILogger<DepositRequestControlBackgroundService> _logger;
         private readonly IServiceScopeFactory _factory;
         private int _executionCount = 0;
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
 
         public DepositRequestControlBackgroundService(ILogger<DepositRequestControlBackgroundService> logger, IServiceScopeFactory factory)
         {
