@@ -77,7 +77,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
                 Response = responseContent,
                 Url = depositRequest.CallbackUrl
             };
-            _logger.LogInformation("Callback Response {@log}", log);
+            _logger.LogInformation("{@log}", log);
 
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);

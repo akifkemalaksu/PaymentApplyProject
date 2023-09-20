@@ -53,15 +53,15 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            var log = new HttpLogDto
+            var log = new RequestLogDto
             {
                 Body = StreamHelper.ReadStreamInChunks(requestStream),
                 Host = httpContext.Request.Host.ToString(),
                 Path = httpContext.Request.Path,
                 QueryString = httpContext.Request.QueryString.ToString(),
-                Schema = httpContext.Request.Scheme,
+                Method = httpContext.Request.Method,
             };
-            _logger.LogError(callbackEx, "Error {@log}", log);
+            _logger.LogError(callbackEx, "{@log}", log);
 
             await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, callbackEx.Message, callbackEx.ErrorCode).ToString());
         }
@@ -75,15 +75,15 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            var log = new HttpLogDto
+            var log = new ResponseLogDto
             {
-                Body = StreamHelper.ReadStreamInChunks(requestStream),
+                Content = StreamHelper.ReadStreamInChunks(requestStream),
                 Host = httpContext.Request.Host.ToString(),
                 Path = httpContext.Request.Path,
                 QueryString = httpContext.Request.QueryString.ToString(),
-                Schema = httpContext.Request.Scheme,
+                StatusCode = (int)HttpStatusCode.InternalServerError,
             };
-            _logger.LogError(ex, "Error {@log}", log);
+            _logger.LogError(ex, "{@log}", log);
 
             await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, ex.Message).ToString());
         }

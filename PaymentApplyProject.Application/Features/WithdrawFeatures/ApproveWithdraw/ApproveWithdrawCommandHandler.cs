@@ -70,7 +70,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
                 Response = responseContent,
                 Url = withdraw.CallbackUrl
             };
-            _logger.LogInformation("Callback Response {@log}", log);
+            _logger.LogInformation("{@log}", log);
 
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException);

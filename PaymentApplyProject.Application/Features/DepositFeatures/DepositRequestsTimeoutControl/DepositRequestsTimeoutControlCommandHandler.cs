@@ -72,7 +72,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     Response = responseContent,
                     Url = timeoutDepositRequest.CallbackUrl
                 };
-                _logger.LogInformation("Callback Response {@log}", log);
+                _logger.LogInformation("{@log}", log);
             }
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK);
