@@ -24,7 +24,8 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var deposits = _paymentContext.Deposits.Where(x =>
-            (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
+            x.BankAccount != null
+            && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
             && !x.Deleted);
 
             var withdraws = _paymentContext.Withdraws.Where(x =>
