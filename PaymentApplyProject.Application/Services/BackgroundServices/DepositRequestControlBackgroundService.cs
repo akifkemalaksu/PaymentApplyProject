@@ -50,8 +50,9 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
                         var log = new BackgroundServiceLogDto
                         {
                             ExecutionCount = _executionCount,
+                            Name = name,
                         };
-                        _logger.LogInformation("Executed {@name} {@log}", name, log);
+                        _logger.LogInformation("{@log}", log);
                     }
                 }
                 catch (Exception ex)
@@ -59,8 +60,9 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
                     var log = new BackgroundServiceLogDto
                     {
                         ExecutionCount = _executionCount,
+                        Name = name,
                     };
-                    _logger.LogError(ex,"Failed to execute {@name} {@log}",name, log);
+                    _logger.LogError(ex, "{@log}", log);
                 }
             }
         }
