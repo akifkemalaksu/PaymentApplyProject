@@ -42,7 +42,8 @@ builder.Services.AddControllersWithViews(configure =>
         Location = ResponseCacheLocation.Any
     });
 })
-.AddRazorRuntimeCompilation();
+.AddRazorRuntimeCompilation()
+.AddNewtonsoftJson();
 
 builder.Services.AddHttpContextAccessor();
 
