@@ -106,7 +106,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             var httpRequest = _httpContextAccessor.HttpContext.Request;
-            var redirectUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/PaymentFrame/Panel/{uniqueTransactionIDHash}";
+            var redirectUrl = $"https://{httpRequest.Host}/PaymentFrame/Panel/{uniqueTransactionIDHash}";
             var depositRequestResult = new DepositRequestResult
             {
                 ExternalTransactionId = depositRequest.Id,
