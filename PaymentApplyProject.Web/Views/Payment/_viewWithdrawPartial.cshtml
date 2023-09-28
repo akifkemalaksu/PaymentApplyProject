@@ -1,7 +1,16 @@
 ﻿@using PaymentApplyProject.Application.Dtos.ResponseDtos
 @using PaymentApplyProject.Domain.Constants
 @using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById
+@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services.InfrastructureServices
+
+@inject IAuthenticatedUserService authenticatedUserService
+
 @model Response<GetWithdrawByIdResult>
+
+@{
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
+}
 
 <div class="row">
     @if (!Model.IsSuccessful)
@@ -38,17 +47,23 @@
                 <span class="font-weight-bold mr-2">Hesap No:</span>
                 <span class="text-muted">@Model.Data.AccountNumber</span>
             </div>
-            <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="font-weight-bold mr-2">Firma:</span>
-                <span class="text-muted">@Model.Data.Company</span>
-            </div>
         </div>
 
         <div class="col-lg-6 col-md-12">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="display-6">Para Yatırma İşlem Bilgileri</h3>
             </div>
-
+            @if (userInfo.DoesHaveAdminRole())
+            {
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold mr-2">Firma:</span>
+                    <span class="text-muted">@Model.Data.Company</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold mr-2">Dış Kaynak Id:</span>
+                    <span class="text-muted">@Model.Data.ExternalTransactionId</span>
+                </div>
+            }
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Durum:</span>
                 @if (Model.Data.StatusId == StatusConstants.WITHDRAW_BEKLIYOR)

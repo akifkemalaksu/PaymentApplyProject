@@ -62,6 +62,7 @@ datatableHelper.datatableOptions.ajax = {
 };
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
+    { data: "externalTransactionId" },
     { data: "company" },
     { data: "customerUsername" },
     { data: "customerNameSurname" },

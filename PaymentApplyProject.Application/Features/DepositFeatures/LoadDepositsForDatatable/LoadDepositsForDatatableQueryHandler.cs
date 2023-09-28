@@ -61,6 +61,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 Id = x.Id,
                 TransactionDate = x.TransactionDate,
                 AddDate = x.AddDate,
+                ExternalTransactionId = x.DepositRequest.UniqueTransactionId
             });
 
             var orderCriteria = "Id";

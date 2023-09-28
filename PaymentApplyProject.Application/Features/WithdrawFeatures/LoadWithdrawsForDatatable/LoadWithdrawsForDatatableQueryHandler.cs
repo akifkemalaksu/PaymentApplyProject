@@ -53,6 +53,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 StatusId = x.WithdrawStatusId,
                 Amount = x.Amount,
                 Id = x.Id,
+                ExternalTransactionId = x.ExternalTransactionId
             });
 
             var orderCriteria = "Id";

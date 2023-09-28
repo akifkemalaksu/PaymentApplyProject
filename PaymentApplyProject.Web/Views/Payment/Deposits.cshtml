@@ -103,6 +103,7 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
+                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.ExternalTransactionId)</th>
                         <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
                         <th>@Html.DisplayNameFor(x => x.CustomerUsername)</th>
                         <th>@Html.DisplayNameFor(x => x.CustomerNameSurname)</th>

@@ -1,7 +1,16 @@
 ﻿@using PaymentApplyProject.Application.Dtos.ResponseDtos
 @using PaymentApplyProject.Domain.Constants
 @using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
+@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services.InfrastructureServices
+
+@inject IAuthenticatedUserService authenticatedUserService
+
 @model Response<GetDepositByIdResult>
+
+@{
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
+}
 
 <div class="row">
     @if (!Model.IsSuccessful)
@@ -55,10 +64,6 @@
                 <span class="font-weight-bold mr-2">Soyad:</span>
                 <span class="text-muted">@Model.Data.CustomerSurname</span>
             </div>
-            <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="font-weight-bold mr-2">Firma:</span>
-                <span class="text-muted">@Model.Data.Company</span>
-            </div>
         </div>
         <div class="col-12">
             <div class="kt-separator kt-separator--md kt-separator--dashed"></div>
@@ -67,7 +72,17 @@
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="display-6">Para Yatırma İşlem Bilgileri</h3>
             </div>
-
+            @if (userInfo.DoesHaveAdminRole())
+            {
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold mr-2">Firma:</span>
+                    <span class="text-muted">@Model.Data.Company</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold mr-2">Dış Kaynak Id:</span>
+                    <span class="text-muted">@Model.Data.ExternalTransactionId</span>
+                </div>
+            }
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Durum:</span>
                 @if (Model.Data.StatusId == StatusConstants.DEPOSIT_BEKLIYOR)

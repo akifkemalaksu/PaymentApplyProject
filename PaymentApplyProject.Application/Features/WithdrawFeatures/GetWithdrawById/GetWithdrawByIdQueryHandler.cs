@@ -36,6 +36,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                     AddDate = x.AddDate,
                     Id = x.Id,
                     TransactionDate = x.TransactionDate,
+                    ExternalTransactionId = x.ExternalTransactionId
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraCekme is null)

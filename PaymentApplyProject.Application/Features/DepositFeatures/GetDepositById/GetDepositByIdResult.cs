@@ -5,6 +5,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
     public class GetDepositByIdResult
     {
         public int Id { get; set; }
+        public string ExternalTransactionId { get; set; }
         public string Company { get; set; }
         public string CustomerUsername { get; set; }
         public string CustomerName { get; set; }

@@ -6,6 +6,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
     {
         [DisplayName("Para Yatırma Id")]
         public int Id { get; set; }
+        [DisplayName("Dış Kaynak Id")]
+        public string ExternalTransactionId { get; set; }
+        [DisplayName("Firma")]
         public string Company { get; set; }
         [DisplayName("Müsteri Kullanıcı Adı")]
         public string CustomerUsername { get; set; }

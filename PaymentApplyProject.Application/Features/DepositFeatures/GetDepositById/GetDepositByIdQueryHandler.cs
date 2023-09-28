@@ -38,7 +38,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
                     Amount = x.Amount,
                     TransactionDate = x.TransactionDate,
                     AddDate = x.AddDate,
-                    Id = x.Id
+                    Id = x.Id,
+                    ExternalTransactionId = x.DepositRequest.UniqueTransactionId
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (paraYatirma == null)

@@ -6,6 +6,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
     {
         [DisplayName("Para Çekme Id")]
         public int Id { get; set; }
+        [DisplayName("Dış Kaynak Id")]
+        public string ExternalTransactionId { get; set; }
+        [DisplayName("Firma")]
         public string Company { get; set; }
         [DisplayName("Müsteri Kullanıcı Adı")]
         public string Username { get; set; }
@@ -18,7 +21,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
         public string AccountNumber { get; set; }
         [DisplayName("Tutar")]
         public decimal Amount { get; set; }
-        
+
         [DisplayName("İşlem Tarihi")]
         public DateTime? TransactionDate { get; set; }
         [DisplayName("Talep Tarihi")]
