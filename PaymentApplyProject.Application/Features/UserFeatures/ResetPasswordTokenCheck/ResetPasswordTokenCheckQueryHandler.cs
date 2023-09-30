@@ -24,7 +24,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTok
             if (userId == null)
                 return Response<ResetPasswordTokenCheckResult>.Error(System.Net.HttpStatusCode.OK, Messages.LinkSuresiDolmusVeyaKullanilmis);
 
-            var resetPasswordTokenCheckResult = new ResetPasswordTokenCheckResult { UserId = userId.Value };
+            var resetPasswordTokenCheckResult = new ResetPasswordTokenCheckResult
+            {
+                UserId = userId.Value,
+                Token = request.Token
+            };
             return Response<ResetPasswordTokenCheckResult>.Success(System.Net.HttpStatusCode.OK, resetPasswordTokenCheckResult);
         }
     }
