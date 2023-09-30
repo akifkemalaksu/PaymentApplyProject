@@ -10,9 +10,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
         public string ExternalTransactionId { get; set; }
         [DisplayName("Firma")]
         public string Company { get; set; }
-        [DisplayName("Müsteri Kullanıcı Adı")]
+        [DisplayName("Müşteri Kullanıcı Adı")]
         public string Username { get; set; }
-        [DisplayName("Müsteri Ad Soyad")]
+        [DisplayName("Müşteri Ad Soyad")]
         public string NameSurname { get; set; }
         public short StatusId { get; set; }
         [DisplayName("Durum")]
