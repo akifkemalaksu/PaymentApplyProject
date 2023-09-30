@@ -1,6 +1,14 @@
-﻿@{
+﻿@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services.InfrastructureServices;
+
+@inject IAuthenticatedUserService authenticatedUserService
+
+@{
     ViewData["Title"] = "Müşteriler";
+
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
 }
+
 @model IEnumerable<PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable.LoadCustomersForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -45,11 +53,14 @@
                         <option value="false">Pasif</option>
                     </select>
                 </div>
-                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                    <label>Firma:</label>
-                    <select name="companyId" id="companyId" class="form-control kt-input">
-                    </select>
-                </div>
+                @if (userInfo.DoesHaveAdminRole())
+                {
+                    <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
+                        <label>Firma:</label>
+                        <select name="companyId" id="companyId" class="form-control kt-input">
+                        </select>
+                    </div>
+                }
             </div>
             <div class="kt-separator kt-separator--md kt-separator--dashed"></div>
             <div class="row">
@@ -67,7 +78,7 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
                         <th>@Html.DisplayNameFor(x => x.Username)</th>
                         <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
                         <th>@Html.DisplayNameFor(x => x.AddDate)</th>

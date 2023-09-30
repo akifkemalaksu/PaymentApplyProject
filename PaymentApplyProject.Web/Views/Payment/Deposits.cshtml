@@ -66,11 +66,14 @@
                 </div>
             </div>
             <div class="row kt-margin-b-20">
-                <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
-                    <label>Firma:</label>
-                    <select name="companyId" id="companyId" class="form-control kt-input">
-                    </select>
-                </div>
+                @if (userInfo.DoesHaveAdminRole())
+                {
+                    <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+                        <label>Firma:</label>
+                        <select name="companyId" id="companyId" class="form-control kt-input">
+                        </select>
+                    </div>
+                }
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                     <label>Müşteri:</label>
                     <select name="customerId" id="customerId" class="form-control kt-input">
