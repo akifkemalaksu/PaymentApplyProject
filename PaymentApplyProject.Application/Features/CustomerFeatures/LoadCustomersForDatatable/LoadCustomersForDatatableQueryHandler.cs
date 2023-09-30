@@ -4,22 +4,30 @@ using PaymentApplyProject.Application.Context;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using System.Linq;
 
 namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable
 {
     public class LoadCustomersForDatatableQueryHandler : IRequestHandler<LoadCustomersForDatatableQuery, DtResult<LoadCustomersForDatatableResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public LoadCustomersForDatatableQueryHandler(IPaymentContext paymentContext)
+        public LoadCustomersForDatatableQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
         {
             _paymentContext = paymentContext;
+            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<DtResult<LoadCustomersForDatatableResult>> Handle(LoadCustomersForDatatableQuery request, CancellationToken cancellationToken)
         {
+            var userInfo = _authenticatedUserService.GetUserInfo();
+            var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
+
             var customers = _paymentContext.Customers.Where(x =>
-                (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
+                (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.CompanyId) : true)
+                && (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
                 && (request.Active == null || x.Active == request.Active)
                 && !x.Deleted
             );

@@ -214,6 +214,42 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kullanıcı aktif değil..
+        /// </summary>
+        public static string KullaniciAktifDegil {
+            get {
+                return ResourceManager.GetString("KullaniciAktifDegil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kullanıcı bulunamadı..
+        /// </summary>
+        public static string KullaniciBulunamadi {
+            get {
+                return ResourceManager.GetString("KullaniciBulunamadi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link süresi dolmuş veya kullanılmış..
+        /// </summary>
+        public static string LinkSuresiDolmusVeyaKullanilmis {
+            get {
+                return ResourceManager.GetString("LinkSuresiDolmusVeyaKullanilmis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Müşteri bulunamadı..
+        /// </summary>
+        public static string MusteriBulunamadi {
+            get {
+                return ResourceManager.GetString("MusteriBulunamadi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bu müşteriye işlemler kapalıdır..
         /// </summary>
         public static string MusteriyeIslemlerKapali {
@@ -255,6 +291,15 @@ namespace PaymentApplyProject.Application.Localizations {
         public static string Reddedilmis {
             get {
                 return ResourceManager.GetString("Reddedilmis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şifre değiştirme işlemi başarılı. Yeni şifreniz ile giriş yapabilirsiniz..
+        /// </summary>
+        public static string SifreDegistirmeIslemiBasarili {
+            get {
+                return ResourceManager.GetString("SifreDegistirmeIslemiBasarili", resourceCulture);
             }
         }
         

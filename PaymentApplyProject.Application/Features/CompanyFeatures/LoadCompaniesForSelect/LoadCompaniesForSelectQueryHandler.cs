@@ -3,21 +3,29 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.SelectDtos;
 using PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForSelect;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForSelect
 {
     public class LoadCompaniesForSelectQueryHandler : IRequestHandler<LoadCompaniesForSelectQuery, SelectResult>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly IAuthenticatedUserService _authenticatedUserService;
 
-        public LoadCompaniesForSelectQueryHandler(IPaymentContext paymentContext)
+        public LoadCompaniesForSelectQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
         {
             _paymentContext = paymentContext;
+            _authenticatedUserService = authenticatedUserService;
         }
 
         public async Task<SelectResult> Handle(LoadCompaniesForSelectQuery request, CancellationToken cancellationToken)
         {
-            var companies = _paymentContext.Companies.Where(x => !x.Deleted);
+            var userInfo = _authenticatedUserService.GetUserInfo();
+            var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
+
+            var companies = _paymentContext.Companies.Where(x =>
+            (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Id) : true)
+            && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 companies = companies.Where(x => x.Name.Contains(request.Search));

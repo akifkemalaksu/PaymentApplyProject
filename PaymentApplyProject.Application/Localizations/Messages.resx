@@ -168,6 +168,18 @@
   <data name="KeyValueIsNull" xml:space="preserve">
     <value>The key is null.</value>
   </data>
+  <data name="KullaniciAktifDegil" xml:space="preserve">
+    <value>Kullanıcı aktif değil.</value>
+  </data>
+  <data name="KullaniciBulunamadi" xml:space="preserve">
+    <value>Kullanıcı bulunamadı.</value>
+  </data>
+  <data name="LinkSuresiDolmusVeyaKullanilmis" xml:space="preserve">
+    <value>Link süresi dolmuş veya kullanılmış.</value>
+  </data>
+  <data name="MusteriBulunamadi" xml:space="preserve">
+    <value>Müşteri bulunamadı.</value>
+  </data>
   <data name="MusteriyeIslemlerKapali" xml:space="preserve">
     <value>Bu müşteriye işlemler kapalıdır.</value>
   </data>
@@ -182,6 +194,9 @@
   </data>
   <data name="Reddedilmis" xml:space="preserve">
     <value>Bu kayıt reddedilmiş.</value>
+  </data>
+  <data name="SifreDegistirmeIslemiBasarili" xml:space="preserve">
+    <value>Şifre değiştirme işlemi başarılı. Yeni şifreniz ile giriş yapabilirsiniz.</value>
   </data>
   <data name="ThereIsDepositSameTransactionId" xml:space="preserve">
     <value>There is a deposit with the same transaction ID.</value>

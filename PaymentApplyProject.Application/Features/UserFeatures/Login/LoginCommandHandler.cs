@@ -49,14 +49,19 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
                     {
                         Name = ky.Role.Name,
                         Id = ky.RoleId
-                    })
+                    }),
+                    Active = x.Active
                 })
                 .FirstOrDefaultAsync(cancellationToken);
             if (user == null)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.GirisBilgisiYanlis);
 
+            if (!user.Active)
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.KullaniciAktifDegil);
+
             if (!(user.DoesHaveAdminRole() || user.DoesHaveUserRole()))
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.YetkinizYok);
+
 
             await _cookieTokenService.SignInAsync(user, request.RememberMe);
 

@@ -28,7 +28,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
             , cancellationToken);
 
             if (user == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, string.Format(Messages.VeriBulunamadi, nameof(User)));
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi);
 
             var isExistSameUsername = await _paymentContext.Users.AnyAsync(x =>
                 x.Username == request.Username

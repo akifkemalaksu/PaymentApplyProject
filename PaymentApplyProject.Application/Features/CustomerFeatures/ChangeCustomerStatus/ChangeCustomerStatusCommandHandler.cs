@@ -20,7 +20,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustom
         {
             var customer = await _paymentContext.Customers.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Deleted, cancellationToken);
             if (customer is null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.MusteriBulunamadi);
 
             customer.Active = !customer.Active;
             _paymentContext.SaveChangesAsync(cancellationToken);

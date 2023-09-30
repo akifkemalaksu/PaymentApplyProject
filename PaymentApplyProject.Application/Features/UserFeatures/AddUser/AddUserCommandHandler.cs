@@ -10,6 +10,8 @@ using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.MailDtos;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 {
@@ -18,12 +20,14 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
         private readonly IPaymentContext _paymentContext;
         private readonly ICustomMapper _customMapper;
         private readonly IMailSenderService _mailSenderService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AddUserCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper, IMailSenderService mailSenderService)
+        public AddUserCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper, IMailSenderService mailSenderService, IHttpContextAccessor httpContextAccessor)
         {
             _paymentContext = paymentContext;
             _customMapper = customMapper;
             _mailSenderService = mailSenderService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Response<NoContent>> Handle(AddUserCommand request, CancellationToken cancellationToken)
@@ -52,21 +56,17 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
             await _paymentContext.Users.AddAsync(user, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var mailBody = string.Format(
-            @"Sisteme yeni kullanıcı olarak eklendiniz.
-
-              Kullanıcı adı: {0}
-
-              Şifre: {1}
-
-              Aşağıdaki linkten giriş yapabilirsiniz.
-
-              https://www.kolayodemeonline.com/account/login", user.Username, user.Password);
+            var mailBody = new StringBuilder();
+            mailBody.AppendLine("Sisteme yeni kullanıcı olarak eklendiniz.");
+            mailBody.AppendLine($"Kullanıcı adı: {user.Username}");
+            mailBody.AppendLine($"Şifre: {user.Password}");
+            mailBody.AppendLine($"Aşağıdaki linkten giriş yapabilirsiniz.");
+            mailBody.AppendLine($"https://{_httpContextAccessor.HttpContext.Request.Host}/account/login");
 
             var mail = new MailDto
             {
                 Subject = MailConstants.NEW_USER_ADDING_SUBJECT,
-                Body = mailBody,
+                Body = mailBody.ToString(),
                 Recipients = new string[] { user.Email }
             };
 

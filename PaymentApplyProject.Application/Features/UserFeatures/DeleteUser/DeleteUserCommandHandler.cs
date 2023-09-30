@@ -20,7 +20,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.DeleteUser
             var user = await _paymentContext.Users.FirstOrDefaultAsync(x => x.Id == request.Id && !x.Deleted, cancellationToken);
 
             if (user == null)
-                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi);
 
             _paymentContext.Users.Remove(user);
 

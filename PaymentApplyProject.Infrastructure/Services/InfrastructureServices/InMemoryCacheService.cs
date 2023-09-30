@@ -22,6 +22,6 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
         public void Remove(string key) => _memoryCache.Remove(key);
 
         public void Set<T>(string key, T value) => _memoryCache.Set(key, value);
-        public void Set<T>(string key, T value, DateTimeOffset expirationTime) => _memoryCache.Set(key, value, expirationTime);
+        public void Set<T>(string key, T value, TimeSpan timeSpan) => _memoryCache.Set(key, value, timeSpan);
     }
 }

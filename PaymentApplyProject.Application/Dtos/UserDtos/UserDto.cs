@@ -20,6 +20,8 @@ namespace PaymentApplyProject.Application.Dtos.UserDtos
         public IEnumerable<RoleDto> Roles { get; set; }
         public IEnumerable<CompanyDto> Companies { get; set; }
 
+        public bool Active { get; set; }
+
         public UserDto()
         {
             Roles = new List<RoleDto>();

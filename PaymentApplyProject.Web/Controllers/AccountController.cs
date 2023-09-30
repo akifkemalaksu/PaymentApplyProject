@@ -12,6 +12,10 @@ using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatabl
 using PaymentApplyProject.Application.Features.UserFeatures.Login;
 using PaymentApplyProject.Application.Features.UserFeatures.Logout;
 using PaymentApplyProject.Application.Features.UserFeatures.DeleteUser;
+using PaymentApplyProject.Application.Features.UserFeatures.ForgotPassword;
+using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck;
+using PaymentApplyProject.Application.Features.UserFeatures.ResetPassword;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -38,6 +42,7 @@ namespace PaymentApplyProject.Web.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Users()
         {
             return View();
@@ -65,6 +70,33 @@ namespace PaymentApplyProject.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        public async Task<IActionResult> Forgot(ForgotPasswordCommand forgotPasswordCommand)
+        {
+            var result = await _mediator.Send(forgotPasswordCommand);
+            return CreateResult(result);
+        }
+
+        [Route("[controller]/[action]/{token}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(string token)
+        {
+            var result = await _mediator.Send(new ResetPasswordTokenCheckQuery { Token = token });
+            if (!result.IsSuccessful)
+                return RedirectToAction("login", "account", new { message = result.Message });
+
+            return View(result.Data);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordProcess(ResetPasswordCommand resetPasswordCommand)
+        {
+            var result = await _mediator.Send(resetPasswordCommand);
+            return CreateResult(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateTokenCommand authenticateCommand)
         {
             var result = await _mediator.Send(authenticateCommand);
@@ -78,6 +110,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserCommand addUserCommand)
         {
@@ -85,6 +118,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserCommand editUserCommand)
         {
@@ -92,6 +126,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand deleteUserCommand)
         {

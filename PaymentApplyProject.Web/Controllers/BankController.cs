@@ -12,7 +12,7 @@ using PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForDatatabl
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,user")]
     public class BankController : CustomController
     {
         private readonly IMediator _mediator;
