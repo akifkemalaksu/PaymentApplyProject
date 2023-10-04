@@ -120,7 +120,7 @@ let save = (form) => {
 
     $(form).ajaxSubmit({
         success: function (response, status, xhr, $form) {
-            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false)
 
             if (!response.isSuccessful) {
                 swal.basic("Hata", response.message, icons.error)
@@ -131,6 +131,11 @@ let save = (form) => {
                 $("#kt_modal").modal('hide')
                 datatableHelper.dtTable.draw()
             })
+        },
+        error: function (response) {
+            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false)
+            let result = response.responseJSON
+            swal.basic("Hata", result.message, icons.error)
         }
     });
 }
