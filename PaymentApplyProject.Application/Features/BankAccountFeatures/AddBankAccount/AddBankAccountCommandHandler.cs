@@ -32,6 +32,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
                 x.BankId == request.BankId
                 && x.LowerLimit <= request.LowerLimit && x.UpperLimit >= request.LowerLimit
                 && x.LowerLimit <= request.UpperLimit && x.UpperLimit >= request.UpperLimit
+                && !x.Deleted
             , cancellationToken);
             if (isExistsRange)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.BuAraliktaBankaHesabiVar);
