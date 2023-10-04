@@ -54,7 +54,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                 CustomerId = request.CustomerId,
                 DepositStatusId = StatusConstants.DEPOSIT_BEKLIYOR,
                 BankAccountId = request.BankAccountId,
-                Amount = request.Amount,
+                Amount = depositRequest.Amount,
                 DepositRequestId = depositRequest.Id,
             };
 
@@ -69,7 +69,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                 Status = StatusConstants.PENDING,
                 ExternalTransactionId = depositRequest.Id,
                 UniqueTransactionId = depositRequest.UniqueTransactionId,
-                Amount = request.Amount,
+                Amount = depositRequest.Amount,
                 Token = _token
             };
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);

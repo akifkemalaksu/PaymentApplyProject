@@ -59,17 +59,6 @@ wizard.on('beforeNext', async (wizardObj) => {
         return;
     }
     if (wizardObj.currentStep === 1) {
-        btnNext.removeClass("d-none");
-        tutarDefines()
-    }
-    else if (wizardObj.currentStep === 2) {
-        let tutar = parser.moneyToFloat(tutarInput.val())
-        if (isNaN(tutar)) {
-            wizardObj.stop();
-            swal.basic("Uyarı", "Geçerli bir tutar giriniz.", icons.warning)
-            return
-        }
-
         let result = await getBankaHesabiBilgisi()
         if (!result) {
             wizard.goTo(1)
@@ -91,16 +80,11 @@ wizard.on('change', function (wizard) {
 let bankaIdInput = $("#bankId");
 let bankaHesapIdInput = $("#bankAccountId");
 let musteriIdInput = $("#customerId");
-let tutarInput = $("#amount");
-
-let tutarDefines = () => {
-    tutarInput.maskMoney({ thousands: '', precision: false, allowZero: false });
-}
 
 let getBankaHesabiBilgisi = async () => {
     let data = {
         bankId: bankaIdInput.val(),
-        amount: parser.moneyToFloat(tutarInput.val())
+        depositRequestId: depositRequestIdInput.val()
     }
     let result = await fetchHelper.send("/paymentframe/getaccountinfo", httpMethods.post, data)
     if (!result.isSuccessful) {
@@ -136,22 +120,19 @@ let fillBankaHesapBilgileriArea = (data) => {
 }
 
 let odemeYap = async () => {
-    let tutar = parser.moneyToFloat(tutarInput.val())
     let data = {
         customerId: musteriIdInput.val(),
         bankAccountId: bankaHesapIdInput.val(),
         depositRequestId: depositRequestIdInput.val(),
-        amount: tutar
     }
 
     let result = await fetchHelper.send("paymentframe/savepayment", httpMethods.post, data)
-
     if (!result.isSuccessful) {
         swal.basic("Hata", result.message, icons.error)
     }
     else {
         btnPayment.addClass("kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light");
-        btnPayment.html("Ödemenin onaylanması bekleniyor");
+        btnPayment.html("Ödemeniz alındı. Sistemin ödemenizi onaylaması bekleniyor...");
         btnPayment.prop("disabled", true);
 
         $(".countdown").hide()

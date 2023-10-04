@@ -46,7 +46,6 @@ namespace PaymentApplyProject.Application.Middlewares
 
         private async Task HandleCallbackExceptionAsync(HttpContext httpContext, CallbackException callbackEx)
         {
-
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 

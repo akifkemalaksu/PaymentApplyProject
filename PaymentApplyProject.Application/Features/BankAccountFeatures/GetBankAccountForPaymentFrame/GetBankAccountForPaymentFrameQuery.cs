@@ -14,7 +14,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
 {
     public class GetBankAccountForPaymentFrameQuery : IRequest<Response<GetBankAccountForPaymentFrameResult>>
     {
-        public int BankId { get; set; }
-        public decimal Amount { get; set; }
+        public short BankId { get; set; }
+        public int DepositRequestId { get; set; }
     }
 }

@@ -97,6 +97,15 @@ namespace PaymentApplyProject.Application.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banka hesabı bulunamadı..
+        /// </summary>
+        public static string BankaHesabiBulunamadi {
+            get {
+                return ResourceManager.GetString("BankaHesabiBulunamadi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mevcutta bekleyen işlem vardır..
         /// </summary>
         public static string BekleyenIslemVar {
@@ -282,6 +291,15 @@ namespace PaymentApplyProject.Application.Localizations {
         public static string Onaylanmis {
             get {
                 return ResourceManager.GetString("Onaylanmis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Para yatırma talebi bulunamadı..
+        /// </summary>
+        public static string ParaYatirmaTalebiBulunamadi {
+            get {
+                return ResourceManager.GetString("ParaYatirmaTalebiBulunamadi", resourceCulture);
             }
         }
         

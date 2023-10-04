@@ -129,6 +129,9 @@
   <data name="AyniMailAdresineSahipKayitVar" xml:space="preserve">
     <value>Bu email adresine sahip kullanıcı mevcut.</value>
   </data>
+  <data name="BankaHesabiBulunamadi" xml:space="preserve">
+    <value>Banka hesabı bulunamadı.</value>
+  </data>
   <data name="BekleyenIslemVar" xml:space="preserve">
     <value>Mevcutta bekleyen işlem vardır.</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="Onaylanmis" xml:space="preserve">
     <value>Bu kayıt onaylanmış.</value>
+  </data>
+  <data name="ParaYatirmaTalebiBulunamadi" xml:space="preserve">
+    <value>Para yatırma talebi bulunamadı.</value>
   </data>
   <data name="Reddedilmis" xml:space="preserve">
     <value>Bu kayıt reddedilmiş.</value>

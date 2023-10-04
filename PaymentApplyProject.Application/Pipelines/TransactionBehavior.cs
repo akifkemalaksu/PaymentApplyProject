@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PaymentApplyProject.Application.Pipelines;
+using PaymentApplyProject.Application.Exceptions;
 
 namespace PaymentApplyProject.Application.Pipelines
 {
@@ -38,6 +39,13 @@ namespace PaymentApplyProject.Application.Pipelines
                     await _paymentContext.CommitTransactionAsync(cancellationToken);
                     _logger.LogInformation($"End transaction: {typeof(TRequest).Name}.");
                 });
+            }
+            catch (CallbackException e)
+            {
+                _logger.LogInformation($"Rollback transaction executed {typeof(TRequest).Name}.");
+                await _paymentContext.RollbackTransactionAsync(cancellationToken);
+
+                throw;
             }
             catch (Exception e)
             {

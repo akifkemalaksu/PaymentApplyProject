@@ -18,12 +18,17 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
 
         public async Task<Response<GetBankAccountForPaymentFrameResult>> Handle(GetBankAccountForPaymentFrameQuery request, CancellationToken cancellationToken)
         {
+            var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == request.DepositRequestId && !x.Deleted, cancellationToken);
+
+            if (depositRequest == null)
+                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.ParaYatirmaTalebiBulunamadi);
+
             var bankAccount = await _paymentContext.BankAccounts
                 .AsNoTracking()
                 .Where(x =>
                     x.BankId == request.BankId
-                    && x.LowerLimit <= request.Amount
-                    && x.UpperLimit >= request.Amount
+                    && x.LowerLimit <= depositRequest.Amount
+                    && x.UpperLimit >= depositRequest.Amount
                     && x.Active
                     && !x.Deleted)
                 .Select(x =>
@@ -36,7 +41,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (bankAccount == null)
-                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
+                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.BankaHesabiBulunamadi);
 
             return Response<GetBankAccountForPaymentFrameResult>.Success(System.Net.HttpStatusCode.OK, bankAccount);
         }

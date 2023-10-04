@@ -78,16 +78,6 @@
                                         <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
                                             <div class="kt-wizard-v1__nav-body">
                                                 <div class="kt-wizard-v1__nav-icon">
-                                                    <i class="la la-edit"></i>
-                                                </div>
-                                                <div class="kt-wizard-v1__nav-label">
-                                                    Tutar
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
-                                            <div class="kt-wizard-v1__nav-body">
-                                                <div class="kt-wizard-v1__nav-icon">
                                                     <i class="fa fa-credit-card"></i>
                                                 </div>
                                                 <div class="kt-wizard-v1__nav-label">
@@ -204,17 +194,6 @@
 
                                     <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
                                         <div class="kt-form__section kt-form__section--first">
-                                            <div class="kt-wizard-v1__form">
-                                                <div class="form-group">
-                                                    <label>Tutar giriniz</label>
-                                                    <input class="form-control" id="amount" name="amount" value="@Model.Amount.ToString("0")">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
-                                        <div class="kt-form__section kt-form__section--first">
                                             <div class="kt-wizard-v1__form row">
                                                 <input type="hidden" name="bankAccountId" id="bankAccountId" />
                                                 <input type="hidden" name="customerId" id="customerId" value="@Model.CustomerId" />
@@ -222,6 +201,16 @@
                                                     <p>
                                                         Ödeme yapınız.
                                                     </p>
+                                                </div>
+                                                <div class="col-12 mt-4">
+                                                    <div class="input-group input-group-lg">
+                                                        <span class="form-control">@Model.Amount.ToString("0")</span>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="la la-turkish-lira kt-font-brand"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 mt-4">
                                                     <div class="input-group input-group-lg">

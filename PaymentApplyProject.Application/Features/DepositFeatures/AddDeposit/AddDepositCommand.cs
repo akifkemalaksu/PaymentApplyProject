@@ -15,6 +15,5 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
         public int DepositRequestId { get; set; }
         public int CustomerId { get; set; }
         public int BankAccountId { get; set; }
-        public decimal Amount { get; set; }
     }
 }
