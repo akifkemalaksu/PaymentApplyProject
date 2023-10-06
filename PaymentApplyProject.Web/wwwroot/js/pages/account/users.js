@@ -99,18 +99,18 @@ let addUserDefines = () => {
 
     formEl.find('[name="Companies"]').serverSelect2({ url: "Companies" })
     formEl.find('[name="Username"]').on('input', function (e) {
-        var inputValue = $(this).val();
-        var sanitizedValue = inputValue.replace(/\s/g, ''); // Remove spaces
+        let inputValue = $(this).val();
+        let sanitizedValue = inputValue.replace(/\s/g, ''); // Remove spaces
         $(this).val(sanitizedValue);
     });
 }
 
 let save = (form) => {
-    saveButton.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
+    saveButton.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true)
 
     $(form).ajaxSubmit({
         success: function (response, status, xhr, $form) {
-            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false)
 
             if (!response.isSuccessful) {
                 swal.basic("Hata", response.message, icons.error)
@@ -121,6 +121,11 @@ let save = (form) => {
                 $("#kt_modal").modal('hide')
                 datatableHelper.dtTable.draw()
             })
+        },
+        error: function (response) {
+            saveButton.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false)
+            let result = response.responseJSON
+            swal.basic("Hata", result.message, icons.error)
         }
     });
 }
