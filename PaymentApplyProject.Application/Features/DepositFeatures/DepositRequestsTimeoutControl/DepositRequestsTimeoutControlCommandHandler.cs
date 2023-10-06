@@ -35,7 +35,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
         {
             var timeoutDepositRequests = _paymentContext.DepositRequests.Where(x =>
             (x.Deposit == null || x.Deposit.Deleted)
-            && (x.ValidTo.HasValue ? x.ValidTo < DateTimeExtensions.LocalNow : x.AddDate < DateTimeExtensions.LocalNow.AddMinutes(-10))
+            && (x.ValidTo.HasValue ? x.ValidTo < DateTimeExtensions.LocalNow : x.AddDate < DateTimeExtensions.LocalNow.AddHours(-1))
             && !x.Deleted).ToList();
 
             if (!timeoutDepositRequests.Any())
