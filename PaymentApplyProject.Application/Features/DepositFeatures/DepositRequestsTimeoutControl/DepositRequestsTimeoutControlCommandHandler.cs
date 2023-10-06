@@ -6,6 +6,7 @@ using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
@@ -32,7 +33,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
 
         public async Task<Response<NoContent>> Handle(DepositRequestsTimeoutControlCommand request, CancellationToken cancellationToken)
         {
-            var timeoutDepositRequests = _paymentContext.DepositRequests.Where(x => (x.Deposit == null || x.Deposit.Deleted) && x.ValidTo < DateTime.Now && !x.Deleted).ToList();
+            var timeoutDepositRequests = _paymentContext.DepositRequests.Where(x => (x.Deposit == null || x.Deposit.Deleted) && x.ValidTo < DateTimeExtensions.LocalNow && !x.Deleted).ToList();
 
             if (!timeoutDepositRequests.Any())
                 return Response<NoContent>.Success(System.Net.HttpStatusCode.OK);

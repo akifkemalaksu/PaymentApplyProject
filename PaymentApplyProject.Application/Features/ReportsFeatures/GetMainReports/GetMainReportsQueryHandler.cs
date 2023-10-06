@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ReportDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 
@@ -48,12 +49,12 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
                 },
                 DailyReport = new AmountReportDto
                 {
-                    DepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date).SumAsync(x => x.Amount, cancellationToken),
-                    ApprovedDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
-                    PendingDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
-                    WithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date).SumAsync(x => x.Amount, cancellationToken),
-                    ApprovedWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
-                    PendingWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
+                    DepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date).SumAsync(x => x.Amount, cancellationToken),
+                    ApprovedDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date && x.DepositStatusId == StatusConstants.DEPOSIT_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
+                    PendingDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date && x.DepositStatusId == StatusConstants.DEPOSIT_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
+                    WithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date).SumAsync(x => x.Amount, cancellationToken),
+                    ApprovedWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
+                    PendingWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTimeExtensions.LocalNow.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
                 },
             };
 
