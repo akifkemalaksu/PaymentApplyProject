@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -40,7 +40,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -72,7 +72,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -84,7 +84,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -124,7 +124,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -133,7 +133,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -160,7 +160,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -172,7 +172,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -213,7 +213,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -237,13 +237,13 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("TransactionDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -268,7 +268,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -292,7 +292,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -336,7 +336,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("ValidTo")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -354,7 +354,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -363,7 +363,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -387,7 +387,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -403,7 +403,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -434,7 +434,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -443,7 +443,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -487,7 +487,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -499,7 +499,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -525,7 +525,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -534,7 +534,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -568,7 +568,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("AddDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("AddedUserId")
                         .HasColumnType("integer");
@@ -590,7 +590,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("EditDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EditedUserId")
                         .HasColumnType("integer");
@@ -606,7 +606,7 @@ namespace PaymentApplyProject.Persistence.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("TransactionDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<short>("WithdrawStatusId")
                         .HasColumnType("smallint");
