@@ -33,7 +33,10 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
 
         public async Task<Response<NoContent>> Handle(DepositRequestsTimeoutControlCommand request, CancellationToken cancellationToken)
         {
-            var timeoutDepositRequests = _paymentContext.DepositRequests.Where(x => (x.Deposit == null || x.Deposit.Deleted) && x.ValidTo < DateTimeExtensions.LocalNow && !x.Deleted).ToList();
+            var timeoutDepositRequests = _paymentContext.DepositRequests.Where(x =>
+            (x.Deposit == null || x.Deposit.Deleted)
+            && (x.ValidTo.HasValue ? x.ValidTo < DateTimeExtensions.LocalNow : x.AddDate < DateTimeExtensions.LocalNow.AddMinutes(-10))
+            && !x.Deleted).ToList();
 
             if (!timeoutDepositRequests.Any())
                 return Response<NoContent>.Success(System.Net.HttpStatusCode.OK);
