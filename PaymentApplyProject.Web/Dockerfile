@@ -5,6 +5,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+ENV TZ=Europe/Istanbul
+ENV LANG tr_TR.UTF-8
+ENV LANGUAGE ${LANG}
+ENV LC_ALL ${LANG}
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["PaymentApplyProject.Web/PaymentApplyProject.Web.csproj", "PaymentApplyProject.Web/"]
