@@ -96,97 +96,14 @@
                                     <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                                         <div class="kt-form__section kt-form__section--first">
                                             <div class="row">
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="1">
-                                                        <img class="img-fluid zoom" alt="akbank" src="~/uploads/images/banks/akbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="2">
-                                                        <img class="img-fluid zoom" alt="albaraka" src="~/uploads/images/banks/albaraka.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="3">
-                                                        <img class="img-fluid zoom" alt="denizbank" src="~/uploads/images/banks/denizbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="4">
-                                                        <img class="img-fluid zoom" alt="enpara" src="~/uploads/images/banks/enpara.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="5">
-                                                        <img class="img-fluid zoom" alt="fibabank" src="~/uploads/images/banks/fibabank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="6">
-                                                        <img class="img-fluid zoom" alt="garanti" src="~/uploads/images/banks/garanti.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="7">
-                                                        <img class="img-fluid zoom" alt="halkbank" src="~/uploads/images/banks/halkbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="8">
-                                                        <img class="img-fluid zoom" alt="ingbank" src="~/uploads/images/banks/ingbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="9">
-                                                        <img class="img-fluid zoom" alt="kuveytturk" src="~/uploads/images/banks/kuveytturk.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="10">
-                                                        <img class="img-fluid zoom" alt="odeabank" src="~/uploads/images/banks/odeabank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="11">
-                                                        <img class="img-fluid zoom" alt="qnbfinans" src="~/uploads/images/banks/qnbfinans.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="12">
-                                                        <img class="img-fluid zoom" alt="sekerbank" src="~/uploads/images/banks/sekerbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="13">
-                                                        <img class="img-fluid zoom" alt="teb" src="~/uploads/images/banks/teb.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="14">
-                                                        <img class="img-fluid zoom" alt="turkiyefinans" src="~/uploads/images/banks/turkiyefinans.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="15">
-                                                        <img class="img-fluid zoom" alt="turkiyeisbankasi" src="~/uploads/images/banks/turkiyeisbankasi.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="16">
-                                                        <img class="img-fluid zoom" alt="vakifbank" src="~/uploads/images/banks/vakifbank.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="17">
-                                                        <img class="img-fluid zoom" alt="yapikredi" src="~/uploads/images/banks/yapikredi.png" />
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-3 my-1">
-                                                    <button class="btn btn-outline-secondary bank" data-bankaId="18">
-                                                        <img class="img-fluid zoom" alt="ziraat" src="~/uploads/images/banks/ziraat.png" />
-                                                    </button>
-                                                </div>
-
+                                                @foreach(var bank in Model.Banks)
+                                                {
+                                                    <div class="col-sm-6 col-md-3 my-1">
+                                                        <button class="btn btn-outline-secondary bank" data-bankaId="@bank.Id">
+                                                            <img class="img-fluid zoom" alt="@bank.Name" src="~/uploads/images/banks/@(bank.Id).png" />
+                                                        </button>
+                                                    </div>
+                                                }
                                             </div>
                                             <input type="hidden" id="bankId" name="bankId" />
                                         </div>

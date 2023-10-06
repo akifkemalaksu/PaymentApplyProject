@@ -24,6 +24,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
         {
             var isExistSameBankAccount = await _paymentContext.BankAccounts.AnyAsync(x =>
                 x.AccountNumber == request.AccountNumber
+                && x.BankId == request.BankId
                 && !x.Deleted, cancellationToken);
             if (isExistSameBankAccount)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);

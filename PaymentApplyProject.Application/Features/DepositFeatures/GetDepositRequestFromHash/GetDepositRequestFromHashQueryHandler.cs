@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Dtos.BankDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services;
@@ -51,6 +52,17 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
             else if (depositRequest.ValidTo.HasValue && depositRequest.ValidTo.Value <= DateTime.Now)
                 return Response<GetDepositRequestFromHashResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositRequestIsTimeout, ErrorCodes.DepositRequestIsTimeout);
 
+            var banks = _paymentContext.BankAccounts.Where(x =>
+                x.LowerLimit <= depositRequest.Amount
+                && x.UpperLimit >= depositRequest.Amount
+                && x.Active
+                && !x.Deleted)
+                .Select(x => new BankDto
+                {
+                    Id = x.Bank.Id,
+                    Name = x.Bank.Name
+                })
+                .ToList();
             var getDepositRequestFromHashResult = new GetDepositRequestFromHashResult
             {
                 CustomerId = customer.Id,
@@ -58,7 +70,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
                 UniqueTransactionIdHash = depositRequest.UniqueTransactionIdHash,
                 DepositRequestId = depositRequest.Id,
                 ValidTo = depositRequest.ValidTo.Value,
-                Amount = depositRequest.Amount
+                Amount = depositRequest.Amount,
+                Banks = banks
             };
 
             return Response<GetDepositRequestFromHashResult>.Success(System.Net.HttpStatusCode.OK, getDepositRequestFromHashResult);
