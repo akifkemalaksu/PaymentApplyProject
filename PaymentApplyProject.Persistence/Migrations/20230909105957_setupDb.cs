@@ -22,8 +22,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,8 +41,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,8 +59,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,8 +79,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,8 +102,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,8 +126,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,8 +155,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,12 +187,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                     UniqueTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     UniqueTransactionIdHash = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    ValidTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ValidTo = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,8 +216,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -247,8 +247,8 @@ namespace PaymentApplyProject.Persistence.Migrations
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,15 +278,15 @@ namespace PaymentApplyProject.Persistence.Migrations
                     AccountNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     BankId = table.Column<short>(type: "smallint", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    TransactionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ExternalTransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     MethodType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     CallbackUrl = table.Column<string>(type: "text", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,12 +322,12 @@ namespace PaymentApplyProject.Persistence.Migrations
                     DepositStatusId = table.Column<short>(type: "smallint", nullable: false),
                     BankAccountId = table.Column<int>(type: "integer", nullable: true),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TransactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    TransactionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedUserId = table.Column<int>(type: "integer", nullable: false),
                     EditedUserId = table.Column<int>(type: "integer", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
