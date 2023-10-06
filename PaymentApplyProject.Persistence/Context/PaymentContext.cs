@@ -61,8 +61,8 @@ namespace PaymentApplyProject.Persistence.Context
             {
                 entity.AddedUserId = _userId;
                 entity.EditedUserId = _userId;
-                entity.AddDate = DateTime.UtcNow;
-                entity.EditDate = DateTime.UtcNow;
+                entity.AddDate = DateTime.Now;
+                entity.EditDate = DateTime.Now;
                 entity.Deleted = false;
             });
         }
@@ -75,7 +75,7 @@ namespace PaymentApplyProject.Persistence.Context
             Parallel.ForEach(updated, entity =>
             {
                 entity.EditedUserId = _userId;
-                entity.EditDate = DateTime.UtcNow;
+                entity.EditDate = DateTime.Now;
             });
         }
 
@@ -88,7 +88,7 @@ namespace PaymentApplyProject.Persistence.Context
             {
                 entity.State = EntityState.Modified;
                 entity.Entity.EditedUserId = _userId;
-                entity.Entity.EditDate = DateTime.UtcNow;
+                entity.Entity.EditDate = DateTime.Now;
                 entity.Entity.Deleted = true;
             });
         }

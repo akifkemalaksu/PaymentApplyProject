@@ -33,55 +33,41 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Para Yatırma İşlemleri
+                            GÜNLÜK Para Yatırma İşlemleri
                         </h3>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
                     <div class="kt-widget25">
-                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DepositAmounts.ToString("c")</span>
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DailyReport.DepositAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Yatırma Tutarı</span>
                         <div class="kt-widget25__items row">
                             <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
-                                    @getMainReportsResult.PendingDepositPercent%
+                                    @getMainReportsResult.DailyReport.PendingDepositPercent%
                                 </span>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.PendingDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.DailyReport.PendingDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="kt-widget25__desc">
                                     Bekleyenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.PendingDepositAmounts.ToString("c")
+                                    @getMainReportsResult.DailyReport.PendingDepositAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
-                                    @getMainReportsResult.ApprovedDepositPercent%
+                                    @getMainReportsResult.DailyReport.ApprovedDepositPercent%
                                 </span>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.ApprovedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.DailyReport.ApprovedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="kt-widget25__desc">
                                     Onaylananlar
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.ApprovedDepositAmounts.ToString("c")
-                                </span>
-                            </div>
-                            <div class="kt-widget25__item col-sm-12 col-md-4">
-                                <span class="kt-widget25__number">
-                                    @getMainReportsResult.RejectedDepositPercent%
-                                </span>
-                                <div class="progress kt-progress--sm">
-                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: @(getMainReportsResult.RejectedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="kt-widget25__desc">
-                                    Reddedilenler
-                                </span>
-                                <span class="kt-widget25__desc">
-                                    @getMainReportsResult.RejectedDepositAmounts.ToString("c")
+                                    @getMainReportsResult.DailyReport.ApprovedDepositAmounts.ToString("c")
                                 </span>
                             </div>
                         </div>
@@ -94,55 +80,135 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Para Çekme İşlemleri
+                            GÜNLÜK Para Çekme İşlemleri
                         </h3>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
                     <div class="kt-widget25">
-                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.WithdrawAmounts.ToString("c")</span>
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.DailyReport.WithdrawAmounts.ToString("c")</span>
                         <span class="kt-widget25__subtitle">Toplam Para Çekme Tutarı</span>
                         <div class="kt-widget25__items row">
                             <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
-                                    @getMainReportsResult.PendingWithdrawPercent%
+                                    @getMainReportsResult.DailyReport.PendingWithdrawPercent%
                                 </span>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.PendingWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.DailyReport.PendingWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="kt-widget25__desc">
                                     Bekleyenler
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.PendingWithdrawAmounts.ToString("c")
+                                    @getMainReportsResult.DailyReport.PendingWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
-                                    @getMainReportsResult.ApprovedWithdrawPercent%
+                                    @getMainReportsResult.DailyReport.ApprovedWithdrawPercent%
                                 </span>
                                 <div class="progress m-progress--sm">
-                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.ApprovedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.DailyReport.ApprovedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="kt-widget25__desc">
                                     Onaylananlar
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.ApprovedWithdrawAmounts.ToString("c")
+                                    @getMainReportsResult.DailyReport.ApprovedWithdrawAmounts.ToString("c")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            TOPLAM Para Yatırma İşlemleri
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-widget25">
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.TotalReport.DepositAmounts.ToString("c")</span>
+                        <span class="kt-widget25__subtitle">Toplam Para Yatırma Tutarı</span>
+                        <div class="kt-widget25__items row">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.TotalReport.PendingDepositPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.TotalReport.PendingDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Bekleyenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.TotalReport.PendingDepositAmounts.ToString("c")
                                 </span>
                             </div>
                             <div class="kt-widget25__item col-sm-12 col-md-4">
                                 <span class="kt-widget25__number">
-                                    @getMainReportsResult.RejectedWithdrawPercent%
+                                    @getMainReportsResult.TotalReport.ApprovedDepositPercent%
                                 </span>
-                                <div class="progress kt-progress--sm">
-                                    <div class="progress-bar kt-bg-danger" role="progressbar" style="width: @(getMainReportsResult.RejectedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.TotalReport.ApprovedDepositPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <span class="kt-widget25__desc">
-                                    Reddedilenler
+                                    Onaylananlar
                                 </span>
                                 <span class="kt-widget25__desc">
-                                    @getMainReportsResult.RejectedWithdrawAmounts.ToString("c")
+                                    @getMainReportsResult.TotalReport.ApprovedDepositAmounts.ToString("c")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--space kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            TOPLAM Para Çekme İşlemleri
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-widget25">
+                        <span class="kt-widget25__stats m-font-brand">@getMainReportsResult.TotalReport.WithdrawAmounts.ToString("c")</span>
+                        <span class="kt-widget25__subtitle">Toplam Para Çekme Tutarı</span>
+                        <div class="kt-widget25__items row">
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.TotalReport.PendingWithdrawPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-warning" role="progressbar" style="width: @(getMainReportsResult.TotalReport.PendingWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Bekleyenler
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.TotalReport.PendingWithdrawAmounts.ToString("c")
+                                </span>
+                            </div>
+                            <div class="kt-widget25__item col-sm-12 col-md-4">
+                                <span class="kt-widget25__number">
+                                    @getMainReportsResult.TotalReport.ApprovedWithdrawPercent%
+                                </span>
+                                <div class="progress m-progress--sm">
+                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: @(getMainReportsResult.TotalReport.ApprovedWithdrawPercent)%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="kt-widget25__desc">
+                                    Onaylananlar
+                                </span>
+                                <span class="kt-widget25__desc">
+                                    @getMainReportsResult.TotalReport.ApprovedWithdrawAmounts.ToString("c")
                                 </span>
                             </div>
                         </div>

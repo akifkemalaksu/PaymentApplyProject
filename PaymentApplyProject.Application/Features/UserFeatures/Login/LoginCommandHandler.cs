@@ -40,12 +40,12 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
                     Username = x.Username,
                     Surname = x.Surname,
                     Id = x.Id,
-                    Companies = x.UserCompanies.Select(kf => new CompanyDto
+                    Companies = x.UserCompanies.Where(x => !x.Deleted).Select(kf => new CompanyDto
                     {
                         Name = kf.Company.Name,
                         Id = kf.CompanyId
                     }),
-                    Roles = x.UserRoles.Select(ky => new RoleDto
+                    Roles = x.UserRoles.Where(x => !x.Deleted).Select(ky => new RoleDto
                     {
                         Name = ky.Role.Name,
                         Id = ky.RoleId

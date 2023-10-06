@@ -57,7 +57,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             JwtSecurityToken jwtSecurityToken = new(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromHours(_jwtSettings.TokenTimeoutHours)),
+                expires: DateTime.Now.Add(TimeSpan.FromHours(_jwtSettings.TokenTimeoutHours)),
                 claims: claims,
                 signingCredentials: signingCredentials
                 );
