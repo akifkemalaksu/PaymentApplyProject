@@ -9,6 +9,5 @@ namespace PaymentApplyProject.Application.Dtos.LogDtos
     public abstract class LogDto
     {
         public string MachineName { get; } = Environment.MachineName;
-        public string OSVersion { get; } = Environment.OSVersion.ToString();
     }
 }
