@@ -78,7 +78,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
 
             var filteredResultsCount = await deposits.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Deposits.CountAsync(x =>
-            (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
+            x.BankAccount != null
+            && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
             && !x.Deleted, cancellationToken);
 
             return new DtResult<LoadDepositsForDatatableResult>

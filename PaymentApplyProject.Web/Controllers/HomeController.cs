@@ -21,8 +21,13 @@ namespace PaymentApplyProject.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            return View();
+        }
+
+        public async Task<IActionResult> PaymentReport()
+        {
             var result = await _mediator.Send(new GetMainReportsQuery());
-            return View(result);
+            return PartialView("_paymentsReport", result);
         }
     }
 }

@@ -31,11 +31,6 @@ namespace PaymentApplyProject.Web.Controllers
             return View();
         }
 
-        public IActionResult DepositsPartial()
-        {
-            return PartialView("Deposit");
-        }
-
         public IActionResult Withdraws()
         {
             return View();

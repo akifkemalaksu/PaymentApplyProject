@@ -36,6 +36,7 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
             && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
             && !x.Deleted);
 
+            var now = DateTime.Now;
             GetMainReportsResult result = new()
             {
                 TotalReport = new AmountReportDto
@@ -49,12 +50,12 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
                 },
                 DailyReport = new AmountReportDto
                 {
-                    DepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date).SumAsync(x => x.Amount, cancellationToken),
-                    ApprovedDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
-                    PendingDepositAmounts = await deposits.Where(x => x.AddDate.Date == DateTime.Now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
-                    WithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date).SumAsync(x => x.Amount, cancellationToken),
-                    ApprovedWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
-                    PendingWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == DateTime.Now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
+                    DepositAmounts = await deposits.Where(x => x.AddDate.Date == now.Date).SumAsync(x => x.Amount, cancellationToken),
+                    ApprovedDepositAmounts = await deposits.Where(x => x.AddDate.Date == now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
+                    PendingDepositAmounts = await deposits.Where(x => x.AddDate.Date == now.Date && x.DepositStatusId == StatusConstants.DEPOSIT_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
+                    WithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == now.Date).SumAsync(x => x.Amount, cancellationToken),
+                    ApprovedWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_ONAYLANDI).SumAsync(x => x.Amount, cancellationToken),
+                    PendingWithdrawAmounts = await withdraws.Where(x => x.AddDate.Date == now.Date && x.WithdrawStatusId == StatusConstants.WITHDRAW_BEKLIYOR).SumAsync(x => x.Amount, cancellationToken),
                 },
             };
 
