@@ -26,7 +26,6 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTok
 
             var resetPasswordTokenCheckResult = new ResetPasswordTokenCheckResult
             {
-                UserId = userId.Value,
                 Token = request.Token
             };
             return Response<ResetPasswordTokenCheckResult>.Success(System.Net.HttpStatusCode.OK, resetPasswordTokenCheckResult);

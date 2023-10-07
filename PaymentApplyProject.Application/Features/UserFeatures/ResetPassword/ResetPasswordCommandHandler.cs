@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 
@@ -19,7 +20,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPassword
 
         public async Task<Response<NoContent>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _paymentContext.Users.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+            var userId = _cacheService.Get<int?>(request.Token);
+            if (userId == null)
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.LinkSuresiDolmusVeyaKullanilmis);
+
+            var user = await _paymentContext.Users.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
             user.Password = request.Password;
 

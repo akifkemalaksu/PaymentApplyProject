@@ -47,11 +47,14 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ForgotPassword
             var userString = $"({user.Id})-({user.Username})-({user.Email})-({now.ToString("o")})";
             var passwordResetToken = GeneratorHelper.GenerateSha256Key(userString);
 
-            _cacheService.Set(passwordResetToken, user.Id, TimeSpan.FromDays(1));
+            var resetPasswordMinutes = 15;
+
+            _cacheService.Set(passwordResetToken, user.Id, TimeSpan.FromMinutes(resetPasswordMinutes));
 
             var mailBody = new StringBuilder();
             mailBody.AppendLine("Şifre sıfırlama ekranına aşağıdaki linkten ulaşabilirsiniz.");
             mailBody.AppendLine($"https://{_httpContextAccessor.HttpContext.Request.Host}/account/resetpassword/{passwordResetToken}");
+            mailBody.AppendLine($"Uyarı! Şifrenizi sıfırlamak için {resetPasswordMinutes} dakikanız vardır.");
 
             var mail = new MailDto
             {
