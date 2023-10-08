@@ -48,6 +48,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                 Username = x.Username,
                 Id = x.Id,
                 AddDate = x.AddDate,
+                ExternalCustomerId = x.ExternalCustomerId
             });
 
             var orderCriteria = "Id";

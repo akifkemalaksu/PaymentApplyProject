@@ -6,6 +6,8 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
     {
         [DisplayName("Müşteri Id")]
         public int Id { get; set; }
+        [DisplayName("Dış Kaynak Id")]
+        public string ExternalCustomerId { get; set; }
         [DisplayName("Firma")]
         public string Company { get; set; }
         [DisplayName("Kullanıcı Adı")]

@@ -19,6 +19,7 @@ datatableHelper.datatableOptions.ajax = {
 datatableHelper.datatableOptions.columnDefs.push({ "className": "dt-center", "targets": [5, 6] })
 datatableHelper.datatableOptions.columns = [
     { data: "id" },
+    { data: "externalCustomerId" },
     { data: "company" },
     { data: "username" },
     { data: "nameSurname" },
