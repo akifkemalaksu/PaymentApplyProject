@@ -40,7 +40,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                 UpperLimit = x.UpperLimit,
                 Active = x.Active,
                 Id = x.Id,
-                InsertDate = x.AddDate
+                AddDate = x.AddDate
             });
 
             var orderCriteria = "Id";
