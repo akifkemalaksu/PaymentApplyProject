@@ -26,6 +26,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                 .Select(x => new GetWithdrawByIdResult
                 {
                     AccountNumber = x.AccountNumber,
+                    Bank = x.Bank.Name,
                     Status = x.WithdrawStatus.Name,
                     StatusId = x.WithdrawStatusId,
                     Company = x.Customer.Company.Name,

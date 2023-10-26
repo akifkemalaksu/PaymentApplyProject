@@ -33,19 +33,23 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Kullanıcı Adı:</span>
-                <span class="text-muted">@Model.Data.Username</span>
+                <span class="text-muted h5">@Model.Data.Username</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Ad:</span>
-                <span class="text-muted">@Model.Data.Name</span>
+                <span class="text-muted h5">@Model.Data.Name</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Soyad:</span>
-                <span class="text-muted">@Model.Data.Surname</span>
+                <span class="text-muted h5">@Model.Data.Surname</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="font-weight-bold mr-2">Banka:</span>
+                <span class="text-muted h5">@Model.Data.Bank</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Hesap No:</span>
-                <span class="text-muted">@Model.Data.AccountNumber</span>
+                <span class="text-muted h5">@Model.Data.AccountNumber</span>
             </div>
         </div>
 
@@ -57,11 +61,11 @@
             {
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Firma:</span>
-                    <span class="text-muted">@Model.Data.Company</span>
+                    <span class="text-muted h5">@Model.Data.Company</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Dış Kaynak Id:</span>
-                    <span class="text-muted">@Model.Data.ExternalTransactionId</span>
+                    <span class="text-muted h5">@Model.Data.ExternalTransactionId</span>
                 </div>
             }
             <div class="d-flex align-items-center justify-content-between mb-2">
@@ -81,7 +85,7 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Tutar:</span>
-                <span class="text-muted">@Model.Data.Amount.ToString("c")</span>
+                <span class="text-muted h5">@Model.Data.Amount.ToString("c")</span>
             </div>
             @if (Model.Data.TransactionDate != null)
             {
@@ -89,32 +93,32 @@
                 {
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Reddetme Tarihi:</span>
-                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
+                        <span class="text-muted h5">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Reddetme Saati:</span>
-                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
+                        <span class="text-muted h5">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
                     </div>
                 }
                 else if (Model.Data.StatusId == StatusConstants.WITHDRAW_ONAYLANDI)
                 {
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanma Tarihi:</span>
-                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
+                        <span class="text-muted h5">@Model.Data.TransactionDate.Value.ToString("dd.MM.yy")</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold mr-2">Onaylanma Saati:</span>
-                        <span class="text-muted">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
+                        <span class="text-muted h5">@Model.Data.TransactionDate.Value.ToString("hh.mm")</span>
                     </div>
                 }
             }
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Talep Tarihi:</span>
-                <span class="text-muted">@Model.Data.AddDate.ToString("dd.MM.yy")</span>
+                <span class="text-muted h5">@Model.Data.AddDate.ToString("dd.MM.yy")</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold mr-2">Talep Saati:</span>
-                <span class="text-muted">@Model.Data.AddDate.ToString("hh.mm")</span>
+                <span class="text-muted h5">@Model.Data.AddDate.ToString("hh.mm")</span>
             </div>
         </div>
 

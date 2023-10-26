@@ -10,6 +10,7 @@
         public string Username { get; set; }
         public int StatusId { get; set; }
         public string Status { get; set; }
+        public string Bank { get; set; }
         public string AccountNumber { get; set; }
         public decimal Amount { get; set; }
         public DateTime? TransactionDate { get; set; }
