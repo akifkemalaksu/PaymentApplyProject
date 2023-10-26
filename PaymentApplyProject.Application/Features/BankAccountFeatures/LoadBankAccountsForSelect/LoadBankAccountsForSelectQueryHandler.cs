@@ -23,7 +23,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
 
             if (!string.IsNullOrEmpty(request.Search))
                 bankaHesaplar = bankaHesaplar.Where(x =>
-                    (x.Name + " " + x.Surname).Contains(request.Search)
+                    (x.Name + " " + x.Surname + " - " + x.AccountNumber).Contains(request.Search)
                     || x.AccountNumber.Contains(request.Search)
                 );
 
@@ -35,7 +35,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                     .Take(request.PageLength)
                     .Select(x => new Option
                     {
-                        Text = x.Name,
+                        Text = $"{x.Name} {x.Surname} - {x.AccountNumber}",
                         Id = x.Id.ToString(),
                         Disabled = !x.Active
                     }).ToListAsync(cancellationToken)

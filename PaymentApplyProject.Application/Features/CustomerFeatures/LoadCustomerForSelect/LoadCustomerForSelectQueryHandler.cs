@@ -23,8 +23,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
 
             if (!string.IsNullOrEmpty(request.Search))
                 customers = customers.Where(x =>
-                    (x.Name + " " + x.Surname).Contains(request.Search)
-                    || x.Username.Contains(request.Search));
+                    (x.Name + " " + x.Surname).Contains(request.Search));
 
             return new SelectResult
             {
@@ -34,7 +33,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                     .Take(request.PageLength)
                     .Select(x => new Option
                     {
-                        Text = x.Name,
+                        Text = $"{x.Name} {x.Surname}",
                         Id = x.Id.ToString(),
                         Disabled = !x.Active
                     }).ToListAsync(cancellationToken)
