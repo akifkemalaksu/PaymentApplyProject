@@ -5,6 +5,6 @@
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public string SigningKey { get; set; }
-        public double TokenTimeoutHours { get; set; }
+        public double TokenTimeoutMinutes { get; set; }
     }
 }
