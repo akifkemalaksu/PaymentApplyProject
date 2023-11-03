@@ -22,6 +22,10 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankA
 
         public async Task<Response<NoContent>> Handle(EditBankAccountCommand request, CancellationToken cancellationToken)
         {
+            var bankAccount = await _paymentContext.BankAccounts.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            if (bankAccount is null)
+                return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.BankaHesabiBulunamadi);
+
             var isExistSameAccountNumber = await _paymentContext.BankAccounts.AnyAsync(x =>
                 x.Id != request.Id
                 && x.BankId == request.BankId
@@ -31,8 +35,13 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankA
             if (isExistSameAccountNumber)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);
 
-            var bankAccount = _customMapper.Map<BankAccount>(request);
-            _paymentContext.BankAccounts.Entry(bankAccount).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            bankAccount.BankId = request.BankId;
+            bankAccount.Name = request.Name;
+            bankAccount.Surname = request.Surname;
+            bankAccount.AccountNumber = request.AccountNumber;
+            bankAccount.Active = request.Active;
+            bankAccount.LowerLimit = request.LowerLimit;
+            bankAccount.UpperLimit = request.UpperLimit;
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
