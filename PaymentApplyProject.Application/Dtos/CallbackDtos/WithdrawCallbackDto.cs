@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaymentApplyProject.Application.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,31 @@ namespace PaymentApplyProject.Application.Dtos.CallbackDtos
 {
     public class WithdrawCallbackDto
     {
-        public string MethodType { get; set; }
-        public string TransactionId { get; set; }
-        public int ExternalTransactionId { get; set; }
-        public decimal Amount { get; set; }
-        public string CustomerId { get; set; }
-        public string Status { get; set; }
-        public string Message { get; set; }
-        public string Token { get; set; }
+        public string MethodType { get; private set; }
+        public string TransactionId { get; private set; }
+        public int ExternalTransactionId { get; private set; }
+        public decimal Amount { get; private set; }
+        public string CustomerId { get; private set; }
+        public string Status { get; private set; }
+        public string Message { get; private set; }
+        public string Token { get; private set; }
+        public string Hash { get; private set; }
+        public string SecretKey { get; private set; }
+
+        public WithdrawCallbackDto(string methodType, string transactionId, int externalTransactionId, decimal amount, string customerId, string status, string message, string token)
+        {
+            MethodType = methodType;
+            TransactionId = transactionId;
+            ExternalTransactionId = externalTransactionId;
+            Amount = amount;
+            CustomerId = customerId;
+            Status = status;
+            Message = message;
+            Token = token;
+
+            var dataHash = GeneratorHelper.GenerateDataHashForCallback(transactionId, amount, status, token);
+            Hash = dataHash.Hash;
+            SecretKey = dataHash.SecretKey;
+        }
     }
 }

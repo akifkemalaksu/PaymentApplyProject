@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaymentApplyProject.Application.Dtos.CallbackDtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -47,6 +48,28 @@ namespace PaymentApplyProject.Application.Helpers
                     builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
+            }
+        }
+
+        public static GeneratedHashDto GenerateDataHashForCallback(string transactionId, decimal amount, string status, string token)
+        {
+            var dataToHash = $"{token}-{transactionId}-{amount.ToString("0.##")}-{status}";
+
+            var secretKey = Guid.NewGuid().ToString();
+
+            byte[] key = Encoding.UTF8.GetBytes(secretKey);
+            byte[] data = Encoding.UTF8.GetBytes(dataToHash);
+
+            using (HMACSHA256 hmac = new HMACSHA256(key))
+            {
+                byte[] hash = hmac.ComputeHash(data);
+                string result = BitConverter.ToString(hash).Replace("-", "").ToLower();
+
+                return new GeneratedHashDto
+                {
+                    Hash = result,
+                    SecretKey = secretKey
+                };
             }
         }
     }

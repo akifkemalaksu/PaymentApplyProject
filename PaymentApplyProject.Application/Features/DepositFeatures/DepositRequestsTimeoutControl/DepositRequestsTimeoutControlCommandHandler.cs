@@ -8,6 +8,7 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
+using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
@@ -56,17 +57,16 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
                 await _paymentContext.SaveChangesAsync();
 
-                var callbackBody = new DepositCallbackBodyDto
-                {
-                    CustomerId = timeoutDepositRequest.CustomerId,
-                    MethodType = timeoutDepositRequest.MethodType,
-                    Status = StatusConstants.REJECTED,
-                    Message = Messages.DepositRequestIsTimeout,
-                    ExternalTransactionId = timeoutDepositRequest.Id,
-                    UniqueTransactionId = timeoutDepositRequest.UniqueTransactionId,
-                    Amount = timeoutDepositRequest.Amount,
-                    Token = _token
-                };
+                var callbackBody = new DepositCallbackBodyDto(
+                    methodType: timeoutDepositRequest.MethodType,
+                    externalTransactionId: timeoutDepositRequest.Id,
+                    uniqueTransactionId: timeoutDepositRequest.UniqueTransactionId,
+                    customerId: timeoutDepositRequest.CustomerId,
+                    amount: timeoutDepositRequest.Amount,
+                    status: StatusConstants.REJECTED,
+                    message: Messages.DepositRequestIsTimeout,
+                    token: _token
+                    );
                 var callbackResponse = await _httpClient.PostAsJsonAsync(timeoutDepositRequest.CallbackUrl, callbackBody, cancellationToken);
                 string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 

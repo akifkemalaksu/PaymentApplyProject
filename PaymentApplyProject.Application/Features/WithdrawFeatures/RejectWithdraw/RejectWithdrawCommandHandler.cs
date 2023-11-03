@@ -50,17 +50,16 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var callbackBody = new WithdrawCallbackDto
-            {
-                CustomerId = withdraw.Customer.ExternalCustomerId,
-                MethodType = withdraw.MethodType,
-                Status = StatusConstants.REJECTED,
-                Message = request.Message,
-                TransactionId = withdraw.ExternalTransactionId,
-                ExternalTransactionId = withdraw.Id,
-                Amount = withdraw.Amount,
-                Token = _token
-            };
+            var callbackBody = new WithdrawCallbackDto(
+                methodType: withdraw.MethodType,
+                transactionId: withdraw.ExternalTransactionId,
+                externalTransactionId: withdraw.Id,
+                amount: withdraw.Amount,
+                customerId: withdraw.Customer.ExternalCustomerId,
+                status: StatusConstants.REJECTED,
+                message: request.Message,
+                token: _token
+                );
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 

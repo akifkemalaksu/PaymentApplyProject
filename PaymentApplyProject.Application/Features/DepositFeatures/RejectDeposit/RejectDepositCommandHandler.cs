@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Services.HubServices;
+using PaymentApplyProject.Application.Helpers;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit
 {
@@ -57,17 +58,17 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit
 
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == deposit.DepositRequestId && !x.Deleted, cancellationToken);
 
-            var callbackBody = new DepositCallbackBodyDto
-            {
-                CustomerId = depositRequest.CustomerId,
-                MethodType = depositRequest.MethodType,
-                Status = StatusConstants.REJECTED,
-                Message = request.Message,
-                ExternalTransactionId = depositRequest.Id,
-                UniqueTransactionId = depositRequest.UniqueTransactionId,
-                Amount = deposit.Amount,
-                Token = _token
-            };
+            var callbackBody = new DepositCallbackBodyDto(
+                methodType: depositRequest.MethodType,
+                externalTransactionId: depositRequest.Id,
+                uniqueTransactionId: depositRequest.UniqueTransactionId,
+                customerId: depositRequest.CustomerId,
+                amount: depositRequest.Amount,
+                status: StatusConstants.REJECTED,
+                message: request.Message,
+                token: _token
+                );
+
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 

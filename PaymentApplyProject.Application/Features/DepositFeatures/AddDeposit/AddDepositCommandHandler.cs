@@ -61,17 +61,15 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-
-            var callbackBody = new DepositCallbackBodyDto
-            {
-                CustomerId = depositRequest.CustomerId,
-                MethodType = depositRequest.MethodType,
-                Status = StatusConstants.PENDING,
-                ExternalTransactionId = depositRequest.Id,
-                UniqueTransactionId = depositRequest.UniqueTransactionId,
-                Amount = depositRequest.Amount,
-                Token = _token
-            };
+            var callbackBody = new DepositCallbackBodyDto(
+                methodType: depositRequest.MethodType,
+                externalTransactionId: depositRequest.Id,
+                uniqueTransactionId: depositRequest.UniqueTransactionId,
+                customerId: depositRequest.CustomerId,
+                amount: depositRequest.Amount,
+                status: StatusConstants.PENDING,
+                message: string.Empty,
+                token: _token);
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
