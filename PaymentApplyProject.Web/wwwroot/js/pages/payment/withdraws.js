@@ -86,6 +86,12 @@ datatableHelper.datatableOptions.columns = [
         },
     }
 ];
+
+datatableHelper.datatableOptions.drawCallback = (settings) => {
+    let totalAmount = formatter.toMoney(settings.json.tfootData);
+    $(settings.nTFoot).find('th.total-amount').html(totalAmount);
+}
+
 datatableHelper.initialize($("#kt_table_1"));
 
 let goruntule = async (id, nameSurname) => {
