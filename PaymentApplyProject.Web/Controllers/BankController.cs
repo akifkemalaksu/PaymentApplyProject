@@ -32,11 +32,13 @@ namespace PaymentApplyProject.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult ViewAddBankAccountPartial()
         {
             return PartialView("_viewAddBankAccountPartial");
         }
 
+        [Authorize(Roles = "admin")]
         [Route("[controller]/[action]/{id}")]
         public async Task<IActionResult> ViewEditBankAccountPartial(int id)
         {
@@ -59,6 +61,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> AddBankAccount(AddBankAccountCommand addBankAccountCommand)
         {
@@ -66,6 +69,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditBankAccount(EditBankAccountCommand editBankAccountCommand)
         {
@@ -73,6 +77,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteBankAccount([FromBody] DeleteBankAccountCommand deleteBankAccountCommand)
         {

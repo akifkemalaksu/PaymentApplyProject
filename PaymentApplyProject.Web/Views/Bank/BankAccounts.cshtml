@@ -1,7 +1,15 @@
-﻿@{
+﻿@using PaymentApplyProject.Application.Dtos.ResponseDtos
+@using PaymentApplyProject.Application.Dtos.UserDtos
+@using PaymentApplyProject.Application.Services.InfrastructureServices
+@using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable
+
+@inject IAuthenticatedUserService authenticatedUserService
+
+@{
     ViewData["Title"] = "Banka Hesaplar";
+    UserDto userInfo = authenticatedUserService.GetUserInfo();
 }
-@model IEnumerable<PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable.LoadBankAccountsForDatatableResult>
+@model IEnumerable<LoadBankAccountsForDatatableResult>
 
 <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
@@ -70,12 +78,15 @@
                             <span>Reset</span>
                         </span>
                     </button>
-                    <button class="btn btn-success float-right" id="ekle">
-                        <span>
-                            <i class="flaticon-add"></i>
-                            <span>Yeni</span>
-                        </span>
-                    </button>
+                    @if (userInfo.DoesHaveAdminRole())
+                    {
+                        <button class="btn btn-success float-right" id="ekle">
+                            <span>
+                                <i class="flaticon-add"></i>
+                                <span>Yeni</span>
+                            </span>
+                        </button>
+                    }
                 </div>
             </div>
             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
@@ -90,7 +101,7 @@
                         <th>@Html.DisplayNameFor(x => x.UpperLimit)</th>
                         <th>@Html.DisplayNameFor(x => x.AddDate)</th>
                         <th>@Html.DisplayNameFor(x => x.Active)</th>
-                        <th class="no-sort">İşlemler</th>
+                        <th @(!userInfo.DoesHaveAdminRole() ? "class=no-visible no-sort" : "class=no-sort")>İşlemler</th>
                     </tr>
                 </thead>
             </table>
