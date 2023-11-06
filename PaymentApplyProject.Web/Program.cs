@@ -20,6 +20,19 @@ using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//// hint: default TR culture
+//var cultureInfo = new CultureInfo("tr-TR");
+//cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+//cultureInfo.NumberFormat.CurrencyDecimalSeparator = ",";
+//CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+//CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+//builder.Services.AddRequestLocalization(options =>
+//{
+//    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(cultureInfo);
+//    options.SupportedCultures = new[] { cultureInfo };
+//    options.SupportedUICultures = new[] { cultureInfo };
+//});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews(configure =>
 {

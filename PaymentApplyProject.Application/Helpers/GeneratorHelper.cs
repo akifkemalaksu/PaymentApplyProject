@@ -51,13 +51,11 @@ namespace PaymentApplyProject.Application.Helpers
             }
         }
 
-        public static GeneratedHashDto GenerateDataHashForCallback(string transactionId, decimal amount, string status, string token)
+        public static string GenerateDataHashForCallback(GenerateHashDto generateHash)
         {
-            var dataToHash = $"{token}-{transactionId}-{amount.ToString("0.##")}-{status}";
+            var dataToHash = $"{generateHash.Token}-{generateHash.TransactionId}-{generateHash.Amount.ToString("0.##")}-{generateHash.Status}";
 
-            var secretKey = Guid.NewGuid().ToString();
-
-            byte[] key = Encoding.UTF8.GetBytes(secretKey);
+            byte[] key = Encoding.UTF8.GetBytes(generateHash.Password);
             byte[] data = Encoding.UTF8.GetBytes(dataToHash);
 
             using (HMACSHA256 hmac = new HMACSHA256(key))
@@ -65,11 +63,7 @@ namespace PaymentApplyProject.Application.Helpers
                 byte[] hash = hmac.ComputeHash(data);
                 string result = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
-                return new GeneratedHashDto
-                {
-                    Hash = result,
-                    SecretKey = secretKey
-                };
+                return result;
             }
         }
     }

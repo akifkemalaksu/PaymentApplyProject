@@ -57,6 +57,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 await _paymentContext.Deposits.AddAsync(deposit, cancellationToken);
                 await _paymentContext.SaveChangesAsync();
 
+                var companyAuthUser = await _paymentContext.Users.FirstOrDefaultAsync(x =>
+                x.UserRoles.Any(ur => ur.RoleId == RoleConstants.CUSTOMER_ID && !ur.Deleted)
+                && x.UserCompanies.Any(uc => uc.CompanyId == timeoutDepositRequest.CompanyId && !uc.Deleted)
+                && !x.Deleted, cancellationToken);
+
                 var callbackBody = new DepositCallbackBodyDto(
                     methodType: timeoutDepositRequest.MethodType,
                     externalTransactionId: timeoutDepositRequest.Id,
@@ -65,8 +70,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                     amount: timeoutDepositRequest.Amount,
                     status: StatusConstants.REJECTED,
                     message: Messages.DepositRequestIsTimeout,
-                    token: _token
-                    );
+                    token: _token,
+                    password: companyAuthUser.Password);
+
                 var callbackResponse = await _httpClient.PostAsJsonAsync(timeoutDepositRequest.CallbackUrl, callbackBody, cancellationToken);
                 string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
