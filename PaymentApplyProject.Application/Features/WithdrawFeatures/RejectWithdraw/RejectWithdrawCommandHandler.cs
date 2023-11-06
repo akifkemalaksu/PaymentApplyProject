@@ -50,6 +50,11 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
+            var companyAuthUser = await _paymentContext.Users.FirstOrDefaultAsync(x =>
+               x.UserRoles.Any(ur => ur.RoleId == RoleConstants.CUSTOMER_ID && !ur.Deleted)
+               && x.UserCompanies.Any(uc => uc.CompanyId == withdraw.Customer.CompanyId && !uc.Deleted)
+               && !x.Deleted, cancellationToken);
+
             var callbackBody = new WithdrawCallbackDto(
                 methodType: withdraw.MethodType,
                 transactionId: withdraw.ExternalTransactionId,
@@ -58,8 +63,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
                 customerId: withdraw.Customer.ExternalCustomerId,
                 status: StatusConstants.REJECTED,
                 message: request.Message,
-                token: _token
-                );
+                token: _token,
+                password: companyAuthUser.Password);
+
             var callbackResponse = await _httpClient.PostAsJsonAsync(withdraw.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 

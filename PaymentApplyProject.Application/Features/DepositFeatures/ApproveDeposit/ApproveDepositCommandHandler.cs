@@ -58,6 +58,11 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
 
             var depositRequest = await _paymentContext.DepositRequests.FirstOrDefaultAsync(x => x.Id == deposit.DepositRequestId && !x.Deleted, cancellationToken);
 
+            var companyAuthUser = await _paymentContext.Users.FirstOrDefaultAsync(x =>
+                x.UserRoles.Any(ur => ur.RoleId == RoleConstants.CUSTOMER_ID && !ur.Deleted)
+                && x.UserCompanies.Any(uc => uc.CompanyId == depositRequest.CompanyId && !uc.Deleted)
+                && !x.Deleted, cancellationToken);
+
             var callbackBody = new DepositCallbackBodyDto(
                 methodType: depositRequest.MethodType,
                 externalTransactionId: depositRequest.Id,
@@ -66,8 +71,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
                 amount: depositRequest.Amount,
                 status: StatusConstants.APPROVED,
                 message: string.Empty,
-                token: _token
-                );
+                token: _token,
+                password: companyAuthUser.Password);
             var callbackResponse = await _httpClient.PostAsJsonAsync(depositRequest.CallbackUrl, callbackBody, cancellationToken);
             string responseContent = await callbackResponse.Content.ReadAsStringAsync();
 
