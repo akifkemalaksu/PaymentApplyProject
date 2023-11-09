@@ -81,7 +81,8 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
                 Data = await withdrawsMapped
                         .Skip(request.Start)
                         .Take(request.Length)
-                        .ToListAsync(cancellationToken)
+                        .ToListAsync(cancellationToken),
+                TfootData = await withdrawsMapped.SumAsync(x => x.Amount, cancellationToken)
             };
         }
     }

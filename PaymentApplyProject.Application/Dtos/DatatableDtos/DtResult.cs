@@ -42,6 +42,9 @@ namespace PaymentApplyProject.Application.Dtos.DatatableDtos
         [JsonPropertyName("data")]
         public IEnumerable<T> Data { get; set; }
 
+        [JsonPropertyName("tfootData")]
+        public object TfootData { get; set; }
+
         /// <summary>
         /// Optional: If an error occurs during the running of the server-side processing script, you can inform the user of this error by passing back the error message to be displayed using this parameter.
         /// Do not include if there is no error.

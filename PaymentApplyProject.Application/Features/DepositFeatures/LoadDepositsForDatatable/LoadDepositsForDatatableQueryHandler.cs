@@ -90,7 +90,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsF
                 Data = await depositsMapped
                         .Skip(request.Start)
                         .Take(request.Length)
-                        .ToListAsync(cancellationToken)
+                        .ToListAsync(cancellationToken),
+                TfootData = await depositsMapped.SumAsync(x => x.Amount, cancellationToken)
             };
         }
     }
