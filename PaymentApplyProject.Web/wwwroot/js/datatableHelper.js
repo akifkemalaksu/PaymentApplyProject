@@ -30,7 +30,10 @@
                 }
             },
             { targets: "date-type", type: "date-tr" }
-        ]
+        ],
+        infoCallback: (settings, start, end, max, total, pre) => {
+            return start + " - " + end + " (Filtrelenen: " + total + ", Toplam: " + max + ")";
+        }
     },
     initialize: (table) => {
         datatableHelper.dtTable = table.DataTable(datatableHelper.datatableOptions);
