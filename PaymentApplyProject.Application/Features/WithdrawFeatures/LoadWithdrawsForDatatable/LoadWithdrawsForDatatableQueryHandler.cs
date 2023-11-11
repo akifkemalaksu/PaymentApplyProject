@@ -27,7 +27,7 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdraw
 
             var withdraws = _paymentContext.Withdraws.Where(x =>
                 (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
-                && (x.AddDate >= request.StartDate && x.AddDate <= request.EndDate) // todo: sunucu almanyada olduğu için tarihi ona göre çekmek lazım
+                && (!x.TransactionDate.HasValue || (x.TransactionDate.Value >= request.StartDate && x.TransactionDate.Value <= request.EndDate))
                 && (request.CompanyId == 0 || x.Customer.CompanyId == request.CompanyId)
                 && (request.CustomerId == 0 || x.CustomerId == request.CustomerId)
                 && (request.StatusId == 0 || x.WithdrawStatusId == request.StatusId)
