@@ -57,7 +57,7 @@
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="display-6">Para Çekme İşlem Bilgileri</h3>
             </div>
-            @if (userInfo.DoesHaveAdminRole())
+            @if (userInfo.DoesHaveAdminRole() || userInfo.DoesHaveAccountingRole())
             {
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Firma:</span>
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        if (Model.Data.StatusId == StatusConstants.WITHDRAW_BEKLIYOR)
+        if (Model.Data.StatusId == StatusConstants.WITHDRAW_BEKLIYOR && !userInfo.DoesHaveAccountingRole())
         {
             <div class="col-12">
                 <div class="kt-separator kt-separator--md kt-separator--dashed"></div>

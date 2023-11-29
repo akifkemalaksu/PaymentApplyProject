@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
             var users = _paymentContext.Users.Where(x =>
                 (request.Active == null || x.Active == request.Active)
                 && x.UserRoles.Any(ky =>
-                    ky.Role.Id == RoleConstants.USER_ID
+                    (ky.Role.Id == RoleConstants.USER_ID || ky.Role.Id == RoleConstants.ACCOUNTING_ID)
                     && !ky.Deleted)
                 && !x.Deleted);
 
@@ -64,7 +64,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
             var filteredResultsCount = await users.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Users.CountAsync(x =>
                 x.UserRoles.Any(ky =>
-                    ky.Role.Id == RoleConstants.USER_ID
+                    (ky.Role.Id == RoleConstants.USER_ID || ky.Role.Id == RoleConstants.ACCOUNTING_ID)
                     && !ky.Deleted)
                 && !x.Deleted
             , cancellationToken);

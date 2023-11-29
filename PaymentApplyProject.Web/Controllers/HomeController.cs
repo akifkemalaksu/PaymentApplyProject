@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin,user,accounting")]
     public class HomeController : Controller
     {
         private readonly IMediator _mediator;

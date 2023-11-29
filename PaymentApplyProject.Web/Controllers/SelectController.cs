@@ -8,7 +8,7 @@ using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomerForS
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin,user,accounting")]
     public class SelectController : Controller
     {
         private readonly IMediator _mediator;

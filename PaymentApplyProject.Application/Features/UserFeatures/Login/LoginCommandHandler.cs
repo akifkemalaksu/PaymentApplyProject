@@ -59,7 +59,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Login
             if (!user.Active)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.KullaniciAktifDegil);
 
-            if (!(user.DoesHaveAdminRole() || user.DoesHaveUserRole()))
+            if (!(user.DoesHaveAdminRole() || user.DoesHaveUserRole() || user.DoesHaveAccountingRole()))
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.YetkinizYok);
 
 

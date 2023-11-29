@@ -9,7 +9,7 @@ using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersFor
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin,user,accounting")]
     public class CompanyController : CustomController
     {
         private readonly IMediator _mediator;
@@ -19,7 +19,7 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,accounting")]
         public IActionResult Index()
         {
             return View();
@@ -30,7 +30,7 @@ namespace PaymentApplyProject.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,accounting")]
         [HttpPost]
         public async Task<IActionResult> LoadCompanies(LoadCompaniesForDatatableQuery loadCompaniesForDatatableQuery)
         {
@@ -54,6 +54,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "admin")]
         [Route("[controller]/[action]/{id}")]
         [HttpPost]
         public async Task<IActionResult> ChangeCustomerStatus(int id)

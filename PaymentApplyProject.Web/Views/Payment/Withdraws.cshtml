@@ -66,7 +66,7 @@
                         <option value="@StatusConstants.WITHDRAW_ONAYLANDI">Onaylandı</option>
                     </select>
                 </div>
-                @if (userInfo.DoesHaveAdminRole())
+                @if (userInfo.DoesHaveAdminRole() || userInfo.DoesHaveAccountingRole())
                 {
                     <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
                         <label>Firma:</label>

@@ -19,7 +19,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.ResetPassword;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin,user,accounting")]
     public class AccountController : CustomController
     {
         private readonly IMediator _mediator;
@@ -42,18 +42,19 @@ namespace PaymentApplyProject.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,accounting")]
         public IActionResult Users()
         {
             return View();
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult ViewAddUserPartial()
         {
             return PartialView("_viewAddUserPartial");
         }
 
         [Route("[controller]/[action]/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ViewEditUserPartial(int id)
         {
             var result = await _mediator.Send(new GetUserByIdAndRoleQuery { Id = id, RoleId = RoleConstants.USER_ID });

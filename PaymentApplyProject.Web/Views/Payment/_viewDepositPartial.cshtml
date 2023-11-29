@@ -72,7 +72,7 @@
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="display-6">Para Yatırma İşlem Bilgileri</h3>
             </div>
-            @if (userInfo.DoesHaveAdminRole())
+            @if (userInfo.DoesHaveAdminRole() || userInfo.DoesHaveAccountingRole())
             {
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Firma:</span>
@@ -136,7 +136,7 @@
                 <span class="text-muted h5">@Model.Data.AddDate.ToString("hh.mm")</span>
             </div>
         </div>
-        if (Model.Data.StatusId == StatusConstants.DEPOSIT_BEKLIYOR)
+        if (Model.Data.StatusId == StatusConstants.DEPOSIT_BEKLIYOR && !userInfo.DoesHaveAccountingRole())
         {
             <div class="col-lg-6 col-md-12">
                 <div class="d-flex align-items-center justify-content-between mb-2">

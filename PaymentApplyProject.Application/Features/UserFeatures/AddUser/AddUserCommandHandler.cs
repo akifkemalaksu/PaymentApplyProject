@@ -51,7 +51,10 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
             user.UserRoles = new List<UserRole> { new()
             {
                 RoleId = RoleConstants.USER_ID
-            }};
+            }
+            //, new (){
+            //    RoleId = RoleConstants.ACCOUNTING_ID }
+            };
 
             await _paymentContext.Users.AddAsync(user, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);

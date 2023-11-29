@@ -6,6 +6,7 @@ using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
 using PaymentApplyProject.Application.Dtos.UserDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {
@@ -26,7 +27,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
                 .Where(x =>
                     x.Id == request.Id
                     && x.UserRoles.Any(ky =>
-                        ky.RoleId == request.RoleId
+                        (ky.RoleId == request.RoleId || ky.RoleId == RoleConstants.ACCOUNTING_ID)
                         && !ky.Deleted
                     )
                     && !x.Deleted)

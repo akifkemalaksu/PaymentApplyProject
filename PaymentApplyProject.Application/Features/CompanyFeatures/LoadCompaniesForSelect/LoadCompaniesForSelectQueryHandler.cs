@@ -24,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var companies = _paymentContext.Companies.Where(x =>
-            (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Id) : true)
+            (userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? companyIds.Contains(x.Id) : true)
             && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))

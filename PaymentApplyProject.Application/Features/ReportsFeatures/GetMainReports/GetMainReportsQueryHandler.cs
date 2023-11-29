@@ -28,12 +28,12 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
             var deposits = _paymentContext.Deposits.Where(x =>
             x.BankAccount != null
             && new int[] { StatusConstants.DEPOSIT_ONAYLANDI, StatusConstants.DEPOSIT_BEKLIYOR }.Contains(x.DepositStatusId)
-            && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
+            && (userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
             && !x.Deleted);
 
             var withdraws = _paymentContext.Withdraws.Where(x =>
             new int[] { StatusConstants.WITHDRAW_ONAYLANDI, StatusConstants.WITHDRAW_BEKLIYOR }.Contains(x.WithdrawStatusId)
-            && (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
+            && (userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? companyIds.Contains(x.Customer.CompanyId) : true)
             && !x.Deleted);
 
             var now = DateTime.Now;

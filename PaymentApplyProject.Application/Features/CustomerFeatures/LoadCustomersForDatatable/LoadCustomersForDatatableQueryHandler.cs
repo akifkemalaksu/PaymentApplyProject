@@ -26,7 +26,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
             var customers = _paymentContext.Customers.Where(x =>
-                (userInfo.DoesHaveUserRole() ? companyIds.Contains(x.CompanyId) : true)
+                (userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? companyIds.Contains(x.CompanyId) : true)
                 && (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
                 && (request.Active == null || x.Active == request.Active)
                 && !x.Deleted

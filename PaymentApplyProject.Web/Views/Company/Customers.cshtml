@@ -53,7 +53,7 @@
                         <option value="false">Pasif</option>
                     </select>
                 </div>
-                @if (userInfo.DoesHaveAdminRole())
+                @if (userInfo.DoesHaveAdminRole() || userInfo.DoesHaveAccountingRole())
                 {
                     <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
                         <label>Firma:</label>
@@ -78,8 +78,8 @@
                 <thead>
                     <tr role="row">
                         <th>@Html.DisplayNameFor(x => x.Id)</th>
-                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.ExternalCustomerId)</th>
-                        <th @(userInfo.DoesHaveUserRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
+                        <th @(userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.ExternalCustomerId)</th>
+                        <th @(userInfo.DoesHaveUserRole() || userInfo.DoesHaveAccountingRole() ? "class=no-visible" : "")>@Html.DisplayNameFor(x => x.Company)</th>
                         <th>@Html.DisplayNameFor(x => x.Username)</th>
                         <th>@Html.DisplayNameFor(x => x.NameSurname)</th>
                         <th>@Html.DisplayNameFor(x => x.AddDate)</th>

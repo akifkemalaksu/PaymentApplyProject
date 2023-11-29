@@ -16,7 +16,7 @@ using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin,user,accounting")]
     public class PaymentController : CustomController
     {
         private readonly IMediator _mediator;

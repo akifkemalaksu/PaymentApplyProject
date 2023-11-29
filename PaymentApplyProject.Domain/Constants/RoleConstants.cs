@@ -8,12 +8,14 @@ namespace PaymentApplyProject.Domain.Constants
 {
     public static class RoleConstants
     {
-        public const string ADMIN = "admin";
-        public const string USER = "user";
-        public const string CUSTOMER = "customer";
+        public static string ADMIN => "admin";
+        public static string USER => "user";
+        public static string CUSTOMER => "customer";
+        public static string ACCOUNTING => "accounting";
 
-        public const short ADMIN_ID = 1;
-        public const short USER_ID = 2;
-        public const short CUSTOMER_ID = 3;
+        public static short ADMIN_ID => 1;
+        public static short USER_ID => 2;
+        public static short CUSTOMER_ID => 3;
+        public static short ACCOUNTING_ID => 4;
     }
 }

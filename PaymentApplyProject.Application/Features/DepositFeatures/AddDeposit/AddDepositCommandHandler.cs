@@ -100,7 +100,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             };
             var usernames = await _paymentContext.Users.Where(x =>
                 (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.ADMIN_ID && !ur.Deleted)
-                || (x.UserRoles.Any(ur => ur.RoleId == RoleConstants.USER_ID && !ur.Deleted)
+                || (x.UserRoles.Any(ur => (ur.RoleId == RoleConstants.USER_ID || ur.RoleId == RoleConstants.ACCOUNTING_ID) && !ur.Deleted)
                     && x.UserCompanies.Any(uc => uc.CompanyId == customer.CompanyId && !uc.Deleted)))
                 && !x.Deleted
             ).Select(x => x.Username).ToListAsync(cancellationToken);

@@ -30,5 +30,6 @@ namespace PaymentApplyProject.Application.Dtos.UserDtos
 
         public bool DoesHaveUserRole() => Roles.ToList().Any(x => x.Id == RoleConstants.USER_ID);
         public bool DoesHaveAdminRole() => Roles.ToList().Any(x => x.Id == RoleConstants.ADMIN_ID);
+        public bool DoesHaveAccountingRole() => Roles.ToList().Any(x => x.Id == RoleConstants.ACCOUNTING_ID);
     }
 }
