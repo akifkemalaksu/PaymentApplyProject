@@ -19,7 +19,7 @@ using PaymentApplyProject.Application.Features.UserFeatures.ResetPassword;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user,accounting")]
+    [Authorize(Roles = "admin,user")]
     public class AccountController : CustomController
     {
         private readonly IMediator _mediator;
@@ -42,7 +42,7 @@ namespace PaymentApplyProject.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        [Authorize(Roles = "admin,accounting")]
+        [Authorize(Roles = "admin")]
         public IActionResult Users()
         {
             return View();

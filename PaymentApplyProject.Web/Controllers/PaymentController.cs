@@ -57,6 +57,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> ApproveDeposit([FromBody] ApproveDepositCommand approveParaYatirmaCommand)
         {
@@ -64,6 +65,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> RejectDeposit([FromBody] RejectDepositCommand rejectParaYatirmaCommand)
         {
@@ -78,6 +80,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> ApproveWithdraw([FromBody] ApproveWithdrawCommand approveParaCekmeCommand)
         {
@@ -85,6 +88,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> RejectWithdraw([FromBody] RejectWithdrawCommand rejectParaCekmeCommand)
         {
