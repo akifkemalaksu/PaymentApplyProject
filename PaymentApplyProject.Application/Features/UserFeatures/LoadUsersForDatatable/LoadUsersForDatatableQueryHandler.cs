@@ -5,6 +5,8 @@ using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable;
+using PaymentApplyProject.Application.Localizations;
+using System.Resources;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable
 {
@@ -22,7 +24,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
             var users = _paymentContext.Users.Where(x =>
                 (request.Active == null || x.Active == request.Active)
                 && x.UserRoles.Any(ky =>
-                    (ky.Role.Id == RoleConstants.USER_ID || ky.Role.Id == RoleConstants.ACCOUNTING_ID)
+                    new short[] { RoleConstants.USER_ID, RoleConstants.ACCOUNTING_ID }.Contains(ky.Role.Id)
                     && !ky.Deleted)
                 && !x.Deleted);
 
@@ -44,6 +46,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
                 Email = x.Email,
                 Username = x.Username,
                 Companies = string.Join(',', x.UserCompanies.Where(x => !x.Deleted).Select(x => x.Company.Name).AsEnumerable()),
+                Role = Names.ResourceManager.GetString(x.UserRoles.Where(x => !x.Deleted).Select(x => x.Role.Name).FirstOrDefault() ?? string.Empty),
                 AddDate = x.AddDate,
                 Id = x.Id,
                 Active = x.Active,
@@ -64,7 +67,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
             var filteredResultsCount = await users.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Users.CountAsync(x =>
                 x.UserRoles.Any(ky =>
-                    (ky.Role.Id == RoleConstants.USER_ID || ky.Role.Id == RoleConstants.ACCOUNTING_ID)
+                    new short[] { RoleConstants.USER_ID, RoleConstants.ACCOUNTING_ID }.Contains(ky.Role.Id)
                     && !ky.Deleted)
                 && !x.Deleted
             , cancellationToken);

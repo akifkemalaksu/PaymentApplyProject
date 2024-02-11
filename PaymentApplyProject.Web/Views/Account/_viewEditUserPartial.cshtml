@@ -1,6 +1,7 @@
-﻿@using PaymentApplyProject.Application.Dtos.ResponseDtos
+﻿@using PaymentApplyProject.Domain.Constants
+@using PaymentApplyProject.Application.Dtos.ResponseDtos
 @using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
-@model Response<GetUserByIdAndRoleResult>
+@model Response<GetUserByIdResult>
 
 @if (!Model.IsSuccessful)
 {
@@ -40,6 +41,13 @@ else
                     {
                         <option value="@company.Id" selected>@company.Name</option>
                     }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Roller:</label>
+                <select class="form-control" asp-for="Data.Role" name="RoleId">
+                    <option selected="@(RoleConstants.USER_ID == Model.Data.Role?.Id)" value="@RoleConstants.USER_ID">Kullanıcı</option>
+                    <option selected="@(RoleConstants.ACCOUNTING_ID == Model.Data.Role?.Id)" value="@RoleConstants.ACCOUNTING_ID">Muhasebe</option>
                 </select>
             </div>
             <div class="form-group row">

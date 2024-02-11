@@ -18,6 +18,8 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
         public bool Active { get; set; }
         [DisplayName("Firmalar")]
         public string Companies { get; set; }
+        [DisplayName("Rol")]
+        public string? Role { get; set; }
         [DisplayName("Ekleme Tarihi")]
         public DateTime AddDate { get; set; }
     }

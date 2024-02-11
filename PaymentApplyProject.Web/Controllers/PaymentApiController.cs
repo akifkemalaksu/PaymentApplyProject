@@ -10,10 +10,11 @@ using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
 using PaymentApplyProject.Application.Features.BankFeatures.GetBanks;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawStatus;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus;
+using PaymentApplyProject.Application.Attributes;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "customer")]
+    [AdvancedAuthorize(Roles = "customer")]
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentApiController : CustomApiControllerBase

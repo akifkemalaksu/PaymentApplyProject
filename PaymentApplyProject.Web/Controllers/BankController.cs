@@ -9,10 +9,11 @@ using PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankAccou
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable;
 using PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForDatatable;
+using PaymentApplyProject.Application.Attributes;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-	[Authorize(Roles = "admin,user,accounting")]
+	[AdvancedAuthorize(Roles = "admin,user,accounting")]
 	public class BankController : CustomController
 	{
 		private readonly IMediator _mediator;
@@ -32,13 +33,13 @@ namespace PaymentApplyProject.Web.Controllers
 			return View();
 		}
 
-		[Authorize(Roles = "admin")]
+		[AdvancedAuthorize(Roles = "admin")]
 		public IActionResult ViewAddBankAccountPartial()
 		{
 			return PartialView("_viewAddBankAccountPartial");
 		}
 
-		[Authorize(Roles = "admin")]
+		[AdvancedAuthorize(Roles = "admin")]
 		[Route("[controller]/[action]/{id}")]
 		public async Task<IActionResult> ViewEditBankAccountPartial(int id)
 		{
@@ -61,7 +62,7 @@ namespace PaymentApplyProject.Web.Controllers
 			return Json(result);
 		}
 
-		[Authorize(Roles = "admin")]
+		[AdvancedAuthorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<IActionResult> AddBankAccount(AddBankAccountCommand addBankAccountCommand)
 		{
@@ -69,7 +70,7 @@ namespace PaymentApplyProject.Web.Controllers
 			return CreateResult(result);
 		}
 
-		[Authorize(Roles = "admin")]
+		[AdvancedAuthorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<IActionResult> EditBankAccount(EditBankAccountCommand editBankAccountCommand)
 		{
@@ -77,7 +78,7 @@ namespace PaymentApplyProject.Web.Controllers
 			return CreateResult(result);
 		}
 
-		[Authorize(Roles = "admin")]
+		[AdvancedAuthorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<IActionResult> DeleteBankAccount([FromBody] DeleteBankAccountCommand deleteBankAccountCommand)
 		{

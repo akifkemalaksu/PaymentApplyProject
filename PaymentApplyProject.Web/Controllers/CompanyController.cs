@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PaymentApplyProject.Application.Attributes;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.CompanyFeatures.ChangeCompanyStatus;
 using PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForDatatable;
@@ -9,7 +10,7 @@ using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersFor
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user,accounting")]
+    [AdvancedAuthorize(Roles = "admin,user,accounting")]
     public class CompanyController : CustomController
     {
         private readonly IMediator _mediator;
@@ -19,7 +20,7 @@ namespace PaymentApplyProject.Web.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(Roles = "admin,accounting")]
+        [AdvancedAuthorize(Roles = "admin,accounting")]
         public IActionResult Index()
         {
             return View();
@@ -30,7 +31,7 @@ namespace PaymentApplyProject.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin,accounting")]
+        [AdvancedAuthorize(Roles = "admin,accounting")]
         [HttpPost]
         public async Task<IActionResult> LoadCompanies(LoadCompaniesForDatatableQuery loadCompaniesForDatatableQuery)
         {
@@ -38,7 +39,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "admin")]
+        [AdvancedAuthorize(Roles = "admin")]
         [Route("[controller]/[action]/{id}")]
         [HttpPost]
         public async Task<IActionResult> ChangeCompanyStatus(int id)
@@ -54,7 +55,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "admin")]
+        [AdvancedAuthorize(Roles = "admin")]
         [Route("[controller]/[action]/{id}")]
         [HttpPost]
         public async Task<IActionResult> ChangeCustomerStatus(int id)

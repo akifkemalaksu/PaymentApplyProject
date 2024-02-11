@@ -2,7 +2,7 @@
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {
-    public class GetUserByIdAndRoleResult
+    public class GetUserByIdResult
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -10,7 +10,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
         public string Name { get; set; }
         public string Surname { get; set; }
         public bool Active { get; set; }
-        public IEnumerable<RoleDto> Roles { get; set; }
+        public RoleDto? Role { get; set; }
         public IEnumerable<CompanyDto> Companies { get; set; }
     }
 }

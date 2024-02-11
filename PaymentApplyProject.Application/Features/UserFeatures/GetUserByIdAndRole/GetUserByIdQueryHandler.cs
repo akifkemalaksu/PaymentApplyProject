@@ -10,28 +10,24 @@ using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {
-    public class GetUserByIdAndRoleQueryHandler : IRequestHandler<GetUserByIdAndRoleQuery, Response<GetUserByIdAndRoleResult>>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Response<GetUserByIdResult>>
     {
         private readonly IPaymentContext _paymentContext;
         private readonly ICustomMapper _customMapper;
 
-        public GetUserByIdAndRoleQueryHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
+        public GetUserByIdQueryHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
         {
             _paymentContext = paymentContext;
             _customMapper = customMapper;
         }
 
-        public async Task<Response<GetUserByIdAndRoleResult>> Handle(GetUserByIdAndRoleQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetUserByIdResult>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             var user = await _paymentContext.Users
                 .Where(x =>
                     x.Id == request.Id
-                    && x.UserRoles.Any(ky =>
-                        (ky.RoleId == request.RoleId || ky.RoleId == RoleConstants.ACCOUNTING_ID)
-                        && !ky.Deleted
-                    )
                     && !x.Deleted)
-                .Select(x => new GetUserByIdAndRoleResult
+                .Select(x => new GetUserByIdResult
                 {
                     Id = request.Id,
                     Name = x.Name,
@@ -45,18 +41,18 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
                         Id = kf.CompanyId
                     })
                     .ToList(),
-                    Roles = x.UserRoles.Where(x => !x.Deleted).Select(ky => new RoleDto
+                    Role = x.UserRoles.Where(x => !x.Deleted).Select(ky => new RoleDto
                     {
                         Name = ky.Role.Name,
                         Id = ky.RoleId
                     })
-                    .ToList(),
+                    .FirstOrDefault(),
                 }).FirstOrDefaultAsync();
 
             if (user is null)
-                return Response<GetUserByIdAndRoleResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi);
+                return Response<GetUserByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi);
 
-            return Response<GetUserByIdAndRoleResult>.Success(System.Net.HttpStatusCode.OK, user);
+            return Response<GetUserByIdResult>.Success(System.Net.HttpStatusCode.OK, user);
         }
     }
 }

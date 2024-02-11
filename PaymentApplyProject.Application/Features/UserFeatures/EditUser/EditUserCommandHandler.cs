@@ -22,6 +22,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
         {
             var user = await _paymentContext.Users
                 .Include(x => x.UserCompanies)
+                .Include(x => x.UserRoles)
                 .FirstOrDefaultAsync(x =>
                 x.Id == request.Id
                 && !x.Deleted
@@ -56,7 +57,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
                 CompanyId = x
             })
             .ToList();
-
+            user.UserRoles = new List<UserRole> { new()
+            {
+                RoleId = request.RoleId
+            }
+            };
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);

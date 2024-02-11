@@ -16,6 +16,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
         public string Name { get; set; }
         public string Surname { get; set; }
         public IEnumerable<short> Companies { get; set; }
+        public short RoleId { get; set; }
 
         public AddUserCommand()
         {

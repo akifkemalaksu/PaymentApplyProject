@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PaymentApplyProject.Application.Attributes;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForSelect;
 using PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForSelect;
 using PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForSelect;
@@ -8,7 +9,7 @@ using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomerForS
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user,accounting")]
+    [AdvancedAuthorize(Roles = "admin,user,accounting")]
     public class SelectController : Controller
     {
         private readonly IMediator _mediator;

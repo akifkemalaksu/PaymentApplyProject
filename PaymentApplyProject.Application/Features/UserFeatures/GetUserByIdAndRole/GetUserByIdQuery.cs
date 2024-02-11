@@ -12,9 +12,8 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole
 {
-    public class GetUserByIdAndRoleQuery : IRequest<Response<GetUserByIdAndRoleResult>>
+    public class GetUserByIdQuery : IRequest<Response<GetUserByIdResult>>
     {
         public int Id { get; set; }
-        public int RoleId { get; set; }
     }
 }

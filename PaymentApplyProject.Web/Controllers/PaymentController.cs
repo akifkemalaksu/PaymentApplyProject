@@ -13,10 +13,11 @@ using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
+using PaymentApplyProject.Application.Attributes;
 
 namespace PaymentApplyProject.Web.Controllers
 {
-    [Authorize(Roles = "admin,user,accounting")]
+    [AdvancedAuthorize(Roles = "admin,user,accounting")]
     public class PaymentController : CustomController
     {
         private readonly IMediator _mediator;
@@ -57,7 +58,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "admin,user")]
+        [AdvancedAuthorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> ApproveDeposit([FromBody] ApproveDepositCommand approveParaYatirmaCommand)
         {
@@ -65,7 +66,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
-        [Authorize(Roles = "admin,user")]
+        [AdvancedAuthorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> RejectDeposit([FromBody] RejectDepositCommand rejectParaYatirmaCommand)
         {
@@ -80,7 +81,7 @@ namespace PaymentApplyProject.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "admin,user")]
+        [AdvancedAuthorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> ApproveWithdraw([FromBody] ApproveWithdrawCommand approveParaCekmeCommand)
         {
@@ -88,7 +89,7 @@ namespace PaymentApplyProject.Web.Controllers
             return CreateResult(result);
         }
 
-        [Authorize(Roles = "admin,user")]
+        [AdvancedAuthorize(Roles = "admin,user")]
         [HttpPost]
         public async Task<IActionResult> RejectWithdraw([FromBody] RejectWithdrawCommand rejectParaCekmeCommand)
         {

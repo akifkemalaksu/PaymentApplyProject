@@ -60,6 +60,8 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
             var claims = claimsPrincipal.Claims;
 
+            if (!claims.Any()) return null;
+
             UserDto signedInUser = new()
             {
                 Id = int.Parse(claims.First(x => x.Type == CustomClaimTypes.Id).Value),

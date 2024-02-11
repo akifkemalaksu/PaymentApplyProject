@@ -27,6 +27,7 @@ datatableHelper.datatableOptions.columns = [
         data: "companies",
         render: (data) => data.split(',').map((ad) => `<p class="kt-font-primary">${ad}</p>`).join('')
     },
+    { data: "role" },
     {
         data: "active",
         render: (data) => data ?
@@ -87,6 +88,9 @@ let addUserDefines = () => {
             },
             Surname: {
                 required: true
+            },
+            Roles: {
+                required: true
             }
         },
         submitHandler: function (form) {
@@ -98,6 +102,7 @@ let addUserDefines = () => {
     });
 
     formEl.find('[name="Companies"]').serverSelect2({ url: "Companies" })
+    formEl.find('[name="RoleId"]').select2({ width : '100%' })
     formEl.find('[name="Username"]').on('input', function (e) {
         let inputValue = $(this).val();
         let sanitizedValue = inputValue.replace(/\s/g, ''); // Remove spaces

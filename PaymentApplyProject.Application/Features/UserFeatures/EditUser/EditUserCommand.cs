@@ -18,6 +18,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
         public string Surname { get; set; }
         public bool Active { get; set; }
         public IEnumerable<short> Companies { get; set; }
+        public short RoleId { get; set; }
 
         public EditUserCommand()
         {
