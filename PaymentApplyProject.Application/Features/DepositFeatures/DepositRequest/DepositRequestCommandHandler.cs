@@ -97,7 +97,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 Username = request.CustomerInfo.Username,
                 SuccessUrl = request.SuccessUrl,
                 UniqueTransactionId = request.UniqueTransactionId,
-                UniqueTransactionIdHash = GeneratorHelper.GenerateSha256Key(request.UniqueTransactionId),
+                UniqueTransactionIdHash = uniqueTransactionIDHash,
                 CompanyId = companyId,
                 Amount = request.Amount,
             };
