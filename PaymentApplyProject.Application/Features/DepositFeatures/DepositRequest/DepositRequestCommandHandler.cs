@@ -97,7 +97,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
                 Username = request.CustomerInfo.Username,
                 SuccessUrl = request.SuccessUrl,
                 UniqueTransactionId = request.UniqueTransactionId,
-                UniqueTransactionIdHash = GeneratorHelper.GenerateSha256Key(request.UniqueTransactionId),
+                UniqueTransactionIdHash = uniqueTransactionIDHash,
                 CompanyId = companyId,
                 Amount = request.Amount,
             };
@@ -105,8 +105,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
             await _paymentContext.DepositRequests.AddAsync(depositRequest, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
-            var httpRequest = _httpContextAccessor.HttpContext.Request;
-            var redirectUrl = $"https://{httpRequest.Host}/PaymentFrame/Panel/{uniqueTransactionIDHash}";
+            var hostAddress = _httpContextAccessor.HttpContext.Request.Host;
+            var redirectUrl = $"https://{hostAddress}/PaymentFrame/Panel/{uniqueTransactionIDHash}";
             var depositRequestResult = new DepositRequestResult
             {
                 ExternalTransactionId = depositRequest.Id,
