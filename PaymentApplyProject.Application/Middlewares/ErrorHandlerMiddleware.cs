@@ -52,13 +52,22 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            var log = new RequestLogDto
+            var log = new HttpLogDto
             {
-                Body = StreamHelper.ReadStreamInChunks(requestStream),
-                Host = httpContext.Request.Host.ToString(),
-                Path = httpContext.Request.Path,
-                QueryString = httpContext.Request.QueryString.ToString(),
-                Method = httpContext.Request.Method,
+                Exception = callbackEx,
+                Request = new RequestLogDto
+                {
+                    Body = StreamHelper.ReadStreamInChunks(requestStream),
+                    Host = httpContext.Request.Host.ToString(),
+                    Path = httpContext.Request.Path,
+                    QueryString = httpContext.Request.QueryString.ToString(),
+                    Method = httpContext.Request.Method,
+                },
+                Response = new ResponseLogDto
+                {
+                    StatusCode = httpContext.Response.StatusCode,
+                    Content = callbackEx.Message
+                }
             };
             _logger.LogError(callbackEx, "{@log}", log);
 
@@ -74,14 +83,24 @@ namespace PaymentApplyProject.Application.Middlewares
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await httpContext.Request.Body.CopyToAsync(requestStream);
 
-            var log = new ResponseLogDto
+            var log = new HttpLogDto
             {
-                Content = StreamHelper.ReadStreamInChunks(requestStream),
-                Host = httpContext.Request.Host.ToString(),
-                Path = httpContext.Request.Path,
-                QueryString = httpContext.Request.QueryString.ToString(),
-                StatusCode = (int)HttpStatusCode.InternalServerError,
+                Exception = ex,
+                Request = new RequestLogDto
+                {
+                    Body = StreamHelper.ReadStreamInChunks(requestStream),
+                    Host = httpContext.Request.Host.ToString(),
+                    Path = httpContext.Request.Path,
+                    QueryString = httpContext.Request.QueryString.ToString(),
+                    Method = httpContext.Request.Method,
+                },
+                Response = new ResponseLogDto
+                {
+                    StatusCode = httpContext.Response.StatusCode,
+                    Content = ex.Message
+                }
             };
+
             _logger.LogError(ex, "{@log}", log);
 
             await httpContext.Response.WriteAsync(Response<NoContent>.Error(HttpStatusCode.InternalServerError, ex.Message).ToString());

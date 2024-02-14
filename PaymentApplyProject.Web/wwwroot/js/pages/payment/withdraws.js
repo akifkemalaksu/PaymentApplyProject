@@ -1,5 +1,6 @@
 ﻿connection.on('displayNotification', (data) => {
-    datatableHelper.dtTable.draw()
+    if (window.location.pathname === data.path)
+        datatableHelper.dtTable.draw()
 });
 
 let filtreleButton = $('#kt_search');
