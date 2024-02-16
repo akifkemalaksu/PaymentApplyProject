@@ -20,6 +20,8 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
 
         public async Task<SelectResult> Handle(LoadCompaniesForSelectQuery request, CancellationToken cancellationToken)
         {
+            request.Page -= 1;
+
             var userInfo = _authenticatedUserService.GetUserInfo();
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 

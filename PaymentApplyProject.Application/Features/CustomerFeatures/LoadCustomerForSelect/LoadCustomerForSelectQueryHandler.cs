@@ -17,6 +17,8 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
 
         public async Task<SelectResult> Handle(LoadCustomerForSelectQuery request, CancellationToken cancellationToken)
         {
+            request.Page -= 1;
+
             var customers = _paymentContext.Customers.Where(x =>
                 (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
                 && !x.Deleted);
@@ -35,7 +37,6 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                     {
                         Text = $"{x.Name} {x.Surname}",
                         Id = x.Id.ToString(),
-                        Disabled = !x.Active
                     }).ToListAsync(cancellationToken)
             };
         }

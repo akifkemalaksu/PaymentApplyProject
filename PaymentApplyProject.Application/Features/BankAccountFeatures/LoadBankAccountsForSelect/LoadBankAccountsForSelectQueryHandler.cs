@@ -17,13 +17,15 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
 
         public async Task<SelectResult> Handle(LoadBankAccountsForSelectQuery request, CancellationToken cancellationToken)
         {
+            request.Page -= 1;
+
             var bankaHesaplar = _paymentContext.BankAccounts.Where(x =>
                 (request.BankId == 0 || x.BankId == request.BankId)
                 && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
                 bankaHesaplar = bankaHesaplar.Where(x =>
-                    (x.Name + " " + x.Surname + " - " + x.AccountNumber).Contains(request.Search)
+                    (x.Bank.Name + " - " + x.Name + " " + x.Surname + " - " + x.AccountNumber).Contains(request.Search)
                     || x.AccountNumber.Contains(request.Search)
                 );
 
@@ -35,9 +37,8 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                     .Take(request.PageLength)
                     .Select(x => new Option
                     {
-                        Text = $"{x.Name} {x.Surname} - {x.AccountNumber}",
-                        Id = x.Id.ToString(),
-                        Disabled = !x.Active
+                        Text = $"{x.Bank.Name} - {x.Name} {x.Surname} - {x.AccountNumber}",
+                        Id = x.Id.ToString()
                     }).ToListAsync(cancellationToken)
             };
         }

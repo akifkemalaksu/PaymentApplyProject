@@ -34,14 +34,7 @@ var builder = WebApplication.CreateBuilder(args);
 //});
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(configure =>
-{
-    configure.CacheProfiles.Add("SelectCache", new CacheProfile
-    {
-        Duration = 300,
-        Location = ResponseCacheLocation.Any
-    });
-})
+builder.Services.AddControllersWithViews()
 .AddRazorRuntimeCompilation()
 .AddNewtonsoftJson();
 

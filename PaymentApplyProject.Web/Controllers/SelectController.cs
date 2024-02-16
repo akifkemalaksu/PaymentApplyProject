@@ -20,7 +20,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "SelectCache", VaryByQueryKeys = new string[] { "Search" })]
         public async Task<IActionResult> Companies(LoadCompaniesForSelectQuery loadFirmalarForSelectQuery)
         {
             var result = await _mediator.Send(loadFirmalarForSelectQuery);
@@ -28,7 +27,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "SelectCache", VaryByQueryKeys = new string[] { "CompanyId", "Search" })]
         public async Task<IActionResult> Customers(LoadCustomerForSelectQuery loadMusterilerForSelectQuery)
         {
             var result = await _mediator.Send(loadMusterilerForSelectQuery);
@@ -36,7 +34,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "SelectCache", VaryByQueryKeys = new string[] { "Search" })]
         public async Task<IActionResult> Banks(LoadBanksForSelectQuery loadBankalarForSelectQuery)
         {
             var result = await _mediator.Send(loadBankalarForSelectQuery);
@@ -44,7 +41,6 @@ namespace PaymentApplyProject.Web.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "SelectCache", VaryByQueryKeys = new string[] { "BankId", "Search" })]
         public async Task<IActionResult> BankAccounts(LoadBankAccountsForSelectQuery loadBankaHesaplarForSelectQuery)
         {
             var result = await _mediator.Send(loadBankaHesaplarForSelectQuery);

@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    $.fn.serverSelect2 = function ({ url, tags = false, type = 'get', extraData = null, extraOptions = null, pagingLength = 50, width = '100%' }) {
+    $.fn.serverSelect2 = function ({ url, tags = false, type = 'get', extraData = null, extraOptions = null, pageLength = 50, width = '100%' }) {
         let options = {
             language: 'tr',
             tags: tags,
@@ -11,8 +11,8 @@
                 data: function (params) {
                     let returnValue = {
                         search: params.term || '',
-                        page: params.page || 0,
-                        pageLength: pagingLength
+                        page: params.page || 1,
+                        pageLength: pageLength
                     };
                     if (Array.isArray(extraData)) {
                         extraData.forEach((item) => {
@@ -32,7 +32,7 @@
                     return {
                         results: data.items,
                         pagination: {
-                            more: (params.page * pagingLength) < data.count
+                            more: (params.page * pageLength) < data.count
                         }
                     };
                 },
