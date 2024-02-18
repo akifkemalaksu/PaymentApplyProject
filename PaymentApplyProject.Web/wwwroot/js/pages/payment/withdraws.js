@@ -1,6 +1,6 @@
 ﻿connection.on('displayNotification', (data) => {
     if (window.location.pathname === data.path)
-        datatableHelper.dtTable.draw()
+        datatableHelper.draw()
 });
 
 let filtreleButton = $('#kt_search');
@@ -35,7 +35,7 @@ firmaSelect.on('select2:select', function (e) {
     musteriSelect.serverSelect2({ url: "Customers", extraOptions: extraOptions, extraData: extraData });
 });
 
-filtreleButton.on("click", () => datatableHelper.dtTable.draw());
+filtreleButton.on("click", () => datatableHelper.draw());
 
 datatableHelper.datatableOptions.ajax = {
     url: "/payment/LoadWithdraws",
@@ -131,7 +131,7 @@ let goruntuleDefines = () => {
 
                     swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => {
                         $("#kt_modal").modal('hide')
-                        datatableHelper.dtTable.draw()
+                        datatableHelper.draw()
                     })
                 }
             })
@@ -152,7 +152,7 @@ let goruntuleDefines = () => {
                 }
                 swal.basicWithOneButtonFunc("Başarılı", response.message, icons.success, () => {
                     $("#kt_modal").modal('hide')
-                    datatableHelper.dtTable.draw()
+                    datatableHelper.draw()
                 })
             }
         }

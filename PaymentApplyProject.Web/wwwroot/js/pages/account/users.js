@@ -1,7 +1,7 @@
 ﻿let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
 
-filtreleButton.on("click", () => datatableHelper.dtTable.draw());
+filtreleButton.on("click", () => datatableHelper.draw());
 
 datatableHelper.datatableOptions.ajax = {
     url: "/account/loadusers",
@@ -124,7 +124,7 @@ let save = (form) => {
 
             swal.basicWithOneButtonFunc("Başarılı", response.message, icons.success, () => {
                 $("#kt_modal").modal('hide')
-                datatableHelper.dtTable.draw()
+                datatableHelper.draw()
             })
         },
         error: function (response) {
@@ -169,7 +169,7 @@ let deleteRecord = (id) => swal.basicWithTwoButtonFunc("Uyarı", "Silmek istedi�
                 swal.basic("Hata", result.message, icons.error)
                 return;
             }
-            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.dtTable.draw())
+            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.draw())
         }
     }
 )

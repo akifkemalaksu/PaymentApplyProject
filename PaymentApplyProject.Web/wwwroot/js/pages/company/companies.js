@@ -1,7 +1,7 @@
 let durumSelect = $("#active").select2();
 let filtreleButton = $('#kt_search');
 
-filtreleButton.on("click", () => datatableHelper.dtTable.draw());
+filtreleButton.on("click", () => datatableHelper.draw());
 
 datatableHelper.datatableOptions.ajax = {
     url: "/company/LoadCompanies",
@@ -45,7 +45,7 @@ let activeOrPassive = (id, aktif) => swal.basicWithTwoButtonFunc("Uyarı", `${(ak
                 swal.basic("Hata", result.message, icons.error)
                 return;
             }
-            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.dtTable.draw())
+            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.draw())
         }
     }
 )

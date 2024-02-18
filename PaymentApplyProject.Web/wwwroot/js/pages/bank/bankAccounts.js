@@ -4,7 +4,7 @@ let durumSelect = $("#active").select2();
 let tutarInput = $("#amount").maskMoney({ thousands: '', precision: false, allowZero: false });
 let filtreleButton = $('#kt_search');
 
-filtreleButton.on("click", () => datatableHelper.dtTable.draw());
+filtreleButton.on("click", () => datatableHelper.draw());
 
 datatableHelper.datatableOptions.ajax = {
     url: "/bank/LoadBankAccounts",
@@ -129,7 +129,7 @@ let save = (form) => {
 
             swal.basicWithOneButtonFunc("Başarılı", response.message, icons.success, () => {
                 $("#kt_modal").modal('hide')
-                datatableHelper.dtTable.draw()
+                datatableHelper.draw()
             })
         },
         error: function (response) {
@@ -173,7 +173,7 @@ let deleteRecord = (id) => swal.basicWithTwoButtonFunc("Uyarı", "Silmek istediği
                 swal.basic("Hata", result.message, icons.error)
                 return;
             }
-            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.dtTable.draw())
+            swal.basicWithOneButtonFunc("Başarılı", result.message, icons.success, () => datatableHelper.draw())
         }
     }
 )
