@@ -25,7 +25,7 @@ namespace PaymentApplyProject.Application.Dtos.ResponseDtos
         public string ErrorCode { get; set; }
 
 
-        private static Response<T> Create(HttpStatusCode statusCode, bool isSuccessful, T data, string message, string errorCode) => new Response<T>
+        private static Response<T> Create(HttpStatusCode statusCode, bool isSuccessful, T data, string message, string errorCode) => new()
         {
             StatusCode = statusCode,
             Data = data,

@@ -11,7 +11,7 @@ namespace PaymentApplyProject.Infrastructure.Hubs
     public class DepositPaymentHub : Hub
     {
         private readonly IHubConnectionUniqueKeyCacheService _hubUserConnectionService;
-        public DepositPaymentHub(IAuthenticatedUserService authenticatedUserService, IHubConnectionUniqueKeyCacheService hubUserConnectionService)
+        public DepositPaymentHub(IHubConnectionUniqueKeyCacheService hubUserConnectionService)
         {
             _hubUserConnectionService = hubUserConnectionService;
         }
