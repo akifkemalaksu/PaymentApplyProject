@@ -362,4 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# Docker files
 docker-compose.yml
+
+# Config files
+appsettings.Development.json
