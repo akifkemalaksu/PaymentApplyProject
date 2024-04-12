@@ -2,6 +2,6 @@ git pull
 
 docker compose down
 
-docker compose pull
+docker-compose up --force-recreate --build -d
 
-docker compose up -d
+docker image prune -f
