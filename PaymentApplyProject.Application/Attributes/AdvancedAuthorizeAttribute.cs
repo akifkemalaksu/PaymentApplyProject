@@ -23,7 +23,7 @@ namespace PaymentApplyProject.Application.Attributes
 
         private void CheckUser(AuthorizationFilterContext context)
         {
-            var authenticatedUserService = context.HttpContext.RequestServices.GetService<IAuthenticatedUserService>();
+            var authenticatedUserService = context.HttpContext.RequestServices.GetRequiredService<IAuthenticatedUserService>();
             var userId = authenticatedUserService.GetUserId();
 
             if (userId == 0) return;
@@ -31,7 +31,7 @@ namespace PaymentApplyProject.Application.Attributes
             var userInfo = authenticatedUserService.GetUserInfo();
             if (userInfo.DoesHaveAdminRole()) return;
 
-            var mediator = context.HttpContext.RequestServices.GetService<IMediator>();
+            var mediator = context.HttpContext.RequestServices.GetRequiredService<IMediator>();
             var userResult = mediator.Send(new GetUserByIdQuery { Id = userId }).GetAwaiter().GetResult();
 
             bool userCheck = userResult.Data != null && userResult.Data.Active;
