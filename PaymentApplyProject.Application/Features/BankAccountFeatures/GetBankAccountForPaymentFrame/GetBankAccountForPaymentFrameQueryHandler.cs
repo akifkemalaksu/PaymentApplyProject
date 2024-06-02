@@ -9,10 +9,12 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
     public class GetBankAccountForPaymentFrameQueryHandler : IRequestHandler<GetBankAccountForPaymentFrameQuery, Response<GetBankAccountForPaymentFrameResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public GetBankAccountForPaymentFrameQueryHandler(IPaymentContext paymentContext)
+        public GetBankAccountForPaymentFrameQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<Response<GetBankAccountForPaymentFrameResult>> Handle(GetBankAccountForPaymentFrameQuery request, CancellationToken cancellationToken)
@@ -22,22 +24,18 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
             if (depositRequest == null)
                 return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.ParaYatirmaTalebiBulunamadi);
 
-            var bankAccount = await _paymentContext.BankAccounts
+            var bankAccountQuery = _paymentContext.BankAccounts
                 .AsNoTracking()
                 .Where(x =>
                     x.BankId == request.BankId
                     && x.LowerLimit <= depositRequest.Amount
                     && x.UpperLimit >= depositRequest.Amount
                     && x.Active
-                    && !x.Deleted)
-                .Select(x =>
-                new GetBankAccountForPaymentFrameResult
-                {
-                    BankAccountId = x.Id,
-                    Name = x.Name,
-                    Surname = x.Surname,
-                    AccountNumber = x.AccountNumber,
-                }).FirstOrDefaultAsync(cancellationToken);
+                    && !x.Deleted);
+
+            var bankAccount = await _mapper.QueryMap<GetBankAccountForPaymentFrameResult>(bankAccountQuery)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
 
             return bankAccount == null
                 ? Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.BankaHesabiBulunamadi)

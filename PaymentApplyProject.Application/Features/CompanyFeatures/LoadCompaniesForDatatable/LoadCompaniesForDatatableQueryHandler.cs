@@ -9,31 +9,28 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
     public class LoadCompaniesForDatatableQueryHandler : IRequestHandler<LoadCompaniesForDatatableQuery, DtResult<LoadCompaniesForDatatableResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public LoadCompaniesForDatatableQueryHandler(IPaymentContext paymentContext)
+        public LoadCompaniesForDatatableQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<DtResult<LoadCompaniesForDatatableResult>> Handle(LoadCompaniesForDatatableQuery request, CancellationToken cancellationToken)
         {
-            var companies = _paymentContext.Companies.Where(x =>
+            var companiesQuery = _paymentContext.Companies.Where(x =>
             (request.Active == null || x.Active == request.Active)
             && !x.Deleted);
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
-                companies = companies.Where(x =>
+                companiesQuery = companiesQuery.Where(x =>
                     x.Id.ToString().Contains(searchBy)
                     || x.Name.Contains(searchBy)
                 );
 
-            var companiesMapped = companies.Select(x => new LoadCompaniesForDatatableResult
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Active = x.Active
-            });
+            var companiesMappedQuery = _mapper.QueryMap<LoadCompaniesForDatatableResult>(companiesQuery);
 
             var orderCriteria = "Id";
             var orderAscendingDirection = true;
@@ -43,11 +40,11 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
                 orderAscendingDirection = request.Order[0].Dir.ToString().ToLower() == "asc";
             }
 
-            companiesMapped = orderAscendingDirection ?
-                companiesMapped.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
-                : companiesMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
+            companiesMappedQuery = orderAscendingDirection ?
+                companiesMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
+                : companiesMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
-            var filteredResultsCount = await companies.CountAsync(cancellationToken);
+            var filteredResultsCount = await companiesMappedQuery.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Companies.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadCompaniesForDatatableResult>
@@ -55,9 +52,10 @@ namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompanies
                 Draw = request.Draw,
                 RecordsFiltered = filteredResultsCount,
                 RecordsTotal = totalResultsCount,
-                Data = await companiesMapped
+                Data = await companiesMappedQuery
                         .Skip(request.Start)
                         .Take(request.Length)
+                        .AsNoTracking()
                         .ToListAsync(cancellationToken)
             };
         }

@@ -9,12 +9,12 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankA
     public class EditBankAccountCommandHandler : IRequestHandler<EditBankAccountCommand, Response<NoContent>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly ICustomMapper _customMapper;
+        private readonly ICustomMapper _mapper;
 
-        public EditBankAccountCommandHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
+        public EditBankAccountCommandHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
-            _customMapper = customMapper;
+            _mapper = mapper;
         }
 
         public async Task<Response<NoContent>> Handle(EditBankAccountCommand request, CancellationToken cancellationToken)
@@ -32,13 +32,7 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.EditBankA
             if (isExistSameAccountNumber)
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.BadRequest, Messages.AyniHesapNumarasinaSahipKayitVar);
 
-            bankAccount.BankId = request.BankId;
-            bankAccount.Name = request.Name;
-            bankAccount.Surname = request.Surname;
-            bankAccount.AccountNumber = request.AccountNumber;
-            bankAccount.Active = request.Active;
-            bankAccount.LowerLimit = request.LowerLimit;
-            bankAccount.UpperLimit = request.UpperLimit;
+            _mapper.Map(request, bankAccount);
 
             await _paymentContext.SaveChangesAsync(cancellationToken);
 

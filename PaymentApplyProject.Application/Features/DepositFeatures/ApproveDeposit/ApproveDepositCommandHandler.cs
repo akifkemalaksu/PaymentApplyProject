@@ -83,7 +83,7 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposi
             if (!callbackResponse.IsSuccessStatusCode)
                 throw new CallbackException(responseContent, ErrorCodes.DepositCallbackException);
 
-            _depositPaymentHubRedirectionService.Redirect(depositRequest.SuccessUrl, depositRequest.UniqueTransactionIdHash);
+            await _depositPaymentHubRedirectionService.Redirect(depositRequest.SuccessUrl, depositRequest.UniqueTransactionIdHash);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

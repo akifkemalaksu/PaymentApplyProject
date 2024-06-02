@@ -8,29 +8,32 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForSele
     public class LoadBanksForSelectQueryHandler : IRequestHandler<LoadBanksForSelectQuery, SelectResult>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public LoadBanksForSelectQueryHandler(IPaymentContext paymentContext)
+        public LoadBanksForSelectQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<SelectResult> Handle(LoadBanksForSelectQuery request, CancellationToken cancellationToken)
         {
             request.Page -= 1;
 
-            var banks = _paymentContext.Banks.Where(x => !x.Deleted);
+            var banksQuery = _paymentContext.Banks.Where(x => !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
-                banks = banks.Where(x => x.Name.Contains(request.Search));
+                banksQuery = banksQuery.Where(x => x.Name.Contains(request.Search));
+
+            var banksMappedQuery = _mapper.QueryMap<Option>(banksQuery).AsNoTracking();
 
             return new SelectResult
             {
-                Count = await banks.CountAsync(cancellationToken),
-                Items = await banks.Skip(request.Page * request.PageLength).Take(request.PageLength).Select(x => new Option
-                {
-                    Text = x.Name,
-                    Id = x.Id.ToString()
-                }).ToListAsync(cancellationToken)
+                Count = await banksMappedQuery.CountAsync(cancellationToken),
+                Items = await banksMappedQuery
+                        .Skip(request.Page * request.PageLength)
+                        .Take(request.PageLength)
+                        .ToListAsync(cancellationToken)
             };
         }
     }

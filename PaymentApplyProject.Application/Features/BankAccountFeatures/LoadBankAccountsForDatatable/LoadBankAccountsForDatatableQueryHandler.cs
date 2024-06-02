@@ -9,15 +9,17 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
     public class LoadBankAccountsForDatatableQueryHandler : IRequestHandler<LoadBankAccountsForDatatableQuery, DtResult<LoadBankAccountsForDatatableResult>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public LoadBankAccountsForDatatableQueryHandler(IPaymentContext paymentContext)
+        public LoadBankAccountsForDatatableQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<DtResult<LoadBankAccountsForDatatableResult>> Handle(LoadBankAccountsForDatatableQuery request, CancellationToken cancellationToken)
         {
-            var bankAccounts = _paymentContext.BankAccounts.Where(x =>
+            var bankAccountsQuery = _paymentContext.BankAccounts.Where(x =>
                 (request.BankId == 0 || x.BankId == request.BankId)
                 && (request.Active == null || x.Active == request.Active)
                 && (request.Amount == 0 || (request.Amount >= x.LowerLimit && request.Amount <= x.UpperLimit))
@@ -25,22 +27,12 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
 
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
-                bankAccounts = bankAccounts.Where(x =>
+                bankAccountsQuery = bankAccountsQuery.Where(x =>
                     x.Bank.Name.Contains(searchBy)
                     || x.AccountNumber.Contains(searchBy)
                     || (x.Name + " " + x.Surname).Contains(searchBy));
 
-            var bankAccountsMapped = bankAccounts.Select(x => new LoadBankAccountsForDatatableResult
-            {
-                AccountNumber = x.AccountNumber,
-                Bank = x.Bank.Name,
-                NameSurname = x.Name + " " + x.Surname,
-                LowerLimit = x.LowerLimit,
-                UpperLimit = x.UpperLimit,
-                Active = x.Active,
-                Id = x.Id,
-                AddDate = x.AddDate
-            });
+            var bankAccountsMappedQuery = _mapper.QueryMap<LoadBankAccountsForDatatableResult>(bankAccountsQuery);
 
             var orderCriteria = "Id";
             var orderAscendingDirection = true;
@@ -50,11 +42,11 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                 orderAscendingDirection = request.Order[0].Dir.ToString().ToLower() == "asc";
             }
 
-            bankAccountsMapped = orderAscendingDirection ?
-                bankAccountsMapped.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
-                : bankAccountsMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
+            bankAccountsMappedQuery = orderAscendingDirection ?
+                bankAccountsMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
+                : bankAccountsMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
-            var filteredResultsCount = await bankAccounts.CountAsync(cancellationToken);
+            var filteredResultsCount = await bankAccountsMappedQuery.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.BankAccounts.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadBankAccountsForDatatableResult>
@@ -62,9 +54,10 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
                 Draw = request.Draw,
                 RecordsFiltered = filteredResultsCount,
                 RecordsTotal = totalResultsCount,
-                Data = await bankAccountsMapped
+                Data = await bankAccountsMappedQuery
                         .Skip(request.Start)
                         .Take(request.Length)
+                        .AsNoTracking()
                         .ToListAsync(cancellationToken)
             };
         }

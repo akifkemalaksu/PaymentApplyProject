@@ -11,11 +11,13 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
     {
         private readonly IPaymentContext _paymentContext;
         private readonly IAuthenticatedUserService _authenticatedUserService;
+        private readonly ICustomMapper _mapper;
 
-        public LoadCustomersForDatatableQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService)
+        public LoadCustomersForDatatableQueryHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
             _authenticatedUserService = authenticatedUserService;
+            _mapper = mapper;
         }
 
         public async Task<DtResult<LoadCustomersForDatatableResult>> Handle(LoadCustomersForDatatableQuery request, CancellationToken cancellationToken)
@@ -23,31 +25,22 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
             var userInfo = _authenticatedUserService.GetUserInfo();
             var companyIds = userInfo.Companies.Select(x => x.Id).ToList();
 
-            var customers = _paymentContext.Customers.Where(x =>
+            var customersQuery = _paymentContext.Customers.Where(x =>
                 ((!userInfo.DoesHaveUserRole() && !userInfo.DoesHaveAccountingRole()) || companyIds.Contains(x.CompanyId))
                 && (request.CompanyId == 0 || x.CompanyId == request.CompanyId)
                 && (request.Active == null || x.Active == request.Active)
                 && !x.Deleted
             );
 
+            var customersMappedQuery = _mapper.QueryMap<LoadCustomersForDatatableResult>(customersQuery);
+
             var searchBy = request.Search?.Value;
             if (!string.IsNullOrEmpty(searchBy))
-                customers = customers.Where(x =>
+                customersMappedQuery = customersMappedQuery.Where(x =>
                     x.Username.Contains(searchBy)
-                    || (x.Name + " " + x.Surname).Contains(searchBy)
-                    || x.Company.Name.Contains(searchBy)
+                    || x.NameSurname.Contains(searchBy)
+                    || x.Company.Contains(searchBy)
                 );
-
-            var customersMapped = customers.Select(x => new LoadCustomersForDatatableResult
-            {
-                NameSurname = x.Name + " " + x.Surname,
-                Active = x.Active,
-                Company = x.Company.Name,
-                Username = x.Username,
-                Id = x.Id,
-                AddDate = x.AddDate,
-                ExternalCustomerId = x.ExternalCustomerId
-            });
 
             var orderCriteria = "Id";
             var orderAscendingDirection = true;
@@ -57,11 +50,11 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                 orderAscendingDirection = request.Order[0].Dir.ToString().ToLower() == "asc";
             }
 
-            customersMapped = orderAscendingDirection ?
-                customersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
-                : customersMapped.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
+            customersMappedQuery = orderAscendingDirection ?
+                customersMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Desc)
+                : customersMappedQuery.OrderByDynamic(orderCriteria, DtOrderDir.Asc);
 
-            var filteredResultsCount = await customers.CountAsync(cancellationToken);
+            var filteredResultsCount = await customersMappedQuery.CountAsync(cancellationToken);
             var totalResultsCount = await _paymentContext.Customers.CountAsync(x => !x.Deleted, cancellationToken);
 
             return new DtResult<LoadCustomersForDatatableResult>
@@ -69,9 +62,10 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
                 Draw = request.Draw,
                 RecordsFiltered = filteredResultsCount,
                 RecordsTotal = totalResultsCount,
-                Data = await customersMapped
+                Data = await customersMappedQuery
                         .Skip(request.Start)
                         .Take(request.Length)
+                        .AsNoTracking()
                         .ToListAsync(cancellationToken)
             };
         }

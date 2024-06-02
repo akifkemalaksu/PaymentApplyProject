@@ -9,16 +9,10 @@ namespace PaymentApplyProject.Application.Dtos.UserDtos
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public IEnumerable<RoleDto> Roles { get; set; }
-        public IEnumerable<CompanyDto> Companies { get; set; }
+        public IEnumerable<RoleDto> Roles { get; set; } = new List<RoleDto>();
+        public IEnumerable<CompanyDto> Companies { get; set; } = new List<CompanyDto>();
 
         public bool Active { get; set; }
-
-        public UserDto()
-        {
-            Roles = [];
-            Companies = [];
-        }
 
         public bool DoesHaveUserRole()
         {

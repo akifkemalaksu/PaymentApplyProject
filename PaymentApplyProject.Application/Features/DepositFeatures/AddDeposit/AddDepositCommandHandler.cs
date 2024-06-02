@@ -7,6 +7,7 @@ using PaymentApplyProject.Application.Dtos.NotificationDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Exceptions;
+using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.HubServices;
@@ -56,8 +57,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             var companyAuthUser = await _paymentContext.Users.FirstOrDefaultAsync(x =>
-                x.UserRoles.Any(ur => ur.RoleId == RoleConstants.CUSTOMER_ID && !ur.Deleted)
-                && x.UserCompanies.Any(uc => uc.CompanyId == depositRequest.CompanyId && !uc.Deleted)
+                x.UserRoles.AnyWithNullCheck(ur => ur.RoleId == RoleConstants.CUSTOMER_ID && !ur.Deleted)
+                && x.UserCompanies.AnyWithNullCheck(uc => uc.CompanyId == depositRequest.CompanyId && !uc.Deleted)
                 && !x.Deleted, cancellationToken);
 
             var callbackBody = new DepositCallbackBodyDto(
@@ -98,7 +99,8 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
                     && x.UserCompanies.Any(uc => uc.CompanyId == customer.CompanyId && !uc.Deleted)))
                 && !x.Deleted
             ).Select(x => x.Username).ToListAsync(cancellationToken);
-            _notificationService.CreateNotificationToSpecificUsers(usernames, notification, cancellationToken);
+
+            await _notificationService.CreateNotificationToSpecificUsers(usernames, notification, cancellationToken);
 
             return Response<AddDepositResult>.Success(System.Net.HttpStatusCode.OK,
                 new()

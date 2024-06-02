@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping.Mapster;
 using PaymentApplyProject.Infrastructure.Services.HubServices;
 using PaymentApplyProject.Infrastructure.Services.InfrastructureServices;
+using System.Reflection;
 using System.Text;
 
 namespace PaymentApplyProject.Infrastructure
@@ -32,6 +34,8 @@ namespace PaymentApplyProject.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
+
             services.AddMediatR(conf =>
             {
                 conf.RegisterServicesFromAssembly(typeof(IPaymentContext).Assembly);

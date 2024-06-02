@@ -7,6 +7,7 @@ using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
+using PaymentApplyProject.Domain.Entities;
 using DepositRequestModel = PaymentApplyProject.Domain.Entities.DepositRequest;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest
@@ -16,12 +17,14 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
         private readonly IPaymentContext _paymentContext;
         private readonly IAuthenticatedUserService _authenticatedUserService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICustomMapper _mapper;
 
-        public DepositRequestCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService, IHttpContextAccessor httpContextAccessor)
+        public DepositRequestCommandHandler(IPaymentContext paymentContext, IAuthenticatedUserService authenticatedUserService, IHttpContextAccessor httpContextAccessor, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
             _authenticatedUserService = authenticatedUserService;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         public async Task<Response<DepositRequestResult>> Handle(DepositRequestCommand request, CancellationToken cancellationToken)

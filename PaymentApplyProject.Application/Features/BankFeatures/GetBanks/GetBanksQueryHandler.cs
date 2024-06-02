@@ -9,19 +9,21 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.GetBanks
     public class GetBanksQueryHandler : IRequestHandler<GetBanksQuery, Response<IEnumerable<BankDto>>>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public GetBanksQueryHandler(IPaymentContext paymentContext)
+        public GetBanksQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<Response<IEnumerable<BankDto>>> Handle(GetBanksQuery request, CancellationToken cancellationToken)
         {
-            var banks = await _paymentContext.Banks.Select(x => new BankDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-            }).ToListAsync(cancellationToken);
+            var banksQuery = _paymentContext.Banks.AsQueryable();
+
+            var banks = await _mapper.QueryMap<BankDto>(banksQuery)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
 
             return Response<IEnumerable<BankDto>>.Success(System.Net.HttpStatusCode.OK, banks);
         }

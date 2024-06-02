@@ -9,32 +9,23 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
     public class GetBankAccountByIdQueryHandler : IRequestHandler<GetBankAccountByIdQuery, Response<GetBankAccountByIdResult>>
     {
         private readonly IPaymentContext _paymentContext;
-        private readonly ICustomMapper _customMapper;
+        private readonly ICustomMapper _mapper;
 
-        public GetBankAccountByIdQueryHandler(IPaymentContext paymentContext, ICustomMapper customMapper)
+        public GetBankAccountByIdQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
-            _customMapper = customMapper;
+            _mapper = mapper;
         }
 
         public async Task<Response<GetBankAccountByIdResult>> Handle(GetBankAccountByIdQuery request, CancellationToken cancellationToken)
         {
-            var bankAccount = await _paymentContext.BankAccounts
+            var bankAccountQuery = _paymentContext.BankAccounts
                 .Where(x =>
                     x.Id == request.Id
-                    && !x.Deleted)
-                .Select(x => new GetBankAccountByIdResult
-                {
-                    Name = x.Name,
-                    Active = x.Active,
-                    LowerLimit = x.LowerLimit,
-                    Bank = x.Bank.Name,
-                    BankId = x.BankId,
-                    AccountNumber = x.AccountNumber,
-                    Id = request.Id,
-                    Surname = x.Surname,
-                    UpperLimit = x.UpperLimit
-                })
+                    && !x.Deleted);
+
+            var bankAccount = await _mapper.QueryMap<GetBankAccountByIdResult>(bankAccountQuery)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
 
             return bankAccount is null

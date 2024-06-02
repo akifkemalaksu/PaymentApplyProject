@@ -22,7 +22,7 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.ChangeCustom
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.NotFound, Messages.MusteriBulunamadi);
 
             customer.Active = !customer.Active;
-            _paymentContext.SaveChangesAsync(cancellationToken);
+            await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }

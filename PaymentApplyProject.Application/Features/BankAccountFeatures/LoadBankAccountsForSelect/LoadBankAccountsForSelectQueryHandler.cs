@@ -8,37 +8,38 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
     public class LoadBankAccountsForSelectQueryHandler : IRequestHandler<LoadBankAccountsForSelectQuery, SelectResult>
     {
         private readonly IPaymentContext _paymentContext;
+        private readonly ICustomMapper _mapper;
 
-        public LoadBankAccountsForSelectQueryHandler(IPaymentContext paymentContext)
+        public LoadBankAccountsForSelectQueryHandler(IPaymentContext paymentContext, ICustomMapper mapper)
         {
             _paymentContext = paymentContext;
+            _mapper = mapper;
         }
 
         public async Task<SelectResult> Handle(LoadBankAccountsForSelectQuery request, CancellationToken cancellationToken)
         {
             request.Page -= 1;
 
-            var bankaHesaplar = _paymentContext.BankAccounts.Where(x =>
+            var bankAccountsQuery = _paymentContext.BankAccounts.Where(x =>
                 (request.BankId == 0 || x.BankId == request.BankId)
                 && !x.Deleted);
 
             if (!string.IsNullOrEmpty(request.Search))
-                bankaHesaplar = bankaHesaplar.Where(x =>
+                bankAccountsQuery = bankAccountsQuery.Where(x =>
                     (x.Bank.Name + " - " + x.Name + " " + x.Surname + " - " + x.AccountNumber).Contains(request.Search)
                     || x.AccountNumber.Contains(request.Search)
                 );
 
+            var bankAccountsMappedQuery = _mapper.QueryMap<Option>(bankAccountsQuery);
+
             return new SelectResult
             {
-                Count = await bankaHesaplar.CountAsync(cancellationToken),
-                Items = await bankaHesaplar
+                Count = await bankAccountsMappedQuery.CountAsync(cancellationToken),
+                Items = await bankAccountsMappedQuery
                     .Skip(request.Page * request.PageLength)
                     .Take(request.PageLength)
-                    .Select(x => new Option
-                    {
-                        Text = $"{x.Bank.Name} - {x.Name} {x.Surname} - {x.AccountNumber}",
-                        Id = x.Id.ToString()
-                    }).ToListAsync(cancellationToken)
+                    .AsNoTracking()
+                    .ToListAsync(cancellationToken)
             };
         }
     }
