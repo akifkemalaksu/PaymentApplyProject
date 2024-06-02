@@ -7,17 +7,17 @@ namespace PaymentApplyProject.Domain.Entities
     {
         public short BankId { get; set; }
         [StringLength(50)]
-        public string AccountNumber { get; set; }
+        public required string AccountNumber { get; set; }
         [StringLength(100)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [StringLength(100)]
-        public string Surname { get; set; }
+        public required string Surname { get; set; }
         public decimal UpperLimit { get; set; }
         public decimal LowerLimit { get; set; }
         public bool Active { get; set; }
 
-        [ForeignKey("BankId")]
-        public virtual Bank Bank { get; set; }
+        [ForeignKey(nameof(BankId))]
+        public virtual Bank? Bank { get; set; }
     }
 
 }

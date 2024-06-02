@@ -7,10 +7,10 @@ namespace PaymentApplyProject.Domain.Entities
         public int UserId { get; set; }
         public short RoleId { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
-        [ForeignKey("RoleId")]
-        public virtual Role Role { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual User? User { get; set; }
+        [ForeignKey(nameof(RoleId))]
+        public virtual Role? Role { get; set; }
     }
 
 }

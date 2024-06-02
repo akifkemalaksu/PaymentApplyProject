@@ -11,13 +11,13 @@ namespace PaymentApplyProject.Domain.Entities
         public decimal Amount { get; set; }
         public DateTime? TransactionDate { get; set; }
 
-        [ForeignKey("DepositRequestId")]
-        public virtual DepositRequest DepositRequest { get; set; }
-        [ForeignKey("CustomerId")]
-        public virtual Customer Customer { get; set; }
-        [ForeignKey("DepositStatusId")]
-        public virtual DepositStatus DepositStatus { get; set; }
-        [ForeignKey("BankAccountId")]
+        [ForeignKey(nameof(DepositRequestId))]
+        public virtual DepositRequest? DepositRequest { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public virtual Customer? Customer { get; set; }
+        [ForeignKey(nameof(DepositStatusId))]
+        public virtual DepositStatus? DepositStatus { get; set; }
+        [ForeignKey(nameof(BankAccountId))]
         public virtual BankAccount? BankAccount { get; set; }
     }
 }
