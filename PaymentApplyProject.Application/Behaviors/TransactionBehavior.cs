@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Exceptions;
 using PaymentApplyProject.Application.Interfaces;
 
-namespace PaymentApplyProject.Application.Pipelines
+namespace PaymentApplyProject.Application.Behaviors
 {
     public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ITransactional
     {

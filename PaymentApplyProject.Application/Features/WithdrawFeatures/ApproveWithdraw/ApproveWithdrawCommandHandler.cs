@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
 using PaymentApplyProject.Application.Exceptions;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using System.Net.Http.Json;

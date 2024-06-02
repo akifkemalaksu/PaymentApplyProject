@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.SelectDtos;
+using PaymentApplyProject.Application.Interfaces;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForSelect
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Persistence.Context;
 
 namespace PaymentApplyProject.Persistence

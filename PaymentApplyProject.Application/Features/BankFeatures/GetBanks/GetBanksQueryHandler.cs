@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.BankDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Interfaces;
 
 namespace PaymentApplyProject.Application.Features.BankFeatures.GetBanks
 {

@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAccount

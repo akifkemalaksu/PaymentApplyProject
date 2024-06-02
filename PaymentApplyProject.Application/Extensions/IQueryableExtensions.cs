@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PaymentApplyProject.Application.Extensions
 {
-    public static class LinqExtensions
+    public static class IQueryableExtensions
     {
         public static IQueryable<T> OrderByDynamic<T>(this IQueryable<T> query, string orderByMember, DtOrderDir orderDirection)
         {

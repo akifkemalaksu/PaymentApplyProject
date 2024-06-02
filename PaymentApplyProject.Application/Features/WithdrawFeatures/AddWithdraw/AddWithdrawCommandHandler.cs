@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.NotificationDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.HubServices;
 using PaymentApplyProject.Application.Services.InfrastructureServices;

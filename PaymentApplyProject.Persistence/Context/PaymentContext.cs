@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
-using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Entities;
 
@@ -64,13 +65,17 @@ namespace PaymentApplyProject.Persistence.Context
 
         private void UpdateEventListener()
         {
-            var updated = ChangeTracker.Entries<IBaseEntityWithoutId>().Where(x => x.State == EntityState.Modified).Select(x => x.Entity).ToList();
+            var updated = ChangeTracker.Entries<IBaseEntityWithoutId>().Where(x => x.State == EntityState.Modified).ToList();
             if (!updated.Any()) return;
 
-            Parallel.ForEach(updated, entity =>
+            Parallel.ForEach(updated, entityEntry =>
             {
-                entity.EditedUserId = _userId;
-                entity.EditDate = DateTime.Now;
+                entityEntry.Property(x => x.AddedUserId).IsModified = false;
+                entityEntry.Property(x => x.AddDate).IsModified = false;
+                entityEntry.Property(x => x.Deleted).IsModified = false;
+
+                entityEntry.Entity.EditedUserId = _userId;
+                entityEntry.Entity.EditDate = DateTime.Now;
             });
         }
 
@@ -79,12 +84,16 @@ namespace PaymentApplyProject.Persistence.Context
             var deleted = ChangeTracker.Entries<IBaseEntityWithoutId>().Where(x => x.State == EntityState.Deleted).ToList();
             if (!deleted.Any()) return;
 
-            Parallel.ForEach(deleted, entity =>
+            Parallel.ForEach(deleted, entityEntry =>
             {
-                entity.State = EntityState.Modified;
-                entity.Entity.EditedUserId = _userId;
-                entity.Entity.EditDate = DateTime.Now;
-                entity.Entity.Deleted = true;
+                entityEntry.State = EntityState.Modified;
+
+                entityEntry.Property(x => x.AddedUserId).IsModified = false;
+                entityEntry.Property(x => x.AddDate).IsModified = false;
+
+                entityEntry.Entity.EditedUserId = _userId;
+                entityEntry.Entity.EditDate = DateTime.Now;
+                entityEntry.Entity.Deleted = true;
             });
         }
 

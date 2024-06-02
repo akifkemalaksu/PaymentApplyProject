@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Domain.Entities;
 
-namespace PaymentApplyProject.Application.Context
+namespace PaymentApplyProject.Application.Interfaces
 {
     public interface IPaymentContext : IDbContext
     {

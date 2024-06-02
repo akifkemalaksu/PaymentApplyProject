@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 
