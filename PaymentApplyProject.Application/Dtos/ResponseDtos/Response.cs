@@ -13,35 +13,67 @@ namespace PaymentApplyProject.Application.Dtos.ResponseDtos
         [DataMember]
         public bool IsSuccessful { get; set; }
         [DataMember]
-        public T Data { get; set; }
+        public required T Data { get; set; }
         [DataMember]
-        public string Message { get; set; }
+        public required string Message { get; set; }
         [DataMember]
-        public string ErrorCode { get; set; }
+        public required string ErrorCode { get; set; }
 
 
-        private static Response<T> Create(HttpStatusCode statusCode, bool isSuccessful, T data, string message, string errorCode) => new()
+        private static Response<T> Create(HttpStatusCode statusCode, bool isSuccessful, T data, string message, string? errorCode)
         {
-            StatusCode = statusCode,
-            Data = data,
-            Message = message,
-            IsSuccessful = isSuccessful,
-            ErrorCode = errorCode
-        };
+            return new()
+            {
+                StatusCode = statusCode,
+                Data = data,
+                Message = message,
+                IsSuccessful = isSuccessful,
+                ErrorCode = errorCode
+            };
+        }
 
-        public static Response<T> Success(HttpStatusCode statusCode, T data, string message) => Create(statusCode, true, data, message, null);
-        public static Response<T> Success(HttpStatusCode statusCode, T data) => Success(statusCode, data, string.Empty);
-        public static Response<T> Success(HttpStatusCode statusCode, string message) => Success(statusCode, default, message);
-        public static Response<T> Success(HttpStatusCode statusCode) => Success(statusCode, string.Empty);
-
-        public static Response<T> Error(HttpStatusCode statusCode, string message, string errorCode) => Create(statusCode, false, default, message, errorCode);
-        public static Response<T> Error(HttpStatusCode statusCode, string message) => Error(statusCode, message, null);
-        public static Response<T> Error(HttpStatusCode statusCode) => Error(statusCode, message: string.Empty);
-
-        public override string ToString() => JsonSerializer.Serialize(this, options: new JsonSerializerOptions
+        public static Response<T> Success(HttpStatusCode statusCode, T data, string message)
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
+            return Create(statusCode, true, data, message, null);
+        }
+
+        public static Response<T> Success(HttpStatusCode statusCode, T data)
+        {
+            return Success(statusCode, data, string.Empty);
+        }
+
+        public static Response<T> Success(HttpStatusCode statusCode, string message)
+        {
+            return Success(statusCode, default, message);
+        }
+
+        public static Response<T> Success(HttpStatusCode statusCode)
+        {
+            return Success(statusCode, string.Empty);
+        }
+
+        public static Response<T> Error(HttpStatusCode statusCode, string message, string? errorCode)
+        {
+            return Create(statusCode, false, default, message, errorCode);
+        }
+
+        public static Response<T> Error(HttpStatusCode statusCode, string message)
+        {
+            return Error(statusCode, message, null);
+        }
+
+        public static Response<T> Error(HttpStatusCode statusCode)
+        {
+            return Error(statusCode, message: string.Empty);
+        }
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this, options: new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
     }
 
     public class NoContent { }

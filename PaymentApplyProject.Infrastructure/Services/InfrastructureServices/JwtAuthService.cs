@@ -25,12 +25,12 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Jti,guidString),
-                new Claim(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
-                new Claim(CustomClaimTypes.Email,kullaniciDto.Email),
-                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
-                new Claim(CustomClaimTypes.Name,kullaniciDto.Name),
-                new Claim(CustomClaimTypes.Surname, kullaniciDto.Surname),
+                new(JwtRegisteredClaimNames.Jti,guidString),
+                new(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
+                new(CustomClaimTypes.Email,kullaniciDto.Email),
+                new(CustomClaimTypes.Username,kullaniciDto.Username),
+                new(CustomClaimTypes.Name,kullaniciDto.Name),
+                new(CustomClaimTypes.Surname, kullaniciDto.Surname),
             };
 
             Parallel.ForEach(kullaniciDto.Roles, (yetki) =>

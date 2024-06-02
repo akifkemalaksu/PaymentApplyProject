@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequestsTimeoutControl;
 
-namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
+namespace PaymentApplyProject.Application.Services.BackgroundServices
 {
     public record DepositRequestControlBackgroundServiceState(bool IsEnabled);
 
@@ -27,7 +27,7 @@ namespace PaymentApplyProject.Infrastructure.Services.BackgroundServices
         {
             var name = nameof(DepositRequestControlBackgroundService);
 
-            using PeriodicTimer timer = new PeriodicTimer(_period);
+            using PeriodicTimer timer = new(_period);
             while (!stoppingToken.IsCancellationRequested &&
                 await timer.WaitForNextTickAsync(stoppingToken))
             {

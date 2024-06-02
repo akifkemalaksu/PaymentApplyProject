@@ -2,7 +2,7 @@
 {
     public class ConnectionUniqueKeyDto
     {
-        public string UniqueKey { get; set; }
-        public string ConnectionId { get; set; }
+        public required string UniqueKey { get; set; }
+        public required string ConnectionId { get; set; }
     }
 }

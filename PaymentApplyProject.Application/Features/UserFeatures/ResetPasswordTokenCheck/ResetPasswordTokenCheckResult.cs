@@ -2,6 +2,6 @@
 {
     public class ResetPasswordTokenCheckResult
     {
-        public string Token { get; set; }
+        public required string Token { get; set; }
     }
 }

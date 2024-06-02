@@ -17,7 +17,10 @@ namespace PaymentApplyProject.Infrastructure.Services.HubServices
             _hubConnectionUniqueKeyCacheService = hubConnectionUniqueKeyCacheService;
         }
 
-        public Task CreateNotification(object data, CancellationToken cancellationToken = default) => _hubContext.Clients.All.SendAsync("displayNotification", data, cancellationToken);
+        public Task CreateNotification(object data, CancellationToken cancellationToken = default)
+        {
+            return _hubContext.Clients.All.SendAsync("displayNotification", data, cancellationToken);
+        }
 
         public Task CreateNotificationToSpecificUsers(IEnumerable<string> usernames, object data, CancellationToken cancellationToken = default)
         {

@@ -69,10 +69,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
                     DepositStatusId = StatusConstants.DEPOSIT_REDDEDILDI
                 }).FirstOrDefaultAsync(cancellationToken);
 
-                if (depositRequest == null)
-                    return Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositIsNotFound, ErrorCodes.DepositIsNotFound);
-
-                return Response<GetDepositStatusResult>.Success(System.Net.HttpStatusCode.OK, depositRequest);
+                return depositRequest == null
+                    ? Response<GetDepositStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.DepositIsNotFound, ErrorCodes.DepositIsNotFound)
+                    : Response<GetDepositStatusResult>.Success(System.Net.HttpStatusCode.OK, depositRequest);
             }
 
             return Response<GetDepositStatusResult>.Success(System.Net.HttpStatusCode.OK, deposit);

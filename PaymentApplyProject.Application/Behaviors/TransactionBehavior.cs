@@ -18,7 +18,7 @@ namespace PaymentApplyProject.Application.Behaviors
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            TResponse response = default;
+            TResponse? response = default;
 
             try
             {
@@ -33,7 +33,7 @@ namespace PaymentApplyProject.Application.Behaviors
                     _logger.LogInformation($"End transaction: {typeof(TRequest).Name}.");
                 });
             }
-            catch (CallbackException e)
+            catch (CallbackException)
             {
                 _logger.LogInformation($"Rollback transaction executed {typeof(TRequest).Name}.");
                 await _paymentContext.RollbackTransactionAsync(cancellationToken);

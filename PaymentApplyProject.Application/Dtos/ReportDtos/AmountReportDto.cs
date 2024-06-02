@@ -9,22 +9,10 @@
         public decimal ApprovedWithdrawAmounts { get; set; }
         public decimal PendingWithdrawAmounts { get; set; }
 
-        public int ApprovedDepositPercent
-        {
-            get => (int)(100 * ApprovedDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
-        }
-        public int PendingDepositPercent
-        {
-            get => (int)(100 * PendingDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
-        }
+        public int ApprovedDepositPercent => (int)(100 * ApprovedDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
+        public int PendingDepositPercent => (int)(100 * PendingDepositAmounts / (DepositAmounts == 0 ? 1 : DepositAmounts));
 
-        public int ApprovedWithdrawPercent
-        {
-            get => (int)(100 * ApprovedWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
-        }
-        public int PendingWithdrawPercent
-        {
-            get => (int)(100 * PendingWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
-        }
+        public int ApprovedWithdrawPercent => (int)(100 * ApprovedWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
+        public int PendingWithdrawPercent => (int)(100 * PendingWithdrawAmounts / (WithdrawAmounts == 0 ? 1 : WithdrawAmounts));
     }
 }

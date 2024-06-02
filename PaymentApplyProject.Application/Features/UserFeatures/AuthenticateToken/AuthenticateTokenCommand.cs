@@ -5,7 +5,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToke
 {
     public class AuthenticateTokenCommand : IRequest<Response<AuthenticateTokenResult>>
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public required string Username { get; set; }
+        public required string Password { get; set; }
     }
 }

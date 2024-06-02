@@ -8,6 +8,6 @@ namespace PaymentApplyProject.Application.Dtos.MailDtos
         public required string Body { get; set; }
         public bool IsBodyHtml { get; set; }
         public required IEnumerable<string> Recipients { get; set; }
-        public IEnumerable<Attachment> Attachments { get; set; }
+        public IEnumerable<Attachment>? Attachments { get; set; }
     }
 }

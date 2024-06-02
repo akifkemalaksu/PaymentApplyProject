@@ -7,12 +7,12 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositReques
 {
     public class DepositRequestCommand : IRequest<Response<DepositRequestResult>>, ITransactional
     {
-        public string CallbackUrl { get; set; }
-        public string SuccessUrl { get; set; }
-        public string FailedUrl { get; set; }
-        public CustomerInfoDto CustomerInfo { get; set; }
-        public string MethodType { get; set; }
-        public string UniqueTransactionId { get; set; }
+        public required string CallbackUrl { get; set; }
+        public required string SuccessUrl { get; set; }
+        public required string FailedUrl { get; set; }
+        public required CustomerInfoDto CustomerInfo { get; set; }
+        public required string MethodType { get; set; }
+        public required string UniqueTransactionId { get; set; }
         public decimal Amount { get; set; }
     }
 }

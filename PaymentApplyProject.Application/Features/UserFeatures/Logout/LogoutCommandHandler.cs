@@ -12,6 +12,9 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.Logout
             _cookieAuthService = cookieAuthService;
         }
 
-        public Task Handle(LogoutCommand request, CancellationToken cancellationToken) => _cookieAuthService.SignOutAsync();
+        public Task Handle(LogoutCommand request, CancellationToken cancellationToken)
+        {
+            return _cookieAuthService.SignOutAsync();
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class NotificationDto
     {
-        public string Message { get; set; }
-        public string Path { get; set; }
+        public required string Message { get; set; }
+        public required string Path { get; set; }
     }
 }

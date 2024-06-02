@@ -15,12 +15,12 @@
         /// <summary>
         /// An array defining all columns in the table.
         /// </summary>
-        public DtColumn[] Columns { get; set; }
+        public required DtColumn[] Columns { get; set; }
 
         /// <summary>
         /// An array defining how many columns are being ordering upon - i.e. if the array length is 1, then a single column sort is being performed, otherwise a multi-column sort is being performed.
         /// </summary>
-        public DtOrder[] Order { get; set; }
+        public required DtOrder[] Order { get; set; }
 
         /// <summary>
         /// Paging first record indicator.
@@ -38,12 +38,12 @@
         /// <summary>
         /// Global search value. To be applied to all columns which have searchable as true.
         /// </summary>
-        public DtSearch Search { get; set; }
+        public required DtSearch Search { get; set; }
 
         /// <summary>
         /// Custom column that is used to further sort on the first Order column.
         /// </summary>
-        public string SortOrder => Columns != null && Order != null && Order.Length > 0
+        public string? SortOrder => Columns != null && Order != null && Order.Length > 0
             ? (Columns[Order[0].Column].Data +
                (Order[0].Dir == DtOrderDir.Desc ? " " + Order[0].Dir : string.Empty))
             : null;

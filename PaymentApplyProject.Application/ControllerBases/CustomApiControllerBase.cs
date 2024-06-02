@@ -5,9 +5,12 @@ namespace PaymentApplyProject.Application.ControllerBases
 {
     public class CustomApiControllerBase : ControllerBase
     {
-        public IActionResult CreateResult<T>(Response<T> response) => new ObjectResult(response)
+        public IActionResult CreateResult<T>(Response<T> response)
         {
-            StatusCode = (int)response.StatusCode
-        };
+            return new ObjectResult(response)
+            {
+                StatusCode = (int)response.StatusCode
+            };
+        }
     }
 }

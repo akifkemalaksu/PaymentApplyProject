@@ -8,11 +8,11 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw
     public class AddWithdrawCommand : IRequest<Response<AddWithdrawResult>>, ITransactional
     {
         public short BankId { get; set; }
-        public string AccountNumber { get; set; }
-        public string TransactionId { get; set; }
-        public CustomerInfoDto CustomerInfo { get; set; }
-        public string MethodType { get; set; }
-        public string CallbackUrl { get; set; }
+        public required string AccountNumber { get; set; }
+        public required string TransactionId { get; set; }
+        public required CustomerInfoDto CustomerInfo { get; set; }
+        public required string MethodType { get; set; }
+        public required string CallbackUrl { get; set; }
         public decimal Amount { get; set; }
     }
 }

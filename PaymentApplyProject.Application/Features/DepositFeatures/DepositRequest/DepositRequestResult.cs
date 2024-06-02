@@ -2,7 +2,7 @@
 {
     public class DepositRequestResult
     {
-        public string RedirectUrl { get; set; }
+        public required string RedirectUrl { get; set; }
         public int ExternalTransactionId { get; set; }
     }
 }

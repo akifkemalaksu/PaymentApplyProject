@@ -16,7 +16,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
 
         public EditUserCommand()
         {
-            Companies = new List<short>();
+            Companies = [];
         }
     }
 }

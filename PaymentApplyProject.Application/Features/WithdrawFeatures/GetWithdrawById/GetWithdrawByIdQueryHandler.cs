@@ -39,10 +39,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawB
                     ExternalTransactionId = x.ExternalTransactionId
                 }).FirstOrDefaultAsync(cancellationToken);
 
-            if (paraCekme is null)
-                return Response<GetWithdrawByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
-
-            return Response<GetWithdrawByIdResult>.Success(System.Net.HttpStatusCode.OK, paraCekme);
+            return paraCekme is null
+                ? Response<GetWithdrawByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi)
+                : Response<GetWithdrawByIdResult>.Success(System.Net.HttpStatusCode.OK, paraCekme);
         }
     }
 }

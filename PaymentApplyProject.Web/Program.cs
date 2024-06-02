@@ -1,7 +1,7 @@
 using PaymentApplyProject.Application.Middlewares;
+using PaymentApplyProject.Application.Services.BackgroundServices;
 using PaymentApplyProject.Infrastructure;
 using PaymentApplyProject.Infrastructure.Hubs;
-using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
 using PaymentApplyProject.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

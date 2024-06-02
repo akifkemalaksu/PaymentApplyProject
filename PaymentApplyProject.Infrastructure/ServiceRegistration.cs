@@ -17,11 +17,11 @@ using PaymentApplyProject.Application.Features.DepositFeatures.RejectDeposit;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
 using PaymentApplyProject.Application.Interfaces;
+using PaymentApplyProject.Application.Services.BackgroundServices;
 using PaymentApplyProject.Application.Services.HubServices;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Infrastructure.Mapping.Mapster;
-using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
 using PaymentApplyProject.Infrastructure.Services.HubServices;
 using PaymentApplyProject.Infrastructure.Services.InfrastructureServices;
 using System.Text;
@@ -104,9 +104,9 @@ namespace PaymentApplyProject.Infrastructure
                     options.ForwardDefaultSelector = context =>
                     {
                         string authorization = context.Request.Headers[HeaderNames.Authorization];
-                        if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
-                            return JwtBearerDefaults.AuthenticationScheme;
-                        return CookieAuthenticationDefaults.AuthenticationScheme;
+                        return !string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer ")
+                            ? JwtBearerDefaults.AuthenticationScheme
+                            : CookieAuthenticationDefaults.AuthenticationScheme;
                     };
                 });
 

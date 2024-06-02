@@ -2,9 +2,9 @@
 {
     public class CustomerInfoDto
     {
-        public string CustomerId { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Username { get; set; }
+        public required string CustomerId { get; set; }
+        public required string Name { get; set; }
+        public required string Surname { get; set; }
+        public required string Username { get; set; }
     }
 }

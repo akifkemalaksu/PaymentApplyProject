@@ -26,11 +26,9 @@ namespace PaymentApplyProject.Web.Controllers
 
             var depositRequest = await _mediator.Send(new GetDepositRequestFromHashQuery { HashKey = key });
 
-            if (!depositRequest.IsSuccessful)
-                return RedirectToAction("index", "error", new { errorCode = depositRequest.ErrorCode, message = depositRequest.Message, statusCode = (int)depositRequest.StatusCode });
-
-
-            return View(depositRequest.Data);
+            return !depositRequest.IsSuccessful
+                ? RedirectToAction("index", "error", new { errorCode = depositRequest.ErrorCode, message = depositRequest.Message, statusCode = (int)depositRequest.StatusCode })
+                : View(depositRequest.Data);
         }
 
         [HttpPost]

@@ -5,6 +5,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
 {
     public class GetWithdrawStatusQuery : IRequest<Response<GetWithdrawStatusResult>>
     {
-        public string TransactionId { get; set; }
+        public required string TransactionId { get; set; }
     }
 }

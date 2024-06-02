@@ -41,10 +41,9 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositByI
                     ExternalTransactionId = x.DepositRequest.UniqueTransactionId
                 }).FirstOrDefaultAsync(cancellationToken);
 
-            if (paraYatirma == null)
-                return Response<GetDepositByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi);
-
-            return Response<GetDepositByIdResult>.Success(System.Net.HttpStatusCode.OK, paraYatirma);
+            return paraYatirma == null
+                ? Response<GetDepositByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.VeriBulunamadi)
+                : Response<GetDepositByIdResult>.Success(System.Net.HttpStatusCode.OK, paraYatirma);
         }
     }
 }

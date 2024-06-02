@@ -7,17 +7,17 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForData
         [DisplayName("Id")]
         public int Id { get; set; }
         [DisplayName("Kullanıcı Adı")]
-        public string Username { get; set; }
+        public required string Username { get; set; }
         [DisplayName("Email")]
-        public string Email { get; set; }
+        public required string Email { get; set; }
         [DisplayName("Ad")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [DisplayName("Soyad")]
-        public string Surname { get; set; }
+        public required string Surname { get; set; }
         [DisplayName("Durum")]
         public bool Active { get; set; }
         [DisplayName("Firmalar")]
-        public string Companies { get; set; }
+        public required string Companies { get; set; }
         [DisplayName("Rol")]
         public string? Role { get; set; }
         [DisplayName("Ekleme Tarihi")]

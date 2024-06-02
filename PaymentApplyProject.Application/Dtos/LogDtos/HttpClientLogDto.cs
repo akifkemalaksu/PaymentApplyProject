@@ -3,8 +3,8 @@
     public class HttpClientLogDto : LogDto
     {
         public int StatusCode { get; set; }
-        public string Url { get; set; }
-        public object Request { get; set; }
-        public object Response { get; set; }
+        public required string Url { get; set; }
+        public required object Request { get; set; }
+        public required object Response { get; set; }
     }
 }

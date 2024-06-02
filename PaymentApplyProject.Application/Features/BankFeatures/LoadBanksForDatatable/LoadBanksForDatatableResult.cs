@@ -7,6 +7,6 @@ namespace PaymentApplyProject.Application.Features.BankFeatures.LoadBanksForData
         [DisplayName("Banka Id")]
         public short Id { get; set; }
         [DisplayName("Banka")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
     }
 }

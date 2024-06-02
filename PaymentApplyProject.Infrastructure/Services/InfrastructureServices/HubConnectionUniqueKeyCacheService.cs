@@ -16,8 +16,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
         public void AddUserConnection(ConnectionUniqueKeyDto connectionUniqueKey)
         {
             var connections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
-            if (connections == null)
-                connections = new List<ConnectionUniqueKeyDto>();
+            connections ??= [];
             connections.Add(connectionUniqueKey);
             _cacheService.Set(CacheNameConstants.SIGNALR_CONNECTIONS, connections);
         }
@@ -25,9 +24,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
         public List<ConnectionUniqueKeyDto> GetConnections()
         {
             var connections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
-            if (connections == null) return new List<ConnectionUniqueKeyDto>();
-
-            return connections;
+            return connections ?? ([]);
         }
 
         public string GetConnection(string uniqueKey)
@@ -36,8 +33,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             if (connections == null) return string.Empty;
 
             var connection = connections.FirstOrDefault(x => x.UniqueKey == uniqueKey);
-            if (connection == null) return string.Empty;
-            return connection.ConnectionId;
+            return connection == null ? string.Empty : connection.ConnectionId;
         }
 
         public void RemoveConnection(string connectionId)

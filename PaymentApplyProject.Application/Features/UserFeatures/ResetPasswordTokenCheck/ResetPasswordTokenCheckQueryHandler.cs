@@ -17,7 +17,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTok
             _cacheService = cacheService;
         }
 
-        public async Task<Response<ResetPasswordTokenCheckResult>> Handle(ResetPasswordTokenCheckQuery request, CancellationToken cancellationToken)
+        public Response<ResetPasswordTokenCheckResult> Handle(ResetPasswordTokenCheckQuery request, CancellationToken cancellationToken)
         {
             var userId = _cacheService.Get<int?>(request.Token);
             if (userId == null)
@@ -28,6 +28,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTok
                 Token = request.Token
             };
             return Response<ResetPasswordTokenCheckResult>.Success(System.Net.HttpStatusCode.OK, resetPasswordTokenCheckResult);
+        }
+
+        Task<Response<ResetPasswordTokenCheckResult>> IRequestHandler<ResetPasswordTokenCheckQuery, Response<ResetPasswordTokenCheckResult>>.Handle(ResetPasswordTokenCheckQuery request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

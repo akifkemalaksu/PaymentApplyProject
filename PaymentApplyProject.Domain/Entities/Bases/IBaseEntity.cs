@@ -1,4 +1,4 @@
-﻿namespace PaymentApplyProject.Domain.Entities
+﻿namespace PaymentApplyProject.Domain.Entities.Bases
 {
     public interface IBaseEntity<T> : IBaseEntityWithoutId
         where T : notnull

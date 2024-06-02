@@ -5,6 +5,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositReq
 {
     public class GetDepositRequestFromHashQuery : IRequest<Response<GetDepositRequestFromHashResult>>
     {
-        public string HashKey { get; set; }
+        public required string HashKey { get; set; }
     }
 }

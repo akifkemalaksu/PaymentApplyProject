@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore.Storage;
 using PaymentApplyProject.Application.Interfaces;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Entities;
+using PaymentApplyProject.Domain.Entities.Bases;
 
 namespace PaymentApplyProject.Persistence.Context
 {
     public class PaymentContext : DbContext, IPaymentContext
     {
-        private IDbContextTransaction _transaction;
+        private IDbContextTransaction? _transaction;
         private readonly int _userId;
 
         public PaymentContext(DbContextOptions options, IAuthenticatedUserService authenticatedUserService) : base(options)

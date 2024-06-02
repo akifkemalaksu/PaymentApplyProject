@@ -22,11 +22,11 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             string guidString = Guid.NewGuid().ToString();
             var claims = new List<Claim>()
             {
-                new Claim(CustomClaimTypes.Username,kullaniciDto.Username),
-                new Claim(CustomClaimTypes.Name,kullaniciDto.Name),
-                new Claim(CustomClaimTypes.Surname,kullaniciDto.Surname),
-                new Claim(CustomClaimTypes.Email,kullaniciDto.Email),
-                new Claim(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
+                new(CustomClaimTypes.Username,kullaniciDto.Username),
+                new(CustomClaimTypes.Name,kullaniciDto.Name),
+                new(CustomClaimTypes.Surname,kullaniciDto.Surname),
+                new(CustomClaimTypes.Email,kullaniciDto.Email),
+                new(CustomClaimTypes.Id,kullaniciDto.Id.ToString()),
             };
 
             Parallel.ForEach(kullaniciDto.Roles, (yetki) =>
@@ -53,6 +53,9 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
                 authProperties);
         }
 
-        public Task SignOutAsync() => _httpContextAccessor.HttpContext.SignOutAsync();
+        public Task SignOutAsync()
+        {
+            return _httpContextAccessor.HttpContext.SignOutAsync();
+        }
     }
 }

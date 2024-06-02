@@ -2,7 +2,7 @@
 {
     public class AuthenticateTokenResult
     {
-        public string Token { get; set; }
+        public required string Token { get; set; }
         public DateTime ValidTo { get; set; }
     }
 }

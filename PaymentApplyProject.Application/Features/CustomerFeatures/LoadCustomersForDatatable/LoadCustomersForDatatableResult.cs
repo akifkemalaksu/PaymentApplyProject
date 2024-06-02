@@ -7,13 +7,13 @@ namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomer
         [DisplayName("Müşteri Id")]
         public int Id { get; set; }
         [DisplayName("Dış Kaynak Id")]
-        public string ExternalCustomerId { get; set; }
+        public required string ExternalCustomerId { get; set; }
         [DisplayName("Firma")]
-        public string Company { get; set; }
+        public required string Company { get; set; }
         [DisplayName("Kullanıcı Adı")]
-        public string Username { get; set; }
+        public required string Username { get; set; }
         [DisplayName("Ad Soyad")]
-        public string NameSurname { get; set; }
+        public required string NameSurname { get; set; }
         [DisplayName("Durum")]
         public bool Active { get; set; }
         [DisplayName("Ekleme Tarihi")]

@@ -21,7 +21,7 @@ namespace PaymentApplyProject.Application.Helpers
             if (includeNumbers)
                 validChars += numberChars;
 
-            Random Random = new Random();
+            Random Random = new();
 
             char[] password = new char[length];
             for (int i = 0; i < length; i++)
@@ -34,33 +34,29 @@ namespace PaymentApplyProject.Application.Helpers
 
         public static string GenerateSha256Key(string rawData)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+            using SHA256 sha256Hash = SHA256.Create();
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
+            StringBuilder builder = new();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
             }
+            return builder.ToString();
         }
 
         public static string GenerateDataHashForCallback(GenerateHashDto generateHash)
         {
-            var dataToHash = $"{generateHash.Token}-{generateHash.TransactionId}-{generateHash.Amount.ToString("0.##")}-{generateHash.Status}";
+            var dataToHash = $"{generateHash.Token}-{generateHash.TransactionId}-{generateHash.Amount:0.##}-{generateHash.Status}";
 
             byte[] key = Encoding.UTF8.GetBytes(generateHash.Password);
             byte[] data = Encoding.UTF8.GetBytes(dataToHash);
 
-            using (HMACSHA256 hmac = new HMACSHA256(key))
-            {
-                byte[] hash = hmac.ComputeHash(data);
-                string result = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            using HMACSHA256 hmac = new(key);
+            byte[] hash = hmac.ComputeHash(data);
+            string result = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
-                return result;
-            }
+            return result;
         }
     }
 }

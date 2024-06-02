@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PaymentApplyProject.Domain.Entities
+namespace PaymentApplyProject.Domain.Entities.Bases
 {
     public class BaseEntity<T> : IBaseEntity<T>
         where T : notnull

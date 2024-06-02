@@ -55,10 +55,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawS
                 WithdrawStatusId = x.WithdrawStatusId
             }).FirstOrDefaultAsync(cancellationToken);
 
-            if (withdraw == null)
-                return Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.WithdrawIsNotFound, ErrorCodes.WithdrawIsNotFound);
-
-            return Response<GetWithdrawStatusResult>.Success(System.Net.HttpStatusCode.OK, withdraw);
+            return withdraw == null
+                ? Response<GetWithdrawStatusResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.WithdrawIsNotFound, ErrorCodes.WithdrawIsNotFound)
+                : Response<GetWithdrawStatusResult>.Success(System.Net.HttpStatusCode.OK, withdraw);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ForgotPassword
                 return Response<NoContent>.Error(System.Net.HttpStatusCode.OK, Messages.KullaniciAktifDegil);
 
             var now = DateTime.Now;
-            var userString = $"({user.Id})-({user.Username})-({user.Email})-({now.ToString("o")})";
+            var userString = $"({user.Id})-({user.Username})-({user.Email})-({now:o})";
             var passwordResetToken = GeneratorHelper.GenerateSha256Key(userString);
 
             var resetPasswordMinutes = 15;

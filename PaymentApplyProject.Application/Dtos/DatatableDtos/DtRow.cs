@@ -11,19 +11,19 @@ namespace PaymentApplyProject.Application.Dtos.DatatableDtos
         /// Set the ID property of the dt-tag tr node to this value
         /// </summary>
         [JsonPropertyName("DT_RowId")]
-        public virtual string DtRowId => null;
+        public virtual string? DtRowId => null;
 
         /// <summary>
         /// Add this class to the dt-tag tr node
         /// </summary>
         [JsonPropertyName("DT_RowClass")]
-        public virtual string DtRowClass => null;
+        public virtual string? DtRowClass => null;
 
         /// <summary>
         /// Add the data contained in the object to the row using the jQuery data() method to set the data, which can also then be used for later retrieval (for example on a click event).
         /// </summary>
         [JsonPropertyName("DT_RowData")]
-        public virtual object DtRowData => null;
+        public virtual object? DtRowData => null;
 
         /// <summary>
         /// Add the data contained in the object to the row dt-tag tr node as attributes.
@@ -32,6 +32,6 @@ namespace PaymentApplyProject.Application.Dtos.DatatableDtos
         /// Please note that this option requires DataTables 1.10.5 or newer.
         /// </summary>
         [JsonPropertyName("DT_RowAttr")]
-        public virtual object DtRowAttr => null;
+        public virtual object? DtRowAttr => null;
     }
 }

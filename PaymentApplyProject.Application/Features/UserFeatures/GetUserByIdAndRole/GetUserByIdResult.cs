@@ -5,12 +5,12 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
     public class GetUserByIdResult
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public required string Username { get; set; }
+        public required string Email { get; set; }
+        public required string Name { get; set; }
+        public required string Surname { get; set; }
         public bool Active { get; set; }
         public RoleDto? Role { get; set; }
-        public IEnumerable<CompanyDto> Companies { get; set; }
+        public required IEnumerable<CompanyDto> Companies { get; set; }
     }
 }

@@ -3,6 +3,6 @@
     public class SelectResult
     {
         public int Count { get; set; }
-        public IEnumerable<Option> Items { get; set; }
+        public required IEnumerable<Option> Items { get; set; }
     }
 }

@@ -76,11 +76,9 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithd
             };
             _logger.LogInformation("{@log}", log);
 
-            if (!callbackResponse.IsSuccessStatusCode)
-                throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException);
-
-
-            return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
+            return !callbackResponse.IsSuccessStatusCode
+                ? throw new CallbackException(responseContent, ErrorCodes.WithdrawCallbackException)
+                : Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);
         }
     }
 }

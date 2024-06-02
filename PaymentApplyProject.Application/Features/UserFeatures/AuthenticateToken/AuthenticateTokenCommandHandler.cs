@@ -48,13 +48,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToke
                     })
                 })
                 .FirstOrDefaultAsync(cancellationToken);
-            if (user == null)
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserNotFound, ErrorCodes.UserNotFound);
-
-            if (!user.Roles.Any(x => new int[] { RoleConstants.CUSTOMER_ID, RoleConstants.ADMIN_ID }.Contains(x.Id)))
-                return Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoAuthorization, ErrorCodes.UserHasNoAuthorization);
-
-            return _jwtTokenService.CreateToken(user);
+            return user == null
+                ? Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserNotFound, ErrorCodes.UserNotFound)
+                : !user.Roles.Any(x => new int[] { RoleConstants.CUSTOMER_ID, RoleConstants.ADMIN_ID }.Contains(x.Id))
+                ? Response<AuthenticateTokenResult>.Error(System.Net.HttpStatusCode.BadRequest, Messages.UserHasNoAuthorization, ErrorCodes.UserHasNoAuthorization)
+                : _jwtTokenService.CreateToken(user);
         }
     }
 }

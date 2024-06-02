@@ -39,10 +39,9 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAc
                     AccountNumber = x.AccountNumber,
                 }).FirstOrDefaultAsync(cancellationToken);
 
-            if (bankAccount == null)
-                return Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.BankaHesabiBulunamadi);
-
-            return Response<GetBankAccountForPaymentFrameResult>.Success(System.Net.HttpStatusCode.OK, bankAccount);
+            return bankAccount == null
+                ? Response<GetBankAccountForPaymentFrameResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.BankaHesabiBulunamadi)
+                : Response<GetBankAccountForPaymentFrameResult>.Success(System.Net.HttpStatusCode.OK, bankAccount);
         }
     }
 }

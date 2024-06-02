@@ -12,11 +12,24 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             _memoryCache = memoryCache;
         }
 
-        public T Get<T>(string key) => _memoryCache.Get<T>(key);
+        public T Get<T>(string key)
+        {
+            return _memoryCache.Get<T>(key);
+        }
 
-        public void Remove(string key) => _memoryCache.Remove(key);
+        public void Remove(string key)
+        {
+            _memoryCache.Remove(key);
+        }
 
-        public void Set<T>(string key, T value) => _memoryCache.Set(key, value);
-        public void Set<T>(string key, T value, TimeSpan timeSpan) => _memoryCache.Set(key, value, timeSpan);
+        public void Set<T>(string key, T value)
+        {
+            _memoryCache.Set(key, value);
+        }
+
+        public void Set<T>(string key, T value, TimeSpan timeSpan)
+        {
+            _memoryCache.Set(key, value, timeSpan);
+        }
     }
 }

@@ -5,6 +5,6 @@ namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositSta
 {
     public class GetDepositStatusQuery : IRequest<Response<GetDepositStatusResult>>
     {
-        public string TransactionId { get; set; }
+        public required string TransactionId { get; set; }
     }
 }

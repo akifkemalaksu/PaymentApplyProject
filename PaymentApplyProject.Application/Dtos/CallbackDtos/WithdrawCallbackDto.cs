@@ -38,10 +38,10 @@ namespace PaymentApplyProject.Application.Dtos.CallbackDtos
 
     public class GenerateHashDto
     {
-        public string TransactionId { get; set; }
+        public required string TransactionId { get; set; }
         public decimal Amount { get; set; }
-        public string Status { get; set; }
-        public string Token { get; set; }
-        public string Password { get; set; }
+        public required string Status { get; set; }
+        public required string Token { get; set; }
+        public required string Password { get; set; }
     }
 }

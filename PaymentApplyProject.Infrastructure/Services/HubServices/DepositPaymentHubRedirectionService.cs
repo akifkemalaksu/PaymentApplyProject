@@ -3,7 +3,7 @@ using PaymentApplyProject.Application.Services.HubServices;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Infrastructure.Hubs;
 
-namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
+namespace PaymentApplyProject.Infrastructure.Services.HubServices
 {
     public class DepositPaymentHubRedirectionService : IDepositPaymentHubRedirectionService
     {

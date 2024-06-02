@@ -55,11 +55,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.EditUser
                 CompanyId = x
             })
             .ToList();
-            user.UserRoles = new List<UserRole> { new()
+            user.UserRoles = [ new()
             {
                 RoleId = request.RoleId
             }
-            };
+            ];
             await _paymentContext.SaveChangesAsync(cancellationToken);
 
             return Response<NoContent>.Success(System.Net.HttpStatusCode.OK, Messages.IslemBasarili);

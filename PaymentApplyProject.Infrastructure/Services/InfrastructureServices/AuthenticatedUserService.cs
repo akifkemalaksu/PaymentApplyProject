@@ -26,9 +26,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
             var idString = claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Id)?.Value;
 
-            if (string.IsNullOrEmpty(idString)) return 0;
-
-            return int.Parse(idString);
+            return string.IsNullOrEmpty(idString) ? 0 : int.Parse(idString);
         }
 
         public string GetUsername()
@@ -41,12 +39,10 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 
             var username = claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Username)?.Value;
 
-            if (string.IsNullOrEmpty(username)) return string.Empty;
-
-            return username;
+            return string.IsNullOrEmpty(username) ? string.Empty : username;
         }
 
-        public UserDto GetUserInfo()
+        public UserDto? GetUserInfo()
         {
             var claimsPrincipal = _httpContextAccessor.HttpContext.User;
 
@@ -92,6 +88,9 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             return signedInUser;
         }
 
-        public string GetBearerToken() => _httpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+        public string GetBearerToken()
+        {
+            return _httpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+        }
     }
 }

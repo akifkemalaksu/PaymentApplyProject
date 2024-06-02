@@ -7,6 +7,6 @@ namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdr
     public class RejectWithdrawCommand : IRequest<Response<NoContent>>, ITransactional
     {
         public int Id { get; set; }
-        public string Message { get; set; }
+        public required string Message { get; set; }
     }
 }

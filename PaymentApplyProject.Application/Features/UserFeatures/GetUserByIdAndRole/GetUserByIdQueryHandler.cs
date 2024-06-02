@@ -46,10 +46,9 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRo
                     .FirstOrDefault(),
                 }).FirstOrDefaultAsync();
 
-            if (user is null)
-                return Response<GetUserByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi);
-
-            return Response<GetUserByIdResult>.Success(System.Net.HttpStatusCode.OK, user);
+            return user is null
+                ? Response<GetUserByIdResult>.Error(System.Net.HttpStatusCode.NotFound, Messages.KullaniciBulunamadi)
+                : Response<GetUserByIdResult>.Success(System.Net.HttpStatusCode.OK, user);
         }
     }
 }

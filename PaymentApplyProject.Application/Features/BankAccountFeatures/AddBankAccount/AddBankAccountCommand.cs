@@ -6,9 +6,9 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.AddBankAc
     public class AddBankAccountCommand : IRequest<Response<NoContent>>
     {
         public short BankId { get; set; }
-        public string AccountNumber { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public required string AccountNumber { get; set; }
+        public required string Name { get; set; }
+        public required string Surname { get; set; }
         public decimal UpperLimit { get; set; }
         public decimal LowerLimit { get; set; }
     }

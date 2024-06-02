@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PaymentApplyProject.Domain.Entities.Bases;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaymentApplyProject.Domain.Entities
@@ -17,7 +18,7 @@ namespace PaymentApplyProject.Domain.Entities
         public bool Active { get; set; }
 
         [ForeignKey(nameof(CompanyId))]
-        public virtual Company Company { get; set; }
+        public virtual Company? Company { get; set; }
     }
 
 }

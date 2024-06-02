@@ -7,11 +7,11 @@ namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankA
         [DisplayName("Hesap Id")]
         public int Id { get; set; }
         [DisplayName("Banka")]
-        public string Bank { get; set; }
+        public required string Bank { get; set; }
         [DisplayName("Hesap Numarası")]
-        public string AccountNumber { get; set; }
+        public required string AccountNumber { get; set; }
         [DisplayName("Hesap Sahibi")]
-        public string NameSurname { get; set; }
+        public required string NameSurname { get; set; }
         [DisplayName("Üst Limit")]
         public decimal UpperLimit { get; set; }
         [DisplayName("Alt Limit")]

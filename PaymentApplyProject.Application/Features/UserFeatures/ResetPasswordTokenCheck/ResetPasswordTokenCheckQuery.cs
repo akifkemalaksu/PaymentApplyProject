@@ -5,6 +5,6 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTok
 {
     public class ResetPasswordTokenCheckQuery : IRequest<Response<ResetPasswordTokenCheckResult>>
     {
-        public string Token { get; set; }
+        public required string Token { get; set; }
     }
 }

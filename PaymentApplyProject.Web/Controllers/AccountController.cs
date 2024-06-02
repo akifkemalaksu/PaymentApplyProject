@@ -80,10 +80,7 @@ namespace PaymentApplyProject.Web.Controllers
         public async Task<IActionResult> ResetPassword(string token)
         {
             var result = await _mediator.Send(new ResetPasswordTokenCheckQuery { Token = token });
-            if (!result.IsSuccessful)
-                return RedirectToAction("login", "account", new { message = result.Message });
-
-            return View(result.Data);
+            return !result.IsSuccessful ? RedirectToAction("login", "account", new { message = result.Message }) : View(result.Data);
         }
 
         [AllowAnonymous]

@@ -14,7 +14,7 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 
         public AddUserCommand()
         {
-            Companies = new List<short>();
+            Companies = [];
         }
     }
 }

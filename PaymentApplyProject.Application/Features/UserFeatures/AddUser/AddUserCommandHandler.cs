@@ -46,11 +46,11 @@ namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
             {
                 CompanyId = x,
             }).ToList();
-            user.UserRoles = new List<UserRole> { new()
+            user.UserRoles = [ new()
             {
                 RoleId = request.RoleId
             }
-            };
+            ];
 
             await _paymentContext.Users.AddAsync(user, cancellationToken);
             await _paymentContext.SaveChangesAsync(cancellationToken);

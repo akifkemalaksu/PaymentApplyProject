@@ -4,7 +4,7 @@ namespace PaymentApplyProject.Application.Features.ReportsFeatures.GetMainReport
 {
     public class GetMainReportsResult
     {
-        public AmountReportDto TotalReport { get; set; }
-        public AmountReportDto DailyReport { get; set; }
+        public required AmountReportDto TotalReport { get; set; }
+        public required AmountReportDto DailyReport { get; set; }
     }
 }

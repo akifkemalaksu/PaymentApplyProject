@@ -35,10 +35,10 @@ namespace PaymentApplyProject.Application.Dtos.DatatableDtos
         /// Note that this parameter's name can be changed using the ajax option's dataSrc property.
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<T> Data { get; set; }
+        public required IEnumerable<T> Data { get; set; }
 
         [JsonPropertyName("tfootData")]
-        public object TfootData { get; set; }
+        public object? TfootData { get; set; }
 
         /// <summary>
         /// Optional: If an error occurs during the running of the server-side processing script, you can inform the user of this error by passing back the error message to be displayed using this parameter.
@@ -46,6 +46,6 @@ namespace PaymentApplyProject.Application.Dtos.DatatableDtos
         /// </summary>
         [JsonPropertyName("error")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string Error { get; set; }
+        public string? Error { get; set; }
     }
 }
