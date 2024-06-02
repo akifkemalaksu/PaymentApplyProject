@@ -367,3 +367,5 @@ docker-compose.yml
 
 # Config files
 appsettings.Development.json
+
+.sonarqube
