@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
 {

@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using PaymentApplyProject.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using PaymentApplyProject.Application.Dtos.UserDtos;
-using MediatR;
 using Microsoft.Net.Http.Headers;
+using PaymentApplyProject.Application.Dtos.UserDtos;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Domain.Constants;
+using System.Security.Claims;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

@@ -1,17 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Dtos.MailDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Mapping;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
-using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Dtos.MailDtos;
-using PaymentApplyProject.Application.Services.InfrastructureServices;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AddUser
 {

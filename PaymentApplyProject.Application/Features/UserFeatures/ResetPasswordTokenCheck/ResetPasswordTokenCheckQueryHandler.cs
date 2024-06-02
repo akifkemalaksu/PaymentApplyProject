@@ -3,7 +3,6 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
-using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck
 {

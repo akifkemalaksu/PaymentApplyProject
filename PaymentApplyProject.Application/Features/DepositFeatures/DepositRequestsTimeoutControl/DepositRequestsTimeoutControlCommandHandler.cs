@@ -6,14 +6,11 @@ using PaymentApplyProject.Application.Dtos.CallbackDtos;
 using PaymentApplyProject.Application.Dtos.LogDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Extensions;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
-using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
 using System.Net.Http.Json;
-using System.Web;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositRequestsTimeoutControl
 {

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Domain.Entities
 {

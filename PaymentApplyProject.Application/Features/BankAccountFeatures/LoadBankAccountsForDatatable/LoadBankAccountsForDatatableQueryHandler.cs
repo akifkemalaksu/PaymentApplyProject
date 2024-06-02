@@ -1,9 +1,8 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
-using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Extensions;
-using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForDatatable
 {

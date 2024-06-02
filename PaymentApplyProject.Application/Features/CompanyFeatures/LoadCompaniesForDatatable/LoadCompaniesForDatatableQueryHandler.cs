@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
-using PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForDatatable;
 
 namespace PaymentApplyProject.Application.Features.CompanyFeatures.LoadCompaniesForDatatable
 {

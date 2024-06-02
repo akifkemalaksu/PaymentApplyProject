@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
-using PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
-using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.LoadDepositsForDatatable
 {

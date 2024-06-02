@@ -1,16 +1,12 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PaymentApplyProject.Application.ControllerBases;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
-using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
-using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
-using PaymentApplyProject.Application.Features.BankFeatures.GetBanks;
-using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawStatus;
-using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus;
 using PaymentApplyProject.Application.Attributes;
+using PaymentApplyProject.Application.ControllerBases;
+using PaymentApplyProject.Application.Features.BankFeatures.GetBanks;
+using PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest;
+using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
+using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawStatus;
 
 namespace PaymentApplyProject.Web.Controllers
 {

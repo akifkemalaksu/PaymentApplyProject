@@ -1,15 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using PaymentApplyProject.Application.Dtos.SignalRDtos;
-using PaymentApplyProject.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PaymentApplyProject.Infrastructure.Hubs;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Application.Services.HubServices;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Infrastructure.Hubs;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
@@ -24,7 +16,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             _hubUserConnectionService = hubUserConnectionService;
         }
 
-        public Task Redirect(string redirectUrl,string hash,CancellationToken cancellationToken = default)
+        public Task Redirect(string redirectUrl, string hash, CancellationToken cancellationToken = default)
         {
             var connectionId = _hubUserConnectionService.GetConnection(hash);
             return _hubContext.Clients.Client(connectionId).SendAsync("redirect", redirectUrl, cancellationToken);

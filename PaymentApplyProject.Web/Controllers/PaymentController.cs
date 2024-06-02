@@ -1,9 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PaymentApplyProject.Application.Dtos;
-using System.Data;
-using System.Linq.Expressions;
+using PaymentApplyProject.Application.Attributes;
 using PaymentApplyProject.Application.ControllerBases;
 using PaymentApplyProject.Application.Features.DepositFeatures.ApproveDeposit;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById;
@@ -13,7 +10,6 @@ using PaymentApplyProject.Application.Features.WithdrawFeatures.ApproveWithdraw;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.GetWithdrawById;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.LoadWithdrawsForDatatable;
 using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
-using PaymentApplyProject.Application.Attributes;
 
 namespace PaymentApplyProject.Web.Controllers
 {

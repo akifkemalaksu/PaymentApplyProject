@@ -1,14 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using PaymentApplyProject.Application.Dtos.SignalRDtos;
-using PaymentApplyProject.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PaymentApplyProject.Infrastructure.Hubs;
-using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Application.Services.HubServices;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Infrastructure.Hubs;
 
 namespace PaymentApplyProject.Infrastructure.Services.HubServices
 {

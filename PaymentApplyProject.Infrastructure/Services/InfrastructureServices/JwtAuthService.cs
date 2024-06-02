@@ -1,19 +1,13 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Dtos.Settings;
-using System;
-using System.Collections.Generic;
+using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
+using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Domain.Constants;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using PaymentApplyProject.Domain.Constants;
-using Microsoft.AspNetCore.Http;
-using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
-using System.Xml.Linq;
-using PaymentApplyProject.Application.Dtos.UserDtos;
-using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Services.InfrastructureServices;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PaymentApplyProject.Application.Dtos.LogDtos
+﻿namespace PaymentApplyProject.Application.Dtos.LogDtos
 {
     public class HttpClientLogDto : LogDto
     {

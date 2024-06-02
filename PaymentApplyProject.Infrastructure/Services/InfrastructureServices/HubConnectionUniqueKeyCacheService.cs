@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.RenderTree;
-using PaymentApplyProject.Application.Dtos.SignalRDtos;
+﻿using PaymentApplyProject.Application.Dtos.SignalRDtos;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
 {
@@ -20,7 +13,7 @@ namespace PaymentApplyProject.Infrastructure.Services.InfrastructureServices
             _cacheService = cacheService;
         }
 
-        public void AddUserConnection(ConnectionUniqueKeyDto  connectionUniqueKey)
+        public void AddUserConnection(ConnectionUniqueKeyDto connectionUniqueKey)
         {
             var connections = _cacheService.Get<List<ConnectionUniqueKeyDto>>(CacheNameConstants.SIGNALR_CONNECTIONS);
             if (connections == null)

@@ -1,11 +1,9 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Dtos.DatatableDtos;
-using PaymentApplyProject.Application.Context;
 using Microsoft.EntityFrameworkCore;
+using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
-using PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
-using System.Linq;
 
 namespace PaymentApplyProject.Application.Features.CustomerFeatures.LoadCustomersForDatatable
 {

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
+﻿namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositById
 {
     public class GetDepositByIdResult
     {

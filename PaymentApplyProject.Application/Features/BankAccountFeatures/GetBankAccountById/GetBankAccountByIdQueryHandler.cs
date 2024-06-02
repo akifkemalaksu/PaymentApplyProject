@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Mapping;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById;
+using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Application.Mapping;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountById
 {

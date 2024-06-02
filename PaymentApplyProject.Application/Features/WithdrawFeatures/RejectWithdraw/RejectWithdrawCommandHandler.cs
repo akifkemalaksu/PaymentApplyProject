@@ -1,17 +1,15 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Dtos.CallbackDtos;
+using PaymentApplyProject.Application.Dtos.LogDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Exceptions;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Domain.Constants;
-using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw;
-using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Dtos.CallbackDtos;
-using PaymentApplyProject.Application.Exceptions;
 using System.Net.Http.Json;
-using Microsoft.Extensions.Logging;
-using PaymentApplyProject.Application.Dtos.LogDtos;
-using PaymentApplyProject.Application.Dtos.Settings;
 
 namespace PaymentApplyProject.Application.Features.WithdrawFeatures.RejectWithdraw
 {

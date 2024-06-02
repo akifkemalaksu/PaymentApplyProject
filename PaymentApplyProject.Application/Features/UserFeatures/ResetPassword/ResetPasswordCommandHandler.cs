@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 

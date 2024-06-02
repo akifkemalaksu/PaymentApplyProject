@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.SelectDtos;
-using PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForSelect;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.LoadBankAccountsForSelect
 {

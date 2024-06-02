@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using PaymentApplyProject.Application.Dtos.SignalRDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PaymentApplyProject.Application.Services.HubServices
+﻿namespace PaymentApplyProject.Application.Services.HubServices
 {
     public interface INotificationService
     {

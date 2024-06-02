@@ -3,13 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Features.WithdrawFeatures.AddWithdraw;
 using PaymentApplyProject.Application.Helpers;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
-using PaymentApplyProject.Domain.Entities;
-using System.Net.Http.Json;
 using DepositRequestModel = PaymentApplyProject.Domain.Entities.DepositRequest;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.DepositRequest

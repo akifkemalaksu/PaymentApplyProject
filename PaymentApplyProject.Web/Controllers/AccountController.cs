@@ -1,22 +1,19 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PaymentApplyProject.Application.Attributes;
 using PaymentApplyProject.Application.ControllerBases;
-using PaymentApplyProject.Application.Dtos;
-using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.UserFeatures.AddUser;
 using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
+using PaymentApplyProject.Application.Features.UserFeatures.DeleteUser;
 using PaymentApplyProject.Application.Features.UserFeatures.EditUser;
+using PaymentApplyProject.Application.Features.UserFeatures.ForgotPassword;
 using PaymentApplyProject.Application.Features.UserFeatures.GetUserByIdAndRole;
 using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable;
 using PaymentApplyProject.Application.Features.UserFeatures.Login;
 using PaymentApplyProject.Application.Features.UserFeatures.Logout;
-using PaymentApplyProject.Application.Features.UserFeatures.DeleteUser;
-using PaymentApplyProject.Application.Features.UserFeatures.ForgotPassword;
-using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck;
 using PaymentApplyProject.Application.Features.UserFeatures.ResetPassword;
-using PaymentApplyProject.Application.Attributes;
+using PaymentApplyProject.Application.Features.UserFeatures.ResetPasswordTokenCheck;
 
 namespace PaymentApplyProject.Web.Controllers
 {

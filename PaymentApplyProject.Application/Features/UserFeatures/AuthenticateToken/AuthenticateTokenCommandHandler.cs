@@ -1,14 +1,12 @@
 ﻿using MediatR;
-using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using PaymentApplyProject.Application.Mapping;
-using PaymentApplyProject.Domain.Constants;
-using PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken;
-using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Dtos.UserDtos;
+using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Application.Mapping;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.AuthenticateToken
 {

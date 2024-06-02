@@ -5,7 +5,6 @@ using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Constants;
-using PaymentApplyProject.Domain.Entities;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositStatus
 {

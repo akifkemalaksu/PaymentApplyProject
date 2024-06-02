@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore.Storage;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Services.InfrastructureServices;
 using PaymentApplyProject.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Persistence.Context
 {

@@ -1,24 +1,18 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PaymentApplyProject.Application.Context;
+using PaymentApplyProject.Application.Dtos.CallbackDtos;
+using PaymentApplyProject.Application.Dtos.LogDtos;
+using PaymentApplyProject.Application.Dtos.NotificationDtos;
+using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Dtos.Settings;
+using PaymentApplyProject.Application.Exceptions;
 using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Application.Services.HubServices;
 using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Net.Http.Json;
-using PaymentApplyProject.Application.Dtos.ResponseDtos;
-using PaymentApplyProject.Application.Dtos.NotificationDtos;
-using PaymentApplyProject.Application.Dtos.CallbackDtos;
-using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
-using PaymentApplyProject.Application.Exceptions;
-using PaymentApplyProject.Application.Extensions;
-using System.Net.Http;
-using Microsoft.Extensions.Logging;
-using PaymentApplyProject.Application.Dtos.LogDtos;
-using System.Text.Json;
-using PaymentApplyProject.Application.Dtos.Settings;
-using PaymentApplyProject.Application.Services.HubServices;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit
 {

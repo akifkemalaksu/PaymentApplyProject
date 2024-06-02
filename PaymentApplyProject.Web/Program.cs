@@ -1,22 +1,8 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using PaymentApplyProject.Application;
-using PaymentApplyProject.Infrastructure;
-using PaymentApplyProject.Persistence;
-using System.Text;
-using PaymentApplyProject.Application.Dtos.Settings;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
-using System.Text.Unicode;
-using Microsoft.AspNetCore.SignalR;
 using PaymentApplyProject.Application.Middlewares;
+using PaymentApplyProject.Infrastructure;
 using PaymentApplyProject.Infrastructure.Hubs;
-using PaymentApplyProject.Application.Context;
-using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Infrastructure.Services.BackgroundServices;
+using PaymentApplyProject.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

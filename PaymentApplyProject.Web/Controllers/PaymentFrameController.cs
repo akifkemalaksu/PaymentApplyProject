@@ -1,13 +1,11 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApplyProject.Application.ControllerBases;
-using System.Data;
 using PaymentApplyProject.Application.Features.BankAccountFeatures.GetBankAccountForPaymentFrame;
 using PaymentApplyProject.Application.Features.DepositFeatures.AddDeposit;
-using PaymentApplyProject.Domain.Constants;
 using PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash;
 using PaymentApplyProject.Application.Localizations;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Web.Controllers
 {
@@ -29,7 +27,7 @@ namespace PaymentApplyProject.Web.Controllers
             var depositRequest = await _mediator.Send(new GetDepositRequestFromHashQuery { HashKey = key });
 
             if (!depositRequest.IsSuccessful)
-                return RedirectToAction("index", "error", new { errorCode = depositRequest.ErrorCode, message= depositRequest.Message, statusCode = (int)depositRequest.StatusCode });
+                return RedirectToAction("index", "error", new { errorCode = depositRequest.ErrorCode, message = depositRequest.Message, statusCode = (int)depositRequest.StatusCode });
 
 
             return View(depositRequest.Data);

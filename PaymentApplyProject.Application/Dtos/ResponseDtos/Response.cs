@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace PaymentApplyProject.Application.Dtos.ResponseDtos
 {
@@ -43,7 +38,7 @@ namespace PaymentApplyProject.Application.Dtos.ResponseDtos
         public static Response<T> Error(HttpStatusCode statusCode, string message) => Error(statusCode, message, null);
         public static Response<T> Error(HttpStatusCode statusCode) => Error(statusCode, message: string.Empty);
 
-        public override string ToString() => JsonSerializer.Serialize(this,options: new JsonSerializerOptions
+        public override string ToString() => JsonSerializer.Serialize(this, options: new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });

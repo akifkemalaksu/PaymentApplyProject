@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.DatatableDtos;
 using PaymentApplyProject.Application.Extensions;
-using PaymentApplyProject.Domain.Constants;
-using PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable;
 using PaymentApplyProject.Application.Localizations;
-using System.Resources;
+using PaymentApplyProject.Domain.Constants;
 
 namespace PaymentApplyProject.Application.Features.UserFeatures.LoadUsersForDatatable
 {

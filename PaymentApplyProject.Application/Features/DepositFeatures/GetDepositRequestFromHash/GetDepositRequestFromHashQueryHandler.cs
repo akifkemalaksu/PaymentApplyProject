@@ -4,9 +4,7 @@ using PaymentApplyProject.Application.Context;
 using PaymentApplyProject.Application.Dtos.BankDtos;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
 using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Application.Services;
 using PaymentApplyProject.Domain.Constants;
-using System.ComponentModel.DataAnnotations;
 
 namespace PaymentApplyProject.Application.Features.DepositFeatures.GetDepositRequestFromHash
 {

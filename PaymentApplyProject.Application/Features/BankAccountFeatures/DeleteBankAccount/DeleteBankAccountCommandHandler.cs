@@ -1,10 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PaymentApplyProject.Application.Context;
-using PaymentApplyProject.Application.Localizations;
-using PaymentApplyProject.Domain.Entities;
-using PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBankAccount;
 using PaymentApplyProject.Application.Dtos.ResponseDtos;
+using PaymentApplyProject.Application.Localizations;
 
 namespace PaymentApplyProject.Application.Features.BankAccountFeatures.DeleteBankAccount
 {
